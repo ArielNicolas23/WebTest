@@ -283,7 +283,7 @@ Public Class CatReworkOrders
             result.Columns.Add("Area", GetType(String))
             result.Columns.Add("IsRework", GetType(Boolean))
 
-            result.Columns.Add("CreatedOn", GetType(DateTime))
+            result.Columns.Add("CreatedOn", GetType(String))
 
             conn.Open()
 
@@ -296,7 +296,7 @@ Public Class CatReworkOrders
                 row("WorkOrder") = reader.GetString(1)
                 row("Area") = reader.GetString(2)
                 row("IsRework") = reader.GetBoolean(3)
-                row("CreatedOn") = reader.GetDateTime(7)
+                row("CreatedOn") = reader.GetDateTime(7).ToString("dd/MMM/yyyy")
 
                 result.Rows.Add(row)
 
