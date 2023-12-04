@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+	<siteMapNode url="~/default.aspx" title=""  description="" roles="*">
+
+    <siteMapNode title="Modulo General" description="Modulo General" roles="*">
+      <siteMapNode title="Administracion" description="Administracion" roles="ModGral_Admin">
+        <siteMapNode title="Componentes críticos" description="Componentes críticos" url="/ExpirationDate/ModuloGeneral/BusquedaModeloComponente.aspx" roles="ModGral_Admin"/>
+      </siteMapNode>
+      <siteMapNode title="Cálculos" description="Cálculos" roles="ModGral_Operador">
+        <siteMapNode title="Cálculo de Fecha de expiración" description="Cálculo de fecha de expiración" url="/ExpirationDate/ModuloGeneral/CalculoFechaExpiracion.aspx"></siteMapNode>
+        <siteMapNode title="Verificar Fecha de expiración" description="Verificar Fecha de expiración" url="/ExpirationDate/ModuloGeneral/VeriricacionDeFecha.aspx"/>
+      </siteMapNode>
+      <siteMapNode title="Administración de Cambios" description="Administración de Cambios" roles="ModGral_Calidad">
+        <siteMapNode title="Cambios Pendientes" description="Cambios Pendientes de Aprobación" url="/ExpirationDate/ModuloGeneral/PendienteAprobacion.aspx"/>
+      </siteMapNode>
+    </siteMapNode>
+    
+		<!--Calculos-->
+		<siteMapNode title="Cálculos" description="Módulos para cálculos de fecha de expiración" roles="*">
+      <!--<siteMapNode title="Módulo General" description="Módulo General" roles="*">
+        <siteMapNode title="Cálculo de Fecha de expiración" description="Cálculo de fecha de expiración" url="/ExpirationDate/ModuloGeneral/CalculoFechaExpiracion.aspx" roles="ModGral_Operador"></siteMapNode>
+        <siteMapNode title="Verificar Fecha de expiración" description="Verificar Fecha de expiración" url="/ExpirationDate/ModuloGeneral/VeriricacionDeFecha.aspx" roles="ModGral_Operador"/>
+      </siteMapNode>-->
+			<siteMapNode title="BB Needles" description="Módulo BB Needles" roles="BBNeedles_Operador">
+				<siteMapNode title="BB Needles" description="Fecha de Expiración para BB Needles" 
+							 url="/ExpirationDate/Vascular/ewapp_crdmbbneedles.aspx" />
+			</siteMapNode>
+			<siteMapNode title="Captura Manual" description="Módulo captura fecha de expiración manual" roles="Captura_Manual">
+				<siteMapNode title="Fecha Manual" description="Módulo captura fecha de expiración manual"
+							  url="/ExpirationDate/ewapp_manual.aspx" />
+			</siteMapNode>
+			<siteMapNode title="Cardiotomy" description="Módulo Cardiotomy" roles="Cardiotomy_Operador">
+				<siteMapNode title="Cardiotomy" description="Fecha de Expiración para Cardiotomy"
+							 url="/ExpirationDate/Standard/Cardiotomy/ewapp_stdcardiotomy.aspx" />	
+			</siteMapNode>
+			<siteMapNode title="CPS" description="Módulo CPS" roles="CPS_Operador">
+				<siteMapNode title="CPS" description="Fecha de Expiración para CPS" url="/ExpirationDate/Cps/ewapp_cps.aspx" />
+        <siteMapNode title="CPS Verificación De Fechas" description="Verificación de Fecha de Expiración para CPS" url="/ExpirationDate/Cps/ewapp_cpsVerificacionFecExp.aspx"/>
+			</siteMapNode>
+      
+			<siteMapNode title="Estandar" description="Módulo Producto Estándar" roles="Estandar_Operador">
+				<siteMapNode title="Estandar" description="Fecha de Expiración para Estándar" 
+							  url="/ExpirationDate/Standard/ewapp_default.aspx"/>
+			</siteMapNode>
+			<siteMapNode title="JMM Biopumps" description="Módulo Producto Retrabajo" roles="JMM_Operador">
+				<siteMapNode title="JMM Biopumps" description="Fecha de Expiración para Retrabajo"
+							 url="/ExpirationDate/Standard/jmmBioPumps/ewapp_stdBioPump.aspx" />
+			</siteMapNode>
+			<siteMapNode title="Legend RX" description="Módulo Producto Legend RX" roles="LegendRX_Operador">
+				<siteMapNode title="Legend RX" description="Fecha de Expiración para Legend RX"
+							 url="/ExpirationDate/Vascular/ewapp_pobalegendrx.aspx"/>
+			</siteMapNode>
+			<siteMapNode title="Jeringas Magellan" description="Módulo Producto Magellan" roles="JeringasMagelan_Operador">
+				<siteMapNode title="Magellan (Jeringas)" description="Fecha de Expiración para Magellan (Jeringas)"
+							  url ="/ExpirationDate/Standard/StdSyringe/ewapp_stdsyringes.aspx"/>
+			</siteMapNode>
+			<siteMapNode title="Melody TPV" description="Módulo Melody TPV" roles="MelodyTPV_Operador">
+				<siteMapNode title="TPV" description="Fecha de Expiración para TPV"
+							 url="/ExpirationDate/ewapp_tpv.aspx" />
+			</siteMapNode>
+			<siteMapNode title="NC Sprinter RX" description="Módulo Producto NC Sprinter RX" roles="NCSprinterRX_Operador">
+				<siteMapNode title="NC Sprinter RX" description="Fecha de Expiración para NC Sprinter RX"
+							 url="/ExpirationDate/Vascular/ewapp_pobancsprinterrx.aspx"/>
+			</siteMapNode>
+			<siteMapNode title="Neuro" description="Módulo Producto Neuro" roles="Neuro_Operator">
+				<siteMapNode title="Neuro" description="Fecha de Expiración para Neuro"
+							 url="/ExpirationDate/Standard/Neuro/ewapp_stdneuro.aspx"/>
+			</siteMapNode>
+			<siteMapNode title="Pediatricos" description="Módulo Producto Pediatricos" roles="Pediatricos_Operador">
+				<siteMapNode title="Pediatricos" description="Fecha de Expiración para Pediatricos"
+							  url="/ExpirationDate/Standard/Pediatrics/ewapp_stdPediatrics.aspx"/>	
+			</siteMapNode>
+			<siteMapNode title="Recubrimiento" description="Módulo Recubrimiento" roles="Recubrimiento_Operador">
+				<siteMapNode title="Reempaque" description="Reempaque"
+							 url="/ExpirationDate/Coating/ewapp_coatingrepacking.aspx"/>
+			</siteMapNode>
+			<siteMapNode title="Sprinklr" description="Módulo Sprinklr" roles="Sprinklr_Operador">
+				<siteMapNode title="Sprinklr" description="Fecha de Expiración para Sprinklr"
+							 url="/ExpirationDate/Vascular/ewapp_crdmsprinklr.aspx" />
+			</siteMapNode>
+			<siteMapNode title="Sprinter RX" description="Módulo Producto Sprinter RX" roles="SprinterRX_Operador">
+				<siteMapNode title="Sprinter RX" description="Fecha de Expiración para Sprinter RX"
+							 url ="/ExpirationDate/Vascular/ewapp_pobasprinterrx.aspx"/>
+			</siteMapNode>
+			<siteMapNode title="UPN" description="Módulo UPN" roles="UPN_Operador">
+				<siteMapNode title="Capture UPN" description="Capture" 
+							 url="/ExpirationDate/UPN/WebForm1_orig.aspx" />
+			</siteMapNode>
+		</siteMapNode>
+		
+		<!--Administracion-->
+		<siteMapNode title="Administración" description="Módulo administrativo" roles="*">
+			<siteMapNode title="Cardiotomy" description="Módulo Cardiotomy" roles="Cardiotomy_Admin">
+				<siteMapNode title="Producto Cardiotomy" description="Cardiotomy - Modelos y componentes" 
+							  url="/ExpirationDate/Standard/Cardiotomy/ewapp_stdcardiotomysubbom.aspx"/>
+			</siteMapNode>
+			<siteMapNode title="CPS" description="Módulo CPS" roles="CPS_Admin">
+				  <siteMapNode title="Producto CPS" description="Módulo Producto CPS" url="/ExpirationDate/Cps/ewapp_cpscomponents.aspx" />
+        <siteMapNode title="MRP CPS" description="Catálogos MRPs para CPS" url="/ExpirationDate/Cps/ewapp_cpsMRPCatalog.aspx" />
+			</siteMapNode>
+			<siteMapNode title="WO Status" description="Módulo Status" roles="*" url="/Catalog/CatReworkStatus/CatReworkStatus.aspx">
+			</siteMapNode>
+			<siteMapNode title="Unidades" description="Catalogo de unidades" roles="*" url="/Catalog/CatUnits/CatUnits.aspx">
+			</siteMapNode>
+			<siteMapNode title="WO Retrabajo" description="Módulo Retrabajo" roles="*" url="/Catalog/CatWorkOrders/CatWorkOrders.aspx">
+			</siteMapNode>
+      
+      <!--<siteMapNode title="Módulo General" description="Módulo General" roles="ModGral_Admin">
+        <siteMapNode title="Componentes críticos" description="Componentes críticos" url="/ExpirationDate/ModuloGeneral/NuevaRelacionMC.aspx" roles="ModGral_Admin"/>
+        <siteMapNode title="Cambios Pendientes" description="Cambios Pendientes de Aprobación" url="/ExpirationDate/ModuloGeneral/PendienteAprobacion.aspx" roles="ModGral_Calidad"/>        
+      </siteMapNode>-->
+      
+			<siteMapNode title="Neuro" description="Módulo Neuro" roles="Neuro_Admin">
+				<siteMapNode title="Producto Neuro" description="Neuro - Modelos y componentes" 
+							  url="/ExpirationDate/Standard/Neuro/ewapp_stdneurosubbom.aspx"/>
+			</siteMapNode>
+			<siteMapNode title="Pediatricos" description="Módulo Producto Pediatricos" roles="Pediatricos_Admin">
+				<siteMapNode title="Producto Pediatricos" description="Módulo Producto Pediatricos" 
+							  url="/ExpirationDate/Standard/Pediatrics/ewapp_stdPediatricsSubBom.aspx" />
+			</siteMapNode>
+			<siteMapNode title="Recubrimiento" description="Módulo Recubrimiento" roles="Recubrimiento_Admin">
+				<siteMapNode title="Partes" description="Agregar número de parte"
+							  url="/ExpirationDate/Coating/ewapp_coatingshelflife.aspx" />
+			</siteMapNode>
+			<siteMapNode title="UPN" description="Módulo UPN" roles="UPN_Admin">
+				<siteMapNode title="Obsolete by UPN" description="Obsolete by UPN"
+							 url="/ExpirationDate/UPN/ObsoletaByUPN.aspx" />			
+				<siteMapNode title="Obsolete by Catalog" description="Obsolete by Catalog"
+							  url="/ExpirationDate/UPN/ObsoletaByCatalog.aspx" />
+				<siteMapNode title="Maintenance" description="Maintenance"
+							 url ="/ExpirationDate/UPN/modifica.aspx" />
+			</siteMapNode>
+			<siteMapNode title="Vida Util" description="Módulo Vida útil. Agregar/Actualizar" roles="VidaUtil_Admin">
+				<siteMapNode title="Vida Util" description="Módulo Vida útil. Agregar/Actualizar" 
+							 url="/ExpirationDate/ewapp_shelflife.aspx" />
+			</siteMapNode>
+			<siteMapNode title="Usuarios" description="Administracion de usuarios" roles="System_Admin">
+				<siteMapNode title="Usuarios" description="Modulo de administracion de usuarios"
+							 url="/ExpirationDate/Users/frmUsers.aspx">
+				</siteMapNode>
+			</siteMapNode>
+		</siteMapNode>
+		
+		<!--Consultas-->
+		<siteMapNode title="Reportes" description="Modulo de reportes y consultas" roles="Reportes">
+			<siteMapNode title="Consultas" description="Consultar fecha de expiración de la orden"
+						 url="/ExpirationDate/ewapp_queryexpdate.aspx?op=cons"/>
+			
+			<siteMapNode title="Consultas POBA" description="Consultar fecha de expiración" 
+						 url="/ExpirationDate/ewapp_queryexpdate.aspx?op=poba"/>
+			
+			<siteMapNode title="Recubrimiento" description="Consultar fecha de expiración" 
+						 url="/ExpirationDate/ewapp_queryexpdate.aspx?op=coating"/>
+			
+			<siteMapNode title="Recubrimiento Log de Errores" description="Log de errores Carmeda/Trillium Expiration Date Job"
+						  url="/ExpirationDate/Coating/ewapp_coatingjoberrors.aspx" />
+			
+			<siteMapNode title="Consultas - Sprinklr - BB Needles" description="Consultar fecha de expiración" 
+						 url="/ExpirationDate/ewapp_queryexpdate.aspx" />
+			
+			<siteMapNode title="UPN - Report by Catalog" description="Report by Catalog" 
+						 url="/ExpirationDate/UPN/frmItem.aspx" />
+									
+			<siteMapNode title="UPN - Historial" description="HIstorial" 
+						 url="/ExpirationDate/UPN/historial.aspx" />
+
+			<siteMapNode title="UPN - Report by UPN" description="Report by UPN" url="/ExpirationDate/UPN/frmRep.aspx" />
+
+      <siteMapNode title="Método de cálculo por productos" description="Método de cálculo por productos" url="/ExpirationDate/ModuloGeneral/frmReport.aspx"/>
+		</siteMapNode>    
+	</siteMapNode>
+</siteMap>
