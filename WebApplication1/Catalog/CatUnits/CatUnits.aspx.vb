@@ -12,7 +12,7 @@
     Protected Sub PopulateGrid()
 
         Dim catUnits As CatUnits = New CatUnits()
-        dgvUnits.DataSource = catUnits.SelectAll()
+        dgvUnits.DataSource = catUnits.SelectAll("", False)
         dgvUnits.DataBind()
 
 
@@ -30,6 +30,11 @@
                 Return
             Case "Eliminar"
                 'Mostrar mensaje de confirmación para eliminar el registro
+                Dim row As DataKeyArray = dgvUnits.DataKeys
+                Dim catUnits As CatUnits = New CatUnits()
+                catUnits.Delete(Guid.Parse(row(e.CommandArgument).Value.ToString))
+                catUnits = Nothing
+                GetData()
                 'Volver a cargar los datos de la tabla
                 Return
             Case Else
@@ -43,7 +48,33 @@
     End Sub
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        Dim strUnit As String = txtUnit.Text.Trim.ToUpper()
+        'Dim strUnitValue As String = txtUnitValue.Text.Trim.ToUpper()
+        Dim catUnits As CatUnits = New CatUnits()
 
+        dgvUnits.DataSource = catUnits.SelectAll(strUnit, True)
+        dgvUnits.DataBind()
+
+
+        catUnits = Nothing
     End Sub
 
+    Protected Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
+
+        txtUnit.Text = ""
+        'txtUnitValue.Text = ""
+
+        Dim catUnits As CatUnits = New CatUnits()
+        dgvUnits.DataSource = catUnits.SelectAll("", False)
+        dgvUnits.DataBind()
+
+
+        catUnits = Nothing
+    End Sub
+
+    Private Sub GetData()
+        Dim catUnits As CatUnits = New CatUnits()
+        dgvUnits.DataSource = catUnits.SelectAll("", False)
+        dgvUnits.DataBind()
+    End Sub
 End Class

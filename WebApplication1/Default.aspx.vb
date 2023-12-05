@@ -6,21 +6,17 @@ Public Class _Default
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-
         If Not Page.IsPostBack Then
-                PopulateGrid()
-            End If
+            PopulateGrid()
+        End If
+    End Sub
 
 
-        End Sub
-
-
-        Protected Sub PopulateGrid()
+    Protected Sub PopulateGrid()
 
         Dim components As CatUnits = New CatUnits()
-        GridView1.DataSource = components.SelectAll()
-            GridView1.DataBind()
+        GridView1.DataSource = components.SelectAll("", False)
+        GridView1.DataBind()
 
 
             components = Nothing

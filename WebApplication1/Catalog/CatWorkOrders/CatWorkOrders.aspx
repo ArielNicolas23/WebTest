@@ -31,6 +31,9 @@
         <td style="height: 17px; width: 64px">
             <asp:Button ID="btnSearch" runat="server" Text="Buscar" />
         </td>
+        <td style="height: 17px; width: 64px">
+            <asp:Button ID="btnReset" runat="server" Text="Reiniciar" />
+        </td>
     </tr>
 </table>
 

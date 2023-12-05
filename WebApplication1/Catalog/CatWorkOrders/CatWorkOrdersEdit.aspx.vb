@@ -8,6 +8,8 @@ Public Class Catalog_CatWorkOrdersEdit
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         'Esta variable debe venir de la otra pantalla para checar si es agregar o editar
         isEdit = CType(Session.Item("isEdit"), Boolean)
+        lblMessage.Text = ""
+
         'Debemos traer el ID del registro que vamos a editar
         If isEdit Then
             idWo = Guid.Parse(Session.Item("idWo"))
@@ -38,23 +40,53 @@ Public Class Catalog_CatWorkOrdersEdit
     End Sub
 
     Protected Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        Dim strWo As String = txtWorkOrder.Text.Trim.ToUpper()
-        Dim strModulo As String = cmbArea.Text.Trim.ToUpper()
-        Dim boolRework As Boolean = chkIsRework.Checked
 
-        If isEdit Then
+        Try
+            lblMessage.Text = ""
+
             Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
-            catReworkOrders.Update(idWo, strWo, strModulo, boolRework, "Admin")
-            catReworkOrders = Nothing
-            Session("isEdit") = "False"
-            Response.Redirect("CatWorkOrders.aspx", True)
-        Else
-            Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
-            catReworkOrders.Insert(strWo, strModulo, boolRework, True, "Admin")
-            catReworkOrders = Nothing
-            Session("isEdit") = "False"
-            Response.Redirect("CatWorkOrders.aspx", True)
-        End If
+            Dim strWo As String = Convert.ToInt32(txtWorkOrder.Text.Trim.ToUpper())
+            Dim strModulo As String = cmbArea.Text.Trim.ToUpper()
+            Dim boolRework As Boolean = chkIsRework.Checked
+
+            If (strWo = "") Then
+                lblMessage.Text = "Favor de escribir una Orden de Trabajo"
+                Return
+            End If
+
+            If (strWo.Length < 9 Or strWo.Length > 9) Then
+                lblMessage.Text = "El número de Orden de Trabajo debe contener 9 dígitos"
+                Return
+            End If
+
+            If (strModulo = "") Then
+                lblMessage.Text = "Favor de seleccioanr un Módulo para la Orden"
+                Return
+            End If
+
+            If (catReworkOrders.AlreadyExistWorkOrder(strWo)) Then
+                lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Orden de Trabajo con el número ingresado: [" + strWo + "]"
+            Else
+                If isEdit Then
+                    catReworkOrders.Update(idWo, strWo, strModulo, boolRework, "Admin")
+                    catReworkOrders = Nothing
+                    Session("isEdit") = "False"
+                    Response.Redirect("CatWorkOrders.aspx", True)
+                Else
+                    catReworkOrders.Insert(strWo, strModulo, boolRework, True, "Admin")
+                    catReworkOrders = Nothing
+                    Session("isEdit") = "False"
+                    Response.Redirect("CatWorkOrders.aspx", True)
+                End If
+            End If
+
+        Catch ex As FormatException
+            lblMessage.Text = "Favor de escribir un número válido para la Orden de Trabajo"
+
+        Catch ex As Exception
+            lblMessage.Text = "Ocurrió un error al intentar guardar los datos: " + ex.Message
+        End Try
+
     End Sub
 
     Protected Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click

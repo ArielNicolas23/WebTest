@@ -9,7 +9,6 @@ Public Class CatUnits
 
     Public Sub New()
         dbCon = ConfigurationManager.ConnectionStrings("TestDb").ConnectionString
-
     End Sub
 
     Public Sub Insert(
@@ -57,16 +56,20 @@ Public Class CatUnits
         End Using
     End Sub
 
+    Public Sub Delete(ByVal IdUnit As Guid)
 
-    'Public Function Exists(ByVal PartNumber As String) As Boolean
-    '    Dim result As Boolean = False
-    '    Dim oneComponent As DataTable = SelectOne(PartNumber)
-    '    If oneComponent.Rows.Count > 0 Then
-    '        result = True
-    '    End If
-    '    Return result
-    'End Function
+        Using conn As New SqlConnection(Me.dbCon)
 
+            Dim cmd As SqlCommand = New SqlCommand()
+            cmd.CommandText = "spED_CatUnits_Delete"
+            cmd.Connection = conn
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@IdCatUnits", IdUnit)
+
+            conn.Open()
+            cmd.ExecuteNonQuery()
+        End Using
+    End Sub
 
     Public Function SelectOne(ByVal IdCatUnits As Guid) As DataTable
 
@@ -81,7 +84,6 @@ Public Class CatUnits
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@IdCatUnits", IdCatUnits)
 
-
             result = New DataTable("Result")
             result.Columns.Add("IdUnit", GetType(Guid))
             result.Columns.Add("Unit", GetType(String))
@@ -108,8 +110,9 @@ Public Class CatUnits
         Return result
     End Function
 
-
-    Public Function SelectAll() As DataTable
+    Public Function SelectAll(
+            ByVal Unit As String,
+            ByVal IsSearch As Boolean) As DataTable
 
         Dim result As DataTable
         Dim row As DataRow
@@ -121,7 +124,8 @@ Public Class CatUnits
             cmd.CommandText = "spED_CatUnits_SelectAll"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
-
+            cmd.Parameters.AddWithValue("@Unit", Unit)
+            cmd.Parameters.AddWithValue("@IsSearch", IsSearch)
 
             result = New DataTable("Result")
 
@@ -146,14 +150,45 @@ Public Class CatUnits
 
             End While
 
-
-
         End Using
 
         Return result
     End Function
 
+    Public Function AlreadyExistUnit(ByVal unit As String) As Boolean
+
+        Dim result As Boolean
+
+        Using conn As New SqlConnection(Me.dbCon)
+
+            Dim cmd As SqlCommand = New SqlCommand()
+            cmd.CommandText = "spED_CatUnits_SearchByUnit"
+            cmd.Connection = conn
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@Unit", unit)
+
+            conn.Open()
+
+            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+
+            If count > 0 Then
+                result = True
+            Else
+                result = False
+            End If
+
+        End Using
+
+        Return result
+
+    End Function
+
 End Class
+
+
+
+
+
 Public Class CatReworkOrders
     Protected dbCon As String
 
@@ -210,16 +245,20 @@ Public Class CatReworkOrders
         End Using
     End Sub
 
+    Public Sub Delete(ByVal IdCatReworkOrders As Guid)
 
-    'Public Function Exists(ByVal PartNumber As String) As Boolean
-    '    Dim result As Boolean = False
-    '    Dim oneComponent As DataTable = SelectOne(PartNumber)
-    '    If oneComponent.Rows.Count > 0 Then
-    '        result = True
-    '    End If
-    '    Return result
-    'End Function
+        Using conn As New SqlConnection(Me.dbCon)
 
+            Dim cmd As SqlCommand = New SqlCommand()
+            cmd.CommandText = "spED_CatReworkOrders_Delete"
+            cmd.Connection = conn
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@IdCatReworkOrders", IdCatReworkOrders)
+
+            conn.Open()
+            cmd.ExecuteNonQuery()
+        End Using
+    End Sub
 
     Public Function SelectOne(ByVal IdCatReworkOrders As Guid) As DataTable
 
@@ -232,7 +271,7 @@ Public Class CatReworkOrders
             cmd.CommandText = "spED_CatReworkOrders_Select"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
-            cmd.Parameters.AddWithValue("@IdCatReworkOrders", IdCatReworkOrders)
+            cmd.Parameters.AddWithValue("@CatReworkOrders", IdCatReworkOrders)
 
 
             result = New DataTable("Result")
@@ -261,8 +300,11 @@ Public Class CatReworkOrders
         Return result
     End Function
 
-
-    Public Function SelectAll() As DataTable
+    Public Function SelectAll(
+            ByVal WorkOrder As String,
+            ByVal Area As String,
+            ByVal IsRework As Boolean,
+            ByVal IsSearch As Boolean) As DataTable
 
         Dim result As DataTable
         Dim row As DataRow
@@ -274,6 +316,10 @@ Public Class CatReworkOrders
             cmd.CommandText = "spED_CatReworkOrders_SelectAll"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@WorkOrder", WorkOrder)
+            cmd.Parameters.AddWithValue("@Area", Area)
+            cmd.Parameters.AddWithValue("@IsRework", IsRework)
+            cmd.Parameters.AddWithValue("@IsSearch", IsSearch)
 
 
             result = New DataTable("Result")
@@ -302,14 +348,46 @@ Public Class CatReworkOrders
 
             End While
 
+        End Using
 
+        Return result
+
+    End Function
+
+    Public Function AlreadyExistWorkOrder(ByVal workOrder As String) As Boolean
+
+        Dim result As Boolean
+
+        Using conn As New SqlConnection(Me.dbCon)
+
+            Dim cmd As SqlCommand = New SqlCommand()
+            cmd.CommandText = "spED_CatReworkOrders_SearchByWorkOrder"
+            cmd.Connection = conn
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@WorkOrder", workOrder)
+
+            conn.Open()
+
+            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+
+            If count > 0 Then
+                result = True
+            Else
+                result = False
+            End If
 
         End Using
 
         Return result
+
     End Function
 
 End Class
+
+
+
+
+
 Public Class CatReworkStatus
     Protected dbCon As String
 
@@ -362,16 +440,20 @@ Public Class CatReworkStatus
         End Using
     End Sub
 
+    Public Sub Delete(ByVal IdCatReworkStatus As Guid)
 
-    'Public Function Exists(ByVal PartNumber As String) As Boolean
-    '    Dim result As Boolean = False
-    '    Dim oneComponent As DataTable = SelectOne(PartNumber)
-    '    If oneComponent.Rows.Count > 0 Then
-    '        result = True
-    '    End If
-    '    Return result
-    'End Function
+        Using conn As New SqlConnection(Me.dbCon)
 
+            Dim cmd As SqlCommand = New SqlCommand()
+            cmd.CommandText = "spED_CatReworkStatus_Delete"
+            cmd.Connection = conn
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@IdCatReworkStatus", IdCatReworkStatus)
+
+            conn.Open()
+            cmd.ExecuteNonQuery()
+        End Using
+    End Sub
 
     Public Function SelectOne(ByVal IdCatUnits As Guid) As DataTable
 
@@ -413,12 +495,13 @@ Public Class CatReworkStatus
         Return result
     End Function
 
-
-    Public Function SelectAll() As DataTable
+    Public Function SelectAll(
+            ByVal SAPStatus As String,
+            ByVal IsRework As Boolean,
+            ByVal IsSearch As Boolean) As DataTable
 
         Dim result As DataTable
         Dim row As DataRow
-
 
         Using conn As New SqlConnection(Me.dbCon)
 
@@ -426,6 +509,9 @@ Public Class CatReworkStatus
             cmd.CommandText = "spED_CatReworkStatus_SelectAll"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@SAPStatus", SAPStatus)
+            cmd.Parameters.AddWithValue("@IsRework", IsRework)
+            cmd.Parameters.AddWithValue("@IsSearch", IsSearch)
 
 
             result = New DataTable("Result")
@@ -450,8 +536,32 @@ Public Class CatReworkStatus
                 result.Rows.Add(row)
 
             End While
+        End Using
 
+        Return result
+    End Function
 
+    Public Function AlreadyExistSAPStatus(ByVal SAPStatus As String) As Boolean
+
+        Dim result As Boolean
+
+        Using conn As New SqlConnection(Me.dbCon)
+
+            Dim cmd As SqlCommand = New SqlCommand()
+            cmd.CommandText = "spED_CatReworkStatus_SearchBySAPStatus"
+            cmd.Connection = conn
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@SAPStatus", SAPStatus)
+
+            conn.Open()
+
+            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+
+            If count > 0 Then
+                result = True
+            Else
+                result = False
+            End If
 
         End Using
 

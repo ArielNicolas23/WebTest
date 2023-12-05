@@ -6,36 +6,36 @@
 
    </div>
 
-   <table>
-       <tr>
+    <table>
+        <tr>
            <td style="height: 17px; width: 128px">
                <asp:Label ID="lblWorkOrder" runat="server" Text="Orden de Trabajo:"></asp:Label>
            </td>
            <td style="height: 17px; width: 128px">
                <asp:TextBox ID="txtWorkOrder" runat="server"></asp:TextBox>
            </td>
-       </tr>
-       <tr>
-           <td style="height: 17px; width: 128px">
-               <asp:Label ID="lblArea" runat="server" Text="Módulo:"></asp:Label>
-           </td>
-           <td style="height: 17px; width: 128px">
-               <asp:DropDownList ID="cmbArea" runat="server" Width="128px">
-                   <asp:ListItem>Módulo 1</asp:ListItem>
-                   <asp:ListItem>Módulo 2</asp:ListItem>
-                   <asp:ListItem>Módulo 3</asp:ListItem>
-                   <asp:ListItem>Módulo 4</asp:ListItem>
-               </asp:DropDownList>
-           </td>
-       </tr>
-       <tr>
-    <td>
-        <asp:Label ID="lblIsRework" runat="server" Text="Es Retrabajo:"></asp:Label>
-    </td>
-    <td>
-        <asp:CheckBox ID="chkIsRework" runat="server" />
-    </td>
-</tr>
+        </tr>
+        <tr>
+            <td style="height: 17px; width: 128px">
+                <asp:Label ID="lblArea" runat="server" Text="Módulo:"></asp:Label>
+            </td>
+            <td style="height: 17px; width: 128px">
+                <asp:DropDownList ID="cmbArea" runat="server" Width="128px">
+                    <asp:ListItem>Módulo 1</asp:ListItem>
+                    <asp:ListItem>Módulo 2</asp:ListItem>
+                    <asp:ListItem>Módulo 3</asp:ListItem>
+                    <asp:ListItem>Módulo 4</asp:ListItem>
+                </asp:DropDownList>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Label ID="lblIsRework" runat="server" Text="Es Retrabajo:"></asp:Label>
+            </td>
+            <td>
+                <asp:CheckBox ID="chkIsRework" runat="server" />
+            </td>
+        </tr>
    </table>
 
    <div style="height: 16px">
@@ -50,4 +50,11 @@
            <asp:Button ID="btnSave" runat="server" Text="Guardar" />
        </div>
    </div>
+
+    <br />
+
+    <asp:Label ID="lblMessage" runat="server" ForeColor="Red" Height="12px" Width="479px"></asp:Label><br />
+
+    <br />
+
 </asp:Content>

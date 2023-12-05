@@ -14,14 +14,11 @@
         <td style="height: 17px; width: 64px">
             <asp:TextBox ID="txtUnit" runat="server"></asp:TextBox>
         </td>
-        <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Label ID="lblUnitValue" runat="server" Text="Valor de Unidad:"></asp:Label>
-        </td>
-        <td style="height: 17px; width: 64px">
-            <asp:TextBox ID="txtUnitValue" runat="server"></asp:TextBox>
-        </td>
         <td style="height: 17px; width: 64px">
             <asp:Button ID="btnSearch" runat="server" Text="Buscar" />
+        </td>
+        <td style="height: 17px; width: 64px">
+            <asp:Button ID="btnReset" runat="server" Text="Reiniciar" />
         </td>
     </tr>
 </table>
