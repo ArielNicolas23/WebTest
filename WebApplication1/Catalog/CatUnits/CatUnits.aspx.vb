@@ -3,22 +3,18 @@
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            PopulateGrid()
+            PopulateGrid("", False)
         End If
 
 
     End Sub
 
-    Protected Sub PopulateGrid()
-
+    Protected Sub PopulateGrid(unit As String, isSearch As Boolean)
         Dim catUnits As CatUnits = New CatUnits()
-        dgvUnits.DataSource = catUnits.SelectAll("", False)
+        dgvUnits.DataSource = catUnits.SelectAll(unit, isSearch)
         dgvUnits.DataBind()
-
-
-        catUnits = Nothing
-
     End Sub
+
     Protected Sub dgvUnits_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles dgvUnits.RowCommand
         Select Case e.CommandName
             Case "Editar"
@@ -33,8 +29,7 @@
                 Dim row As DataKeyArray = dgvUnits.DataKeys
                 Dim catUnits As CatUnits = New CatUnits()
                 catUnits.Delete(Guid.Parse(row(e.CommandArgument).Value.ToString))
-                catUnits = Nothing
-                GetData()
+                PopulateGrid("", False)
                 'Volver a cargar los datos de la tabla
                 Return
             Case Else
@@ -42,6 +37,7 @@
                 Return
         End Select
     End Sub
+
     Protected Sub btnAddUnit_Click(sender As Object, e As EventArgs) Handles btnAddUnit.Click
         Session("isEdit") = "False"
         Response.Redirect("CatUnitsEdit.aspx", False)
@@ -49,32 +45,14 @@
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         Dim strUnit As String = txtUnit.Text.Trim.ToUpper()
-        'Dim strUnitValue As String = txtUnitValue.Text.Trim.ToUpper()
-        Dim catUnits As CatUnits = New CatUnits()
 
-        dgvUnits.DataSource = catUnits.SelectAll(strUnit, True)
-        dgvUnits.DataBind()
-
-
-        catUnits = Nothing
+        PopulateGrid(strUnit, True)
     End Sub
 
     Protected Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
-
         txtUnit.Text = ""
-        'txtUnitValue.Text = ""
 
-        Dim catUnits As CatUnits = New CatUnits()
-        dgvUnits.DataSource = catUnits.SelectAll("", False)
-        dgvUnits.DataBind()
-
-
-        catUnits = Nothing
+        PopulateGrid("", False)
     End Sub
 
-    Private Sub GetData()
-        Dim catUnits As CatUnits = New CatUnits()
-        dgvUnits.DataSource = catUnits.SelectAll("", False)
-        dgvUnits.DataBind()
-    End Sub
 End Class

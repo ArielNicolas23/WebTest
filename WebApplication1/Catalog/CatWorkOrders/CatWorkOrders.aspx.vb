@@ -5,21 +5,14 @@
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         'Traer los datos de la tabla para mostrar en el gridview
         If Not Page.IsPostBack Then
-            PopulateGrid()
+            PopulateGrid("", "", False, False)
         End If
-
-
     End Sub
 
-    Protected Sub PopulateGrid()
-
+    Protected Sub PopulateGrid(workOrder As String, area As String, isRework As Boolean, isSearch As Boolean)
         Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
-        dgvWorkOrders.DataSource = catReworkOrders.SelectAll("", "", False, False)
+        dgvWorkOrders.DataSource = catReworkOrders.SelectAll(workOrder, area, isRework, isSearch)
         dgvWorkOrders.DataBind()
-
-
-        catReworkOrders = Nothing
-
     End Sub
 
 
@@ -37,8 +30,7 @@
                 Dim row As DataKeyArray = dgvWorkOrders.DataKeys
                 Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
                 catReworkOrders.Delete(Guid.Parse(row(e.CommandArgument).Value.ToString))
-                catReworkOrders = Nothing
-                GetData()
+                PopulateGrid("", "", False, False)
                 'Volver a cargar los datos de la tabla
                 Return
             Case Else
@@ -53,35 +45,19 @@
     End Sub
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-
         Dim strWo As String = txtWorkOrder.Text.Trim.ToUpper()
         Dim strModulo As String = cmbArea.Text.Trim.ToUpper()
         Dim boolRework As Boolean = chkRework.Checked
 
-        Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
-        dgvWorkOrders.DataSource = catReworkOrders.SelectAll(strWo, strModulo, boolRework, True)
-        dgvWorkOrders.DataBind()
-
-        catReworkOrders = Nothing
+        PopulateGrid(strWo, strModulo, boolRework, True)
     End Sub
 
     Protected Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
-
         txtWorkOrder.Text = ""
         cmbArea.SelectedIndex = 0
         chkRework.Checked = False
 
-        Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
-        dgvWorkOrders.DataSource = catReworkOrders.SelectAll("", "", False, False)
-        dgvWorkOrders.DataBind()
-
-
-        catReworkOrders = Nothing
+        PopulateGrid("", "", False, False)
     End Sub
 
-    Private Sub GetData()
-        Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
-        dgvWorkOrders.DataSource = catReworkOrders.SelectAll("", "", False, False)
-        dgvWorkOrders.DataBind()
-    End Sub
 End Class
