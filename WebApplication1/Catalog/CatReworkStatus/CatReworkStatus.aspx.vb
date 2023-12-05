@@ -125,4 +125,30 @@ Public Class Catalog_CatReworkStatus
 
         PopulateGrid("", False, False)
     End Sub
+
+    Protected Sub DropDownListP_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DropDownListP.SelectedIndexChanged
+        dgvStatusTable.AllowPaging = True
+        Select Case DropDownListP.SelectedIndex
+            Case 0
+                dgvStatusTable.PageSize = 10
+                PopulateGrid("", False, False)
+            Case 1
+                dgvStatusTable.PageSize = 50
+                PopulateGrid("", False, False)
+            Case 2
+                dgvStatusTable.PageSize = 100
+                PopulateGrid("", False, False)
+            Case 3
+                dgvStatusTable.AllowPaging = False
+                PopulateGrid("", False, False)
+
+        End Select
+    End Sub
+
+    Protected Sub dgvStatusTable_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles dgvStatusTable.RowDeleting
+        Dim row As DataKeyArray = dgvStatusTable.DataKeys
+        Dim catReworkStatus As CatReworkStatus = New CatReworkStatus()
+        catReworkStatus.Delete(Guid.Parse(row(e.RowIndex).Value.ToString))
+        PopulateGrid("", False, False)
+    End Sub
 End Class

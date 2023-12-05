@@ -89,6 +89,11 @@ Public Class Catalog_CatWorkOrders
                 Return
             End If
 
+            If (Regex.IsMatch(strWo, "^[0-9 ]+$")) Then
+                lblMessage.Text = "Favor de escribir un valor numerico"
+                Return
+            End If
+
             If (strModulo = "") Then
                 lblMessage.Text = "Favor de seleccioanr un Módulo para la Orden"
                 Return
@@ -125,13 +130,42 @@ Public Class Catalog_CatWorkOrders
     End Sub
 
     Protected Sub AgregarOrden_Click(sender As Object, e As EventArgs) Handles AgregarOrden.Click
+        lblMessage.Text = ""
 
         Dim strWo As String = addOrden.Text.Trim.ToUpper()
         Dim strModulo As String = addArea.Text.Trim.ToUpper()
-
         Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
-        catReworkOrders.Insert(strWo, strModulo, False, True, "Admin")
-        catReworkOrders = Nothing
+        If (strWo = "") Then
+            lblMessage.Text = "Favor de escribir una Orden de Trabajo"
+            Return
+        End If
+
+        If (strWo.Length < 9 Or strWo.Length > 9) Then
+            lblMessage.Text = "El número de Orden de Trabajo debe contener 9 dígitos"
+            Return
+        End If
+
+        If (strModulo = "") Then
+            lblMessage.Text = "Favor de seleccioanr un Módulo para la Orden"
+            Return
+        End If
+
+        If (Regex.IsMatch(strWo, "^[0-9 ]+$")) Then
+            lblMessage.Text = "Favor de escribir un valor numerico"
+            Return
+        End If
+
+
+        If (catReworkOrders.AlreadyExistWorkOrder(Guid.NewGuid, strWo)) Then
+            lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Orden de Trabajo con el número ingresado: [" + strWo + "]"
+        Else
+            catReworkOrders.Insert(strWo, strModulo, False, True, "Admin")
+            catReworkOrders = Nothing
+
+            dgvWorkOrders.EditIndex = -1
+            PopulateGrid("", "", False, False)
+        End If
+
 
         PopulateGrid("", "", False, False)
     End Sub
@@ -140,5 +174,33 @@ Public Class Catalog_CatWorkOrders
         dgvWorkOrders.PageIndex = e.NewPageIndex
 
         PopulateGrid("", "", False, False)
+    End Sub
+
+    Protected Sub DropDownListP_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DropDownListP.SelectedIndexChanged
+        dgvWorkOrders.AllowPaging = True
+        Select Case DropDownListP.SelectedIndex
+            Case 0
+                dgvWorkOrders.PageSize = 10
+                PopulateGrid("", "", False, False)
+            Case 1
+                dgvWorkOrders.PageSize = 50
+                PopulateGrid("", "", False, False)
+            Case 2
+                dgvWorkOrders.PageSize = 100
+                PopulateGrid("", "", False, False)
+            Case 3
+                dgvWorkOrders.AllowPaging = False
+                PopulateGrid("", "", False, False)
+
+        End Select
+    End Sub
+
+    Protected Sub dgvWorkOrders_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles dgvWorkOrders.RowDeleting
+        'Mostrar mensaje de confirmación para eliminar el registro
+        Dim row As DataKeyArray = dgvWorkOrders.DataKeys
+        Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
+        catReworkOrders.Delete(Guid.Parse(row(e.RowIndex).Value.ToString))
+        PopulateGrid("", "", False, False)
+        'Volver a cargar los datos de la tabla
     End Sub
 End Class

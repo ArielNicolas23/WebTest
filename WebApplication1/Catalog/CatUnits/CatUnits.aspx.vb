@@ -1,4 +1,6 @@
-﻿Public Class Catalog_CatUnits
+﻿Imports Microsoft.Ajax.Utilities
+
+Public Class Catalog_CatUnits
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -81,6 +83,11 @@
                 Return
             End If
 
+            If (Not Regex.IsMatch(strUnitValue, "^[0-9 ]+$")) Then
+                lblMessage.Text = "Favor de escribir un valor numerico"
+                Return
+            End If
+
             If (catUnits.AlreadyExistUnit(idUnit, strUnit)) Then
                 lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Unidad con el nombre ingresado: [" + strUnit + "]"
             Else
@@ -117,12 +124,48 @@
     End Sub
 
     Protected Sub AgregarUnidad_Click(sender As Object, e As EventArgs) Handles AgregarUnidad.Click
-        Dim strUnit As String = addUnidad.Text.Trim.ToUpper()
-        Dim strUnitValue As String = addValor.Text.Trim.ToUpper()
+        Try
+            lblMessage.Text = ""
 
-        Dim catUnits As CatUnits = New CatUnits()
-        catUnits.Insert(strUnit, strUnitValue, True, "Admin")
-        catUnits = Nothing
+            Dim strUnit As String = addUnidad.Text.Trim.ToUpper()
+            Dim strUnitValue As String = addValor.Text.Trim.ToUpper()
+            Dim catUnits As CatUnits = New CatUnits()
+
+            If (strUnit = "") Then
+                lblMessage.Text = "Favor de escribir un nombre para la Unidad"
+                Return
+            End If
+
+            If (strUnitValue = "") Then
+                lblMessage.Text = "Favor de escribir un valor para la Unidad"
+                Return
+            End If
+
+            If (Regex.IsMatch(strUnitValue, "^[0-9 ]+$")) Then
+                lblMessage.Text = "Favor de escribir un valor numerico"
+                Return
+            End If
+
+            If (catUnits.AlreadyExistUnit(Guid.NewGuid, strUnit)) Then
+                lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Unidad con el nombre ingresado: [" + strUnit + "]"
+            Else
+                catUnits.Insert(strUnit, strUnitValue, True, "Admin")
+                catUnits = Nothing
+
+                dgvUnits.EditIndex = -1
+                PopulateGrid("", False)
+            End If
+
+        Catch ex As FormatException
+            lblMessage.Text = "Favor de escribir un número válido para el valor de la Unidad"
+
+        Catch ex As OverflowException
+            lblMessage.Text = "El valor de la Unidad es demasiado grande para guardar"
+
+        Catch ex As Exception
+            lblMessage.Text = "Ocurrió un error al intentar guardar los datos: " + ex.Message
+
+        End Try
 
         PopulateGrid("", False)
     End Sub
@@ -130,6 +173,32 @@
     Protected Sub dgvUnits_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles dgvUnits.PageIndexChanging
         dgvUnits.PageIndex = e.NewPageIndex
 
+        PopulateGrid("", False)
+    End Sub
+
+    Protected Sub DropDownListP_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DropDownListP.SelectedIndexChanged
+        dgvUnits.AllowPaging = True
+        Select Case DropDownListP.SelectedIndex
+            Case 0
+                dgvUnits.PageSize = 10
+                PopulateGrid("", False)
+            Case 1
+                dgvUnits.PageSize = 50
+                PopulateGrid("", False)
+            Case 2
+                dgvUnits.PageSize = 100
+                PopulateGrid("", False)
+            Case 3
+                dgvUnits.AllowPaging = False
+                PopulateGrid("", False)
+
+        End Select
+    End Sub
+
+    Protected Sub dgvUnits_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles dgvUnits.RowDeleting
+        Dim row As DataKeyArray = dgvUnits.DataKeys
+        Dim catUnits As CatUnits = New CatUnits()
+        catUnits.Delete(Guid.Parse(row(e.RowIndex).Value.ToString))
         PopulateGrid("", False)
     End Sub
 End Class
