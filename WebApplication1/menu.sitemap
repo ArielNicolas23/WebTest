@@ -98,7 +98,7 @@
 				  <siteMapNode title="Producto CPS" description="Módulo Producto CPS" url="/ExpirationDate/Cps/ewapp_cpscomponents.aspx" />
         <siteMapNode title="MRP CPS" description="Catálogos MRPs para CPS" url="/ExpirationDate/Cps/ewapp_cpsMRPCatalog.aspx" />
 			</siteMapNode>
-			<siteMapNode title="WO Status" description="Módulo Status" roles="*" url="/Catalog/CatReworkStatus/CatReworkStatus.aspx">
+			<siteMapNode title="WO Estatus" description="Módulo Status" roles="*" url="/Catalog/CatReworkStatus/CatReworkStatus.aspx">
 			</siteMapNode>
 			<siteMapNode title="Unidades" description="Catalogo de unidades" roles="*" url="/Catalog/CatUnits/CatUnits.aspx">
 			</siteMapNode>
