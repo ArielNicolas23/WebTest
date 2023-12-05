@@ -65,7 +65,7 @@ Public Class Catalog_CatWorkOrders
                 Return
             End If
 
-            If (Regex.IsMatch(strWo, "^[0-9 ]+$")) Then
+            If (Not Regex.IsMatch(strWo, "^[0-9 ]+$")) Then
                 lblMessage.Text = "Favor de escribir un valor numerico"
                 Return
             End If
@@ -126,7 +126,7 @@ Public Class Catalog_CatWorkOrders
             Return
         End If
 
-        If (Regex.IsMatch(strWo, "^[0-9 ]+$")) Then
+        If (Not Regex.IsMatch(strWo, "^[0-9 ]+$")) Then
             lblMessage.Text = "Favor de escribir un valor numerico"
             Return
         End If

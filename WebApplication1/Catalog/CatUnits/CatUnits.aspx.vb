@@ -116,7 +116,7 @@ Public Class Catalog_CatUnits
                 Return
             End If
 
-            If (Regex.IsMatch(strUnitValue, "^[0-9 ]+$")) Then
+            If (Not Regex.IsMatch(strUnitValue, "^[0-9 ]+$")) Then
                 lblMessage.Text = "Favor de escribir un valor numerico"
                 Return
             End If

@@ -55,12 +55,14 @@
     </tr>
 </table>
 </div>
+<div align="left" style="padding: 4px">
     <asp:DropDownList ID="DropDownListP" runat="server" AutoPostBack="True">
     <asp:ListItem>10</asp:ListItem>
     <asp:ListItem>50</asp:ListItem>
     <asp:ListItem>100</asp:ListItem>
     <asp:ListItem>Todos</asp:ListItem>
 </asp:DropDownList>
+</div>
 <asp:GridView ID="dgvStatusTable" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames = "IdCatReworkStatus" Width="480px" AllowPaging="True">
     <Columns>
                <asp:BoundField DataField="IdCatReworkStatus" HeaderText="IdUnit" ReadOnly="True" visible="false">
