@@ -17,30 +17,6 @@ Public Class Catalog_CatWorkOrders
         dgvWorkOrders.DataBind()
     End Sub
 
-
-    Protected Sub dgvWorkOrders_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles dgvWorkOrders.RowCommand
-        Select Case e.CommandName
-            Case "Editar"
-                ''Agregar código para cargar la página de edición mandando el ID del registro
-                'Dim row As DataKeyArray = dgvWorkOrders.DataKeys
-                'Session("isEdit") = "True"
-                'Session("idWo") = row(e.CommandArgument).Value.ToString
-                'Response.Redirect("CatWorkOrdersEdit.aspx", False)
-                'Return
-            Case "Eliminar"
-                'Mostrar mensaje de confirmación para eliminar el registro
-                Dim row As DataKeyArray = dgvWorkOrders.DataKeys
-                Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
-                catReworkOrders.Delete(Guid.Parse(row(e.CommandArgument).Value.ToString))
-                PopulateGrid("", "", False, False)
-                'Volver a cargar los datos de la tabla
-                Return
-            Case Else
-                'Nada
-                Return
-        End Select
-    End Sub
-
     Protected Sub btnAddWorkOrder_Click(sender As Object, e As EventArgs) Handles btnAddWorkOrder.Click
         If divAgregar.Visible Then
             divAgregar.Visible = False
@@ -196,11 +172,15 @@ Public Class Catalog_CatWorkOrders
     End Sub
 
     Protected Sub dgvWorkOrders_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles dgvWorkOrders.RowDeleting
-        'Mostrar mensaje de confirmación para eliminar el registro
-        Dim row As DataKeyArray = dgvWorkOrders.DataKeys
-        Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
-        catReworkOrders.Delete(Guid.Parse(row(e.RowIndex).Value.ToString))
-        PopulateGrid("", "", False, False)
-        'Volver a cargar los datos de la tabla
+        Dim confirmed As Integer = MsgBox("Se eliminará el registro seleccionado. ¿Desea proceder con el borrado?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Confirmar Borrado")
+
+        If confirmed = MsgBoxResult.Yes Then
+            Dim row As DataKeyArray = dgvWorkOrders.DataKeys
+            Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
+            catReworkOrders.Delete(Guid.Parse(row(e.RowIndex).Value.ToString))
+            PopulateGrid("", "", False, False)
+        Else
+            e.Cancel = True
+        End If
     End Sub
 End Class

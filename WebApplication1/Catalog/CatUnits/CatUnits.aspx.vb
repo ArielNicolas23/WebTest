@@ -7,37 +7,12 @@ Public Class Catalog_CatUnits
         If Not Page.IsPostBack Then
             PopulateGrid("", False)
         End If
-
-
     End Sub
 
     Protected Sub PopulateGrid(unit As String, isSearch As Boolean)
         Dim catUnits As CatUnits = New CatUnits()
         dgvUnits.DataSource = catUnits.SelectAll(unit, isSearch)
         dgvUnits.DataBind()
-    End Sub
-
-    Protected Sub dgvUnits_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles dgvUnits.RowCommand
-        Select Case e.CommandName
-            Case "Editar"
-                ''Agregar código para cargar la página de edición mandando el ID del registro
-                'Dim row As DataKeyArray = dgvUnits.DataKeys
-                'Session("isEdit") = "True"
-                'Session("idUnit") = row(e.CommandArgument).Value.ToString
-                'Response.Redirect("CatUnitsEdit.aspx", False)
-                'Return
-            Case "Eliminar"
-                'Mostrar mensaje de confirmación para eliminar el registro
-                Dim row As DataKeyArray = dgvUnits.DataKeys
-                Dim catUnits As CatUnits = New CatUnits()
-                catUnits.Delete(Guid.Parse(row(e.CommandArgument).Value.ToString))
-                PopulateGrid("", False)
-                'Volver a cargar los datos de la tabla
-                Return
-            Case Else
-                'Nada
-                Return
-        End Select
     End Sub
 
     Protected Sub btnAddUnit_Click(sender As Object, e As EventArgs) Handles btnAddUnit.Click
@@ -196,9 +171,17 @@ Public Class Catalog_CatUnits
     End Sub
 
     Protected Sub dgvUnits_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles dgvUnits.RowDeleting
-        Dim row As DataKeyArray = dgvUnits.DataKeys
-        Dim catUnits As CatUnits = New CatUnits()
-        catUnits.Delete(Guid.Parse(row(e.RowIndex).Value.ToString))
-        PopulateGrid("", False)
+        Dim confirmed As Integer = MsgBox("Se eliminará el registro seleccionado. ¿Desea proceder con el borrado?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Confirmar Borrado")
+
+        If confirmed = MsgBoxResult.Yes Then
+            Dim row As DataKeyArray = dgvUnits.DataKeys
+            Dim catUnits As CatUnits = New CatUnits()
+            catUnits.Delete(Guid.Parse(row(e.RowIndex).Value.ToString))
+            PopulateGrid("", False)
+        Else
+            e.Cancel = True
+        End If
+
     End Sub
+
 End Class
