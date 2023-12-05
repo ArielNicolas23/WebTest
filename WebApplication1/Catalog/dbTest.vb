@@ -155,7 +155,7 @@ Public Class CatUnits
         Return result
     End Function
 
-    Public Function AlreadyExistUnit(ByVal unit As String) As Boolean
+    Public Function AlreadyExistUnit(ByVal idCatUnits As Guid, ByVal unit As String) As Boolean
 
         Dim result As Boolean
 
@@ -165,6 +165,7 @@ Public Class CatUnits
             cmd.CommandText = "spED_CatUnits_SearchByUnit"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@IdCatUnits", idCatUnits)
             cmd.Parameters.AddWithValue("@Unit", unit)
 
             conn.Open()
@@ -354,7 +355,7 @@ Public Class CatReworkOrders
 
     End Function
 
-    Public Function AlreadyExistWorkOrder(ByVal workOrder As String) As Boolean
+    Public Function AlreadyExistWorkOrder(ByVal idCatReworkOrders As Guid, ByVal workOrder As String) As Boolean
 
         Dim result As Boolean
 
@@ -364,6 +365,7 @@ Public Class CatReworkOrders
             cmd.CommandText = "spED_CatReworkOrders_SearchByWorkOrder"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@IdCatReworkOrders", idCatReworkOrders)
             cmd.Parameters.AddWithValue("@WorkOrder", workOrder)
 
             conn.Open()
@@ -541,7 +543,7 @@ Public Class CatReworkStatus
         Return result
     End Function
 
-    Public Function AlreadyExistSAPStatus(ByVal SAPStatus As String) As Boolean
+    Public Function AlreadyExistSAPStatus(ByVal idCatReworkStatus As Guid, ByVal SAPStatus As String) As Boolean
 
         Dim result As Boolean
 
@@ -551,6 +553,7 @@ Public Class CatReworkStatus
             cmd.CommandText = "spED_CatReworkStatus_SearchBySAPStatus"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@IdCatReworkStatus", idCatReworkStatus)
             cmd.Parameters.AddWithValue("@SAPStatus", SAPStatus)
 
             conn.Open()

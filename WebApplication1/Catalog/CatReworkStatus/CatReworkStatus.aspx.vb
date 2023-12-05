@@ -55,27 +55,45 @@ Public Class Catalog_CatReworkStatus
 
     Protected Sub dgvStatusTable_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles dgvStatusTable.RowEditing
         dgvStatusTable.EditIndex = e.NewEditIndex
-        PopulateGrid()
+        PopulateGrid("", False, False)
     End Sub
 
     Protected Sub dgvStatusTable_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles dgvStatusTable.RowUpdating
-        Dim row As GridViewRow = dgvStatusTable.Rows(e.RowIndex)
-        Dim names As DataKeyArray = dgvStatusTable.DataKeys()
-        Dim idStatus As Guid = Guid.Parse(names.Item(e.RowIndex).Value.ToString())
-        Dim strStatus As String = CType((row.Cells(1).Controls(0)), TextBox).Text.Trim.ToUpper()
-        Dim boolStatus As Boolean = CType((row.Cells(2).Controls(0)), CheckBox).Checked
+        Try
+            lblMessage.Text = ""
 
-        Dim catReworkStatus As CatReworkStatus = New CatReworkStatus()
-        catReworkStatus.Update(idStatus, strStatus, boolStatus, "Admin")
-        catReworkStatus = Nothing
+            Dim catReworkStatus As CatReworkStatus = New CatReworkStatus()
+            Dim row As GridViewRow = dgvStatusTable.Rows(e.RowIndex)
+            Dim names As DataKeyArray = dgvStatusTable.DataKeys()
+            Dim idStatus As Guid = Guid.Parse(names.Item(e.RowIndex).Value.ToString())
+            Dim strStatus As String = CType((row.Cells(1).Controls(0)), TextBox).Text.Trim.ToUpper()
+            Dim boolStatus As Boolean = CType((row.Cells(2).Controls(0)), CheckBox).Checked
 
-        dgvStatusTable.EditIndex = -1
-        PopulateGrid()
+
+            If (strStatus = "") Then
+                lblMessage.Text = "Favor de escribir un Código de Estatus"
+                Return
+            End If
+
+            If (catReworkStatus.AlreadyExistSAPStatus(idStatus, strStatus)) Then
+                lblMessage.Text = "No es posble guardar los cambios debido a que ya existe un Estatus de SAP con el código ingresado: [" + strStatus + "]"
+            Else
+                catReworkStatus.Update(idStatus, strStatus, boolStatus, "Admin")
+                catReworkStatus = Nothing
+
+                dgvStatusTable.EditIndex = -1
+                PopulateGrid("", False, False)
+            End If
+
+        Catch ex As Exception
+            lblMessage.Text = "Ocurrió un error al intentar guardar los datos: " + ex.Message
+
+        End Try
     End Sub
 
     Protected Sub dgvStatusTable_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles dgvStatusTable.RowCancelingEdit
         dgvStatusTable.EditIndex = -1
-        PopulateGrid()
+        PopulateGrid("", False, False)
     End Sub
 
     Protected Sub AgregarEstatus_Click(sender As Object, e As EventArgs) Handles AgregarEstatus.Click
@@ -86,7 +104,7 @@ Public Class Catalog_CatReworkStatus
         catReworkStatus.Insert(strStatus, boolStatus, True, "Admin")
         catReworkStatus = Nothing
 
-        PopulateGrid()
+        PopulateGrid("", False, False)
     End Sub
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
@@ -105,6 +123,6 @@ Public Class Catalog_CatReworkStatus
     Protected Sub dgvStatusTable_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles dgvStatusTable.PageIndexChanging
         dgvStatusTable.PageIndex = e.NewPageIndex
 
-        PopulateGrid()
+        PopulateGrid("", False, False)
     End Sub
 End Class

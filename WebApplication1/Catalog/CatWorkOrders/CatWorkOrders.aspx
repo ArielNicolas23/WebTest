@@ -37,8 +37,12 @@
     </tr>
 </table>
 
-<div style="height: 32px">
+<div>
+    <br />
 
+    <asp:Label ID="lblMessage" runat="server" ForeColor="Red" Height="12px" Width="479px"></asp:Label><br />
+
+    <br />
 </div>
 
 <div align="left" style="padding: 4px">

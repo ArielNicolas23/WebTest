@@ -41,7 +41,7 @@
                 Return
             End If
 
-            If (catReworkStatus.AlreadyExistSAPStatus(strStatus)) Then
+            If (catReworkStatus.AlreadyExistSAPStatus(Nothing, strStatus)) Then
                 lblMessage.Text = "No es posble guardar los cambios debido a que ya existe un Estatus de SAP con el código ingresado: [" + strStatus + "]"
             Else
                 If isEdit Then

@@ -61,28 +61,59 @@
     End Sub
 
     Protected Sub dgvUnits_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles dgvUnits.RowUpdating
-        Dim row As GridViewRow = dgvUnits.Rows(e.RowIndex)
-        Dim names As DataKeyArray = dgvUnits.DataKeys()
-        Dim idUnit As Guid = Guid.Parse(names.Item(e.RowIndex).Value.ToString())
-        Dim strUnit As String = CType((row.Cells(1).Controls(0)), TextBox).Text.Trim.ToUpper()
-        Dim strUnitValue As String = CType((row.Cells(2).Controls(0)), TextBox).Text.Trim.ToUpper()
+        Try
+            lblMessage.Text = ""
 
-        Dim catUnits As CatUnits = New CatUnits()
-        catUnits.Update(idUnit, strUnit, strUnitValue, True, "Admin")
-        catUnits = Nothing
+            Dim catUnits As CatUnits = New CatUnits()
+            Dim row As GridViewRow = dgvUnits.Rows(e.RowIndex)
+            Dim names As DataKeyArray = dgvUnits.DataKeys()
+            Dim idUnit As Guid = Guid.Parse(names.Item(e.RowIndex).Value.ToString())
+            Dim strUnit As String = CType((row.Cells(1).Controls(0)), TextBox).Text.Trim.ToUpper()
+            Dim strUnitValue As String = CType((row.Cells(2).Controls(0)), TextBox).Text.Trim.ToUpper()
 
-        dgvUnits.EditIndex = -1
-        PopulateGrid()
+            If (strUnit = "") Then
+                lblMessage.Text = "Favor de escribir un nombre para la Unidad"
+                Return
+            End If
+
+            If (strUnitValue = "") Then
+                lblMessage.Text = "Favor de escribir un valor para la Unidad"
+                Return
+            End If
+
+            If (catUnits.AlreadyExistUnit(idUnit, strUnit)) Then
+                lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Unidad con el nombre ingresado: [" + strUnit + "]"
+            Else
+                catUnits.Update(idUnit, strUnit, strUnitValue, True, "Admin")
+                catUnits = Nothing
+
+                dgvUnits.EditIndex = -1
+                PopulateGrid("", False)
+            End If
+
+        Catch ex As FormatException
+            lblMessage.Text = "Favor de escribir un número válido para el valor de la Unidad"
+
+        Catch ex As OverflowException
+            lblMessage.Text = "El valor de la Unidad es demasiado grande para guardar"
+
+        Catch ex As Exception
+            lblMessage.Text = "Ocurrió un error al intentar guardar los datos: " + ex.Message
+
+        End Try
+
+
+
     End Sub
 
     Protected Sub dgvUnits_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles dgvUnits.RowEditing
         dgvUnits.EditIndex = e.NewEditIndex
-        PopulateGrid()
+        PopulateGrid("", False)
     End Sub
 
     Protected Sub dgvUnits_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles dgvUnits.RowCancelingEdit
         dgvUnits.EditIndex = -1
-        PopulateGrid()
+        PopulateGrid("", False)
     End Sub
 
     Protected Sub AgregarUnidad_Click(sender As Object, e As EventArgs) Handles AgregarUnidad.Click
@@ -93,12 +124,12 @@
         catUnits.Insert(strUnit, strUnitValue, True, "Admin")
         catUnits = Nothing
 
-        PopulateGrid()
+        PopulateGrid("", False)
     End Sub
 
     Protected Sub dgvUnits_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles dgvUnits.PageIndexChanging
         dgvUnits.PageIndex = e.NewPageIndex
 
-        PopulateGrid()
+        PopulateGrid("", False)
     End Sub
 End Class

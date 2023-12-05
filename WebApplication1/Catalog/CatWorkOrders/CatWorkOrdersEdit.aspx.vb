@@ -64,7 +64,7 @@ Public Class Catalog_CatWorkOrdersEdit
                 Return
             End If
 
-            If (catReworkOrders.AlreadyExistWorkOrder(strWo)) Then
+            If (catReworkOrders.AlreadyExistWorkOrder(Nothing, strWo)) Then
                 lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Orden de Trabajo con el número ingresado: [" + strWo + "]"
             Else
                 If isEdit Then

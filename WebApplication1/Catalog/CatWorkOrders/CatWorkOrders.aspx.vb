@@ -68,36 +68,60 @@ Public Class Catalog_CatWorkOrders
     End Sub
 
     Protected Sub dgvWorkOrders_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles dgvWorkOrders.RowUpdating
-        Dim row As GridViewRow = dgvWorkOrders.Rows(e.RowIndex)
-        Dim names As DataKeyArray = dgvWorkOrders.DataKeys()
-        Dim idWo As Guid = Guid.Parse(names.Item(e.RowIndex).Value.ToString())
-        Dim strWo As String = CType((row.Cells(1).Controls(0)), TextBox).Text.Trim.ToUpper()
-        Dim strModulo As String = CType((row.Cells(2).Controls(1)), DropDownList).Text.Trim.ToUpper()
-        Dim boolRework As Boolean = CType((row.Cells(3).Controls(0)), CheckBox).Checked
+        Try
+            lblMessage.Text = ""
 
-        Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
-        lblTitle.Text = "Editar Unidad"
-        'Traer la información del registro a editar y desplegar su información
-        Dim datos As DataTable = catReworkOrders.SelectOne(idWo)
+            Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
+            Dim row As GridViewRow = dgvWorkOrders.Rows(e.RowIndex)
+            Dim names As DataKeyArray = dgvWorkOrders.DataKeys()
+            Dim idWo As Guid = Guid.Parse(names.Item(e.RowIndex).Value.ToString())
+            Dim strWo As String = CType((row.Cells(1).Controls(0)), TextBox).Text.Trim.ToUpper()
+            Dim strModulo As String = CType((row.Cells(2).Controls(1)), DropDownList).Text.Trim.ToUpper()
+            Dim boolRework As Boolean = CType((row.Cells(3).Controls(0)), CheckBox).Checked
 
+            If (strWo = "") Then
+                lblMessage.Text = "Favor de escribir una Orden de Trabajo"
+                Return
+            End If
 
+            If (strWo.Length < 9 Or strWo.Length > 9) Then
+                lblMessage.Text = "El número de Orden de Trabajo debe contener 9 dígitos"
+                Return
+            End If
 
+            If (strModulo = "") Then
+                lblMessage.Text = "Favor de seleccioanr un Módulo para la Orden"
+                Return
+            End If
 
-        catReworkOrders.Update(idWo, strWo, strModulo, boolRework, "Admin")
-        catReworkOrders = Nothing
+            If (catReworkOrders.AlreadyExistWorkOrder(idWo, strWo)) Then
+                lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Orden de Trabajo con el número ingresado: [" + strWo + "]"
+            Else
+                catReworkOrders.Update(idWo, strWo, strModulo, boolRework, "Admin")
+                catReworkOrders = Nothing
 
-        dgvWorkOrders.EditIndex = -1
-        PopulateGrid()
+                dgvWorkOrders.EditIndex = -1
+                PopulateGrid("", "", False, False)
+            End If
+
+        Catch ex As FormatException
+            lblMessage.Text = "Favor de escribir un número válido para la Orden de Trabajo"
+
+        Catch ex As Exception
+            lblMessage.Text = "Ocurrió un error al intentar guardar los datos: " + ex.Message
+
+        End Try
+
     End Sub
 
     Protected Sub dgvWorkOrders_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles dgvWorkOrders.RowCancelingEdit
         dgvWorkOrders.EditIndex = -1
-        PopulateGrid()
+        PopulateGrid("", "", False, False)
     End Sub
 
     Protected Sub dgvWorkOrders_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles dgvWorkOrders.RowEditing
         dgvWorkOrders.EditIndex = e.NewEditIndex
-        PopulateGrid()
+        PopulateGrid("", "", False, False)
     End Sub
 
     Protected Sub AgregarOrden_Click(sender As Object, e As EventArgs) Handles AgregarOrden.Click
@@ -109,12 +133,12 @@ Public Class Catalog_CatWorkOrders
         catReworkOrders.Insert(strWo, strModulo, False, True, "Admin")
         catReworkOrders = Nothing
 
-        PopulateGrid()
+        PopulateGrid("", "", False, False)
     End Sub
 
     Protected Sub dgvWorkOrders_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles dgvWorkOrders.PageIndexChanging
         dgvWorkOrders.PageIndex = e.NewPageIndex
 
-        PopulateGrid()
+        PopulateGrid("", "", False, False)
     End Sub
 End Class

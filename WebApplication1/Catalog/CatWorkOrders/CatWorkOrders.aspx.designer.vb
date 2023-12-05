@@ -86,6 +86,15 @@ Partial Public Class Catalog_CatWorkOrders
     Protected WithEvents btnReset As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
+    '''lblMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''btnAddWorkOrder control.
     '''</summary>
     '''<remarks>
@@ -95,56 +104,56 @@ Partial Public Class Catalog_CatWorkOrders
     Protected WithEvents btnAddWorkOrder As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
-    '''Control divAgregar.
+    '''divAgregar control.
     '''</summary>
     '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divAgregar As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''Control Label1.
+    '''Label1 control.
     '''</summary>
     '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control addOrden.
+    '''addOrden control.
     '''</summary>
     '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents addOrden As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Control Label2.
+    '''Label2 control.
     '''</summary>
     '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Label2 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Control addArea.
+    '''addArea control.
     '''</summary>
     '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents addArea As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''Control AgregarOrden.
+    '''AgregarOrden control.
     '''</summary>
     '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents AgregarOrden As Global.System.Web.UI.WebControls.Button
 

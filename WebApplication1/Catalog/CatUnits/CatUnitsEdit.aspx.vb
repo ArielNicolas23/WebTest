@@ -45,7 +45,7 @@
                 Return
             End If
 
-            If (catUnits.AlreadyExistUnit(strUnit)) Then
+            If (catUnits.AlreadyExistUnit(Nothing, strUnit)) Then
                 lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Unidad con el nombre ingresado: [" + strUnit + "]"
             Else
                 If isEdit Then
