@@ -1,4 +1,5 @@
-﻿Imports Microsoft.Ajax.Utilities
+﻿Imports System.Diagnostics.Eventing
+Imports Microsoft.Ajax.Utilities
 
 Public Class Catalog_CatUnits
     Inherits System.Web.UI.Page
@@ -30,7 +31,20 @@ Public Class Catalog_CatUnits
     End Sub
 
     Protected Sub btnAddUnit_Click(sender As Object, e As EventArgs) Handles btnAddUnit.Click
-        CleanAndHideAdd()
+        Dim catUnits As CatUnits = New CatUnits()
+        Dim dt As DataTable = catUnits.SelectAll("", False)
+        Dim row As DataRow
+        row = dt.NewRow()
+        row("IdUnit") = Guid.NewGuid
+        row("Unit") = ""
+        row("UnitValue") = 0
+        row("IsActive") = True
+        dt.Rows.Add(row)
+        Dim dv As DataView = dt.AsDataView
+        dv.Sort = "Unit" + " " + "ASC"
+        dgvUnits.EditIndex = 0
+        dgvUnits.DataSource = dv
+        dgvUnits.DataBind()
     End Sub
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
@@ -70,15 +84,30 @@ Public Class Catalog_CatUnits
                 lblMessage.Text = "Favor de escribir un valor numerico"
                 Return
             End If
+            Dim find As String = "IdUnit ='" + idUnit.ToString + "'"
+            Dim temp As Integer = catUnits.SelectAll("", False).Select(find).Count
+            If (temp = 0) Then
+                If (catUnits.AlreadyExistUnit(idUnit, strUnit)) Then
+                    lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Unidad con el nombre ingresado: [" + strUnit + "]"
+                Else
+                    catUnits.Insert(strUnit, strUnitValue, True, "Admin")
+                    MsgBox("Se agrego el registro con exito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Exito")
+                    catUnits = Nothing
 
-            If (catUnits.AlreadyExistUnit(idUnit, strUnit)) Then
-                lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Unidad con el nombre ingresado: [" + strUnit + "]"
+                    dgvUnits.EditIndex = -1
+                    PopulateGrid("", False)
+                End If
             Else
-                catUnits.Update(idUnit, strUnit, strUnitValue, True, "Admin")
-                catUnits = Nothing
+                If (catUnits.AlreadyExistUnit(idUnit, strUnit)) Then
+                    lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Unidad con el nombre ingresado: [" + strUnit + "]"
+                Else
+                    catUnits.Update(idUnit, strUnit, strUnitValue, True, "Admin")
+                    MsgBox("Se actualizo el registro con exito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Exito")
+                    catUnits = Nothing
 
-                dgvUnits.EditIndex = -1
-                PopulateGrid("", False)
+                    dgvUnits.EditIndex = -1
+                    PopulateGrid("", False)
+                End If
             End If
 
         Catch ex As FormatException
@@ -106,53 +135,6 @@ Public Class Catalog_CatUnits
         PopulateGrid("", False)
     End Sub
 
-    Protected Sub AgregarUnidad_Click(sender As Object, e As EventArgs) Handles AgregarUnidad.Click
-        Try
-            lblMessage.Text = ""
-
-            Dim strUnit As String = addUnidad.Text.Trim.ToUpper()
-            Dim strUnitValue As String = addValor.Text.Trim.ToUpper()
-            Dim catUnits As CatUnits = New CatUnits()
-
-            If (strUnit = "") Then
-                lblMessage.Text = "Favor de escribir un nombre para la Unidad"
-                Return
-            End If
-
-            If (strUnitValue = "") Then
-                lblMessage.Text = "Favor de escribir un valor para la Unidad"
-                Return
-            End If
-
-            If (Not Regex.IsMatch(strUnitValue, "^[0-9 ]+$")) Then
-                lblMessage.Text = "Favor de escribir un valor numerico"
-                Return
-            End If
-
-            If (catUnits.AlreadyExistUnit(Nothing, strUnit)) Then
-                lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Unidad con el nombre ingresado: [" + strUnit + "]"
-            Else
-                catUnits.Insert(strUnit, strUnitValue, True, "Admin")
-                catUnits = Nothing
-
-                dgvUnits.EditIndex = -1
-                CleanAndHideAdd()
-                PopulateGrid("", False)
-            End If
-
-        Catch ex As FormatException
-            lblMessage.Text = "Favor de escribir un número válido para el valor de la Unidad"
-
-        Catch ex As OverflowException
-            lblMessage.Text = "El valor de la Unidad es demasiado grande para guardar"
-
-        Catch ex As Exception
-            lblMessage.Text = "Ocurrió un error al intentar guardar los datos: " + ex.Message
-
-        End Try
-
-        PopulateGrid("", False)
-    End Sub
 
     Protected Sub dgvUnits_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles dgvUnits.PageIndexChanging
         dgvUnits.PageIndex = e.NewPageIndex
@@ -193,4 +175,7 @@ Public Class Catalog_CatUnits
 
     End Sub
 
+    Protected Sub dgvUnits_Sorting(sender As Object, e As GridViewSortEventArgs) Handles dgvUnits.Sorting
+
+    End Sub
 End Class

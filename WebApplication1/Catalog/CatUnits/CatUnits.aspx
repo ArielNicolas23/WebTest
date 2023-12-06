@@ -57,14 +57,14 @@
 </table>
 </div>
     <div align="left" style="padding: 4px">
-    <asp:DropDownList ID="DropDownListP" runat="server" AutoPostBack="True">
+                         <asp:DropDownList ID="DropDownListP" runat="server" AutoPostBack="True" Enabled="True" Visible="False">
     <asp:ListItem>10</asp:ListItem>
     <asp:ListItem>50</asp:ListItem>
     <asp:ListItem>100</asp:ListItem>
     <asp:ListItem>Todos</asp:ListItem>
 </asp:DropDownList>
 </div>
-<asp:GridView ID="dgvUnits" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames = "IdUnit" Width="480px" AllowPaging="True">
+<asp:GridView ID="dgvUnits" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames = "IdUnit" Width="480px">
     <Columns>
          <asp:BoundField DataField="IdUnit" HeaderText="IdUnidad" ReadOnly="True" visible="false">
      <ItemStyle Width="100px" />
@@ -78,7 +78,29 @@
      <ItemStyle Width="100px" />
      <HeaderStyle HorizontalAlign="Center" />
  </asp:BoundField>
-         <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" CancelText="<i class='fa fa-regular fa-ban' data-toggle='tooltip' title='Cancelar'></i>" UpdateText="<i class='fa fa-regular fa-check' data-toggle='tooltip' title='Actualizar'></i>" EditText="<i class='fa fa-regular fa-edit' data-toggle='tooltip' title='Editar campo'></i>" DeleteText="<i class='fa fa-regular fa-trash' data-toggle='tooltip' title='Eliminar campo'></i>" />
+         <asp:TemplateField>
+             <HeaderTemplate>
+                     <select id="DropDownListC"  onchange="">
+    <option value="0">10</option>
+    <option value="0">50</option>
+    <option value="0">100</option>
+    <option value="0">Todos</option>
+</select>
+             </HeaderTemplate>
+             <EditItemTemplate>
+                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="&lt;i class='fa fa-regular fa-check' data-toggle='tooltip' title='Actualizar'&gt;&lt;/i&gt;"></asp:LinkButton>
+                 &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="&lt;i class='fa fa-regular fa-ban' data-toggle='tooltip' title='Cancelar'&gt;&lt;/i&gt;"></asp:LinkButton>
+             </EditItemTemplate>
+             <ItemTemplate>
+                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="&lt;i class='fa fa-regular fa-edit' data-toggle='tooltip' title='Editar campo'&gt;&lt;/i&gt;"></asp:LinkButton>
+                 &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Delete" Text="&lt;i class='fa fa-regular fa-trash' data-toggle='tooltip' title='Eliminar campo'&gt;&lt;/i&gt;"></asp:LinkButton>
+             </ItemTemplate>
+         </asp:TemplateField>
+    
+    
+    
+    
+
     </Columns>
     <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
     <EditRowStyle BackColor="#999999" />

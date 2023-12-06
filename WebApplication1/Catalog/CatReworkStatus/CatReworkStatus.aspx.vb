@@ -19,22 +19,22 @@ Public Class Catalog_CatReworkStatus
         dgvStatusTable.DataBind()
     End Sub
 
-    Protected Sub CleanAndHideAdd()
-        lblMessage.Text = ""
-        addEstatus.Text = ""
-        addRetrabajo.Checked = False
-
-        If divAgregar.Visible Then
-            divAgregar.Visible = False
-            btnAddStatus.Text = "<i class='fa fa-regular fa-plus' data-toggle='tooltip' title='Nuevo campo'></i>"
-        Else
-            divAgregar.Visible = True
-            btnAddStatus.Text = "<i class='fa fa-regular fa-minus' data-toggle='tooltip' title='Nuevo campo'></i>"
-        End If
-    End Sub
 
     Protected Sub btnAddStatus_Click(sender As Object, e As EventArgs) Handles btnAddStatus.Click
-        CleanAndHideAdd()
+        Dim catReworkStatus As CatReworkStatus = New CatReworkStatus()
+        Dim dt As DataTable = catReworkStatus.SelectAll("", False, False)
+        Dim row As DataRow
+        row = dt.NewRow()
+        row("IdCatReworkStatus") = Guid.NewGuid
+        row("SAPStatus") = ""
+        row("IsRework") = True
+        row("IsActive") = True
+        dt.Rows.Add(row)
+        Dim dv As DataView = dt.AsDataView
+        dv.Sort = "SAPStatus" + " " + "ASC"
+        dgvStatusTable.DataSource = dv
+        dgvStatusTable.EditIndex = 0
+        dgvStatusTable.DataBind()
     End Sub
 
     Protected Sub dgvStatusTable_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles dgvStatusTable.RowEditing
@@ -59,14 +59,30 @@ Public Class Catalog_CatReworkStatus
                 Return
             End If
 
-            If (catReworkStatus.AlreadyExistSAPStatus(idStatus, strStatus)) Then
-                lblMessage.Text = "No es posble guardar los cambios debido a que ya existe un Estatus de SAP con el código ingresado: [" + strStatus + "]"
-            Else
-                catReworkStatus.Update(idStatus, strStatus, boolStatus, "Admin")
-                catReworkStatus = Nothing
+            Dim find As String = "IdCatReworkStatus ='" + idStatus.ToString + "'"
+            Dim temp As Integer = catReworkStatus.SelectAll("", False, False).Select(find).Count
+            If (temp = 0) Then
+                If (catReworkStatus.AlreadyExistSAPStatus(idStatus, strStatus)) Then
+                    lblMessage.Text = "No es posble guardar los cambios debido a que ya existe un Estatus de SAP con el código ingresado: [" + strStatus + "]"
+                Else
+                    catReworkStatus.Insert(strStatus, boolStatus, True, "Admin")
+                    MsgBox("Se agrego el registro con exito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Exito")
+                    catReworkStatus = Nothing
 
-                dgvStatusTable.EditIndex = -1
-                PopulateGrid("", False, False)
+                    dgvStatusTable.EditIndex = -1
+                    PopulateGrid("", False, False)
+                End If
+            Else
+                If (catReworkStatus.AlreadyExistSAPStatus(idStatus, strStatus)) Then
+                    lblMessage.Text = "No es posble guardar los cambios debido a que ya existe un Estatus de SAP con el código ingresado: [" + strStatus + "]"
+                Else
+                    catReworkStatus.Update(idStatus, strStatus, boolStatus, "Admin")
+                    MsgBox("Se actualizo el registro con exito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Exito")
+                    catReworkStatus = Nothing
+
+                    dgvStatusTable.EditIndex = -1
+                    PopulateGrid("", False, False)
+                End If
             End If
 
         Catch ex As Exception
@@ -100,7 +116,6 @@ Public Class Catalog_CatReworkStatus
                 catReworkStatus = Nothing
 
                 dgvStatusTable.EditIndex = -1
-                CleanAndHideAdd()
                 PopulateGrid("", False, False)
             End If
 

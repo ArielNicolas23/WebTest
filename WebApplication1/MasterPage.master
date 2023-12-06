@@ -27,6 +27,11 @@
             function win(){
                 window.opener.location.href="ewapp_cps.aspx";
                 self.close();
+
+            function win() {
+                window.opener.location.href = "ewapp_cps.aspx";
+                self.close();
+
             }
             function opennewsletter(){
                 emailwindow=dhtmlmodal.open('EmailBox', 'iframe', 'modalfiles/newsletter.aspx', 'Ingresar acceso autorizado de calidad', 'width=350px,height=200px,center=1,resize=0,scrolling=1')

@@ -1,4 +1,5 @@
 ﻿Imports System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder
+Imports System.Diagnostics.Eventing
 
 Public Class Catalog_CatWorkOrders
     Inherits System.Web.UI.Page
@@ -32,7 +33,21 @@ Public Class Catalog_CatWorkOrders
     End Sub
 
     Protected Sub btnAddWorkOrder_Click(sender As Object, e As EventArgs) Handles btnAddWorkOrder.Click
-        CleanAndHideAdd()
+        Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
+        Dim dt As DataTable = catReworkOrders.SelectAll("", "", False, False)
+        Dim row As DataRow
+        row = dt.NewRow()
+        row("IdCatReworkOrders") = Guid.NewGuid
+        row("WorkOrder") = ""
+        row("Area") = ""
+        row("IsRework") = True
+        row("CreatedOn") = ""
+        dt.Rows.Add(row)
+        Dim dv As DataView = dt.AsDataView
+        dv.Sort = "WorkOrder" + " " + "ASC"
+        dgvWorkOrders.EditIndex = 0
+        dgvWorkOrders.DataSource = dv
+        dgvWorkOrders.DataBind()
     End Sub
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
@@ -83,14 +98,30 @@ Public Class Catalog_CatWorkOrders
                 Return
             End If
 
-            If (catReworkOrders.AlreadyExistWorkOrder(idWo, strWo)) Then
-                lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Orden de Trabajo con el número ingresado: [" + strWo + "]"
-            Else
-                catReworkOrders.Update(idWo, strWo, strModulo, boolRework, "Admin")
-                catReworkOrders = Nothing
+            Dim find As String = "IdCatReworkOrders ='" + idWo.ToString + "'"
+            Dim temp As Integer = catReworkOrders.SelectAll("", "", False, False).Select(find).Count
+            If (temp = 0) Then
+                If (catReworkOrders.AlreadyExistWorkOrder(idWo, strWo)) Then
+                    lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Orden de Trabajo con el número ingresado: [" + strWo + "]"
+                Else
+                    catReworkOrders.Insert(strWo, strModulo, boolRework, True, "Admin")
+                    MsgBox("Se agrego el registro con exito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Exito")
+                    catReworkOrders = Nothing
 
-                dgvWorkOrders.EditIndex = -1
-                PopulateGrid("", "", False, False)
+                    dgvWorkOrders.EditIndex = -1
+                    PopulateGrid("", "", False, False)
+                End If
+            Else
+                If (catReworkOrders.AlreadyExistWorkOrder(idWo, strWo)) Then
+                    lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Orden de Trabajo con el número ingresado: [" + strWo + "]"
+                Else
+                    catReworkOrders.Update(idWo, strWo, strModulo, boolRework, "Admin")
+                    MsgBox("Se actualizo el registro con exito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Exito")
+                    catReworkOrders = Nothing
+
+                    dgvWorkOrders.EditIndex = -1
+                    PopulateGrid("", "", False, False)
+                End If
             End If
 
         Catch ex As FormatException
@@ -138,6 +169,7 @@ Public Class Catalog_CatWorkOrders
             lblMessage.Text = "Favor de escribir un valor numerico"
             Return
         End If
+
 
 
         If (catReworkOrders.AlreadyExistWorkOrder(Nothing, strWo)) Then
