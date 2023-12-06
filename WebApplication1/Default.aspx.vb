@@ -78,13 +78,17 @@ Public Class _Default
             PopulateGrid()
         End Sub
 
-        'Protected Sub Lnk_ewapp_menu_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Lnk_ewapp_menu.Click
-        '    LblMessage.Text = String.Empty
-        '    If m_Profile.IsAdministrator Or m_Profile.IsSupervisor Or m_Profile.IsStandardUser Then
-        '        Response.Redirect("./ewapp_stdPediatricsSubBom.aspx")
-        '    Else
-        '        LblMessage.Text = "Acceso negado al módulo solicitado."
-        '    End If
-        'End Sub
+    Protected Sub GridView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView1.SelectedIndexChanged
 
-    End Class
+    End Sub
+
+    'Protected Sub Lnk_ewapp_menu_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Lnk_ewapp_menu.Click
+    '    LblMessage.Text = String.Empty
+    '    If m_Profile.IsAdministrator Or m_Profile.IsSupervisor Or m_Profile.IsStandardUser Then
+    '        Response.Redirect("./ewapp_stdPediatricsSubBom.aspx")
+    '    Else
+    '        LblMessage.Text = "Acceso negado al módulo solicitado."
+    '    End If
+    'End Sub
+
+End Class

@@ -133,4 +133,12 @@ Public Class Catalog_CatReworkStatus
             e.Cancel = True
         End If
     End Sub
+
+    Protected Sub addEstatus_TextChanged(sender As Object, e As EventArgs) Handles addEstatus.TextChanged
+
+    End Sub
+
+    Protected Sub dgvStatusTable_SelectedIndexChanged(sender As Object, e As EventArgs) Handles dgvStatusTable.SelectedIndexChanged
+
+    End Sub
 End Class
