@@ -19,7 +19,11 @@ Public Class Catalog_CatReworkStatus
         dgvStatusTable.DataBind()
     End Sub
 
-    Protected Sub btnAddStatus_Click(sender As Object, e As EventArgs) Handles btnAddStatus.Click
+    Protected Sub CleanAndHideAdd()
+        lblMessage.Text = ""
+        addEstatus.Text = ""
+        addRetrabajo.Checked = False
+
         If divAgregar.Visible Then
             divAgregar.Visible = False
             btnAddStatus.Text = "<i class='fa fa-regular fa-plus' data-toggle='tooltip' title='Nuevo campo'></i>"
@@ -27,6 +31,10 @@ Public Class Catalog_CatReworkStatus
             divAgregar.Visible = True
             btnAddStatus.Text = "<i class='fa fa-regular fa-minus' data-toggle='tooltip' title='Nuevo campo'></i>"
         End If
+    End Sub
+
+    Protected Sub btnAddStatus_Click(sender As Object, e As EventArgs) Handles btnAddStatus.Click
+        CleanAndHideAdd()
     End Sub
 
     Protected Sub dgvStatusTable_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles dgvStatusTable.RowEditing
@@ -73,14 +81,33 @@ Public Class Catalog_CatReworkStatus
     End Sub
 
     Protected Sub AgregarEstatus_Click(sender As Object, e As EventArgs) Handles AgregarEstatus.Click
-        Dim strStatus As String = addEstatus.Text.Trim.ToUpper()
-        Dim boolStatus As Boolean = addRetrabajo.Checked
+        Try
+            lblMessage.Text = ""
 
-        Dim catReworkStatus As CatReworkStatus = New CatReworkStatus()
-        catReworkStatus.Insert(strStatus, boolStatus, True, "Admin")
-        catReworkStatus = Nothing
+            Dim catReworkStatus As CatReworkStatus = New CatReworkStatus()
+            Dim strStatus As String = addEstatus.Text.Trim.ToUpper()
+            Dim boolStatus As Boolean = addRetrabajo.Checked
 
-        PopulateGrid("", False, False)
+            If (strStatus = "") Then
+                lblMessage.Text = "Favor de escribir un Código de Estatus"
+                Return
+            End If
+
+            If (catReworkStatus.AlreadyExistSAPStatus(Nothing, strStatus)) Then
+                lblMessage.Text = "No es posble guardar los cambios debido a que ya existe un Estatus de SAP con el código ingresado: [" + strStatus + "]"
+            Else
+                catReworkStatus.Insert(strStatus, boolStatus, True, "Admin")
+                catReworkStatus = Nothing
+
+                dgvStatusTable.EditIndex = -1
+                CleanAndHideAdd()
+                PopulateGrid("", False, False)
+            End If
+
+        Catch ex As Exception
+            lblMessage.Text = "Ocurrió un error al intentar guardar los datos: " + ex.Message
+
+        End Try
     End Sub
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click

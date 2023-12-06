@@ -17,7 +17,11 @@ Public Class Catalog_CatWorkOrders
         dgvWorkOrders.DataBind()
     End Sub
 
-    Protected Sub btnAddWorkOrder_Click(sender As Object, e As EventArgs) Handles btnAddWorkOrder.Click
+    Protected Sub CleanAndHideAdd()
+        lblMessage.Text = ""
+        addOrden.Text = ""
+        addArea.SelectedIndex = 0
+
         If divAgregar.Visible Then
             divAgregar.Visible = False
             btnAddWorkOrder.Text = "<i class='fa fa-regular fa-plus' data-toggle='tooltip' title='Nuevo campo'></i>"
@@ -25,6 +29,10 @@ Public Class Catalog_CatWorkOrders
             divAgregar.Visible = True
             btnAddWorkOrder.Text = "<i class='fa fa-regular fa-minus' data-toggle='tooltip' title='Nuevo campo'></i>"
         End If
+    End Sub
+
+    Protected Sub btnAddWorkOrder_Click(sender As Object, e As EventArgs) Handles btnAddWorkOrder.Click
+        CleanAndHideAdd()
     End Sub
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
@@ -132,13 +140,14 @@ Public Class Catalog_CatWorkOrders
         End If
 
 
-        If (catReworkOrders.AlreadyExistWorkOrder(Guid.NewGuid, strWo)) Then
+        If (catReworkOrders.AlreadyExistWorkOrder(Nothing, strWo)) Then
             lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Orden de Trabajo con el número ingresado: [" + strWo + "]"
         Else
             catReworkOrders.Insert(strWo, strModulo, False, True, "Admin")
             catReworkOrders = Nothing
 
             dgvWorkOrders.EditIndex = -1
+            CleanAndHideAdd()
             PopulateGrid("", "", False, False)
         End If
 

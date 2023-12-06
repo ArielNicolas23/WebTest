@@ -15,7 +15,11 @@ Public Class Catalog_CatUnits
         dgvUnits.DataBind()
     End Sub
 
-    Protected Sub btnAddUnit_Click(sender As Object, e As EventArgs) Handles btnAddUnit.Click
+    Protected Sub CleanAndHideAdd()
+        addUnidad.Text = ""
+        addValor.Text = ""
+        lblMessage.Text = ""
+
         If divAgregar.Visible Then
             divAgregar.Visible = False
             btnAddUnit.Text = "<i class='fa fa-regular fa-plus' data-toggle='tooltip' title='Nuevo campo'></i>"
@@ -23,6 +27,10 @@ Public Class Catalog_CatUnits
             divAgregar.Visible = True
             btnAddUnit.Text = "<i class='fa fa-regular fa-minus' data-toggle='tooltip' title='Nuevo campo'></i>"
         End If
+    End Sub
+
+    Protected Sub btnAddUnit_Click(sender As Object, e As EventArgs) Handles btnAddUnit.Click
+        CleanAndHideAdd()
     End Sub
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
@@ -121,13 +129,14 @@ Public Class Catalog_CatUnits
                 Return
             End If
 
-            If (catUnits.AlreadyExistUnit(Guid.NewGuid, strUnit)) Then
+            If (catUnits.AlreadyExistUnit(Nothing, strUnit)) Then
                 lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Unidad con el nombre ingresado: [" + strUnit + "]"
             Else
                 catUnits.Insert(strUnit, strUnitValue, True, "Admin")
                 catUnits = Nothing
 
                 dgvUnits.EditIndex = -1
+                CleanAndHideAdd()
                 PopulateGrid("", False)
             End If
 
