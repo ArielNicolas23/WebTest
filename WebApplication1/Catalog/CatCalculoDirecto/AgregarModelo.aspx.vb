@@ -7,6 +7,11 @@ Public Class WebForm1
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             Session("DataTable") = Initdt()
+            Dim catUnits As CatUnits = New CatUnits()
+            ddlUnidad.DataSource = CatUnits.SelectAll("", False).AsDataView
+            ddlUnidad.DataTextField = "Unit"
+            ddlUnidad.DataValueField = "IdUnit"
+            ddlUnidad.DataBind()
         End If
     End Sub
 
@@ -16,13 +21,6 @@ Public Class WebForm1
         data.Columns.Add("VidaUtil", GetType(String))
         data.Columns.Add("Unidad", GetType(String))
         data.Columns.Add("Usuario", GetType(String))
-
-        Dim catUnits As CatUnits = New CatUnits()
-        ddlUnidad.DataSource = catUnits.SelectAll("", False).AsDataView
-        ddlUnidad.DataTextField = "Unit"
-        ddlUnidad.DataValueField = "IdUnit"
-        ddlUnidad.DataBind()
-
         Return data
     End Function
 
