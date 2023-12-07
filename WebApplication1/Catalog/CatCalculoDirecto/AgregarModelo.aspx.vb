@@ -73,4 +73,10 @@ Public Class WebForm1
     Protected Sub cmdAcceptChange_Click(sender As Object, e As EventArgs) Handles cmdAcceptChange.Click
 
     End Sub
+
+    Protected Sub txtApprover_TextChanged(sender As Object, e As EventArgs) Handles txtApprover.TextChanged
+
+
+    End Sub
+
 End Class

@@ -86,7 +86,7 @@ Public Class ED_ModelsChanges
         End Using
     End Sub
 
-    Public Function AlreadyExistUnit(ByVal IdModelsChanges As Guid, ByVal Model As String) As Boolean
+    Public Function AlreadyExistModel(ByVal IdModelsChanges As Guid, ByVal Model As String) As Boolean
         Dim result As Boolean
 
         Using conn As New SqlConnection(Me.dbCon)
