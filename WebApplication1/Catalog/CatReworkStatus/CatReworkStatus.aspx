@@ -17,11 +17,11 @@
         <td style="height: 17px; width: 128px; text-align: right">
             <asp:CheckBox ID="chkRework" runat="server" Text="Es Retrabajo" />
         </td>
-        <td style="height: 17px; width: 64px">
-            <asp:Button ID="btnSearch" runat="server" Text="Buscar" />
+        <td style="height: 17px; width: 64px" align="center">
+            <asp:LinkButton style="color:#333333;" ID="lBtnSearch"  runat="server" Text="<i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i>" />
         </td>
-        <td style="height: 17px; width: 64px">
-            <asp:Button ID="btnReset" runat="server" Text="Reiniciar" />
+        <td style="height: 17px; width: 64px" align="left">
+            <asp:LinkButton style="color:#333333;" ID="lBtnReset" runat="server" Text="<i class='fa fa-regular fa-rotate-right' data-toggle='tooltip' title='Reiniciar'></i>" />
         </td>
     </tr>
 </table>
@@ -41,37 +41,44 @@
     <table>
     <tr>
         <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Label ID="Label1" runat="server" Text="Status de SAP:"></asp:Label>
-        </td>
+            &nbsp;</td>
         <td style="height: 17px; width: 64px">
-            <asp:TextBox ID="addEstatus" runat="server"></asp:TextBox>
-        </td>
+            &nbsp;</td>
         <td style="height: 17px; width: 128px; text-align: right">
-            <asp:CheckBox ID="addRetrabajo" runat="server" Text="Es Retrabajo" />
-        </td>
+            &nbsp;</td>
         <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Button ID="AgregarEstatus" runat="server"  Text="Agregar campo" ></asp:Button>          
-        </td>
+            &nbsp;</td>
     </tr>
 </table>
 </div>
-<div align="left" style="padding: 4px">
-    <asp:DropDownList ID="DropDownListP" runat="server" AutoPostBack="True">
+<asp:GridView ID="dgvStatusTable" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames = "IdCatReworkStatus" Width="680px" AllowPaging="True">
+    <Columns>
+               <asp:BoundField DataField="IdCatReworkStatus" HeaderText="IdUnit" ReadOnly="True" visible="false">
+   
+   <HeaderStyle HorizontalAlign="Left" />
+</asp:BoundField>
+        <asp:BoundField DataField="SAPStatus" HeaderText="SAP Status" SortExpression="sapStatus" ><ItemStyle Width="230px" /></asp:BoundField>
+        <asp:CheckBoxField DataField="IsRework" HeaderText="Es Retrabajo" > <ItemStyle Width="230px" /></asp:CheckBoxField >
+               <asp:TemplateField ShowHeader="True">
+                                <HeaderTemplate >
+                 <asp:DropDownList ID="DropDownListc" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownListc_SelectedIndexChanged">
+                     <asp:ListItem>----</asp:ListItem>
     <asp:ListItem>10</asp:ListItem>
     <asp:ListItem>50</asp:ListItem>
     <asp:ListItem>100</asp:ListItem>
     <asp:ListItem>Todos</asp:ListItem>
 </asp:DropDownList>
-</div>
-<asp:GridView ID="dgvStatusTable" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames = "IdCatReworkStatus" Width="480px" AllowPaging="True">
-    <Columns>
-               <asp:BoundField DataField="IdCatReworkStatus" HeaderText="IdUnit" ReadOnly="True" visible="false">
-   <ItemStyle Width="100px" />
-   <HeaderStyle HorizontalAlign="Left" />
-</asp:BoundField>
-        <asp:BoundField DataField="SAPStatus" HeaderText="SAP Status" SortExpression="sapStatus" />
-        <asp:CheckBoxField DataField="IsRework" HeaderText="Es Retrabajo" />
-               <asp:CommandField ShowDeleteButton="True" ButtonType="Link" ShowEditButton="True" CancelText="<i class='fa fa-regular fa-ban' data-toggle='tooltip' title='Cancelar'></i>" UpdateText="<i class='fa fa-regular fa-check' data-toggle='tooltip' title='Actualizar'></i>" EditText="<i class='fa fa-regular fa-edit' data-toggle='tooltip' title='Editar campo'></i>" DeleteText="<i class='fa fa-regular fa-trash' data-toggle='tooltip' title='Eliminar campo'></i>" />
+             </HeaderTemplate>
+                   <EditItemTemplate >
+
+                       <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Width="230px" Text="&lt;i class='fa fa-regular fa-check' style='color:#333333;' data-toggle='tooltip' title='Actualizar'&gt;&lt;/i&gt;"></asp:LinkButton>
+                       &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="&lt;i class='fa fa-regular fa-ban' style='color:#333333;' data-toggle='tooltip' title='Cancelar'&gt;&lt;/i&gt;"></asp:LinkButton>
+                   </EditItemTemplate>
+                   <ItemTemplate>
+                       <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="&lt;i class='fa fa-regular fa-edit' style='color:#333333;' data-toggle='tooltip' title='Editar campo'&gt;&lt;/i&gt;"></asp:LinkButton>
+                       &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Delete" Text="&lt;i class='fa fa-regular fa-trash' style='color:#333333;' data-toggle='tooltip' title='Eliminar campo'&gt;&lt;/i&gt;"></asp:LinkButton>
+                   </ItemTemplate>
+               </asp:TemplateField>
     </Columns>
     <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
     <EditRowStyle BackColor="#999999" />

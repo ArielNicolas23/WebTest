@@ -28,11 +28,11 @@
         <td style="height: 17px; width: 196px; text-align: right">
             <asp:CheckBox ID="chkRework" runat="server" Text="Orden Retrabajada" />
         </td>
-        <td style="height: 17px; width: 64px">
-            <asp:Button ID="btnSearch" runat="server" Text="Buscar" />
+        <td style="height: 17px; width: 64px" align="center">
+            <asp:LinkButton style="color:#333333;" ID="lBtnSearch"  runat="server" Text="<i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i>" />
         </td>
-        <td style="height: 17px; width: 64px">
-            <asp:Button ID="btnReset" runat="server" Text="Reiniciar" />
+        <td style="height: 17px; width: 64px" align="left">
+            <asp:LinkButton style="color:#333333;" ID="lBtnReset" runat="server" Text="<i class='fa fa-regular fa-rotate-right' data-toggle='tooltip' title='Reiniciar'></i>" />
         </td>
     </tr>
 </table>
@@ -49,41 +49,8 @@
     <asp:LinkButton style="color:#333333;" ID="btnAddWorkOrder" runat="server" Text="<i class='fa fa-regular fa-plus' data-toggle='tooltip' title='Nuevo campo'></i>" />
 </div>
 
-            <div align="left" style="padding: 4px" id="divAgregar" runat="server" visible="false">
-    <table>
-    <tr>
-        <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Label ID="Label1" runat="server" Text="Orden:"></asp:Label>
-        </td>
-        <td style="height: 17px; width: 64px">
-            <asp:TextBox ID="addOrden" runat="server"></asp:TextBox>
-        </td>
-        <td style="height: 17px; width: 128px; text-align: right">
-    <asp:Label ID="Label2" runat="server" Text="Módulo:"></asp:Label>
-</td>
-<td style="height: 17px; width: 64px">
-    <asp:DropDownList  ID="addArea" runat="server" Width="128px" Enabled="true" >
- <asp:ListItem>Módulo 1</asp:ListItem>
- <asp:ListItem>Módulo 2</asp:ListItem>
- <asp:ListItem>Módulo 3</asp:ListItem>
- <asp:ListItem>Módulo 4</asp:ListItem>
- </asp:DropDownList>
-</td>
-        <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Button ID="AgregarOrden" runat="server"  Text="Agregar campo" ></asp:Button>               
-        </td>
-    </tr>
-</table>
-</div>
+           
 
-<div align="left" style="padding: 4px">
-    <asp:DropDownList ID="DropDownListP" runat="server" AutoPostBack="True">
-    <asp:ListItem>10</asp:ListItem>
-    <asp:ListItem>50</asp:ListItem>
-    <asp:ListItem>100</asp:ListItem>
-    <asp:ListItem>Todos</asp:ListItem>
-</asp:DropDownList>
-</div>
 <asp:GridView ID="dgvWorkOrders" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="IdCatReworkOrders" Width="680px" AllowPaging="True">
     <Columns>
                        <asp:BoundField DataField="IdCatReworkOrders" HeaderText="IdCatReworkOrders" ReadOnly="True" visible="false">
@@ -106,7 +73,25 @@
                        </asp:TemplateField>
         <asp:CheckBoxField DataField="IsRework" HeaderText="Fue Retrabajada" />
         <asp:BoundField DataField="CreatedOn" HeaderText="Cargada el" ReadOnly="True" SortExpression="createdOn" />
-                       <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" CancelText="<i class='fa fa-regular fa-ban' data-toggle='tooltip' title='Cancelar'></i>" UpdateText="<i class='fa fa-regular fa-check' data-toggle='tooltip' title='Actualizar'></i>" EditText="<i class='fa fa-regular fa-edit' data-toggle='tooltip' title='Editar campo'></i>" DeleteText="<i class='fa fa-regular fa-trash' data-toggle='tooltip' title='Eliminar campo'></i>" />
+                       <asp:TemplateField ShowHeader="True">
+                                                           <HeaderTemplate >
+                 <asp:DropDownList ID="DropDownListc" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownListc_SelectedIndexChanged">
+                     <asp:ListItem>----</asp:ListItem>
+    <asp:ListItem>10</asp:ListItem>
+    <asp:ListItem>50</asp:ListItem>
+    <asp:ListItem>100</asp:ListItem>
+    <asp:ListItem>Todos</asp:ListItem>
+</asp:DropDownList>
+                                                               </HeaderTemplate >
+                           <EditItemTemplate>
+                               <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="&lt;i class='fa fa-regular fa-check' style='color:#333333;' data-toggle='tooltip' title='Actualizar'&gt;&lt;/i&gt;"></asp:LinkButton>
+                               &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="&lt;i class='fa fa-regular fa-ban' style='color:#333333;' data-toggle='tooltip' title='Cancelar'&gt;&lt;/i&gt;"></asp:LinkButton>
+                           </EditItemTemplate>
+                           <ItemTemplate>
+                               <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="&lt;i class='fa fa-regular fa-edit' style='color:#333333;' data-toggle='tooltip' title='Editar campo'&gt;&lt;/i&gt;"></asp:LinkButton>
+                               &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Delete" Text="&lt;i class='fa fa-regular fa-trash' style='color:#333333;' data-toggle='tooltip' title='Eliminar campo'&gt;&lt;/i&gt;"></asp:LinkButton>
+                           </ItemTemplate>
+                       </asp:TemplateField>
     </Columns>
     <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
     <EditRowStyle BackColor="#999999" />

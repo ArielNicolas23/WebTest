@@ -14,11 +14,11 @@
         <td style="height: 17px; width: 64px">
             <asp:TextBox ID="txtUnit" runat="server"></asp:TextBox>
         </td>
-        <td style="height: 17px; width: 64px">
-            <asp:Button ID="btnSearch" runat="server" Text="Buscar" />
+        <td style="height: 17px; width: 64px" align="center">
+            <asp:LinkButton style="color:#333333;" ID="lBtnSearch"  runat="server" Text="<i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i>" />
         </td>
-        <td style="height: 17px; width: 64px">
-            <asp:Button ID="btnReset" runat="server" Text="Reiniciar" />
+        <td style="height: 17px; width: 64px" align="left">
+            <asp:LinkButton style="color:#333333;" ID="lBtnReset" runat="server" Text="<i class='fa fa-regular fa-rotate-right' data-toggle='tooltip' title='Reiniciar'></i>" />
         </td>
     </tr>
 </table>
@@ -39,61 +39,49 @@
     <table>
     <tr>
         <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Label ID="Label1" runat="server" Text="Unidad:"></asp:Label>
-        </td>
+            &nbsp;</td>
         <td style="height: 17px; width: 64px">
-            <asp:TextBox ID="addUnidad" runat="server"></asp:TextBox>
-        </td>
+            &nbsp;</td>
         <td style="height: 17px; width: 128px; text-align: right">
-    <asp:Label ID="Label2" runat="server" Text="Valor:"></asp:Label>
-</td>
+            &nbsp;</td>
 <td style="height: 17px; width: 64px">
-    <asp:TextBox ID="addValor" runat="server"></asp:TextBox>
-</td>
+    &nbsp;</td>
         <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Button ID="AgregarUnidad" runat="server"  Text="Agregar campo" ></asp:Button>               
-        </td>
+            &nbsp;</td>
     </tr>
 </table>
 </div>
-    <div align="left" style="padding: 4px">
-                         <asp:DropDownList ID="DropDownListP" runat="server" AutoPostBack="True" Enabled="True" Visible="False">
+<asp:GridView ID="dgvUnits" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames = "IdUnit" Width="680px" AllowPaging="True">
+    <Columns>
+         <asp:BoundField DataField="IdUnit" HeaderText="IdUnidad" ReadOnly="True" visible="false">
+     
+     <HeaderStyle HorizontalAlign="Center" />
+  </asp:BoundField>
+ <asp:BoundField DataField="Unit" HeaderText="Unidad">
+     <ItemStyle Width="230px" />
+     <HeaderStyle HorizontalAlign="Center" />
+ </asp:BoundField>
+ <asp:BoundField DataField="UnitValue" HeaderText="Valor" ReadOnly="false">
+     <ItemStyle Width="230px" />
+     <HeaderStyle HorizontalAlign="Center" />
+ </asp:BoundField>
+         <asp:TemplateField>
+             <HeaderTemplate >
+                 <asp:DropDownList ID="DropDownListc" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownListc_SelectedIndexChanged">
+                     <asp:ListItem>----</asp:ListItem>
     <asp:ListItem>10</asp:ListItem>
     <asp:ListItem>50</asp:ListItem>
     <asp:ListItem>100</asp:ListItem>
     <asp:ListItem>Todos</asp:ListItem>
 </asp:DropDownList>
-</div>
-<asp:GridView ID="dgvUnits" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames = "IdUnit" Width="480px">
-    <Columns>
-         <asp:BoundField DataField="IdUnit" HeaderText="IdUnidad" ReadOnly="True" visible="false">
-     <ItemStyle Width="100px" />
-     <HeaderStyle HorizontalAlign="Center" />
-  </asp:BoundField>
- <asp:BoundField DataField="Unit" HeaderText="Unidad">
-     <ItemStyle Width="200px" />
-     <HeaderStyle HorizontalAlign="Center" />
- </asp:BoundField>
- <asp:BoundField DataField="UnitValue" HeaderText="Valor" ReadOnly="false">
-     <ItemStyle Width="100px" />
-     <HeaderStyle HorizontalAlign="Center" />
- </asp:BoundField>
-         <asp:TemplateField>
-             <HeaderTemplate>
-                     <select id="DropDownListC"  onchange="">
-    <option value="0">10</option>
-    <option value="0">50</option>
-    <option value="0">100</option>
-    <option value="0">Todos</option>
-</select>
              </HeaderTemplate>
              <EditItemTemplate>
-                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="&lt;i class='fa fa-regular fa-check' data-toggle='tooltip' title='Actualizar'&gt;&lt;/i&gt;"></asp:LinkButton>
-                 &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="&lt;i class='fa fa-regular fa-ban' data-toggle='tooltip' title='Cancelar'&gt;&lt;/i&gt;"></asp:LinkButton>
+                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="&lt;i class='fa fa-regular fa-check' style='color:#333333;' data-toggle='tooltip' title='Actualizar'&gt;&lt;/i&gt;"></asp:LinkButton>
+                 &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="&lt;i class='fa fa-regular fa-ban' style='color:#333333;' data-toggle='tooltip' title='Cancelar'&gt;&lt;/i&gt;"></asp:LinkButton>
              </EditItemTemplate>
              <ItemTemplate>
-                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="&lt;i class='fa fa-regular fa-edit' data-toggle='tooltip' title='Editar campo'&gt;&lt;/i&gt;"></asp:LinkButton>
-                 &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Delete" Text="&lt;i class='fa fa-regular fa-trash' data-toggle='tooltip' title='Eliminar campo'&gt;&lt;/i&gt;"></asp:LinkButton>
+                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="&lt;i class='fa fa-regular fa-edit' style='color:#333333;' data-toggle='tooltip' title='Editar campo'&gt;&lt;/i&gt;"></asp:LinkButton>
+                 &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Delete" Text="&lt;i class='fa fa-regular fa-trash' style='color:#333333;' data-toggle='tooltip' title='Eliminar campo'&gt;&lt;/i&gt;"></asp:LinkButton>
              </ItemTemplate>
          </asp:TemplateField>
     

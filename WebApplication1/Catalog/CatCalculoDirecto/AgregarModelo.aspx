@@ -23,7 +23,7 @@
             <td style="height: 17px; width: 128px; text-align: right">
         <asp:Label ID="Label3" runat="server" Text="Unidad:"></asp:Label>
                  </td> <td style="height: 17px; width: 128px; text-align: right">
-        <asp:DropDownList ID="ddlUnidad" runat="server" DataSourceID="SqlDataSource1" DataTextField="unit" DataValueField="unit">
+        <asp:DropDownList ID="ddlUnidad" runat="server" AutoPostBack="True">
         </asp:DropDownList>
                 </td>
 
@@ -55,10 +55,10 @@
             
         </table>
         <!-- En la base de datos no habia nada de modelo asi que pss no supe como llenar eso en la tabla pero pos ahi esta todo culero xd-->
-        <asp:GridView runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource2" CellPadding="4" ForeColor="#333333" GridLines="None" Width="680px" AllowPaging="True" ID="gvModelos" OnRowDeleting="Unnamed1_RowDeleting">
+        <asp:GridView runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" Width="680px" AllowPaging="True" ID="gvModelos">
             <Columns>
                 <asp:BoundField DataField="Modelo" HeaderText="Modelo" />
-                <asp:BoundField DataField="Vida util" HeaderText="Vida util" SortExpression="Vida util"  />
+                <asp:BoundField DataField="VidaUtil" HeaderText="Vida util" SortExpression="Vida util"  />
                 <asp:BoundField DataField="Unidad" HeaderText="Unidad" SortExpression="Unidad"  />
                 <asp:BoundField DataField="Usuario" HeaderText="Usuario" SortExpression="Usuario" />
                 <asp:CommandField HeaderText="Accion" ShowDeleteButton="True" />

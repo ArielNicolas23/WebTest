@@ -95,73 +95,12 @@ Public Class Catalog_CatReworkStatus
         dgvStatusTable.EditIndex = -1
         PopulateGrid("", False, False)
     End Sub
-
-    Protected Sub AgregarEstatus_Click(sender As Object, e As EventArgs) Handles AgregarEstatus.Click
-        Try
-            lblMessage.Text = ""
-
-            Dim catReworkStatus As CatReworkStatus = New CatReworkStatus()
-            Dim strStatus As String = addEstatus.Text.Trim.ToUpper()
-            Dim boolStatus As Boolean = addRetrabajo.Checked
-
-            If (strStatus = "") Then
-                lblMessage.Text = "Favor de escribir un Código de Estatus"
-                Return
-            End If
-
-            If (catReworkStatus.AlreadyExistSAPStatus(Nothing, strStatus)) Then
-                lblMessage.Text = "No es posble guardar los cambios debido a que ya existe un Estatus de SAP con el código ingresado: [" + strStatus + "]"
-            Else
-                catReworkStatus.Insert(strStatus, boolStatus, True, "Admin")
-                catReworkStatus = Nothing
-
-                dgvStatusTable.EditIndex = -1
-                PopulateGrid("", False, False)
-            End If
-
-        Catch ex As Exception
-            lblMessage.Text = "Ocurrió un error al intentar guardar los datos: " + ex.Message
-
-        End Try
-    End Sub
-
-    Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-        Dim strStatus As String = txtStatus.Text.Trim.ToUpper()
-        Dim boolStatus As Boolean = chkRework.Checked
-
-        PopulateGrid(strStatus, boolStatus, True)
-    End Sub
-
-    Protected Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
-        txtStatus.Text = ""
-        chkRework.Checked = False
-
-        PopulateGrid("", False, False)
-    End Sub
     Protected Sub dgvStatusTable_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles dgvStatusTable.PageIndexChanging
         dgvStatusTable.PageIndex = e.NewPageIndex
 
         PopulateGrid("", False, False)
     End Sub
 
-    Protected Sub DropDownListP_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DropDownListP.SelectedIndexChanged
-        dgvStatusTable.AllowPaging = True
-        Select Case DropDownListP.SelectedIndex
-            Case 0
-                dgvStatusTable.PageSize = 10
-                PopulateGrid("", False, False)
-            Case 1
-                dgvStatusTable.PageSize = 50
-                PopulateGrid("", False, False)
-            Case 2
-                dgvStatusTable.PageSize = 100
-                PopulateGrid("", False, False)
-            Case 3
-                dgvStatusTable.AllowPaging = False
-                PopulateGrid("", False, False)
-
-        End Select
-    End Sub
 
     Protected Sub dgvStatusTable_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles dgvStatusTable.RowDeleting
         Dim confirmed As Integer = MsgBox("Se eliminará el registro seleccionado. ¿Desea proceder con el borrado?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Confirmar Borrado")
@@ -176,11 +115,41 @@ Public Class Catalog_CatReworkStatus
         End If
     End Sub
 
-    Protected Sub addEstatus_TextChanged(sender As Object, e As EventArgs) Handles addEstatus.TextChanged
+    Protected Sub dgvStatusTable_SelectedIndexChanged(sender As Object, e As EventArgs) Handles dgvStatusTable.SelectedIndexChanged
 
     End Sub
 
-    Protected Sub dgvStatusTable_SelectedIndexChanged(sender As Object, e As EventArgs) Handles dgvStatusTable.SelectedIndexChanged
+    Protected Sub lBtnReset_Click(sender As Object, e As EventArgs) Handles lBtnReset.Click
+        txtStatus.Text = ""
+        chkRework.Checked = False
 
+        PopulateGrid("", False, False)
+    End Sub
+
+    Protected Sub lBtnSearch_Click(sender As Object, e As EventArgs) Handles lBtnSearch.Click
+        Dim strStatus As String = txtStatus.Text.Trim.ToUpper()
+        Dim boolStatus As Boolean = chkRework.Checked
+
+        PopulateGrid(strStatus, boolStatus, True)
+    End Sub
+
+    Protected Sub DropDownListc_SelectedIndexChanged(sender As Object, e As EventArgs)
+        dgvStatusTable.AllowPaging = True
+        Dim x As DropDownList = sender
+        Select Case x.SelectedIndex
+            Case 1
+                dgvStatusTable.PageSize = 10
+                PopulateGrid("", False, False)
+            Case 2
+                dgvStatusTable.PageSize = 50
+                PopulateGrid("", False, False)
+            Case 3
+                dgvStatusTable.PageSize = 100
+                PopulateGrid("", False, False)
+            Case 4
+                dgvStatusTable.AllowPaging = False
+                PopulateGrid("", False, False)
+        End Select
+        dgvStatusTable.EditIndex = -1
     End Sub
 End Class

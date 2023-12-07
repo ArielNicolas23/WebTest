@@ -1,5 +1,6 @@
 ﻿Imports System.Diagnostics.Eventing
 Imports Microsoft.Ajax.Utilities
+Imports Newtonsoft.Json.Linq
 
 Public Class Catalog_CatUnits
     Inherits System.Web.UI.Page
@@ -14,21 +15,9 @@ Public Class Catalog_CatUnits
         Dim catUnits As CatUnits = New CatUnits()
         dgvUnits.DataSource = catUnits.SelectAll(unit, isSearch)
         dgvUnits.DataBind()
+
     End Sub
 
-    Protected Sub CleanAndHideAdd()
-        addUnidad.Text = ""
-        addValor.Text = ""
-        lblMessage.Text = ""
-
-        If divAgregar.Visible Then
-            divAgregar.Visible = False
-            btnAddUnit.Text = "<i class='fa fa-regular fa-plus' data-toggle='tooltip' title='Nuevo campo'></i>"
-        Else
-            divAgregar.Visible = True
-            btnAddUnit.Text = "<i class='fa fa-regular fa-minus' data-toggle='tooltip' title='Nuevo campo'></i>"
-        End If
-    End Sub
 
     Protected Sub btnAddUnit_Click(sender As Object, e As EventArgs) Handles btnAddUnit.Click
         Dim catUnits As CatUnits = New CatUnits()
@@ -45,18 +34,6 @@ Public Class Catalog_CatUnits
         dgvUnits.EditIndex = 0
         dgvUnits.DataSource = dv
         dgvUnits.DataBind()
-    End Sub
-
-    Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-        Dim strUnit As String = txtUnit.Text.Trim.ToUpper()
-
-        PopulateGrid(strUnit, True)
-    End Sub
-
-    Protected Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
-        txtUnit.Text = ""
-
-        PopulateGrid("", False)
     End Sub
 
     Protected Sub dgvUnits_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles dgvUnits.RowUpdating
@@ -142,25 +119,6 @@ Public Class Catalog_CatUnits
         PopulateGrid("", False)
     End Sub
 
-    Protected Sub DropDownListP_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DropDownListP.SelectedIndexChanged
-        dgvUnits.AllowPaging = True
-        Select Case DropDownListP.SelectedIndex
-            Case 0
-                dgvUnits.PageSize = 10
-                PopulateGrid("", False)
-            Case 1
-                dgvUnits.PageSize = 50
-                PopulateGrid("", False)
-            Case 2
-                dgvUnits.PageSize = 100
-                PopulateGrid("", False)
-            Case 3
-                dgvUnits.AllowPaging = False
-                PopulateGrid("", False)
-
-        End Select
-    End Sub
-
     Protected Sub dgvUnits_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles dgvUnits.RowDeleting
         Dim confirmed As Integer = MsgBox("Se eliminará el registro seleccionado. ¿Desea proceder con el borrado?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Confirmar Borrado")
 
@@ -178,4 +136,37 @@ Public Class Catalog_CatUnits
     Protected Sub dgvUnits_Sorting(sender As Object, e As GridViewSortEventArgs) Handles dgvUnits.Sorting
 
     End Sub
+
+    Protected Sub lBtnSearch_Click(sender As Object, e As EventArgs) Handles lBtnSearch.Click
+        Dim strUnit As String = txtUnit.Text.Trim.ToUpper()
+
+        PopulateGrid(strUnit, True)
+    End Sub
+
+    Protected Sub lBtnReset_Click(sender As Object, e As EventArgs) Handles lBtnReset.Click
+        txtUnit.Text = ""
+
+        PopulateGrid("", False)
+    End Sub
+
+    Protected Sub DropDownListc_SelectedIndexChanged(sender As Object, e As EventArgs)
+        dgvUnits.AllowPaging = True
+        Dim x As DropDownList = sender
+        Select Case x.SelectedIndex
+            Case 1
+                dgvUnits.PageSize = 10
+                PopulateGrid("", False)
+            Case 2
+                dgvUnits.PageSize = 50
+                PopulateGrid("", False)
+            Case 3
+                dgvUnits.PageSize = 100
+                PopulateGrid("", False)
+            Case 4
+                dgvUnits.AllowPaging = False
+                PopulateGrid("", False)
+        End Select
+        dgvUnits.EditIndex = -1
+    End Sub
+
 End Class

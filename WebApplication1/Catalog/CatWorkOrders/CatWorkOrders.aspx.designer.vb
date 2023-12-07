@@ -68,22 +68,22 @@ Partial Public Class Catalog_CatWorkOrders
     Protected WithEvents chkRework As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''Control btnSearch.
+    '''Control lBtnSearch.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lBtnSearch As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
-    '''Control btnReset.
+    '''Control lBtnReset.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents btnReset As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lBtnReset As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''Control lblMessage.
@@ -102,69 +102,6 @@ Partial Public Class Catalog_CatWorkOrders
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents btnAddWorkOrder As Global.System.Web.UI.WebControls.LinkButton
-
-    '''<summary>
-    '''Control divAgregar.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents divAgregar As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
-    '''<summary>
-    '''Control Label1.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control addOrden.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents addOrden As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''Control Label2.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents Label2 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Control addArea.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents addArea As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''Control AgregarOrden.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents AgregarOrden As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''Control DropDownListP.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents DropDownListP As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''Control dgvWorkOrders.
