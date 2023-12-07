@@ -9,10 +9,10 @@ Public Class WebForm1
         If Not Page.IsPostBack Then
             Session("DataTable") = Initdt()
             Dim catUnits As CatUnits = New CatUnits()
-            ddlUnidad.DataSource = catUnits.SelectAll("", False).AsDataView
-            ddlUnidad.DataTextField = "Unit"
-            ddlUnidad.DataValueField = "IdUnit"
-            ddlUnidad.DataBind()
+            ddlUnit.DataSource = catUnits.SelectAll("", False).AsDataView
+            ddlUnit.DataTextField = "Unit"
+            ddlUnit.DataValueField = "IdUnit"
+            ddlUnit.DataBind()
         End If
     End Sub
 
@@ -25,10 +25,10 @@ Public Class WebForm1
         Return data
     End Function
 
-    Protected Sub AddModelo_Click(sender As Object, e As EventArgs) Handles addModelo.Click
-        Dim strModelo As String = txtModelo.Text.Trim.ToUpper
-        Dim strVida As String = txtVida.Text.Trim.ToUpper
-        Dim strUnidad As String = ddlUnidad.SelectedItem.Text.Trim.ToUpper
+    Protected Sub AddModel_Click(sender As Object, e As EventArgs) Handles cmdModel.Click
+        Dim strModelo As String = txtModel.Text.Trim.ToUpper
+        Dim strVida As String = txtLifeSpan.Text.Trim.ToUpper
+        Dim strUnidad As String = ddlUnit.SelectedItem.Text.Trim.ToUpper
 
 
         Dim dt As DataTable = Session("DataTable")
@@ -56,13 +56,21 @@ Public Class WebForm1
 
     End Sub
 
-    Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Protected Sub cmdCancelChange_Click(sender As Object, e As EventArgs) Handles cmdCancelChange.Click
         Session("DataTable") = Initdt()
         gvModelos.DataSource = Session("DataTable")
         gvModelos.DataBind()
     End Sub
 
-    Protected Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        ModalPopupExtender1.Show()
+    Protected Sub cmdOpenApprove_Click(sender As Object, e As EventArgs) Handles cmdOpenApprove.Click
+        ApproveModal.Show()
+    End Sub
+
+    Protected Sub cmdCancelModal_Click(sender As Object, e As EventArgs) Handles cmdCancelModal.Click
+
+    End Sub
+
+    Protected Sub cmdAcceptChange_Click(sender As Object, e As EventArgs) Handles cmdAcceptChange.Click
+
     End Sub
 End Class
