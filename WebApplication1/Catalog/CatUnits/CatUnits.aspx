@@ -58,11 +58,11 @@
      <HeaderStyle HorizontalAlign="Center" />
   </asp:BoundField>
  <asp:BoundField DataField="Unit" HeaderText="Unidad">
-     <ItemStyle Width="230px" />
+     <ItemStyle Width="200px" />
      <HeaderStyle HorizontalAlign="Center" />
  </asp:BoundField>
  <asp:BoundField DataField="UnitValue" HeaderText="Valor" ReadOnly="false">
-     <ItemStyle Width="230px" />
+     <ItemStyle Width="200px" />
      <HeaderStyle HorizontalAlign="Center" />
  </asp:BoundField>
          <asp:TemplateField>
