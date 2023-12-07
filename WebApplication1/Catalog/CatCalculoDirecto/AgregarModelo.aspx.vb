@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Diagnostics.Eventing
+Imports AjaxControlToolkit
 
 Public Class WebForm1
     Inherits System.Web.UI.Page
@@ -8,7 +9,7 @@ Public Class WebForm1
         If Not Page.IsPostBack Then
             Session("DataTable") = Initdt()
             Dim catUnits As CatUnits = New CatUnits()
-            ddlUnidad.DataSource = CatUnits.SelectAll("", False).AsDataView
+            ddlUnidad.DataSource = catUnits.SelectAll("", False).AsDataView
             ddlUnidad.DataTextField = "Unit"
             ddlUnidad.DataValueField = "IdUnit"
             ddlUnidad.DataBind()
@@ -59,5 +60,9 @@ Public Class WebForm1
         Session("DataTable") = Initdt()
         gvModelos.DataSource = Session("DataTable")
         gvModelos.DataBind()
+    End Sub
+
+    Protected Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        ModalPopupExtender1.Show()
     End Sub
 End Class
