@@ -114,7 +114,8 @@
                                 </ajaxToolkit:ComboBox>--%>
                             </td>
                             <td>
-                                <asp:RequiredFieldValidator ID="lblApproverError" runat="server" ControlToValidate="txtApprover" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a" Display="Dynamic"></asp:RequiredFieldValidator>
+                                <asp:Label ID="lblApproverError" runat="server" ForeColor="Red"></asp:Label>
+                                <%--<asp:RequiredFieldValidator ID="lblApproverError" runat="server" ControlToValidate="txtApprover" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                             </td>
                         </tr>
 
@@ -126,7 +127,8 @@
                                 <asp:TextBox ID="txtUser" runat="server" Width="162px" CausesValidation="True"></asp:TextBox>
                             </td>
                             <td>
-                                <asp:RequiredFieldValidator ID="lblUserError" runat="server" ControlToValidate="txtUser" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>
+                                <asp:Label ID="lblUserError" runat="server" ForeColor="Red"></asp:Label>
+                                <%--<asp:RequiredFieldValidator ID="lblUserError" runat="server" ControlToValidate="txtUser" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>--%>
                             </td>
                         </tr>
  
@@ -138,7 +140,8 @@
                                 <asp:TextBox ID="txtPassword" runat="server" Width="162px" TextMode="Password"></asp:TextBox>
                             </td>
                             <td>
-                                <asp:RequiredFieldValidator ID="lblPassworkError" runat="server" ControlToValidate="txtPassword" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>
+                                <asp:Label ID="lblPassworkError" runat="server" ForeColor="Red"></asp:Label>
+                                <%--<asp:RequiredFieldValidator ID="lblPassworkError" runat="server" ControlToValidate="txtPassword" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>--%>
                             </td>
                         </tr>
 
@@ -150,7 +153,8 @@
                                 <asp:TextBox ID="txtApproveMessage" runat="server" Height="104px" Width="162px" TextMode="MultiLine"></asp:TextBox>
                             </td>
                             <td>
-                                <asp:RequiredFieldValidator ID="lblApproveMessageError" runat="server" ControlToValidate="txtApproveMessage" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>
+                                <asp:Label ID="lblApproveMessageError" runat="server" ForeColor="Red"></asp:Label>
+                                <%--<asp:RequiredFieldValidator ID="lblApproveMessageError" runat="server" ControlToValidate="txtApproveMessage" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>--%>
                             </td>
                         </tr>
 
@@ -163,7 +167,7 @@
                         <tr>
                             <td colspan="3">
                                 <div align="center">
-                                    <asp:Button ID="cmdAcceptChange" runat="server" BackColor="#53C400" ForeColor="#FFFFFF" Text="Aceptar" ValidationGroup="a" />
+                                    <asp:Button ID="cmdAcceptChange" runat="server" BackColor="#53C400" ForeColor="#FFFFFF" Text="Aceptar" />
                                     <asp:Button ID="cmdCancelModal" runat="server" BackColor="#284775" ForeColor="#FFFFFF" Text="Cancelar" />
                                 </div>
                             </td>
