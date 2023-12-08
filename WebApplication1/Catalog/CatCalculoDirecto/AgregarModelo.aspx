@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage.master" CodeBehind="AgregarModelo.aspx.vb" Inherits="WebApplication1.WebForm1" %>
+﻿<%@  Page Async="true" Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage.master" CodeBehind="AgregarModelo.aspx.vb" Inherits="WebApplication1.WebForm1" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
         <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Agregar Modelo de calculo directo"></asp:Label>
 
@@ -98,8 +99,15 @@
                         <asp:Label ID="lblApprover" runat="server" Text="Aprobador:" Width="80px"></asp:Label>
                     </td>
                     <td align="left" style="width: 170px">
-                        <ajaxToolkit:ComboBox ID="txtApprover" runat="server" Width="128px">
-                        </ajaxToolkit:ComboBox>
+                        
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                            <ContentTemplate>
+    
+                            <ajaxToolkit:ComboBox ID="txtApprover" runat="server" Width="128px" AutoCompleteMode="SuggestAppend" AutoPostBack="True" ItemInsertLocation="OrdinalText">
+
+</ajaxToolkit:ComboBox>
+                                </ContentTemplate>
+                        </asp:UpdatePanel>
                     </td>
                     <td>
                         <asp:RequiredFieldValidator ID="lblApproverError" runat="server" ControlToValidate="txtApprover" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>

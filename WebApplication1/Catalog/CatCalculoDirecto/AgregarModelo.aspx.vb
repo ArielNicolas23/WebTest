@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Diagnostics.Eventing
+Imports System.Threading.Tasks
 Imports AjaxControlToolkit
 
 Public Class WebForm1
@@ -74,9 +75,39 @@ Public Class WebForm1
 
     End Sub
 
-    Protected Sub txtApprover_TextChanged(sender As Object, e As EventArgs) Handles txtApprover.TextChanged
+    Protected Async Sub txtApprover_TextChanged(sender As Object, e As EventArgs) Handles txtApprover.TextChanged
+        If (txtApprover.Text.Trim.Length > 3) Then
+
+            txtApprover.DataSource = Await Test()
+            txtApprover.DataTextField = "Name"
+            txtApprover.DataValueField = "UserName"
+            txtApprover.SelectedIndex = 0
+            txtApprover.DataBind()
+            Return
+        End If
+    End Sub
+    Async Function Test() As Threading.Tasks.Task(Of DataTable)
+        Dim data = New DataTable()
+        data.Columns.Add("Name", GetType(String))
+        data.Columns.Add("UserName", GetType(String))
+        data.Columns.Add("Email", GetType(String))
+        data = Security.UserAD.GetAllUsers(txtApprover.Text, data)
+        Return data
+    End Function
+
+    Protected Sub ddlUnit_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlUnit.SelectedIndexChanged
 
 
     End Sub
 
+    Protected Async Sub txtUser_TextChanged(sender As Object, e As EventArgs) Handles txtUser.TextChanged
+        If (txtApprover.Text.Trim.Length > 3) Then
+            txtApprover.DataSource = Await Test()
+            txtApprover.DataTextField = "Name"
+            txtApprover.DataValueField = "UserName"
+            txtApprover.SelectedIndex = 0
+            txtApprover.DataBind()
+            Return
+        End If
+    End Sub
 End Class
