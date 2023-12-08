@@ -411,6 +411,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Security\Mail.vb" />
+    <Compile Include="Security\roles.vb" />
     <Compile Include="Security\Security.Authorization.vb" />
     <Compile Include="spED_CatReworkOrders_SelectAll_Result.vb">
       <DependentUpon>Model1.tt</DependentUpon>

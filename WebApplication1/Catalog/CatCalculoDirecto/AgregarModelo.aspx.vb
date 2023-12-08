@@ -260,10 +260,26 @@ Public Class WebForm1
 
                 ApproveModal.Hide()
                 MsgBox("Se ha completado exitósamente el registro de los cambios", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+
+
+                Dim dataMail As New ConstructInfo With {
+                                    .EmailType = "CambiosPendientes",
+                                    .UserName = txtApprover.Text.Trim,
+                                    .Comment = txtApproveMessage.Text.Trim,
+                                    .Link = "<a href=>Fecha De Expiración</a>"
+                                    }
+                    Dim email As New ModuloGeneralEmail
+
+                If email.ConstructEmail(dataMail) Then
+                    MsgBox("Se ha enviado un correo a " + txtApprover.Text, MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+                Else
+                    MsgBox("Ha ocurrido un error al mandar correo a " + txtApprover.Text, MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Error")
+                End If
+
                 CleanModalFields(True)
-                CleanTable()
-            End If
-        Else
+                    CleanTable()
+                End If
+                Else
             ApproveModal.Show()
         End If
     End Sub
