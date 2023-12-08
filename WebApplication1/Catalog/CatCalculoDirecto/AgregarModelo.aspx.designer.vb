@@ -284,6 +284,15 @@ Partial Public Class WebForm1
     Protected WithEvents lblApproveMessageError As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
+    '''lblModalMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblModalMessage As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''cmdAcceptChange control.
     '''</summary>
     '''<remarks>

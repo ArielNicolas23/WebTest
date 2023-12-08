@@ -176,13 +176,13 @@ Public Class WebForm1
         'Validaciones extra por si acaso
 
 
-        idApprovedModelsChanges = approvedModelsChange.Insert(changeNumber, originUser, originComment, approverUser, approvalStatus, isActive, originUser)
-        For Each row As DataRow In dt.Rows
-            idUnit = Guid.Parse(row("IdUnidad"))
-            model = row("Modelo")
-            lifeSpan = row("VidaUtil")
-            modelsChange.Insert(idApprovedModelsChanges, idUnit, model, lifeSpan, modelChangeStatus, originUser, isActive, originUser)
-        Next row
+        'idApprovedModelsChanges = approvedModelsChange.Insert(changeNumber, originUser, originComment, approverUser, approvalStatus, isActive, originUser)
+        'For Each row As DataRow In dt.Rows
+        '    idUnit = Guid.Parse(row("IdUnidad"))
+        '    model = row("Modelo")
+        '    lifeSpan = row("VidaUtil")
+        '    modelsChange.Insert(idApprovedModelsChanges, idUnit, model, lifeSpan, modelChangeStatus, originUser, isActive, originUser)
+        'Next row
 
         ApproveModal.Hide()
         MsgBox("Se ha completado exitósamente el registro de los cambios", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
