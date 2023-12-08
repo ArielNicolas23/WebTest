@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Diagnostics.Eventing
+Imports System.Threading.Tasks
 Imports AjaxControlToolkit
 
 Public Class WebForm1
@@ -147,6 +148,13 @@ Public Class WebForm1
 
     Protected Sub cmdAcceptChange_Click(sender As Object, e As EventArgs) Handles cmdAcceptChange.Click
         'Validaciones de los usuarios
+        'If (Security.UserAD.GetUserExists(txtApprover.Text, "")) Then
+        '    Dim res As String = Security.UserAD.GetUserEmail(txtApprover.Text)
+        '    txtApproveMessage.Text = res
+        'Else
+        '    txtApproveMessage.Text = "No se encontro el usuario"
+        '    Return
+        'End If
 
         Dim modelsChange As ED_ModelsChanges = New ED_ModelsChanges()
         Dim approvedModelsChange As ED_ApprovedModelsChanges = New ED_ApprovedModelsChanges()
@@ -180,4 +188,29 @@ Public Class WebForm1
         MsgBox("Se ha completado exitósamente el registro de los cambios", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
         CleanTable()
     End Sub
+
+    Async Function Test() As Threading.Tasks.Task(Of DataTable)
+        Dim data = New DataTable()
+        data.Columns.Add("Name", GetType(String))
+        data.Columns.Add("UserName", GetType(String))
+        data.Columns.Add("Email", GetType(String))
+        data = Security.UserAD.GetAllUsers(txtApprover.Text, data)
+        Return data
+    End Function
+
+    Protected Sub ddlUnit_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlUnit.SelectedIndexChanged
+
+
+    End Sub
+
+    'Protected Async Sub txtUser_TextChanged(sender As Object, e As EventArgs) Handles txtUser.TextChanged
+    '    If (txtApprover.Text.Trim.Length > 3) Then
+    '        txtApprover.DataSource = Await Test()
+    '        txtApprover.DataTextField = "Name"
+    '        txtApprover.DataValueField = "UserName"
+    '        txtApprover.SelectedIndex = 0
+    '        txtApprover.DataBind()
+    '        Return
+    '    End If
+    'End Sub
 End Class

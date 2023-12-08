@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage.master" CodeBehind="AgregarModelo.aspx.vb" Inherits="WebApplication1.WebForm1" %>
+﻿<%@  Page Async="true" Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage.master" CodeBehind="AgregarModelo.aspx.vb" Inherits="WebApplication1.WebForm1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <asp:UpdatePanel ID="UpdatePanelGeneral" runat="server">
         <ContentTemplate>
             <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Agregar Modelo de calculo directo"></asp:Label>
 
@@ -87,48 +87,92 @@
             <asp:Label ID="lblModal" runat="server" Text=""></asp:Label>
             <ajaxToolkit:ModalPopupExtender ID="ApproveModal" runat="server" TargetControlID="lblModal" PopupControlID="modalpan" PopupDragHandleControlID="headerdiv" BackgroundCssClass="modalbackground"></ajaxToolkit:ModalPopupExtender>
 
-            <asp:Panel ID="modalpan" runat="server" Style="width:500px; height:450px">
-                <div id="headerdiv" style="background-color:#284775;  font-size:medium; padding:2px; height:20px;">
 
-                </div>
 
-                <div style="background-color:white;  font-size:medium; padding:2px;" class="auto-style1">
+<asp:Panel ID="modalpan" runat="server" Style="width:500px; height:450px">
+    
+     <div id="headerdiv" style="background-color:#284775;  font-size:medium; padding:2px; height:20px;">
 
-                    <asp:Label ID="lblModalInstruction" runat="server" Text="Favor de asignar un aprobador para el cambio" ></asp:Label>
-                    <br />
-                    <asp:Label ID="lblApprover" runat="server" Text="Aprobador:" Width="80px"></asp:Label>
-                    <asp:TextBox ID="txtApprover" runat="server"></asp:TextBox>
+     </div>
+    <div style="background-color:white;  font-size:medium; padding:2px;" class="auto-style1">
+        <table style="width: 493px" width="495px">
+            <tr>
+                <td colspan="3">
+        <asp:Label ID="lblModalInstruction" runat="server" Text="Favor de asignar un aprobador para el cambio" ></asp:Label>
+                    </td>
+                </tr>
 
-                    <asp:RequiredFieldValidator ID="lblApproverError" runat="server" ControlToValidate="txtApprover" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>
+                <tr>
+                    <td align="right" style="width: 162px">
+                        <asp:Label ID="lblApprover" runat="server" Text="Aprobador:" Width="80px"></asp:Label>
+                    </td>
+                    <td align="left" style="width: 170px">
+                        
+     <asp:TextBox ID="txtApprover" runat="server" Width="128px"></asp:TextBox>
+                            <%--<ajaxToolkit:ComboBox ID=s"txtApprover" runat="server" Width="128px" AutoCompleteMode="SuggestAppend" AutoPostBack="True" ItemInsertLocation="OrdinalText">
 
-                    <br />
-                    <br />
+</ajaxToolkit:ComboBox>--%>
+
+                    </td>
+                    <td>
+                        <asp:RequiredFieldValidator ID="lblApproverError" runat="server" ControlToValidate="txtApprover" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a" Display="Dynamic"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+
+
+                    <tr>
+                        <td align="right" style="width: 162px">
                     <asp:Label ID="lblUser" runat="server" Text="Usuario:" Width="80px"></asp:Label>
-                    <asp:TextBox ID="txtUser" runat="server"></asp:TextBox>
+                            </td><td align="left" style="width: 170px">
+                    <asp:TextBox ID="txtUser" runat="server" Width="128px"></asp:TextBox>
+                                </td><td>
                     <asp:RequiredFieldValidator ID="lblUserError" runat="server" ControlToValidate="txtUser" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>
-                    <br />
-                    <br />
-                    <asp:Label ID="lblPassword" runat="server" Text="Contraseña:" Width="80px"></asp:Label>
-                    <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="lblPassworkError" runat="server" ControlToValidate="txtPassword" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>
-                    <br />
-                    <br />
-                    <asp:Label ID="lblApproveMessage" runat="server" Text="Comentarios:" Width="80px"></asp:Label>
-                    <asp:TextBox ID="txtApproveMessage" runat="server" Height="104px"></asp:TextBox>
+                    </td>
+                                    </tr>
 
-                    <asp:RequiredFieldValidator ID="lblApproveMessageError" runat="server" ControlToValidate="txtApproveMessage" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>
-                    <br />
+ 
+                        <tr>
+                            <td align="right" style="width: 162px">
+                                <asp:Label ID="lblPassword" runat="server" Text="Contraseña:" Width="80px"></asp:Label>
+                            </td>
+                            <td align="left" style="width: 170px">
+                                <asp:TextBox ID="txtPassword" runat="server" Width="128px"></asp:TextBox>
+                            </td>
+                            <td>
+                                <asp:RequiredFieldValidator ID="lblPassworkError" runat="server" ControlToValidate="txtPassword" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>
+                            </td>
+                        </tr>
 
-                    <br />
-                    <div align="center">
-                        <asp:Button ID="cmdAcceptChange" runat="server" Text="Aceptar" BackColor="#53C400" ForeColor="#FFFFFF" ValidationGroup="a"/>
-                        <asp:Button ID="cmdCancelModal" runat="server" Text="Cancelar" BackColor="#284775" ForeColor="#FFFFFF" />
-                    </div>
-                </div>
-                <!--<div style=" background-color:gray; color:white; padding:2px;">
-                    <asp:Button ID="Buttonpopup" runat="server" Text="X" />
-                </div>-->
-            </asp:Panel>
+            
+                            <tr>
+                                <td align="right" style="width: 162px">
+                                    <asp:Label ID="lblApproveMessage" runat="server" Text="Comentarios:" Width="80px"></asp:Label>
+                                </td>
+                                <td align="left" style="width: 170px">
+                                    <asp:TextBox ID="txtApproveMessage" runat="server" Height="104px" Width="128px"></asp:TextBox>
+                                </td>
+                                <td>
+                                    <asp:RequiredFieldValidator ID="lblApproveMessageError" runat="server" ControlToValidate="txtApproveMessage" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>
+                                </td>
+                            </tr>
+
+                   
+                                <tr>
+                                    <td colspan="3">
+                                        <div align="center">
+                                            <asp:Button ID="cmdAcceptChange" runat="server" BackColor="#53C400" ForeColor="#FFFFFF" Text="Aceptar" ValidationGroup="a" />
+                                            <asp:Button ID="cmdCancelModal" runat="server" BackColor="#284775" ForeColor="#FFFFFF" Text="Cancelar" />
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+            </table>
+    </div>
+    <!--<div style=" background-color:gray; color:white; padding:2px;">
+        <asp:Button ID="Buttonpopup" runat="server" Text="X" />
+    </div>-->
+</asp:Panel>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

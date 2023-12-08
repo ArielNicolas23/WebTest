@@ -14,13 +14,13 @@ Option Explicit On
 Partial Public Class WebForm1
 
     '''<summary>
-    '''UpdatePanel1 control.
+    '''UpdatePanelGeneral control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents UpdatePanel1 As Global.System.Web.UI.UpdatePanel
+    Protected WithEvents UpdatePanelGeneral As Global.System.Web.UI.UpdatePanel
 
     '''<summary>
     '''lblTitle control.
