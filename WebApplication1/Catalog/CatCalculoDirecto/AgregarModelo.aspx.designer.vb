@@ -182,7 +182,7 @@ Partial Public Class WebForm1
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtApprover As Global.AjaxControlToolkit.ComboBox
+    Protected WithEvents txtApprover As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''lblApproverError control.

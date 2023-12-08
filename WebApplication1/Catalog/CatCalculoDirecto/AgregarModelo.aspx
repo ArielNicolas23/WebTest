@@ -102,15 +102,15 @@
                         
                         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                             <ContentTemplate>
-    
-                            <ajaxToolkit:ComboBox ID="txtApprover" runat="server" Width="128px" AutoCompleteMode="SuggestAppend" AutoPostBack="True" ItemInsertLocation="OrdinalText">
+     <asp:TextBox ID="txtApprover" runat="server" Width="128px"></asp:TextBox>
+                            <%--<ajaxToolkit:ComboBox ID=s"txtApprover" runat="server" Width="128px" AutoCompleteMode="SuggestAppend" AutoPostBack="True" ItemInsertLocation="OrdinalText">
 
-</ajaxToolkit:ComboBox>
+</ajaxToolkit:ComboBox>--%>
                                 </ContentTemplate>
                         </asp:UpdatePanel>
                     </td>
                     <td>
-                        <asp:RequiredFieldValidator ID="lblApproverError" runat="server" ControlToValidate="txtApprover" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="lblApproverError" runat="server" ControlToValidate="txtApprover" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a" Display="Dynamic"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
 

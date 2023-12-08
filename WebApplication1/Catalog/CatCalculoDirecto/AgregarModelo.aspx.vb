@@ -72,19 +72,17 @@ Public Class WebForm1
     End Sub
 
     Protected Sub cmdAcceptChange_Click(sender As Object, e As EventArgs) Handles cmdAcceptChange.Click
+        If (Security.UserAD.GetUserExists(txtApprover.Text, "")) Then
+            Dim res As String = Security.UserAD.GetUserEmail(txtApprover.Text)
+            txtApproveMessage.Text = res
+        Else
+            txtApproveMessage.Text = "No se encontro el usuario"
+        End If
 
     End Sub
 
-    Protected Async Sub txtApprover_TextChanged(sender As Object, e As EventArgs) Handles txtApprover.TextChanged
-        If (txtApprover.Text.Trim.Length > 3) Then
+    Protected Sub txtApprover_TextChanged(sender As Object, e As EventArgs) Handles txtApprover.TextChanged
 
-            txtApprover.DataSource = Await Test()
-            txtApprover.DataTextField = "Name"
-            txtApprover.DataValueField = "UserName"
-            txtApprover.SelectedIndex = 0
-            txtApprover.DataBind()
-            Return
-        End If
     End Sub
     Async Function Test() As Threading.Tasks.Task(Of DataTable)
         Dim data = New DataTable()
@@ -100,14 +98,14 @@ Public Class WebForm1
 
     End Sub
 
-    Protected Async Sub txtUser_TextChanged(sender As Object, e As EventArgs) Handles txtUser.TextChanged
-        If (txtApprover.Text.Trim.Length > 3) Then
-            txtApprover.DataSource = Await Test()
-            txtApprover.DataTextField = "Name"
-            txtApprover.DataValueField = "UserName"
-            txtApprover.SelectedIndex = 0
-            txtApprover.DataBind()
-            Return
-        End If
-    End Sub
+    'Protected Async Sub txtUser_TextChanged(sender As Object, e As EventArgs) Handles txtUser.TextChanged
+    '    If (txtApprover.Text.Trim.Length > 3) Then
+    '        txtApprover.DataSource = Await Test()
+    '        txtApprover.DataTextField = "Name"
+    '        txtApprover.DataValueField = "UserName"
+    '        txtApprover.SelectedIndex = 0
+    '        txtApprover.DataBind()
+    '        Return
+    '    End If
+    'End Sub
 End Class
