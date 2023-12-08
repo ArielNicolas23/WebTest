@@ -53,6 +53,34 @@ Public Class WebForm1
         End If
     End Sub
 
+    Protected Function ValidateTextBox(txt As TextBox, lbl As Label, errorMessage As String, canInsert As Boolean)
+        If (txt.Text = "") Then
+            lbl.Text = errorMessage
+            Return False
+        Else
+            If (canInsert) Then
+                Return True
+            Else
+                Return False
+            End If
+        End If
+    End Function
+
+    Protected Sub CleanModalFields(cleanTextBoxes As Boolean)
+        lblApproverError.Text = ""
+        lblUserError.Text = ""
+        lblPassworkError.Text = ""
+        lblApproveMessageError.Text = ""
+        lblModalMessage.Text = ""
+
+        If (cleanTextBoxes) Then
+            txtApprover.Text = ""
+            txtUser.Text = ""
+            txtPassword.Text = ""
+            txtApproveMessage.Text = ""
+        End If
+    End Sub
+
     Protected Sub AddModel_Click(sender As Object, e As EventArgs) Handles cmdModel.Click
         Try
             lblMessage.Text = ""
@@ -71,7 +99,7 @@ Public Class WebForm1
             End If
 
             If (Not Regex.IsMatch(strLifeSpan, "^[0-9 ]+$")) Then
-                lblMessage.Text = "Favor de escribir un valor numerico para la Vida Útil"
+                lblMessage.Text = "Favor de escribir un valor numérico para la Vida Útil"
                 Return
             End If
 
@@ -130,8 +158,15 @@ Public Class WebForm1
     End Sub
 
     Protected Sub cmdCancelChange_Click(sender As Object, e As EventArgs) Handles cmdCancelChange.Click
-        CleanTable()
-        EnableButtons()
+        Dim confirmed As Integer = MsgBox("Se reiniciará el proceso carga y se borrarán todos modelos actualmente agregados. ¿Está seguro de continuar?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
+
+        If confirmed = MsgBoxResult.Yes Then
+            CleanTable()
+            EnableButtons()
+            CleanAddData()
+        Else
+
+        End If
     End Sub
 
     Protected Sub cmdOpenApprove_Click(sender As Object, e As EventArgs) Handles cmdOpenApprove.Click
@@ -160,34 +195,6 @@ Public Class WebForm1
         ApproveModal.Hide()
     End Sub
 
-    Protected Function ValidateTextBox(txt As TextBox, lbl As Label, errorMessage As String, canInsert As Boolean)
-        If (txt.Text = "") Then
-            lbl.Text = errorMessage
-            Return False
-        Else
-            If (canInsert) Then
-                Return True
-            Else
-                Return False
-            End If
-        End If
-    End Function
-
-    Protected Sub CleanModalFields(cleanTextBoxes As Boolean)
-        lblApproverError.Text = ""
-        lblUserError.Text = ""
-        lblPassworkError.Text = ""
-        lblApproveMessageError.Text = ""
-        lblModalMessage.Text = ""
-
-        If (cleanTextBoxes) Then
-            txtApprover.Text = ""
-            txtUser.Text = ""
-            txtPassword.Text = ""
-            txtApproveMessage.Text = ""
-        End If
-    End Sub
-
     Protected Sub cmdAcceptChange_Click(sender As Object, e As EventArgs) Handles cmdAcceptChange.Click
         CleanModalFields(False)
 
@@ -202,7 +209,7 @@ Public Class WebForm1
         'Validaciones extra por si acaso
         If (canInsert) Then
             Dim modelsChange As ED_ModelsChanges = New ED_ModelsChanges()
-            Dim approvedModelsChange As ED_ApprovedModelsChanges = New ED_ApprovedModelsChanges()
+            Dim approvedModelsChange As ED_ModelsChangesHeader = New ED_ModelsChangesHeader()
 
             Dim foundRepeated As Boolean
             Dim originUser As String             'Agregar función para obtener al usuario
@@ -215,7 +222,7 @@ Public Class WebForm1
             Dim approvalStatus As String = "Pendiente"
             Dim isActive As Boolean = True
 
-            Dim idApprovedModelsChanges As Guid
+            Dim IdModelsChangesHeader As Guid
             Dim idUnit As Guid
             Dim model As String
             Dim lifeSpan As Integer
@@ -250,12 +257,12 @@ Public Class WebForm1
                 lblModalMessage.Text = "Se ha detectado que uno o varios modelos seleccionados fueron cargados durante el proceso de aprobación. Favor de rectificar."
                 ApproveModal.Show()
             Else
-                idApprovedModelsChanges = approvedModelsChange.Insert(changeNumber, originUser, originComment, approverUser, approvalStatus, isActive, originUser)
+                IdModelsChangesHeader = approvedModelsChange.Insert(changeNumber, originUser, originComment, approverUser, approvalStatus, isActive, originUser)
                 For Each row As DataRow In dt.Rows
                     idUnit = Guid.Parse(row("IdUnidad"))
                     model = row("Modelo")
                     lifeSpan = row("VidaUtil")
-                    modelsChange.Insert(idApprovedModelsChanges, idUnit, model, lifeSpan, modelChangeStatus, originUser, isActive, originUser)
+                    modelsChange.Insert(IdModelsChangesHeader, idUnit, model, lifeSpan, modelChangeStatus, originUser, isActive, originUser)
                 Next row
 
                 ApproveModal.Hide()

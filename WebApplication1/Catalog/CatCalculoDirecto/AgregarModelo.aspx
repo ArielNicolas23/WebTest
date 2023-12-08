@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="UpdatePanelGeneral" runat="server">
         <ContentTemplate>
-            <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Agregar Modelo de calculo directo"></asp:Label>
+            <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Catálogo de Configuración de Cálculo Directo"></asp:Label>
 
             <div style="height: 32px">
 
@@ -47,20 +47,12 @@
                 <br />
             </div>
         
-            <table id="Table1" runat="server" style="width: 680px">
-                <tr>
-                    <td style="height: 17px; width: 128px;">
-                
-                    </td>
-                    <td style="height: 17px; width: 120px;">
-
-                    </td>
-                    <td style="height: 17px;width: 420px; text-align: right">
-                        <asp:Button ID="cmdCancelChange" runat="server" Text="Cancelar Cambio"  BackColor="#E2DED6" ForeColor="Black"/>
-                        <asp:Button ID="cmdOpenApprove" runat="server" Text="Enviar para Aprobación" BackColor="#284775" ForeColor="#FFFFFF"/>
-                    </td>
-                </tr>
-            </table>
+            <div style="width: 680px">
+                <div style="float: right">
+                    <asp:Button ID="cmdCancelChange" runat="server" Text="Reiniciar Carga de Modelos"  BackColor="#E2DED6" ForeColor="Black"/>
+                    <asp:Button ID="cmdOpenApprove" runat="server" Text="Enviar para Aprobación" BackColor="#284775" ForeColor="#FFFFFF"/>
+                </div>
+            </div>
 
             <!-- Cosas-->
             <asp:GridView runat="server" AutoGenerateColumns="False" CellPadding="4" CssClass="dgvCatalog" GridLines="None" Width="680px" AllowPaging="True" ID="gvModelos">
