@@ -68,7 +68,7 @@ Public Class Catalog_CatUnits
                     lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Unidad con el nombre ingresado: [" + strUnit + "]"
                 Else
                     catUnits.Insert(strUnit, strUnitValue, True, "Admin")
-                    MsgBox("Se agrego el registro con exito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Exito")
+                    MsgBox("Se agregó el registro con éxito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Éxito")
                     catUnits = Nothing
 
                     dgvUnits.EditIndex = -1
@@ -79,7 +79,7 @@ Public Class Catalog_CatUnits
                     lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Unidad con el nombre ingresado: [" + strUnit + "]"
                 Else
                     catUnits.Update(idUnit, strUnit, strUnitValue, True, "Admin")
-                    MsgBox("Se actualizo el registro con exito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Exito")
+                    MsgBox("Se actualizó el registro con éxito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Éxito")
                     catUnits = Nothing
 
                     dgvUnits.EditIndex = -1

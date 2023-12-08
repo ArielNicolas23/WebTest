@@ -12,7 +12,7 @@ Public Class ED_ModelsChanges
 
     Public Sub Insert(
             ByVal IdApprovedModelsChanges As Guid,
-            ByVal IdUnidad As Guid,
+            ByVal IdUnit As Guid,
             ByVal Model As String,
             ByVal Lifespan As Integer,
             ByVal ModelChangeStatus As String,
@@ -27,7 +27,7 @@ Public Class ED_ModelsChanges
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@IdApprovedModelsChanges", IdApprovedModelsChanges)
-            cmd.Parameters.AddWithValue("@IdUnidad", IdUnidad)
+            cmd.Parameters.AddWithValue("@IdUnidad", IdUnit)
             cmd.Parameters.AddWithValue("@Model", Model)
             cmd.Parameters.AddWithValue("@Lifespan", Lifespan)
             cmd.Parameters.AddWithValue("@ModelChangeStatus", ModelChangeStatus)
@@ -37,6 +37,8 @@ Public Class ED_ModelsChanges
 
             conn.Open()
             cmd.ExecuteNonQuery()
+            conn.Close()
+            conn.Dispose()
         End Using
     End Sub
 
@@ -68,6 +70,8 @@ Public Class ED_ModelsChanges
 
             conn.Open()
             cmd.ExecuteNonQuery()
+            conn.Close()
+            conn.Dispose()
         End Using
     End Sub
 
@@ -83,10 +87,12 @@ Public Class ED_ModelsChanges
 
             conn.Open()
             cmd.ExecuteNonQuery()
+            conn.Close()
+            conn.Dispose()
         End Using
     End Sub
 
-    Public Function AlreadyExistUnit(ByVal IdModelsChanges As Guid, ByVal Model As String) As Boolean
+    Public Function AlreadyExistModelChange(ByVal IdModelsChanges As Guid, ByVal Model As String) As Boolean
         Dim result As Boolean
 
         Using conn As New SqlConnection(Me.dbCon)
@@ -107,6 +113,9 @@ Public Class ED_ModelsChanges
             Else
                 result = False
             End If
+
+            conn.Close()
+            conn.Dispose()
         End Using
 
         Return result

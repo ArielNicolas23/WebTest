@@ -66,7 +66,7 @@ Public Class Catalog_CatReworkStatus
                     lblMessage.Text = "No es posble guardar los cambios debido a que ya existe un Estatus de SAP con el código ingresado: [" + strStatus + "]"
                 Else
                     catReworkStatus.Insert(strStatus, boolStatus, True, "Admin")
-                    MsgBox("Se agrego el registro con exito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Exito")
+                    MsgBox("Se agregó el registro con éxito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Éxito")
                     catReworkStatus = Nothing
 
                     dgvStatusTable.EditIndex = -1
@@ -77,7 +77,7 @@ Public Class Catalog_CatReworkStatus
                     lblMessage.Text = "No es posble guardar los cambios debido a que ya existe un Estatus de SAP con el código ingresado: [" + strStatus + "]"
                 Else
                     catReworkStatus.Update(idStatus, strStatus, boolStatus, "Admin")
-                    MsgBox("Se actualizo el registro con exito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Exito")
+                    MsgBox("Se actualizó el registro con éxito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Éxito")
                     catReworkStatus = Nothing
 
                     dgvStatusTable.EditIndex = -1

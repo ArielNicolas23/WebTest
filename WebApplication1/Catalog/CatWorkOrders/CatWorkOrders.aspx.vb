@@ -77,7 +77,7 @@ Public Class Catalog_CatWorkOrders
                     lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Orden de Trabajo con el número ingresado: [" + strWo + "]"
                 Else
                     catReworkOrders.Insert(strWo, strModulo, boolRework, True, "Admin")
-                    MsgBox("Se agrego el registro con exito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Exito")
+                    MsgBox("Se agregó el registro con éxito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Exito")
                     catReworkOrders = Nothing
 
                     dgvWorkOrders.EditIndex = -1
@@ -88,7 +88,7 @@ Public Class Catalog_CatWorkOrders
                     lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Orden de Trabajo con el número ingresado: [" + strWo + "]"
                 Else
                     catReworkOrders.Update(idWo, strWo, strModulo, boolRework, "Admin")
-                    MsgBox("Se actualizo el registro con exito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Exito")
+                    MsgBox("Se actualizó el registro con éxito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Éxito")
                     catReworkOrders = Nothing
 
                     dgvWorkOrders.EditIndex = -1

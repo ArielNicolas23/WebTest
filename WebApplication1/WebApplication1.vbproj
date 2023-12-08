@@ -171,6 +171,7 @@
     <Content Include="Catalog\CatReworkStatus\CatReworkStatus.aspx" />
     <Content Include="Catalog\CatReworkStatus\CatReworkStatusEdit.aspx" />
     <Content Include="Catalog\CatWorkOrders\CatWorkOrdersEdit.aspx" />
+    <Content Include="Catalog\CatalogStyles..css" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />

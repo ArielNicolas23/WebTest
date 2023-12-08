@@ -10,7 +10,7 @@ Public Class ED_ApprovedModelsChanges
         dbCon = ConfigurationManager.ConnectionStrings("TestDb").ConnectionString
     End Sub
 
-    Public Sub Insert(
+    Public Function Insert(
             ByVal ChangeNumber As Integer,
             ByVal OriginUser As String,
             ByVal OriginComment As String,
@@ -19,6 +19,7 @@ Public Class ED_ApprovedModelsChanges
             ByVal IsActive As Boolean,
             ByVal CreatedBy As String)
 
+        Dim idApprovedModelsChanges As Guid
         Using conn As New SqlConnection(Me.dbCon)
 
             Dim cmd As SqlCommand = New SqlCommand()
@@ -34,9 +35,13 @@ Public Class ED_ApprovedModelsChanges
             cmd.Parameters.AddWithValue("@CreatedBy", CreatedBy)
 
             conn.Open()
-            cmd.ExecuteNonQuery()
+            idApprovedModelsChanges = CType(cmd.ExecuteScalar(), Guid)
+            conn.Close()
+            conn.Dispose()
         End Using
-    End Sub
+
+        Return idApprovedModelsChanges
+    End Function
 
     Public Sub Update(
             ByVal IdApprovedModelsChanges As Guid,
@@ -65,6 +70,8 @@ Public Class ED_ApprovedModelsChanges
 
             conn.Open()
             cmd.ExecuteNonQuery()
+            conn.Close()
+            conn.Dispose()
         End Using
     End Sub
 
@@ -80,6 +87,8 @@ Public Class ED_ApprovedModelsChanges
 
             conn.Open()
             cmd.ExecuteNonQuery()
+            conn.Close()
+            conn.Dispose()
         End Using
     End Sub
 End Class

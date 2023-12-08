@@ -1,0 +1,60 @@
+﻿/*:root {
+    --dgvHeaderFooter: #5D7B9D;
+    --dgvRowOdd: #F7F6F3;
+    --dgvRowEven: #FFFFFF;
+}*/
+
+/* Estilos de los GridView */
+.dgvCatalog {
+    
+}
+
+    .dgvCatalog tr th {
+        background-color: #5d7b9d;
+        color: white;
+        font-weight: bold;
+    }
+
+    .dgvCatalog td {
+        padding: 8px;
+    }
+
+
+.dgvCatalogRowOdd {
+    background-color: #f7f6f3;
+    color: #284775;
+}
+
+.dgvCatalogRowEven {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.dgvPaging {
+    font-weight: bold;
+}
+
+    .dgvPaging a {
+        background-color: #5d7b9d;
+        padding: 5px 7px;
+        text-decoration: none;
+        color: #ffffff;
+        border: 1px solid #ffffff;
+    }
+
+        .dgvPaging a:hover {
+            background-color: #9bafc5;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+        }
+
+    .dgvPaging span {
+        background-color: #9bafc5;
+        padding: 5px 7px;
+        color: #ffffff;
+        border: 1px solid #ffffff;
+    }
+
+tr.dgvPaging {
+    background-color: #5D7B9D;
+}
