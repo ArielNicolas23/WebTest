@@ -279,8 +279,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Standard.JMM.Components.vb" />
-    <Content Include="ModuloGeneral\ModuloGeneralEmailvbOld.vb" />
-    <Content Include="Security\Security.Log.vb" />
     <Compile Include="App_Start\BundleConfig.vb" />
     <Compile Include="App_Start\RouteConfig.vb" />
     <Compile Include="About.aspx.designer.vb">
@@ -295,7 +293,7 @@
     </Compile>
     <Compile Include="Catalog\CatCalculoDirecto\CatCalculoDirecto.aspx.vb">
       <DependentUpon>CatCalculoDirecto.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Catalog\CatCalculoDirecto\AgregarModelo.aspx.designer.vb">
       <DependentUpon>AgregarModelo.aspx</DependentUpon>
@@ -394,7 +392,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModuloGeneral\ModuloGeneralEmailvb.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
