@@ -64,7 +64,7 @@
                 </tr>
         </table>
         <!-- En la base de datos no habia nada de modelo asi que pss no supe como llenar eso en la tabla pero pos ahi esta todo culero xd-->
-        <asp:GridView runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource2">
+        <asp:GridView runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource2" OnSelectedIndexChanged="Unnamed1_SelectedIndexChanged">
             <Columns>
                 <asp:BoundField DataField="Vida util" HeaderText="Vida util" SortExpression="Vida util"  />
                 <asp:BoundField DataField="Unidad" HeaderText="Unidad" SortExpression="Unidad"  />

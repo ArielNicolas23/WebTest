@@ -305,6 +305,10 @@ Public Class WebForm1
 
     End Sub
 
+    Protected Sub gvModelos_SelectedIndexChanged(sender As Object, e As EventArgs) Handles gvModelos.SelectedIndexChanged
+
+    End Sub
+
     'Protected Async Sub txtUser_TextChanged(sender As Object, e As EventArgs) Handles txtUser.TextChanged
     '    If (txtApprover.Text.Trim.Length > 3) Then
     '        txtApprover.DataSource = Await Test()
