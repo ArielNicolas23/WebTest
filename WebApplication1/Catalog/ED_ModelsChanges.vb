@@ -11,7 +11,7 @@ Public Class ED_ModelsChanges
     End Sub
 
     Public Sub Insert(
-            ByVal IdModelsChangesHeader As Guid,
+            ByVal IdApprovedModelsChanges As Guid,
             ByVal IdUnit As Guid,
             ByVal Model As String,
             ByVal Lifespan As Integer,
@@ -26,7 +26,7 @@ Public Class ED_ModelsChanges
             cmd.CommandText = "spED_ED_ModelsChanges_Insert"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
-            cmd.Parameters.AddWithValue("@IdModelsChangesHeader", IdModelsChangesHeader)
+            cmd.Parameters.AddWithValue("@IdApprovedModelsChanges", IdApprovedModelsChanges)
             cmd.Parameters.AddWithValue("@IdUnidad", IdUnit)
             cmd.Parameters.AddWithValue("@Model", Model)
             cmd.Parameters.AddWithValue("@Lifespan", Lifespan)
@@ -44,7 +44,7 @@ Public Class ED_ModelsChanges
 
     Public Sub Update(
             ByVal IdModelsChanges As Guid,
-            ByVal IdModelsChangesHeader As Guid,
+            ByVal IdApprovedModelsChanges As Guid,
             ByVal IdUnidad As Guid,
             ByVal Model As String,
             ByVal Lifespan As Integer,
@@ -60,7 +60,7 @@ Public Class ED_ModelsChanges
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@IdModelsChanges", IdModelsChanges)
-            cmd.Parameters.AddWithValue("@IdModelsChangesHeader", IdModelsChangesHeader)
+            cmd.Parameters.AddWithValue("@IdApprovedModelsChanges", IdApprovedModelsChanges)
             cmd.Parameters.AddWithValue("@IdUnidad", IdUnidad)
             cmd.Parameters.AddWithValue("@Model", Model)
             cmd.Parameters.AddWithValue("@Lifespan", Lifespan)

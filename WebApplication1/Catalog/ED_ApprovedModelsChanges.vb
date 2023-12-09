@@ -3,7 +3,7 @@ Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Net.NetworkInformation
 
-Public Class ED_ModelsChangesHeader
+Public Class ED_ApprovedModelsChanges
     Protected dbCon As String
 
     Public Sub New()
@@ -19,11 +19,11 @@ Public Class ED_ModelsChangesHeader
             ByVal IsActive As Boolean,
             ByVal CreatedBy As String)
 
-        Dim IdModelsChangesHeader As Guid
+        Dim idApprovedModelsChanges As Guid
         Using conn As New SqlConnection(Me.dbCon)
 
             Dim cmd As SqlCommand = New SqlCommand()
-            cmd.CommandText = "spED_ED_ModelsChangesHeader_Insert"
+            cmd.CommandText = "spED_ED_ApprovedModelsChanges_Insert"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@ChangeNumber", ChangeNumber)
@@ -35,16 +35,16 @@ Public Class ED_ModelsChangesHeader
             cmd.Parameters.AddWithValue("@CreatedBy", CreatedBy)
 
             conn.Open()
-            IdModelsChangesHeader = CType(cmd.ExecuteScalar(), Guid)
+            idApprovedModelsChanges = CType(cmd.ExecuteScalar(), Guid)
             conn.Close()
             conn.Dispose()
         End Using
 
-        Return IdModelsChangesHeader
+        Return idApprovedModelsChanges
     End Function
 
     Public Sub Update(
-            ByVal IdModelsChangesHeader As Guid,
+            ByVal IdApprovedModelsChanges As Guid,
             ByVal ChangeNumber As Integer,
             ByVal OriginUser As String,
             ByVal OriginComment As String,
@@ -56,10 +56,10 @@ Public Class ED_ModelsChangesHeader
         Using conn As New SqlConnection(Me.dbCon)
 
             Dim cmd As SqlCommand = New SqlCommand()
-            cmd.CommandText = "spED_ED_ModelsChangesHeader_Update"
+            cmd.CommandText = "spED_ED_ApprovedModelsChanges_Update"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
-            cmd.Parameters.AddWithValue("@@IdModelsChangesHeader", IdModelsChangesHeader)
+            cmd.Parameters.AddWithValue("@IdApprovedModelsChanges", IdApprovedModelsChanges)
             cmd.Parameters.AddWithValue("@ChangeNumber", ChangeNumber)
             cmd.Parameters.AddWithValue("@OriginUser", OriginUser)
             cmd.Parameters.AddWithValue("@OriginComment", OriginComment)
@@ -75,15 +75,15 @@ Public Class ED_ModelsChangesHeader
         End Using
     End Sub
 
-    Public Sub Delete(ByVal IdModelsChangesHeader As Guid)
+    Public Sub Delete(ByVal IdApprovedModelsChanges As Guid)
 
         Using conn As New SqlConnection(Me.dbCon)
 
             Dim cmd As SqlCommand = New SqlCommand()
-            cmd.CommandText = "spED_ED_ModelsChangesHeader_Delete"
+            cmd.CommandText = "spED_ED_ApprovedModelsChanges_Delete"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
-            cmd.Parameters.AddWithValue("@@IdModelsChangesHeader", IdModelsChangesHeader)
+            cmd.Parameters.AddWithValue("@IdApprovedModelsChanges", IdApprovedModelsChanges)
 
             conn.Open()
             cmd.ExecuteNonQuery()
