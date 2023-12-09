@@ -104,6 +104,15 @@ Partial Public Class WebForm1
     Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Table1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Table1 As Global.System.Web.UI.HtmlControls.HtmlTable
+
+    '''<summary>
     '''cmdCancelChange control.
     '''</summary>
     '''<remarks>
@@ -191,7 +200,7 @@ Partial Public Class WebForm1
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblApproverError As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblApproverError As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''lblUser control.
@@ -218,7 +227,7 @@ Partial Public Class WebForm1
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblUserError As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblUserError As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''lblPassword control.
@@ -245,7 +254,7 @@ Partial Public Class WebForm1
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPassworkError As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblPassworkError As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''lblApproveMessage control.
@@ -272,16 +281,7 @@ Partial Public Class WebForm1
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblApproveMessageError As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''lblModalMessage control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblModalMessage As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblApproveMessageError As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''cmdAcceptChange control.

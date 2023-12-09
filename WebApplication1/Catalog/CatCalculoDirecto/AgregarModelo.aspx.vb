@@ -53,41 +53,11 @@ Public Class WebForm1
         End If
     End Sub
 
-    Protected Function ValidateTextBox(txt As TextBox, lbl As Label, errorMessage As String, canInsert As Boolean)
-        If (txt.Text = "") Then
-            lbl.Text = errorMessage
-            Return False
-        Else
-            If (canInsert) Then
-                Return True
-            Else
-                Return False
-            End If
-        End If
-    End Function
-
-    Protected Sub CleanModalFields(cleanTextBoxes As Boolean)
-        lblApproverError.Text = ""
-        lblUserError.Text = ""
-        lblPassworkError.Text = ""
-        lblApproveMessageError.Text = ""
-        lblModalMessage.Text = ""
-
-        If (cleanTextBoxes) Then
-            txtApprover.Text = ""
-            txtUser.Text = ""
-            txtPassword.Text = ""
-            txtApproveMessage.Text = ""
-        End If
-    End Sub
-
     Protected Sub AddModel_Click(sender As Object, e As EventArgs) Handles cmdModel.Click
         Try
             lblMessage.Text = ""
 
             Dim modelsChange As ED_ModelsChanges = New ED_ModelsChanges()
-            Dim dt As DataTable = Session("DataTable")
-            Dim foundRepeated As Boolean
             Dim strModel As String = txtModel.Text.Trim.ToUpper
             Dim strLifeSpan As String = txtLifeSpan.Text.Trim.ToUpper
             Dim strUnit As String = ddlUnit.SelectedItem.Text.Trim.ToUpper
@@ -99,7 +69,7 @@ Public Class WebForm1
             End If
 
             If (Not Regex.IsMatch(strLifeSpan, "^[0-9 ]+$")) Then
-                lblMessage.Text = "Favor de escribir un valor numérico para la Vida Útil"
+                lblMessage.Text = "Favor de escribir un valor numerico para la Vida Útil"
                 Return
             End If
 
@@ -108,38 +78,27 @@ Public Class WebForm1
                 Return
             End If
 
-            For Each row As DataRow In dt.Rows
-                If (strModel = row("Modelo")) Then
-                    foundRepeated = True
-                End If
-            Next row
-
-            If (foundRepeated) Then
-                lblMessage.Text = "El Modelo que intenta ingresar ya se encuentra listado"
+            If (modelsChange.AlreadyExistModelChange(Nothing, strModel)) Then
+                lblMessage.Text = "No es posble ingresar el Modelo debido a que ya existe un Modelo activo registrado con ese nombre: [" + strModel + "]"
             Else
-                If (modelsChange.AlreadyExistModelChange(Guid.Empty, strModel)) Then
-                    lblMessage.Text = "No es posble ingresar el Modelo debido a que ya existe un Modelo activo registrado con ese nombre: [" + strModel + "]"
-                Else
-                    Dim row As DataRow = dt.NewRow
-                    row("Modelo") = strModel
-                    row("VidaUtil") = strLifeSpan
-                    row("Unidad") = strUnit
-                    row("Usuario") = "Origin User"        'Agregar función para obtener al usuario
-                    row("IdUnidad") = idUnit
+                Dim dt As DataTable = Session("DataTable")
+                Dim row As DataRow = dt.NewRow
+                row("Modelo") = strModel
+                row("VidaUtil") = strLifeSpan
+                row("Unidad") = strUnit
+                row("Usuario") = "Origin User"        'Agregar función para obtener al usuario
+                row("IdUnidad") = idUnit
 
-                    dt.Rows.Add(row)
+                dt.Rows.Add(row)
 
-                    gvModelos.DataSource = dt
-                    gvModelos.DataBind()
+                gvModelos.DataSource = dt
+                gvModelos.DataBind()
 
-                    Session("DataTable") = dt
+                Session("DataTable") = dt
 
-                    EnableButtons()
-                    CleanAddData()
-                End If
+                EnableButtons()
+                CleanAddData()
             End If
-
-
         Catch ex As Exception
             lblMessage.Text = "Ocurrió un error al intentar agregar los datos: " + ex.Message
         End Try
@@ -158,15 +117,8 @@ Public Class WebForm1
     End Sub
 
     Protected Sub cmdCancelChange_Click(sender As Object, e As EventArgs) Handles cmdCancelChange.Click
-        Dim confirmed As Integer = MsgBox("Se reiniciará el proceso carga y se borrarán todos modelos actualmente agregados. ¿Está seguro de continuar?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
-
-        If confirmed = MsgBoxResult.Yes Then
-            CleanTable()
-            EnableButtons()
-            CleanAddData()
-        Else
-
-        End If
+        CleanTable()
+        EnableButtons()
     End Sub
 
     Protected Sub cmdOpenApprove_Click(sender As Object, e As EventArgs) Handles cmdOpenApprove.Click
@@ -176,7 +128,7 @@ Public Class WebForm1
         Dim listRepeated As String = ""
 
         For Each row As DataRow In dt.Rows
-            If (modelsChange.AlreadyExistModelChange(Guid.Empty, row("Modelo"))) Then
+            If (False) Then 'modelsChange.AlreadyExistModelChange(Nothing, row("Modelo"))) Then
                 foundRepeated = True
                 listRepeated += "[" + row("Modelo") + "], "
             End If
@@ -191,104 +143,50 @@ Public Class WebForm1
     End Sub
 
     Protected Sub cmdCancelModal_Click(sender As Object, e As EventArgs) Handles cmdCancelModal.Click
-        CleanModalFields(True)
         ApproveModal.Hide()
     End Sub
 
     Protected Sub cmdAcceptChange_Click(sender As Object, e As EventArgs) Handles cmdAcceptChange.Click
-        CleanModalFields(False)
+        'Validaciones de los usuarios
+        'If (Security.UserAD.GetUserExists(txtApprover.Text, "")) Then
+        '    Dim res As String = Security.UserAD.GetUserEmail(txtApprover.Text)
+        '    txtApproveMessage.Text = res
+        'Else
+        '    txtApproveMessage.Text = "No se encontro el usuario"
+        '    Return
+        'End If
 
-        Dim canInsert As Boolean = True
+        Dim modelsChange As ED_ModelsChanges = New ED_ModelsChanges()
+        Dim approvedModelsChange As ED_ApprovedModelsChanges = New ED_ApprovedModelsChanges()
 
-        'Validaciones de los campos
-        canInsert = ValidateTextBox(txtApprover, lblApproverError, "Buscar un Aprobador", canInsert)
-        canInsert = ValidateTextBox(txtUser, lblUserError, "Llenar el campo de Usuario", canInsert)
-        canInsert = ValidateTextBox(txtPassword, lblPassworkError, "Llenar el campo de Contraseña", canInsert)
-        canInsert = ValidateTextBox(txtApproveMessage, lblApproveMessageError, "Llenar el campo de Mensaje", canInsert)
+        Dim dt As DataTable = Session("DataTable")
+        Dim changeNumber As Integer = 1
+        Dim originUser As String = "Origin User"             'Agregar función para obtener al usuario
+        Dim originComment As String = txtApproveMessage.Text
+        Dim approverUser As String = txtApprover.Text
+        Dim approvalStatus As String = "Pendiente"
+        Dim isActive As String = True
+
+        Dim idApprovedModelsChanges As Guid
+        Dim idUnit As Guid
+        Dim model As String
+        Dim lifeSpan As Integer
+        Dim modelChangeStatus As String = "Pendiente"
 
         'Validaciones extra por si acaso
-        If (canInsert) Then
-            Dim modelsChange As ED_ModelsChanges = New ED_ModelsChanges()
-            Dim approvedModelsChange As ED_ModelsChangesHeader = New ED_ModelsChangesHeader()
-
-            Dim foundRepeated As Boolean
-            Dim originUser As String             'Agregar función para obtener al usuario
-            Dim approverEmail As String
-
-            Dim dt As DataTable = Session("DataTable")
-            Dim changeNumber As Integer = 1
-            Dim originComment As String = txtApproveMessage.Text
-            Dim approverUser As String = txtApprover.Text
-            Dim approvalStatus As String = "Pendiente"
-            Dim isActive As Boolean = True
-
-            Dim IdModelsChangesHeader As Guid
-            Dim idUnit As Guid
-            Dim model As String
-            Dim lifeSpan As Integer
-            Dim modelChangeStatus As String = "Pendiente"
-
-            'Validaciones del usuario aprobador
-            If (Security.UserAD.GetUserExists(txtApprover.Text, "")) Then
-                approverEmail = Security.UserAD.GetUserEmail(txtApprover.Text)
-            Else
-                lblModalMessage.Text = "No se encontro al Usuario Aprobador"
-                ApproveModal.Show()
-                Return
-            End If
-
-            'Validación del propio usuario
-            If (Security.UserAD.GetUserExists(txtUser.Text, "")) Then 'Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT\")) Then
-                originUser = txtUser.Text
-            Else
-                lblModalMessage.Text = "Usuario o contraseña incorrectos"
-                ApproveModal.Show()
-                Return
-            End If
-
-            'Validación de registros ya existentes
-            For Each row As DataRow In dt.Rows
-                If (modelsChange.AlreadyExistModelChange(Guid.Empty, row("Modelo"))) Then
-                    foundRepeated = True
-                End If
-            Next row
-
-            If (foundRepeated) Then
-                lblModalMessage.Text = "Se ha detectado que uno o varios modelos seleccionados fueron cargados durante el proceso de aprobación. Favor de rectificar."
-                ApproveModal.Show()
-            Else
-                IdModelsChangesHeader = approvedModelsChange.Insert(changeNumber, originUser, originComment, approverUser, approvalStatus, isActive, originUser)
-                For Each row As DataRow In dt.Rows
-                    idUnit = Guid.Parse(row("IdUnidad"))
-                    model = row("Modelo")
-                    lifeSpan = row("VidaUtil")
-                    modelsChange.Insert(IdModelsChangesHeader, idUnit, model, lifeSpan, modelChangeStatus, originUser, isActive, originUser)
-                Next row
-
-                ApproveModal.Hide()
-                MsgBox("Se ha completado exitósamente el registro de los cambios", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
 
 
-                Dim dataMail As New ConstructInfo With {
-                                    .EmailType = "CambiosPendientes",
-                                    .UserName = txtApprover.Text.Trim,
-                                    .Comment = txtApproveMessage.Text.Trim,
-                                    .Link = "<a href=>Fecha De Expiración</a>"
-                                    }
-                    Dim email As New ModuloGeneralEmail
+        idApprovedModelsChanges = approvedModelsChange.Insert(changeNumber, originUser, originComment, approverUser, approvalStatus, isActive, originUser)
+        For Each row As DataRow In dt.Rows
+            idUnit = Guid.Parse(row("IdUnidad"))
+            model = row("Modelo")
+            lifeSpan = row("VidaUtil")
+            modelsChange.Insert(idApprovedModelsChanges, idUnit, model, lifeSpan, modelChangeStatus, originUser, isActive, originUser)
+        Next row
 
-                If email.ConstructEmail(dataMail) Then
-                    MsgBox("Se ha enviado un correo a " + txtApprover.Text, MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
-                Else
-                    MsgBox("Ha ocurrido un error al mandar correo a " + txtApprover.Text, MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Error")
-                End If
-
-                CleanModalFields(True)
-                    CleanTable()
-                End If
-                Else
-            ApproveModal.Show()
-        End If
+        ApproveModal.Hide()
+        MsgBox("Se ha completado exitósamente el registro de los cambios", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+        CleanTable()
     End Sub
 
     Async Function Test() As Threading.Tasks.Task(Of DataTable)
