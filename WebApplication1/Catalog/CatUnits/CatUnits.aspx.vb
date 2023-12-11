@@ -15,7 +15,6 @@ Public Class Catalog_CatUnits
         Dim catUnits As CatUnits = New CatUnits()
         dgvUnits.DataSource = catUnits.SelectAll(unit, isSearch)
         dgvUnits.DataBind()
-
     End Sub
 
 

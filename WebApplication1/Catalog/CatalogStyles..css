@@ -4,19 +4,38 @@
     --dgvRowEven: #FFFFFF;
 }*/
 
+/* Estilos de Header*/
+.catHeader {
+    font-size: 24px;
+    font-weight: bold;
+    color: royalblue;
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+/* Estilos de campos */
+.catTable {
+
+}
+
 /* Estilos de los GridView */
 .dgvCatalog {
-    
+
 }
 
     .dgvCatalog tr th {
         background-color: #5d7b9d;
         color: white;
         font-weight: bold;
+        padding: 4px;
+        height: 17px;
+        width: 150px;
     }
 
     .dgvCatalog td {
         padding: 8px;
+        height: 17px;
+        width: 150px;
     }
 
 

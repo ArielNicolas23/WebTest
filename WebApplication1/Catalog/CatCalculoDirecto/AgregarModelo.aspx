@@ -3,11 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="UpdatePanelGeneral" runat="server">
         <ContentTemplate>
-            <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Catálogo de Configuración de Cálculo Directo"></asp:Label>
-
-            <div style="height: 32px">
-
+            <div class="catHeader">
+                <asp:Label ID="lblTitle" runat="server" Text="Catálogo de Configuración de Cálculo Directo"></asp:Label>
             </div>      
+
             <table>
                 <tr>
                     <td style="height: 17px; width: 128px; text-align: right">
@@ -55,7 +54,7 @@
             </div>
 
             <!-- Cosas-->
-            <asp:GridView runat="server" AutoGenerateColumns="False" CellPadding="4" CssClass="dgvCatalog" GridLines="None" Width="680px" AllowPaging="True" ID="gvModelos">
+            <asp:GridView runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="750px" AllowPaging="True" ID="gvModelos">
                 <Columns>
                     <asp:BoundField DataField="Modelo" HeaderText="Modelo" />
                     <asp:BoundField DataField="VidaUtil" HeaderText="Vida Útil" SortExpression="VidaUtil" />

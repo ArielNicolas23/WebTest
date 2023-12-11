@@ -106,6 +106,8 @@
 			</siteMapNode>
 			<siteMapNode title="Configuración Cálculo Directo" description="Módulo Configuración Cálculo Directo" roles="*" url="/Catalog/CatCalculoDirecto/AgregarModelo.aspx">
 			</siteMapNode>
+			<siteMapNode title="Modelos Pendietes de Aprobación" description="Módulo Modelos Pendietes de Aprobación" roles="*" url="/Catalog/CatModuloAprobacion/CatPendingApproval.aspx">
+			</siteMapNode>
       
       <!--<siteMapNode title="Módulo General" description="Módulo General" roles="ModGral_Admin">
         <siteMapNode title="Componentes críticos" description="Componentes críticos" url="/ExpirationDate/ModuloGeneral/NuevaRelacionMC.aspx" roles="ModGral_Admin"/>

@@ -120,4 +120,49 @@ Public Class ED_ModelsChanges
 
         Return result
     End Function
+
+    Public Function SelectByIdModelsChangesHeader(ByVal IdModelsChangesHeader As Guid) As DataTable
+        Dim result As DataTable
+        Dim row As DataRow
+
+        Using conn As New SqlConnection(Me.dbCon)
+
+            Dim cmd As SqlCommand = New SqlCommand()
+            cmd.CommandText = "spED_ED_ModelsChangesHeader_SelectByIdModelsChangesHeader"
+            cmd.Connection = conn
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@IdModelsChangesHeader", IdModelsChangesHeader)
+
+            result = New DataTable("Result")
+            result.Columns.Add("IdModelsChange", GetType(Guid))
+            result.Columns.Add("Model", GetType(String))
+            result.Columns.Add("Lifespan", GetType(String))
+            result.Columns.Add("Unit", GetType(String))
+            result.Columns.Add("LastUser", GetType(String))
+            result.Columns.Add("ModifiedOn", GetType(String))
+
+            conn.Open()
+
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+
+                row = result.NewRow()
+
+                row("IdModelsChange") = reader.GetGuid(0)
+                row("Model") = reader.GetString(1)
+                row("Lifespan") = reader.GetInt32(2)
+                row("Unit") = reader.GetString(3)
+                row("LastUser") = reader.GetString(4)
+                row("ModifiedOn") = reader.GetDateTime(5).ToString("dd/MMM/yyyy")
+
+                result.Rows.Add(row)
+
+            End While
+
+            conn.Close()
+            conn.Dispose()
+        End Using
+
+        Return result
+    End Function
 End Class
