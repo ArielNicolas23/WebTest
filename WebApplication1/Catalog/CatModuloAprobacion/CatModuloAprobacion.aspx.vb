@@ -44,6 +44,38 @@ Public Class CatModuloAprobacion
 
     Protected Sub DropDownList1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DropDownList1.SelectedIndexChanged
 
+        Dim conn As New SqlConnection("Data Source=J96W2D3-L1\SQLEXPRESS;Initial Catalog=FechaExpiracion;Integrated Security=True")
+        conn.Open()
+        Dim cmd As New SqlCommand("spED_ED_ModelsChangesHeader_SelectByApprovalStatus", conn)
+        cmd.CommandType = CommandType.StoredProcedure
+        cmd.Parameters.AddWithValue("@Aprobador", "orizag2")
+        cmd.Parameters.AddWithValue("@Estatus", DropDownList1.Text)
+        Dim da As New SqlDataAdapter
+        da.SelectCommand = cmd
+        Dim dt As New DataTable
+        dt.Clear()
+        da.Fill(dt)
+        gvPendientes.DataSource = dt
+        gvPendientes.DataBind()
+        cmd.ExecuteNonQuery()
+        conn.Close()
     End Sub
 
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        ModalPopupExtender1.Show()
+        Dim conn As New SqlConnection("Data Source=J96W2D3-L1\SQLEXPRESS;Initial Catalog=FechaExpiracion;Integrated Security=True")
+        conn.Open()
+        Dim cmd As New SqlCommand("spED_ED_ModelsChangesHeader_SelectByID", conn)
+        cmd.CommandType = CommandType.StoredProcedure
+        cmd.Parameters.AddWithValue("@ID", "0bb769b7-075a-46d9-9845-c53e1c1e3306")
+        Dim da As New SqlDataAdapter
+        da.SelectCommand = cmd
+        Dim dt As New DataTable
+        dt.Clear()
+        da.Fill(dt)
+        gvSeleccionado.DataSource = dt
+        gvSeleccionado.DataBind()
+        cmd.ExecuteNonQuery()
+        conn.Close()
+    End Sub
 End Class
