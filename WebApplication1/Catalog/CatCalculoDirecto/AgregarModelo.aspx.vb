@@ -1,6 +1,9 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.ComponentModel
+Imports System.Data.SqlClient
 Imports System.Diagnostics.Eventing
 Imports System.Threading.Tasks
+Imports System.Web.Script.Services
+Imports System.Web.Services
 Imports AjaxControlToolkit
 
 Public Class WebForm1
@@ -228,9 +231,20 @@ Public Class WebForm1
             Dim lifeSpan As Integer
             Dim modelChangeStatus As String = "Pendiente"
 
+            Dim strApproverName As String = txtApprover.Text
+            Dim strApproverUser As String = String.Empty
+
+            'Validaciones de busqueda en usuario aprobador
+            If strApproverName.Contains("||") Then
+                strApproverUser = Split(txtApprover.Text, "||")(1).Trim
+            Else
+                strApproverUser = txtApprover.Text
+            End If
+
+
             'Validaciones del usuario aprobador
-            If (Security.UserAD.GetUserExists(txtApprover.Text, "")) Then
-                approverEmail = Security.UserAD.GetUserEmail(txtApprover.Text)
+            If (Security.UserAD.GetUserExists(strApproverUser, "")) Then
+                approverEmail = Security.UserAD.GetUserEmail(strApproverUser)
             Else
                 lblModalMessage.Text = "No se encontro al Usuario Aprobador"
                 ApproveModal.Show()
@@ -271,34 +285,26 @@ Public Class WebForm1
 
                 Dim dataMail As New ConstructInfo With {
                                     .EmailType = "CambiosPendientes",
-                                    .UserName = txtApprover.Text.Trim,
+                                    .UserName = strApproverUser,
                                     .Comment = txtApproveMessage.Text.Trim,
                                     .Link = "<a href=>Fecha De Expiración</a>"
                                     }
-                    Dim email As New ModuloGeneralEmail
+                Dim email As New ModuloGeneralEmail
 
                 If email.ConstructEmail(dataMail) Then
-                    MsgBox("Se ha enviado un correo a " + txtApprover.Text, MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+                    MsgBox("Se ha enviado un correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
                 Else
-                    MsgBox("Ha ocurrido un error al mandar correo a " + txtApprover.Text, MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Error")
+                    MsgBox("Ha ocurrido un error al mandar correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Error")
                 End If
 
                 CleanModalFields(True)
-                    CleanTable()
-                End If
-                Else
+                CleanTable()
+            End If
+        Else
             ApproveModal.Show()
         End If
     End Sub
 
-    Async Function Test() As Threading.Tasks.Task(Of DataTable)
-        Dim data = New DataTable()
-        data.Columns.Add("Name", GetType(String))
-        data.Columns.Add("UserName", GetType(String))
-        data.Columns.Add("Email", GetType(String))
-        data = Security.UserAD.GetAllUsers(txtApprover.Text, data)
-        Return data
-    End Function
 
     Protected Sub ddlUnit_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlUnit.SelectedIndexChanged
 
@@ -308,15 +314,4 @@ Public Class WebForm1
     Protected Sub gvModelos_SelectedIndexChanged(sender As Object, e As EventArgs) Handles gvModelos.SelectedIndexChanged
 
     End Sub
-
-    'Protected Async Sub txtUser_TextChanged(sender As Object, e As EventArgs) Handles txtUser.TextChanged
-    '    If (txtApprover.Text.Trim.Length > 3) Then
-    '        txtApprover.DataSource = Await Test()
-    '        txtApprover.DataTextField = "Name"
-    '        txtApprover.DataValueField = "UserName"
-    '        txtApprover.SelectedIndex = 0
-    '        txtApprover.DataBind()
-    '        Return
-    '    End If
-    'End Sub
 End Class

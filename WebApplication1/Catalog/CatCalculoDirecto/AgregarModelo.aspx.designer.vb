@@ -185,6 +185,15 @@ Partial Public Class WebForm1
     Protected WithEvents txtApprover As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''txtSearchAD_AutoCompleteExtender control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtSearchAD_AutoCompleteExtender As Global.AjaxControlToolkit.AutoCompleteExtender
+
+    '''<summary>
     '''lblApproverError control.
     '''</summary>
     '''<remarks>

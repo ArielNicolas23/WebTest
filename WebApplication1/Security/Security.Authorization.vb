@@ -312,7 +312,7 @@ Namespace Security
                 Dim mySearcher As DirectorySearcher = New DirectorySearcher(myDirectory)
                 Dim strFilter As String = "(&(objectCategory=Person)(objectClass=User)(|(cn=" + strUserFilter + "*)(sAMAccountName=" + strUserFilter + "*)))"
                 mySearcher = New DirectorySearcher(strFilter)
-                mySearcher.SizeLimit = 10
+                mySearcher.SizeLimit = 5
                 mySearcher.PropertiesToLoad.Add("cn")
                 mySearcher.PropertiesToLoad.Add("mail")
                 mySearcher.PropertiesToLoad.Add("samaccountname")

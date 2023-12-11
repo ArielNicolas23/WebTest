@@ -3,10 +3,32 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="UpdatePanelGeneral" runat="server">
         <ContentTemplate>
-            <div class="catHeader">
-                <asp:Label ID="lblTitle" runat="server" Text="Catálogo de Configuración de Cálculo Directo"></asp:Label>
-            </div>      
+                    <style type="text/css">.modalbackground
+{
+    background-color:black;
+    opacity:0.6;
+}</style>
+            <script type="text/javascript">
+                function ClearADFields() {
+                    //CLEAR DATA
+                    txtApprover.value = '';
+                    //ENABLE FIELDS AND DISABLE REFRESH BUTTON
+                    txtApprover.disabled = false;
+                    btnRefresh.disabled = true;
+                }
+                function ADUserFound() {
+                    txtApprover.disabled = true;
+                        btnRefresh.disabled = false;
+                    }
+                }
+            </script>
 
+                                            
+            <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Catálogo de Configuración de Cálculo Directo"></asp:Label>
+
+            <div style="height: 32px">
+
+            </div>      
             <table>
                 <tr>
                     <td style="height: 17px; width: 128px; text-align: right">
@@ -54,7 +76,7 @@
             </div>
 
             <!-- Cosas-->
-            <asp:GridView runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="750px" AllowPaging="True" ID="gvModelos">
+            <asp:GridView runat="server" AutoGenerateColumns="False" CellPadding="4" CssClass="dgvCatalog" GridLines="None" Width="680px" AllowPaging="True" ID="gvModelos">
                 <Columns>
                     <asp:BoundField DataField="Modelo" HeaderText="Modelo" />
                     <asp:BoundField DataField="VidaUtil" HeaderText="Vida Útil" SortExpression="VidaUtil" />
@@ -90,19 +112,22 @@
                     <table style="width: 550px">
                         <tr>
                             <td colspan="3">
-                                <asp:Label ID="lblModalInstruction" runat="server" Text="Favor de asignar un aprobador para el cambio" ></asp:Label>
+                                <asp:Label ID="lblModalInstruction" runat="server" Text="Favor de asignar un aprobador para el cambio" Font-Bold="True" ></asp:Label>
                             </td>
                         </tr>
 
                         <tr>
-                            <td align="right" style="width: 170px">
-                                <asp:Label ID="lblApprover" runat="server" Text="Aprobador:" Width="162px"></asp:Label>
+                            <td align="left" style="width: 100px">
+                                <asp:Label ID="lblApprover" runat="server" Text="Aprobador:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
                             <td align="left" style="width: 170px">
-                                <asp:TextBox ID="txtApprover" runat="server" Width="162px"></asp:TextBox>
-                                <%--<ajaxToolkit:ComboBox ID=s"txtApprover" runat="server" Width="128px" AutoCompleteMode="SuggestAppend" AutoPostBack="True" ItemInsertLocation="OrdinalText">
 
-                                </ajaxToolkit:ComboBox>--%>
+                                                                           <asp:TextBox ID="txtApprover" runat="server" Width="260px" oncgange="ADUserFound()" ></asp:TextBox>
+                                                   <ajaxToolkit:AutoCompleteExtender ID="txtSearchAD_AutoCompleteExtender" runat="server" TargetControlID="txtApprover" ServiceMethod="GetADUsers" ServicePath="wsGetAdUsers.asmx"
+    MinimumPrefixLength="3" CompletionInterval="500" EnableCaching="false" CompletionSetCount="10" CompletionListElementID="AutoCompleteContainer"  >
+</ajaxToolkit:AutoCompleteExtender>
+        <div id="AutoCompleteContainer"></div>
+                   
                             </td>
                             <td>
                                 <asp:Label ID="lblApproverError" runat="server" ForeColor="Red"></asp:Label>
@@ -111,11 +136,11 @@
                         </tr>
 
                         <tr>
-                            <td align="right" style="width: 170px">
-                                <asp:Label ID="lblUser" runat="server" Text="Usuario:" Width="162px"></asp:Label>
+                            <td align="left" style="width: 100px">
+                                <asp:Label ID="lblUser" runat="server" Text="Usuario:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
                             <td align="left" style="width: 170px">
-                                <asp:TextBox ID="txtUser" runat="server" Width="162px" CausesValidation="True"></asp:TextBox>
+                                <asp:TextBox ID="txtUser" runat="server" Width="260px" CausesValidation="True"></asp:TextBox>
                             </td>
                             <td>
                                 <asp:Label ID="lblUserError" runat="server" ForeColor="Red"></asp:Label>
@@ -124,11 +149,11 @@
                         </tr>
  
                         <tr>
-                            <td align="right" style="width: 170px">
-                                <asp:Label ID="lblPassword" runat="server" Text="Contraseña:" Width="162px"></asp:Label>
+                            <td align="left" style="width: 100px">
+                                <asp:Label ID="lblPassword" runat="server" Text="Contraseña:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
                             <td align="left" style="width: 170px">
-                                <asp:TextBox ID="txtPassword" runat="server" Width="162px" TextMode="Password"></asp:TextBox>
+                                <asp:TextBox ID="txtPassword" runat="server" Width="260px" TextMode="Password"></asp:TextBox>
                             </td>
                             <td>
                                 <asp:Label ID="lblPassworkError" runat="server" ForeColor="Red"></asp:Label>
@@ -137,11 +162,11 @@
                         </tr>
 
                         <tr>
-                            <td align="right" style="width: 162px">
-                                <asp:Label ID="lblApproveMessage" runat="server" Text="Comentarios:" Width="162px"></asp:Label>
+                            <td align="left" style="width: 100px">
+                                <asp:Label ID="lblApproveMessage" runat="server" Text="Comentarios:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
                             <td align="left" style="width: 170px">
-                                <asp:TextBox ID="txtApproveMessage" runat="server" Height="104px" Width="162px" TextMode="MultiLine"></asp:TextBox>
+                                <asp:TextBox ID="txtApproveMessage" runat="server" Height="104px" Width="260px" TextMode="MultiLine"></asp:TextBox>
                             </td>
                             <td>
                                 <asp:Label ID="lblApproveMessageError" runat="server" ForeColor="Red"></asp:Label>
