@@ -152,6 +152,7 @@ Public Class ED_ModelsChanges
             conn.Open()
 
             Dim reader As SqlDataReader = cmd.ExecuteReader()
+
             While reader.Read()
 
                 row = result.NewRow()
