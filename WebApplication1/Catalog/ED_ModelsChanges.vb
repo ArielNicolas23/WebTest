@@ -17,6 +17,8 @@ Public Class ED_ModelsChanges
             ByVal Lifespan As Integer,
             ByVal ModelChangeStatus As String,
             ByVal LastUser As String,
+            ByVal LastUserName As String,
+            ByVal LastUserEmail As String,
             ByVal IsActive As Boolean,
             ByVal CreatedBy As String)
 
@@ -32,6 +34,8 @@ Public Class ED_ModelsChanges
             cmd.Parameters.AddWithValue("@Lifespan", Lifespan)
             cmd.Parameters.AddWithValue("@ModelChangeStatus", ModelChangeStatus)
             cmd.Parameters.AddWithValue("@LastUser", LastUser)
+            cmd.Parameters.AddWithValue("@LastUserName", LastUserName)
+            cmd.Parameters.AddWithValue("@LastUserEmail", LastUserEmail)
             cmd.Parameters.AddWithValue("@IsActive", IsActive)
             cmd.Parameters.AddWithValue("@CreatedBy", CreatedBy)
 
@@ -50,7 +54,8 @@ Public Class ED_ModelsChanges
             ByVal Lifespan As Integer,
             ByVal ModelChangeStatus As String,
             ByVal LastUser As String,
-            ByVal IsActive As Boolean,
+            ByVal LastUserName As String,
+            ByVal LastUserEmail As String,
             ByVal ModifiedBy As String)
 
         Using conn As New SqlConnection(Me.dbCon)
@@ -66,6 +71,8 @@ Public Class ED_ModelsChanges
             cmd.Parameters.AddWithValue("@Lifespan", Lifespan)
             cmd.Parameters.AddWithValue("@ModelChangeStatus", ModelChangeStatus)
             cmd.Parameters.AddWithValue("@LastUser", LastUser)
+            cmd.Parameters.AddWithValue("@LastUserName", LastUserName)
+            cmd.Parameters.AddWithValue("@LastUserEmail", LastUserEmail)
             cmd.Parameters.AddWithValue("@ModifiedBy", ModifiedBy)
 
             conn.Open()
@@ -128,7 +135,7 @@ Public Class ED_ModelsChanges
         Using conn As New SqlConnection(Me.dbCon)
 
             Dim cmd As SqlCommand = New SqlCommand()
-            cmd.CommandText = "spED_ED_ModelsChangesHeader_SelectByIdModelsChangesHeader"
+            cmd.CommandText = "spED_ED_ModelsChanges_SelectByIdModelsChangesHeader"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@IdModelsChangesHeader", IdModelsChangesHeader)
@@ -140,6 +147,7 @@ Public Class ED_ModelsChanges
             result.Columns.Add("Unit", GetType(String))
             result.Columns.Add("LastUser", GetType(String))
             result.Columns.Add("ModifiedOn", GetType(String))
+            result.Columns.Add("IsChecked", GetType(Boolean))
 
             conn.Open()
 
@@ -154,6 +162,7 @@ Public Class ED_ModelsChanges
                 row("Unit") = reader.GetString(3)
                 row("LastUser") = reader.GetString(4)
                 row("ModifiedOn") = reader.GetDateTime(5).ToString("dd/MMM/yyyy")
+                row("IsChecked") = reader.GetBoolean(6)
 
                 result.Rows.Add(row)
 

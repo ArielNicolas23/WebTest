@@ -13,8 +13,12 @@ Public Class ED_ModelsChangesHeader
     Public Function Insert(
             ByVal ChangeNumber As Integer,
             ByVal OriginUser As String,
+            ByVal OriginName As String,
+            ByVal OriginEmail As String,
             ByVal OriginComment As String,
             ByVal ApproverUser As String,
+            ByVal ApproverName As String,
+            ByVal ApproverEmail As String,
             ByVal ApprovalStatus As String,
             ByVal IsActive As Boolean,
             ByVal CreatedBy As String)
@@ -28,8 +32,12 @@ Public Class ED_ModelsChangesHeader
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@ChangeNumber", ChangeNumber)
             cmd.Parameters.AddWithValue("@OriginUser", OriginUser)
+            cmd.Parameters.AddWithValue("@OriginName", OriginName)
+            cmd.Parameters.AddWithValue("@OriginEmail", OriginEmail)
             cmd.Parameters.AddWithValue("@OriginComment", OriginComment)
             cmd.Parameters.AddWithValue("@ApproverUser", ApproverUser)
+            cmd.Parameters.AddWithValue("@ApproverName", ApproverName)
+            cmd.Parameters.AddWithValue("@ApproverEmail", ApproverEmail)
             cmd.Parameters.AddWithValue("@ApprovalStatus", ApprovalStatus)
             cmd.Parameters.AddWithValue("@IsActive", IsActive)
             cmd.Parameters.AddWithValue("@CreatedBy", CreatedBy)
@@ -47,8 +55,12 @@ Public Class ED_ModelsChangesHeader
             ByVal IdModelsChangesHeader As Guid,
             ByVal ChangeNumber As Integer,
             ByVal OriginUser As String,
+            ByVal OriginName As String,
             ByVal OriginComment As String,
+            ByVal OriginEmail As String,
             ByVal ApproverUser As String,
+            ByVal ApproverName As String,
+            ByVal ApproverEmail As String,
             ByVal ApproverComment As String,
             ByVal ApprovalStatus As String,
             ByVal ModifiedBy As String)
@@ -62,8 +74,12 @@ Public Class ED_ModelsChangesHeader
             cmd.Parameters.AddWithValue("@@IdModelsChangesHeader", IdModelsChangesHeader)
             cmd.Parameters.AddWithValue("@ChangeNumber", ChangeNumber)
             cmd.Parameters.AddWithValue("@OriginUser", OriginUser)
+            cmd.Parameters.AddWithValue("@OriginName", OriginName)
+            cmd.Parameters.AddWithValue("@OriginEmail", OriginEmail)
             cmd.Parameters.AddWithValue("@OriginComment", OriginComment)
             cmd.Parameters.AddWithValue("@ApproverUser", ApproverUser)
+            cmd.Parameters.AddWithValue("@ApproverName", ApproverName)
+            cmd.Parameters.AddWithValue("@ApproverEmail", ApproverEmail)
             cmd.Parameters.AddWithValue("@ApproverComment", ApproverComment)
             cmd.Parameters.AddWithValue("@ApprovalStatus", ApprovalStatus)
             cmd.Parameters.AddWithValue("@@ModifiedBy", ModifiedBy)
@@ -97,11 +113,6 @@ Public Class ED_ModelsChangesHeader
         Dim row As DataRow
 
         Using conn As New SqlConnection(Me.dbCon)
-
-            'Dim rowApproverUser As String
-            'Dim rowOriginUser As String
-            'Dim roeApprovalStatus As String
-
 
             Dim cmd As SqlCommand = New SqlCommand()
             cmd.CommandText = "spED_ED_ModelsChangesHeader_SelectByApproverUser"
@@ -139,7 +150,7 @@ Public Class ED_ModelsChangesHeader
                 Else
                     row("ApprovedOn") = reader.GetDateTime(7).ToString("dd/MMM/yyyy")
                 End If
-                row("ModifiedOn") = reader.GetDateTime(13).ToString("dd/MMM/yyyy")
+                row("ModifiedOn") = reader.GetDateTime(8).ToString("dd/MMM/yyyy")
                 row("Action") = "Tomar para revisar"
                 result.Rows.Add(row)
 
@@ -195,7 +206,7 @@ Public Class ED_ModelsChangesHeader
                 Else
                     row("ApprovedOn") = reader.GetDateTime(7).ToString("dd/MMM/yyyy")
                 End If
-                row("ModifiedOn") = reader.GetDateTime(13).ToString("dd/MMM/yyyy")
+                row("ModifiedOn") = reader.GetDateTime(8).ToString("dd/MMM/yyyy")
                 row("Action") = "Tomar para revisar"
                 result.Rows.Add(row)
 

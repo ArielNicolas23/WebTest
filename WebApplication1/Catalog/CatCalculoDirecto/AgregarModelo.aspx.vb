@@ -213,15 +213,19 @@ Public Class WebForm1
         If (canInsert) Then
             Dim modelsChange As ED_ModelsChanges = New ED_ModelsChanges()
             Dim approvedModelsChange As ED_ModelsChangesHeader = New ED_ModelsChangesHeader()
-
+            Dim dt As DataTable = Session("DataTable")
             Dim foundRepeated As Boolean
+
             Dim originUser As String             'Agregar función para obtener al usuario
+            Dim originName As String
+            Dim originEmail As String
+
+            Dim approverUser As String
+            Dim approverName As String
             Dim approverEmail As String
 
-            Dim dt As DataTable = Session("DataTable")
             Dim changeNumber As Integer = 1
             Dim originComment As String = txtApproveMessage.Text
-            Dim approverUser As String = txtApprover.Text
             Dim approvalStatus As String = "Pendiente"
             Dim isActive As Boolean = True
 
@@ -232,19 +236,19 @@ Public Class WebForm1
             Dim modelChangeStatus As String = "Pendiente"
 
             Dim strApproverName As String = txtApprover.Text
-            Dim strApproverUser As String = String.Empty
 
-            'Validaciones de busqueda en usuario aprobador
+            'Asignación del usuario aprobador
             If strApproverName.Contains("||") Then
-                strApproverUser = Split(txtApprover.Text, "||")(1).Trim
+                approverUser = Split(txtApprover.Text, "||")(1).Trim
             Else
-                strApproverUser = txtApprover.Text
+                approverUser = txtApprover.Text
             End If
 
 
             'Validaciones del usuario aprobador
-            If (Security.UserAD.GetUserExists(strApproverUser, "")) Then
-                approverEmail = Security.UserAD.GetUserEmail(strApproverUser)
+            If (Security.UserAD.GetUserExists(approverUser, "")) Then
+                approverName = strApproverName                                  'Agregar función para buscar el nombre del aprobador
+                approverEmail = Security.UserAD.GetUserEmail(approverUser)
             Else
                 lblModalMessage.Text = "No se encontro al Usuario Aprobador"
                 ApproveModal.Show()
@@ -252,8 +256,10 @@ Public Class WebForm1
             End If
 
             'Validación del propio usuario
-            If (Security.UserAD.GetUserExists(txtUser.Text, "")) Then 'Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT\")) Then
+            If (Security.UserAD.GetUserExists(txtUser.Text, "")) Then 'Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT\")) Then   'Agregar función para validar el usuario y contraseña 
                 originUser = txtUser.Text
+                originName = "Nombre de " + originUser                              'Agregar función para buscar el nombre del usuario
+                originEmail = Security.UserAD.GetUserEmail(originUser)
             Else
                 lblModalMessage.Text = "Usuario o contraseña incorrectos"
                 ApproveModal.Show()
@@ -271,12 +277,12 @@ Public Class WebForm1
                 lblModalMessage.Text = "Se ha detectado que uno o varios modelos seleccionados fueron cargados durante el proceso de aprobación. Favor de rectificar."
                 ApproveModal.Show()
             Else
-                IdModelsChangesHeader = approvedModelsChange.Insert(changeNumber, originUser, originComment, approverUser, approvalStatus, isActive, originUser)
+                IdModelsChangesHeader = approvedModelsChange.Insert(changeNumber, originUser, originName, originEmail, originComment, approverUser, approverName, approverEmail, approvalStatus, isActive, originUser)
                 For Each row As DataRow In dt.Rows
                     idUnit = Guid.Parse(row("IdUnidad"))
                     model = row("Modelo")
                     lifeSpan = row("VidaUtil")
-                    modelsChange.Insert(IdModelsChangesHeader, idUnit, model, lifeSpan, modelChangeStatus, originUser, isActive, originUser)
+                    modelsChange.Insert(IdModelsChangesHeader, idUnit, model, lifeSpan, modelChangeStatus, originUser, originName, originEmail, isActive, originUser)
                 Next row
 
                 ApproveModal.Hide()
@@ -285,7 +291,7 @@ Public Class WebForm1
 
                 Dim dataMail As New ConstructInfo With {
                                     .EmailType = "CambiosPendientes",
-                                    .UserName = strApproverUser,
+                                    .UserName = originUser,
                                     .Comment = txtApproveMessage.Text.Trim,
                                     .Link = "<a href=>Fecha De Expiración</a>"
                                     }
