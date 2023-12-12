@@ -164,6 +164,7 @@
     <Content Include="About.aspx" />
     <Content Include="Catalog\CatCalculoDirecto\CatCalculoDirecto.aspx" />
     <Content Include="Catalog\CatCalculoDirecto\AgregarModelo.aspx" />
+    <Content Include="Catalog\CatCalculoDirecto\wsGetAdUsers.asmx" />
     <Content Include="Catalog\CatModuloAprobacion\CatPendingApproval.aspx" />
     <Content Include="Catalog\CatWorkOrders\CatWorkOrders.aspx" />
     <Content Include="Catalog\CatUnits\CatUnits.aspx" />
@@ -302,6 +303,10 @@
     <Compile Include="Catalog\CatCalculoDirecto\AgregarModelo.aspx.vb">
       <DependentUpon>AgregarModelo.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Catalog\CatCalculoDirecto\wsGetAdUsers.asmx.vb">
+      <DependentUpon>wsGetAdUsers.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Catalog\CatModuloAprobacion\CatPendingApproval.aspx.designer.vb">
       <DependentUpon>CatPendingApproval.aspx</DependentUpon>
