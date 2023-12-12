@@ -32,13 +32,13 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents lblTitle As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Label1 control.
+    '''lblStatus control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblStatus As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''ddlStatus control.
@@ -50,6 +50,15 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents ddlStatus As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''cmdShowPending control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdShowPending As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''dgvPendingApproval control.
     '''</summary>
     '''<remarks>
@@ -57,6 +66,42 @@ Partial Public Class CatModuloAprobacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents dgvPendingApproval As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''divModelsChanges control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divModelsChanges As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''cmdCancelChange control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdCancelChange As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''cmdRejectChange control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdRejectChange As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''cmdApproveChange control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdApproveChange As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''dgvModelChanges control.

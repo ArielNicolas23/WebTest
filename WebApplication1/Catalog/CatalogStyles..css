@@ -4,6 +4,28 @@
     --dgvRowEven: #FFFFFF;
 }*/
 
+/* Estilos de labels*/
+.catLabel {
+    font-size: 18px;
+    color: black;
+    margin-left: 20px;
+}
+
+/* Estilos de botones */
+.catButtonAccept {
+    font-size: 16px;
+    background-color: #284775;
+    color: white;
+    margin-left: 20px;
+}
+
+.catButton {
+    font-size: 16px;
+    background-color: #E2DED6;
+    color: black;
+    margin-left: 20px;
+}
+
 /* Estilos de Header*/
 .catHeader {
     font-size: 24px;

@@ -46,7 +46,7 @@
                 <br />
             </div>
         
-            <div style="width: 680px">
+            <div style="width: 750px">
                 <div style="float: right">
                     <asp:Button ID="cmdCancelChange" runat="server" Text="Reiniciar Carga de Modelos"  BackColor="#E2DED6" ForeColor="Black"/>
                     <asp:Button ID="cmdOpenApprove" runat="server" Text="Enviar para Aprobación" BackColor="#284775" ForeColor="#FFFFFF"/>
