@@ -19,9 +19,24 @@ Public Class _Default
         GridView1.DataBind()
 
 
-            components = Nothing
+        components = Nothing
 
-        End Sub
+    End Sub
+    <System.Web.Services.WebMethod>
+    Public Shared Function GetADUsers(prefixText As String, count As Integer) As List(Of String)
+        Dim data = New DataTable()
+        data.Columns.Add("Name", GetType(String))
+        data.Columns.Add("UserName", GetType(String))
+        data.Columns.Add("Email", GetType(String))
+        data = Security.UserAD.GetAllUsers(prefixText, data)
+
+        Dim users As List(Of String) = New List(Of String)()
+        For Each activeDirectoryData As DataRow In data.Rows
+            users.Add(activeDirectoryData("Name") & " █ " & activeDirectoryData("UserName"))
+        Next
+
+        Return users
+    End Function
 
 
     Protected Sub BtnAdd_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BtnAdd.Click

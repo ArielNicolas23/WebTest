@@ -3,10 +3,44 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="UpdatePanelGeneral" runat="server">
         <ContentTemplate>
-            <div class="catHeader">
-                <asp:Label ID="lblTitle" runat="server" Text="Catálogo de Configuración de Cálculo Directo"></asp:Label>
-            </div>      
+                    <style type="text/css">
+                        .form-control {
+    display: inline-block;
+}
 
+.btn {
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+   margin-right: auto;
+    display: inline-block;
+    height:21px;
+}
+                        .modalbackground
+{
+    background-color:black;
+    opacity:0.6;
+}</style>
+            <script type="text/javascript">
+                function ClearADFields() {
+                    //CLEAR DATA
+                    document.getElementById("MainContent_txtApprover").value = '';
+                    //ENABLE FIELDS AND DISABLE REFRESH BUTTON
+                    document.getElementById("MainContent_txtApprover").disabled = false;
+                    document.getElementById("btnRefresh").disabled = true;
+                }
+                function ADUserFound() {
+                    document.getElementById("MainContent_txtApprover").disabled = true;
+                    document.getElementById("btnRefresh").disabled = false;
+                    }
+            </script>
+
+                                            
+            <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Catálogo de Configuración de Cálculo Directo"></asp:Label>
+
+            <div style="height: 32px">
+
+            </div>      
             <table>
                 <tr>
                     <td style="height: 17px; width: 128px; text-align: right">
@@ -54,7 +88,7 @@
             </div>
 
             <!-- Cosas-->
-            <asp:GridView runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="750px" AllowPaging="True" ID="gvModelos">
+            <asp:GridView runat="server" AutoGenerateColumns="False" CellPadding="4" CssClass="dgvCatalog" GridLines="None" Width="680px" AllowPaging="True" ID="gvModelos">
                 <Columns>
                     <asp:BoundField DataField="Modelo" HeaderText="Modelo" />
                     <asp:BoundField DataField="VidaUtil" HeaderText="Vida Útil" SortExpression="VidaUtil" />
@@ -80,70 +114,75 @@
 
 
 
-            <asp:Panel ID="modalpan" runat="server" Style="width:550px; height:450px">
+            <asp:Panel ID="modalpan" runat="server" Height="354px" Width="630px">
     
                 <div id="headerdiv" style="background-color:#284775;  font-size:medium; padding:2px; height:20px;">
 
                 </div>
 
                 <div style="background-color:#f7f6f3;  font-size:medium; padding:2px;" class="auto-style1">
-                    <table style="width: 550px">
+                    <table class="auto-style3" width="630">
                         <tr>
                             <td colspan="3">
-                                <asp:Label ID="lblModalInstruction" runat="server" Text="Favor de asignar un aprobador para el cambio" ></asp:Label>
+                                <asp:Label ID="lblModalInstruction" runat="server" Text="Favor de asignar un aprobador para el cambio" Font-Bold="True" ></asp:Label>
                             </td>
                         </tr>
 
                         <tr>
-                            <td align="right" style="width: 170px">
-                                <asp:Label ID="lblApprover" runat="server" Text="Aprobador:" Width="162px"></asp:Label>
+                            <td align="left" style="width: 100px">
+                                <asp:Label ID="lblApprover" runat="server" Text="Aprobador:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
-                            <td align="left" style="width: 170px">
-                                <asp:TextBox ID="txtApprover" runat="server" Width="162px"></asp:TextBox>
-                                <%--<ajaxToolkit:ComboBox ID=s"txtApprover" runat="server" Width="128px" AutoCompleteMode="SuggestAppend" AutoPostBack="True" ItemInsertLocation="OrdinalText">
-
-                                </ajaxToolkit:ComboBox>--%>
+                            <td align="left" class="auto-style6">
+                                <div class="button-group">
+                                                                           <asp:TextBox ID="txtApprover" runat="server" Width="260px" onchange="ADUserFound()" ></asp:TextBox>
+                                <button type="button" title="Limpiar campo de Aprobador" class="btn" id="btnRefresh" onclick="ClearADFields()" width="15px" disabled="disabled"><i class="fa fa-refresh"></i></button>
+                                    </div>
+                                                   <ajaxToolkit:AutoCompleteExtender ID="txtSearchAD_AutoCompleteExtender" runat="server" TargetControlID="txtApprover" ServiceMethod="GetADUsers" ServicePath="wsGetAdUsers.asmx"
+    MinimumPrefixLength="3" CompletionInterval="500" EnableCaching="false" CompletionSetCount="10" CompletionListElementID="AutoCompleteContainer"  >
+</ajaxToolkit:AutoCompleteExtender>
+        <div id="AutoCompleteContainer"></div>
+                   
                             </td>
-                            <td>
+                            <td class="auto-style5">
                                 <asp:Label ID="lblApproverError" runat="server" ForeColor="Red"></asp:Label>
                                 <%--<asp:RequiredFieldValidator ID="lblApproverError" runat="server" ControlToValidate="txtApprover" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                             </td>
                         </tr>
 
                         <tr>
-                            <td align="right" style="width: 170px">
-                                <asp:Label ID="lblUser" runat="server" Text="Usuario:" Width="162px"></asp:Label>
+                            <td align="left" class="auto-style4">
+                                <asp:Label ID="lblUser" runat="server" Text="Usuario:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
-                            <td align="left" style="width: 170px">
-                                <asp:TextBox ID="txtUser" runat="server" Width="162px" CausesValidation="True"></asp:TextBox>
+                            <td align="left" class="auto-style6">
+                                <asp:TextBox ID="txtUser" runat="server" Width="260px" CausesValidation="True"></asp:TextBox>
                             </td>
-                            <td>
+                            <td class="auto-style5">
                                 <asp:Label ID="lblUserError" runat="server" ForeColor="Red"></asp:Label>
                                 <%--<asp:RequiredFieldValidator ID="lblUserError" runat="server" ControlToValidate="txtUser" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>--%>
                             </td>
                         </tr>
  
                         <tr>
-                            <td align="right" style="width: 170px">
-                                <asp:Label ID="lblPassword" runat="server" Text="Contraseña:" Width="162px"></asp:Label>
+                            <td align="left" style="width: 100px">
+                                <asp:Label ID="lblPassword" runat="server" Text="Contraseña:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
-                            <td align="left" style="width: 170px">
-                                <asp:TextBox ID="txtPassword" runat="server" Width="162px" TextMode="Password"></asp:TextBox>
+                            <td align="left" class="auto-style6">
+                                <asp:TextBox ID="txtPassword" runat="server" Width="260px" TextMode="Password"></asp:TextBox>
                             </td>
-                            <td>
+                            <td class="auto-style5">
                                 <asp:Label ID="lblPassworkError" runat="server" ForeColor="Red"></asp:Label>
                                 <%--<asp:RequiredFieldValidator ID="lblPassworkError" runat="server" ControlToValidate="txtPassword" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>--%>
                             </td>
                         </tr>
 
                         <tr>
-                            <td align="right" style="width: 162px">
-                                <asp:Label ID="lblApproveMessage" runat="server" Text="Comentarios:" Width="162px"></asp:Label>
+                            <td align="left" style="width: 100px">
+                                <asp:Label ID="lblApproveMessage" runat="server" Text="Comentarios:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
-                            <td align="left" style="width: 170px">
-                                <asp:TextBox ID="txtApproveMessage" runat="server" Height="104px" Width="162px" TextMode="MultiLine"></asp:TextBox>
+                            <td align="left" class="auto-style6">
+                                <asp:TextBox ID="txtApproveMessage" runat="server" Height="104px" Width="260px" TextMode="MultiLine"></asp:TextBox>
                             </td>
-                            <td>
+                            <td class="auto-style5">
                                 <asp:Label ID="lblApproveMessageError" runat="server" ForeColor="Red"></asp:Label>
                                 <%--<asp:RequiredFieldValidator ID="lblApproveMessageError" runat="server" ControlToValidate="txtApproveMessage" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>--%>
                             </td>
