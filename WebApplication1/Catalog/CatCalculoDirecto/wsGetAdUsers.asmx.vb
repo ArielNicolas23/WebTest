@@ -22,7 +22,7 @@ Public Class wsGetAdUsers
 
         Dim users As List(Of String) = New List(Of String)()
         For Each activeDirectoryData As DataRow In data.Rows
-            users.Add(activeDirectoryData("Name") & " || " & activeDirectoryData("UserName"))
+            users.Add(activeDirectoryData("Name") & " || " & activeDirectoryData("UserName") & " || " & activeDirectoryData("Email"))
         Next
         If users.Count <= 0 Then
             users.Add("Usuario inexistente")
