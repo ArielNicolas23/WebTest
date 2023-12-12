@@ -140,10 +140,11 @@ Public Class ED_ModelsChanges
             result.Columns.Add("Unit", GetType(String))
             result.Columns.Add("LastUser", GetType(String))
             result.Columns.Add("ModifiedOn", GetType(String))
-
+            result.Columns.Add("IsChecked", GetType(Boolean))
             conn.Open()
 
             Dim reader As SqlDataReader = cmd.ExecuteReader()
+
             While reader.Read()
 
                 row = result.NewRow()
@@ -154,7 +155,7 @@ Public Class ED_ModelsChanges
                 row("Unit") = reader.GetString(3)
                 row("LastUser") = reader.GetString(4)
                 row("ModifiedOn") = reader.GetDateTime(5).ToString("dd/MMM/yyyy")
-
+                row("IsChecked") = reader.GetBoolean(6)
                 result.Rows.Add(row)
 
             End While
