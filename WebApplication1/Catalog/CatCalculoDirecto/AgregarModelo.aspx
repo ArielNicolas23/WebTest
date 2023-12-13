@@ -25,14 +25,24 @@
                 function ClearADFields() {
                     //CLEAR DATA
                     document.getElementById("MainContent_txtApprover").value = '';
+                    document.getElementById("MainContent_txtUsernameApprover").value = '';
+                    document.getElementById("MainContent_txtMailApprover").value = '';
                     //ENABLE FIELDS AND DISABLE REFRESH BUTTON
                     document.getElementById("MainContent_txtApprover").disabled = false;
                     document.getElementById("btnRefresh").disabled = true;
                 }
                 function ADUserFound() {
-                    document.getElementById("MainContent_txtApprover").disabled = true;
-                    document.getElementById("btnRefresh").disabled = false;
-                    }
+                    
+                    if ( document.getElementById("MainContent_txtApprover").value.indexOf('||') != -1) {
+                        document.getElementById("MainContent_txtUsernameApprover").value =  document.getElementById("MainContent_txtApprover").value.split('||')[1].trim();
+                        document.getElementById("MainContent_txtMailApprover").value = document.getElementById("MainContent_txtApprover").value.split('||')[2].trim();
+                        document.getElementById("MainContent_txtApprover").value = document.getElementById("MainContent_txtApprover").value.split('||')[0].trim();
+                        document.getElementById("btnRefresh").disabled = true;
+                     
+                        document.getElementById("MainContent_txtApprover").disabled = true;
+                        document.getElementById("btnRefresh").disabled = false;
+                     }
+                }
             </script>
 
                                             
@@ -148,6 +158,8 @@
                                 <%--<asp:RequiredFieldValidator ID="lblApproverError" runat="server" ControlToValidate="txtApprover" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                             </td>
                         </tr>
+                        <tr><td></td><td align="left" class="auto-style6"><asp:TextBox ID="txtUsernameApprover" runat="server" Width="260px" Enabled="False"></asp:TextBox></td></tr>
+                          <tr><td></td><td align="left" class="auto-style6"><asp:TextBox ID="txtMailApprover" runat="server" Width="260px" Enabled="False"></asp:TextBox></td></tr>
 
                         <tr>
                             <td align="left" class="auto-style4">

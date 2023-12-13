@@ -4,7 +4,9 @@ Imports System.Diagnostics.Eventing
 Imports System.Threading.Tasks
 Imports System.Web.Script.Services
 Imports System.Web.Services
+Imports System.Web.WebPages
 Imports AjaxControlToolkit
+Imports Microsoft.Ajax.Utilities
 
 Public Class WebForm1
     Inherits System.Web.UI.Page
@@ -238,17 +240,19 @@ Public Class WebForm1
             Dim strApproverName As String = txtApprover.Text
 
             'Asignación del usuario aprobador
-            If strApproverName.Contains("||") Then
-                approverUser = Split(txtApprover.Text, "||")(1).Trim
+            If Not txtUsernameApprover.Text.IsEmpty Then
+                approverUser = txtUsernameApprover.Text
             Else
-                approverUser = txtApprover.Text
+                lblModalMessage.Text = "No se encontro al Usuario Aprobador"
+                ApproveModal.Show()
+                Return
             End If
 
 
             'Validaciones del usuario aprobador
             If (Security.UserAD.GetUserExists(approverUser, "")) Then
-                approverName = strApproverName                                  'Agregar función para buscar el nombre del aprobador
-                approverEmail = Security.UserAD.GetUserEmail(approverUser)
+                approverName = txtApprover.Text                                  'Agregar función para buscar el nombre del aprobador
+                approverEmail = txtMailApprover.Text
             Else
                 lblModalMessage.Text = "No se encontro al Usuario Aprobador"
                 ApproveModal.Show()
@@ -258,7 +262,7 @@ Public Class WebForm1
             'Validación del propio usuario
             If (Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT")) Then   'Agregar función para validar el usuario y contraseña 
                 originUser = txtUser.Text
-                originName = "Nombre de " + originUser                              'Agregar función para buscar el nombre del usuario
+                originName = originUser                              'Agregar función para buscar el nombre del usuario
                 originEmail = Security.UserAD.GetUserEmail(originUser)
             Else
                 lblModalMessage.Text = "Usuario o contraseña incorrectos"
