@@ -51,7 +51,7 @@ Public Class ED_ModelsChangesHeader
         Return IdModelsChangesHeader
     End Function
 
-    Public Sub Update(
+    Private Sub Update(
             ByVal IdModelsChangesHeader As Guid,
             ByVal ChangeNumber As Integer,
             ByVal OriginUser As String,
@@ -90,6 +90,14 @@ Public Class ED_ModelsChangesHeader
             conn.Close()
             conn.Dispose()
         End Using
+    End Sub
+
+    Public Sub UpdateApprovalStatus(ByVal IdModelsChangesHeader As Guid, ByVal ApprovalStatus As String, ByVal ModifiedBy As String)
+        Update(IdModelsChangesHeader, 0, "", "", "", "", "", "", "", "", ApprovalStatus, ModifiedBy, 2)
+    End Sub
+
+    Public Sub UpdateApproveOrReject(ByVal IdModelsChangesHeader As Guid, ByVal ApproverComment As String, ByVal ApprovalStatus As String, ByVal ModifiedBy As String)
+        Update(IdModelsChangesHeader, 0, "", "", "", "", "", "", "", ApproverComment, ApprovalStatus, ModifiedBy, 3)
     End Sub
 
     Public Sub Delete(ByVal IdModelsChangesHeader As Guid)

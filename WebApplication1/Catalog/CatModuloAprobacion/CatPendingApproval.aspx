@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="vb" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeBehind="CatPendingApproval.aspx.vb" Inherits="WebApplication1.CatModuloAprobacion" %>
 
 
-
 <asp:Content ID="Content" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
@@ -58,7 +57,7 @@
                         <asp:Button ID="cmdApproveChange" runat="server" Text="Aprobar Cambios" CssClass="catButtonAccept"/>
                 </div>
 
-                <asp:GridView  ID="dgvModelChanges" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="1200px" AllowPaging="True">
+                <asp:GridView  ID="dgvModelChanges" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="1200px" AllowPaging="True" DataKeyNames="IdModelsChanges">
                     <Columns>
                         <asp:BoundField DataField="IdModelsChanges" Visible="False" />
                         <asp:BoundField DataField="Model" HeaderText="Modelo" SortExpression="Model" />
@@ -68,7 +67,7 @@
                         <asp:BoundField DataField="ModifiedOn" HeaderText="Última Actualización" SortExpression="ModifiedOn" />
                         <asp:TemplateField>
                             <ItemTemplate>
-                                <asp:CheckBox ID="IsChecked" runat="server" AutoPostBack="true" OnCheckedChanged="OnChangeIsChecked"/>
+                                <asp:CheckBox ID="IsChecked" runat="server" AutoPostBack="true" Checked='<%#Convert.ToBoolean(Eval("IsChecked"))%>' OnCheckedChanged="OnChangeIsChecked"/>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

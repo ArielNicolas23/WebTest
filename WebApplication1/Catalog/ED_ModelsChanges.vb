@@ -46,7 +46,15 @@ Public Class ED_ModelsChanges
         End Using
     End Sub
 
-    Public Sub Update(
+    Public Sub UpdateIsChecked(ByVal IdModelsChanges As Guid, ByVal IsChecked As Boolean)
+        Update(IdModelsChanges, Guid.Empty, Guid.Empty, "", 0, "", "", "", "", IsChecked, "", 2)
+    End Sub
+
+    Public Sub UpdateApproveOrReject(ByVal IdModelsChanges As Guid, ByVal ModelChangeStatus As String, ByVal ModifiedBy As String)
+        Update(IdModelsChanges, Guid.Empty, Guid.Empty, "", 0, ModelChangeStatus, "", "", "", True, ModifiedBy, 3)
+    End Sub
+
+    Private Sub Update(
             ByVal IdModelsChanges As Guid,
             ByVal IdModelsChangesHeader As Guid,
             ByVal IdUnidad As Guid,
@@ -145,7 +153,7 @@ Public Class ED_ModelsChanges
             cmd.Parameters.AddWithValue("@IdModelsChangesHeader", IdModelsChangesHeader)
 
             result = New DataTable("Result")
-            result.Columns.Add("IdModelsChange", GetType(Guid))
+            result.Columns.Add("IdModelsChanges", GetType(Guid))
             result.Columns.Add("Model", GetType(String))
             result.Columns.Add("Lifespan", GetType(String))
             result.Columns.Add("Unit", GetType(String))
@@ -161,7 +169,7 @@ Public Class ED_ModelsChanges
 
                 row = result.NewRow()
 
-                row("IdModelsChange") = reader.GetGuid(0)
+                row("IdModelsChanges") = reader.GetGuid(0)
                 row("Model") = reader.GetString(1)
                 row("Lifespan") = reader.GetInt32(2)
                 row("Unit") = reader.GetString(3)
