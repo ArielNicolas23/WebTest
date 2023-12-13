@@ -166,6 +166,8 @@ Namespace Security
             'userName = principal.Identity.Name.Trim().ToUpper().Replace("ENT\", "")
             userName = principal.Identity.Name
 
+            userName = userName.Split("\")(1)
+
             firstName = GetUserInfo(userName, "givenName")
             lastName = GetUserInfo(userName, "sn")
 
@@ -264,7 +266,7 @@ Namespace Security
                 Dim myResultPropColl As ResultPropertyCollection
                 Dim myResultPropValueColl As ResultPropertyValueCollection
                 'Build LDAP query
-                mySearcher.Filter = ("(&(objectClass=user)(samaccountname=" & SamAccount & "))")
+                mySearcher.Filter = "(&(objectCategory=Person)(objectClass=User)(|(sAMAccountName=" + SamAccount + "*)))"
                 mySearchResultColl = mySearcher.FindAll()
                 'I expect only one user from search result
                 Select Case mySearchResultColl.Count
@@ -349,6 +351,29 @@ Namespace Security
                 For Each result As SearchResult In mySearcher.FindAll()
                     userLevel = result.GetDirectoryEntry()
                     strEmail = userLevel.Properties("mail")(0).ToString
+                Next
+            Catch ex As Exception
+
+            End Try
+            Return strEmail
+        End Function
+
+        Public Shared Function GetUserName(ByVal strUserName As String) As String
+            Dim strEmail As String = String.Empty
+            Dim ldapPath As String = ConfigurationManager.AppSettings("LdapPath")
+            Dim directoryEntryUserName As String = ConfigurationManager.AppSettings("DirectoryEntryUserName")
+            Dim directoryEntryPassword As String = ConfigurationManager.AppSettings("DirectoryEntryPassword")
+            Try
+                Dim myDirectory As DirectoryEntry = New DirectoryEntry(ldapPath, directoryEntryUserName, directoryEntryPassword)
+                Dim mySearcher As DirectorySearcher = New DirectorySearcher(myDirectory)
+                Dim strFilter As String = "(&(objectCategory=Person)(objectClass=User)(|(sAMAccountName=" + strUserName + "*)))"
+                mySearcher = New DirectorySearcher(strFilter)
+                mySearcher.PropertiesToLoad.Add("mail")
+
+                Dim userLevel As DirectoryEntry
+                For Each result As SearchResult In mySearcher.FindAll()
+                    userLevel = result.GetDirectoryEntry()
+                    strEmail = userLevel.Properties("displayname")(0).ToString
                 Next
             Catch ex As Exception
 
