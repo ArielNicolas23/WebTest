@@ -79,79 +79,6 @@
                     <AlternatingRowStyle CssClass="dgvCatalogRowEven" />
                 </asp:GridView>
             </div>
-                        
-            <asp:Label ID="lblModalReject" runat="server" Text=""></asp:Label>
-
-            <ajaxToolkit:ModalPopupExtender ID="RejectModal" runat="server" TargetControlID="lblModalReject" PopupControlID="modalpanReject" PopupDragHandleControlID="headerdivReject" BackgroundCssClass="modalbackground"></ajaxToolkit:ModalPopupExtender>
-
-            <asp:Panel ID="modalpanReject" runat="server" Height="354px" Width="630px">
-    
-                <div id="headerdivReject" style="background-color:#284775;  font-size:medium; padding:2px; height:20px;">
-
-                </div>
-
-                <div style="background-color:#f7f6f3;  font-size:medium; padding:2px;" class="auto-style1">
-                    <table class="auto-style3" width="630">
-                        <tr>
-                            <td colspan="3">
-                                <asp:Label ID="lblModalInstructionReject" runat="server" Text="Favor de ingresar sus credenciales para confirmar el rechazo" Font-Bold="True" ></asp:Label>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            
-
-                            <td align="left" class="auto-style4">
-                                <asp:Label ID="lblUserReject" runat="server" Font-Bold="True" Text="Usuario:" Width="100px"></asp:Label>
-                            </td>
-                            <td align="left" class="auto-style6" style="width: 319px">
-                                <asp:TextBox ID="txtUserReject" runat="server" CausesValidation="True" Width="260px"></asp:TextBox>
-                            </td>
-                            <td class="auto-style5">
-                                <asp:Label ID="lblUserErrorReject" runat="server" ForeColor="Red"></asp:Label>
-                            </td>
- 
-                        <tr>
-                            <td align="left" style="width: 100px">
-                                <asp:Label ID="lblUserPasswordReject" runat="server" Text="Contraseña:" Width="100px" Font-Bold="True"></asp:Label>
-                            </td>
-                            <td align="left" class="auto-style6" style="width: 319px">
-                                <asp:TextBox ID="txtUserPasswordReject" runat="server" Width="260px" TextMode="Password"></asp:TextBox>
-                            </td>
-                            <td class="auto-style5">
-                                <asp:Label ID="lblPasswordErrorReject" runat="server" ForeColor="Red"></asp:Label>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td align="left" style="width: 100px">
-                                <asp:Label ID="Label7" runat="server" Text="Comentarios:" Width="100px" Font-Bold="True"></asp:Label>
-                            </td>
-                            <td align="left" class="auto-style6" style="width: 319px">
-                                <asp:TextBox ID="txtApproveMessageReject" runat="server" Height="104px" Width="260px" TextMode="MultiLine"></asp:TextBox>
-                            </td>
-                            <td class="auto-style5">
-                                <asp:Label ID="lblApproveMessageReject" runat="server" ForeColor="Red"></asp:Label>
-                            </td>
-                        </tr>
-
-                        <tr style="margin-top: 10px; margin-bottom: 10px">
-                            <td colspan="3">
-                                <asp:Label ID="lblModalMessageReject" runat="server" ForeColor="Red" Width="504px"></asp:Label>
-                            </td>
-                        </tr>
-                   
-                        <tr>
-                            <td colspan="3">
-                                <div align="center">
-                                    <asp:Button ID="btnRejectChange" runat="server" BackColor="#53C400" ForeColor="#FFFFFF" Text="Aceptar" />
-                                    <asp:Button ID="btnCancelReject" runat="server" BackColor="#284775" ForeColor="#FFFFFF" Text="Cancelar" />
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </asp:Panel>
 
 
 
@@ -194,27 +121,27 @@
                         </tr>-->
 
                         <tr>
-                            <td align="left" class="auto-style4">
+                            <td align="left" class="auto-style4" style="height: 26px">
                                 <asp:Label ID="lblUser" runat="server" Text="Usuario:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
-                            <td align="left" class="auto-style6" style="width: 319px">
+                            <td align="left" class="auto-style6" style="width: 319px; height: 26px;">
                                 <asp:TextBox ID="txtUser" runat="server" Width="260px" CausesValidation="True"></asp:TextBox>
                             </td>
-                            <td class="auto-style5">
+                            <td class="auto-style5" style="height: 26px">
                                 <asp:Label ID="lblUserError" runat="server" ForeColor="Red"></asp:Label>
                                 <%--<asp:RequiredFieldValidator ID="lblUserError" runat="server" ControlToValidate="txtUser" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>--%>
                             </td>
                         </tr>
  
                         <tr>
-                            <td align="left" style="width: 100px">
+                            <td align="left" style="width: 100px; height: 26px;">
                                 <asp:Label ID="lblPassword" runat="server" Text="Contraseña:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
-                            <td align="left" class="auto-style6" style="width: 319px">
+                            <td align="left" class="auto-style6" style="width: 319px; height: 26px;">
                                 <asp:TextBox ID="txtPassword" runat="server" Width="260px" TextMode="Password"></asp:TextBox>
                             </td>
-                            <td class="auto-style5">
-                                <asp:Label ID="lblPassworkError" runat="server" ForeColor="Red"></asp:Label>
+                            <td class="auto-style5" style="height: 26px">
+                                <asp:Label ID="lblPasswordError" runat="server" ForeColor="Red"></asp:Label>
                                 <%--<asp:RequiredFieldValidator ID="lblPassworkError" runat="server" ControlToValidate="txtPassword" ErrorMessage="Campo se encuentra vacio" ForeColor="Red" ValidationGroup="a"></asp:RequiredFieldValidator>--%>
                             </td>
                         </tr>

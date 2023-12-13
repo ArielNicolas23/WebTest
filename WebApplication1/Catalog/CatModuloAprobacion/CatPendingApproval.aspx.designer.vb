@@ -131,150 +131,6 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents dgvModelChanges As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
-    '''lblModalReject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblModalReject As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''RejectModal control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents RejectModal As Global.AjaxControlToolkit.ModalPopupExtender
-
-    '''<summary>
-    '''modalpanReject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents modalpanReject As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
-    '''lblModalInstructionReject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblModalInstructionReject As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''lblUserReject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblUserReject As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''txtUserReject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtUserReject As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''lblUserErrorReject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblUserErrorReject As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''lblUserPasswordReject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblUserPasswordReject As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''txtUserPasswordReject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtUserPasswordReject As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''lblPasswordErrorReject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblPasswordErrorReject As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Label7 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Label7 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''txtApproveMessageReject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtApproveMessageReject As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''lblApproveMessageReject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblApproveMessageReject As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''lblModalMessageReject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblModalMessageReject As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''btnRejectChange control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnRejectChange As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''btnCancelReject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnCancelReject As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
     '''lblModal control.
     '''</summary>
     '''<remarks>
@@ -392,13 +248,13 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents txtPassword As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''lblPassworkError control.
+    '''lblPasswordError control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPassworkError As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblPasswordError As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblApproveMessage control.

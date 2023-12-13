@@ -56,7 +56,9 @@ Public Class ED_ModelsChanges
             ByVal LastUser As String,
             ByVal LastUserName As String,
             ByVal LastUserEmail As String,
-            ByVal ModifiedBy As String)
+            ByVal IsChecked As Boolean,
+            ByVal ModifiedBy As String,
+            ByVal OptionU As Integer) 'no permite poner option
 
         Using conn As New SqlConnection(Me.dbCon)
 
@@ -73,7 +75,9 @@ Public Class ED_ModelsChanges
             cmd.Parameters.AddWithValue("@LastUser", LastUser)
             cmd.Parameters.AddWithValue("@LastUserName", LastUserName)
             cmd.Parameters.AddWithValue("@LastUserEmail", LastUserEmail)
+            cmd.Parameters.AddWithValue("@IsChecked", IsChecked)
             cmd.Parameters.AddWithValue("@ModifiedBy", ModifiedBy)
+            cmd.Parameters.AddWithValue("@Option", OptionU)
 
             conn.Open()
             cmd.ExecuteNonQuery()
@@ -175,4 +179,8 @@ Public Class ED_ModelsChanges
 
         Return result
     End Function
+
+
+
+
 End Class

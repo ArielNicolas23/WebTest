@@ -63,7 +63,8 @@ Public Class ED_ModelsChangesHeader
             ByVal ApproverEmail As String,
             ByVal ApproverComment As String,
             ByVal ApprovalStatus As String,
-            ByVal ModifiedBy As String)
+            ByVal ModifiedBy As String,
+            ByVal OptionU As Integer) 'no permite poner option
 
         Using conn As New SqlConnection(Me.dbCon)
 
@@ -71,7 +72,7 @@ Public Class ED_ModelsChangesHeader
             cmd.CommandText = "spED_ED_ModelsChangesHeader_Update"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
-            cmd.Parameters.AddWithValue("@@IdModelsChangesHeader", IdModelsChangesHeader)
+            cmd.Parameters.AddWithValue("@IdModelsChangesHeader", IdModelsChangesHeader)
             cmd.Parameters.AddWithValue("@ChangeNumber", ChangeNumber)
             cmd.Parameters.AddWithValue("@OriginUser", OriginUser)
             cmd.Parameters.AddWithValue("@OriginName", OriginName)
@@ -82,8 +83,8 @@ Public Class ED_ModelsChangesHeader
             cmd.Parameters.AddWithValue("@ApproverEmail", ApproverEmail)
             cmd.Parameters.AddWithValue("@ApproverComment", ApproverComment)
             cmd.Parameters.AddWithValue("@ApprovalStatus", ApprovalStatus)
-            cmd.Parameters.AddWithValue("@@ModifiedBy", ModifiedBy)
-
+            cmd.Parameters.AddWithValue("@ModifiedBy", ModifiedBy)
+            cmd.Parameters.AddWithValue("@Option", OptionU)
             conn.Open()
             cmd.ExecuteNonQuery()
             conn.Close()
@@ -99,7 +100,7 @@ Public Class ED_ModelsChangesHeader
             cmd.CommandText = "spED_ED_ModelsChangesHeader_Delete"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
-            cmd.Parameters.AddWithValue("@@IdModelsChangesHeader", IdModelsChangesHeader)
+            cmd.Parameters.AddWithValue("@IdModelsChangesHeader", IdModelsChangesHeader)
 
             conn.Open()
             cmd.ExecuteNonQuery()
