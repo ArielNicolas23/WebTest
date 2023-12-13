@@ -11,6 +11,7 @@ Imports Microsoft.Ajax.Utilities
 Public Class WebForm1
     Inherits System.Web.UI.Page
 
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             Session("DataTable") = Initdt()
@@ -259,59 +260,76 @@ Public Class WebForm1
                 Return
             End If
 
-            'Validación del propio usuario
-            If (Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT")) Then   'Agregar función para validar el usuario y contraseña 
-                originUser = txtUser.Text
-                originName = originUser                              'Agregar función para buscar el nombre del usuario
-                originEmail = Security.UserAD.GetUserEmail(originUser)
-            Else
-                lblModalMessage.Text = "Usuario o contraseña incorrectos"
+
+            'Validacion de usuario originador
+            Dim m_Profile = CType(Session("UserProfile"), Security.UserProfile) 'Funcion que valida el usuario originador con el de la sesion 
+            Dim actualUser = m_Profile.UserName.Split("\")(1)
+            If (Not txtUser.Text = actualUser) Then
+                lblModalMessage.Text = "Porfavor ingrese el usuario de su sesion"
                 ApproveModal.Show()
                 Return
             End If
 
-            'Validación de registros ya existentes
-            For Each row As DataRow In dt.Rows
-                If (modelsChange.AlreadyExistModelChange(Guid.Empty, row("Modelo"))) Then
-                    foundRepeated = True
-                End If
-            Next row
-
-            If (foundRepeated) Then
-                lblModalMessage.Text = "Se ha detectado que uno o varios modelos seleccionados fueron cargados durante el proceso de aprobación. Favor de rectificar."
+            'Validacion de usuario originador y aprobador
+            If (txtUsernameApprover.Text = actualUser) Then
+                lblModalMessage.Text = "El usuario aprobador no puede ser el mismo que el originador"
                 ApproveModal.Show()
-            Else
-                IdModelsChangesHeader = approvedModelsChange.Insert(changeNumber, originUser, originName, originEmail, originComment, approverUser, approverName, approverEmail, approvalStatus, isActive, originUser)
+                Return
+            End If
+
+            'Validación del propio usuario
+            If (Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT")) Then   'Agregar función para validar el usuario y contraseña 
+                    originUser = txtUser.Text
+                originName = Security.UserAD.GetUserName(originUser)                           'Agregar función para buscar el nombre del usuario
+                originEmail = Security.UserAD.GetUserEmail(originUser)
+                Else
+                    lblModalMessage.Text = "Usuario o contraseña incorrectos"
+                    ApproveModal.Show()
+                    Return
+                End If
+
+                'Validación de registros ya existentes
                 For Each row As DataRow In dt.Rows
-                    idUnit = Guid.Parse(row("IdUnidad"))
-                    model = row("Modelo")
-                    lifeSpan = row("VidaUtil")
-                    modelsChange.Insert(IdModelsChangesHeader, idUnit, model, lifeSpan, modelChangeStatus, originUser, originName, originEmail, isActive, originUser)
+                    If (modelsChange.AlreadyExistModelChange(Guid.Empty, row("Modelo"))) Then
+                        foundRepeated = True
+                    End If
                 Next row
 
-                ApproveModal.Hide()
-                MsgBox("Se ha completado exitósamente el registro de los cambios", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+                If (foundRepeated) Then
+                    lblModalMessage.Text = "Se ha detectado que uno o varios modelos seleccionados fueron cargados durante el proceso de aprobación. Favor de rectificar."
+                    ApproveModal.Show()
+                Else
+                    IdModelsChangesHeader = approvedModelsChange.Insert(changeNumber, originUser, originName, originEmail, originComment, approverUser, approverName, approverEmail, approvalStatus, isActive, originUser)
+                    For Each row As DataRow In dt.Rows
+                        idUnit = Guid.Parse(row("IdUnidad"))
+                        model = row("Modelo")
+                        lifeSpan = row("VidaUtil")
+                        modelsChange.Insert(IdModelsChangesHeader, idUnit, model, lifeSpan, modelChangeStatus, originUser, originName, originEmail, isActive, originUser)
+                    Next row
+
+                    ApproveModal.Hide()
+                    MsgBox("Se ha completado exitósamente el registro de los cambios", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
 
 
-                Dim dataMail As New ConstructInfo With {
+                    Dim dataMail As New ConstructInfo With {
                                     .EmailType = "CambiosPendientes",
                                     .UserName = originUser,
                                     .Comment = txtApproveMessage.Text.Trim,
                                     .Link = "<a href=>Fecha De Expiración</a>"
                                     }
-                Dim email As New ModuloGeneralEmail
+                    Dim email As New ModuloGeneralEmail
 
-                If email.ConstructEmail(dataMail) Then
-                    MsgBox("Se ha enviado un correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
-                Else
-                    MsgBox("Ha ocurrido un error al mandar correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Error")
+                    If email.ConstructEmail(dataMail) Then
+                        MsgBox("Se ha enviado un correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+                    Else
+                        MsgBox("Ha ocurrido un error al mandar correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Error")
+                    End If
+
+                    CleanModalFields(True)
+                    CleanTable()
                 End If
-
-                CleanModalFields(True)
-                CleanTable()
-            End If
-        Else
-            ApproveModal.Show()
+            Else
+                ApproveModal.Show()
         End If
     End Sub
 
