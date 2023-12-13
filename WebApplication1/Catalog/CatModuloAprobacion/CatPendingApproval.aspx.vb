@@ -10,7 +10,7 @@ Public Class CatModuloAprobacion
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApproverUser("orizag2"))
+            PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApproverUser("martil205"))
         End If
     End Sub
 
@@ -19,16 +19,12 @@ Public Class CatModuloAprobacion
         dgv.DataBind()
     End Sub
 
-    Protected Sub ToggleModelsChanges()
-        If (divModelsChanges.Visible) Then
-            dgvModelChanges.Visible = False
+    Protected Sub ToggleModelsChanges(hide As Boolean)
+        If (hide) Then
+            divModelsChanges.Visible = False
         Else
-            dgvModelChanges.Visible = True
+            divModelsChanges.Visible = True
         End If
-    End Sub
-
-    Protected Sub ddlStatus_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlStatus.SelectedIndexChanged
-        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApprovalStatus("orizag2", ddlStatus.SelectedValue))
     End Sub
 
     Protected Sub dgvPendingApproval_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles dgvPendingApproval.RowCommand
@@ -38,25 +34,19 @@ Public Class CatModuloAprobacion
                 Dim index As Integer = Convert.ToInt32(e.CommandArgument)
                 Dim id As Guid = Guid.Parse(row(index).Value.ToString())
 
-                'ToggleModelsChanges()
+                ToggleModelsChanges(False)
+                PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByIdModelsChangesHeader(id))
                 PopulateGrid(dgvModelChanges, modelChanges.SelectByIdModelsChangesHeader(id))
-                'Dim dt As DataTable = Session("DataTable")
-
-                'Dim rowdt As DataRow = dt.NewRow
-                'rowdt("Modelo") = dgvModelChanges.SelectedRow.Cells.Item(0).Text.ToString()
-                'rowdt("VidaUtil") = dgvModelChanges.SelectedRow.Cells.Item(1).Text.ToString()
-                'rowdt("Unidad") = dgvModelChanges.SelectedRow.Cells.Item(2).Text.ToString()
-                'rowdt("Usuario") = dgvModelChanges.SelectedRow.Cells.Item(3).Text.ToString() '"Origin User"        'Agregar función para obtener al usuario
-                'rowdt("Ultima Actualiuzacion") = dgvModelChanges.SelectedRow.Cells.Item(4).Text.ToString()
         End Select
     End Sub
 
-    Protected Sub cmdShowPending_Click(sender As Object, e As EventArgs) Handles cmdShowPending.Click
-
+    Protected Sub cmdSearch_Click(sender As Object, e As EventArgs) Handles cmdSearch.Click
+        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApprovalStatus("martil205", ddlStatus.SelectedValue))
     End Sub
 
     Protected Sub cmdCancelChange_Click(sender As Object, e As EventArgs) Handles cmdCancelChange.Click
-
+        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApproverUser("martil205"))
+        ToggleModelsChanges(True)
     End Sub
 
     Protected Sub cmdRejectChange_Click(sender As Object, e As EventArgs) Handles cmdRejectChange.Click
@@ -65,12 +55,34 @@ Public Class CatModuloAprobacion
     End Sub
 
     Protected Sub cmdApproveChange_Click(sender As Object, e As EventArgs) Handles cmdApproveChange.Click
-        'MsgBox("Aun no se han seleccionado todos los campos", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Pasos sin completar")
+        Dim missingModel As Boolean = False
+
+        For Each row As GridViewRow In dgvModelChanges.Rows
+            If row.RowType = DataControlRowType.DataRow Then
+                Dim check As CheckBox = TryCast(row.Cells(6).FindControl("IsChecked"), CheckBox)
+                If check.Checked Then
+
+                Else
+                    'Llenar mensaje con modelos faltantes
+                    missingModel = True
+                End If
+            End If
+        Next row
+
+        If missingModel Then
+            MsgBox("Aun no se han verificados todos los modelos", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Pasos sin completar")
+            Return
+        End If
+
         ApproveModal.Show()
     End Sub
 
     Protected Sub dgvModelChanges_SelectedIndexChanged(sender As Object, e As EventArgs) Handles dgvModelChanges.SelectedIndexChanged
 
+    End Sub
+
+    Protected Sub OnChangeIsChecked(sender As Object, e As EventArgs)
+        MsgBox("Inserte procedimiento de Update", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Hola")
     End Sub
 
     Protected Sub cmdAcceptChange_Click(sender As Object, e As EventArgs) Handles cmdAcceptChange.Click

@@ -50,13 +50,31 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents ddlStatus As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''cmdShowPending control.
+    '''lblRole control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cmdShowPending As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lblRole As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''ddlRole control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlRole As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''cmdSearch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdSearch As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''dgvPendingApproval control.
@@ -66,15 +84,6 @@ Partial Public Class CatModuloAprobacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents dgvPendingApproval As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
-    '''lblMessage control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''divModelsChanges control.

@@ -8,7 +8,18 @@
 .catLabel {
     font-size: 18px;
     color: black;
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* Estiloos para lod drop down list */
+.catDropDownList {
+    width: 150px;
+    font-size: 16px;
+    border: 2px solid #f7f6f3;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 0px 10px;
 }
 
 /* Estilos de botones */
@@ -16,14 +27,14 @@
     font-size: 16px;
     background-color: #284775;
     color: white;
-    margin-left: 20px;
+    margin: 0px 10px;
 }
 
 .catButton {
     font-size: 16px;
     background-color: #E2DED6;
     color: black;
-    margin-left: 20px;
+    margin: 0px 10px;
 }
 
 /* Estilos de Header*/
@@ -51,13 +62,13 @@
         font-weight: bold;
         padding: 4px;
         height: 17px;
-        width: 150px;
+        width: 200px;
     }
 
     .dgvCatalog td {
         padding: 8px;
         height: 17px;
-        width: 150px;
+        width: 200px;
     }
 
 
@@ -98,4 +109,10 @@
 
 tr.dgvPaging {
     background-color: #5D7B9D;
+}
+
+/* Estilos para arreglar alineaciones */
+.catDivHeader {
+    text-align: left;
+    margin-bottom: 16px;
 }

@@ -256,7 +256,7 @@ Public Class WebForm1
             End If
 
             'Validación del propio usuario
-            If (Security.UserAD.GetUserExists(txtUser.Text, "")) Then 'Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT\")) Then   'Agregar función para validar el usuario y contraseña 
+            If (Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT")) Then   'Agregar función para validar el usuario y contraseña 
                 originUser = txtUser.Text
                 originName = "Nombre de " + originUser                              'Agregar función para buscar el nombre del usuario
                 originEmail = Security.UserAD.GetUserEmail(originUser)

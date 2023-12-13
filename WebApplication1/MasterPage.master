@@ -19,7 +19,7 @@
         <script src="windowfiles/dhtmlwindow.js" type="text/javascript"></script>
         <link href="modalfiles/modal.css" rel="stylesheet" type="text/css" />
         <link href="Content/font-awesome.css" rel="stylesheet" />
-        <link href="Catalog/CatalogStyles..css" rel="stylesheet" type="text/css"/>
+        <link href="Catalog/CatalogStyles.css" rel="stylesheet" type="text/css"/>
         <script src="modalfiles/modal.js" type="text/javascript"></script>
         <script type="text/javascript">
             function goHome() {
