@@ -23,6 +23,7 @@ Public Class CatModuloAprobacion
         If Not Page.IsPostBack Then
             PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApproverUser(userPlaceholder))
         End If
+
     End Sub
 
     ' Llenado de tablas
