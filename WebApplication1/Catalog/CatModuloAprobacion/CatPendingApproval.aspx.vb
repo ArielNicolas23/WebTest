@@ -143,9 +143,12 @@ Public Class CatModuloAprobacion
         End If
 
         Dim row As DataKeyArray = dgvPendingApproval.DataKeys
-        Dim idHeader As Guid = Guid.Parse(row(0).Value.ToString())
+        Dim idHeader As Guid = Guid.Parse(row(0).Values(0).ToString())
         Dim idModel As Guid
-        Dim originUser As String = userPlaceholder
+
+        Dim originUser As String = dgvPendingApproval.Rows(0).Cells(3).Text
+        Dim originEmail As String = row(0).Values(1).ToString()
+
         Dim comment As String = txtApproveMessage.Text
         Dim confirmMessage As String = ""
 
@@ -171,14 +174,17 @@ Public Class CatModuloAprobacion
         Select Case cmdAcceptChange.Text
             Case "Aprobar"
                 modelChangesHeader.UpdateApproveOrReject(idHeader, comment, "Aprobado", userPlaceholder)
+                For Each modelRow As GridViewRow In dgvModelChanges.Rows
+                    idModel = Guid.Parse(dgvModelChanges.DataKeys(modelRow.RowIndex).Value.ToString())
+                    modelChanges.UpdateApprove(idModel, userPlaceholder)
+                Next modelRow
                 confirmMessage = "Se han Aprobado todos los modelos incluidos en este cambio. Se le notificará al usuario originador"
 
             Case "Rechazar"
                 modelChangesHeader.UpdateApproveOrReject(idHeader, comment, "Rechazado", userPlaceholder)
                 For Each modelRow As GridViewRow In dgvModelChanges.Rows
-                    'idModel = Guid.Parse(modelRow.Cells(0).Text)
                     idModel = Guid.Parse(dgvModelChanges.DataKeys(modelRow.RowIndex).Value.ToString())
-                    modelChanges.UpdateIsChecked(idModel, False)
+                    modelChanges.UpdateReject(idModel, userPlaceholder)
                 Next modelRow
                 confirmMessage = "Se han Rechazado todos los modelos incluidos en este cambio. Se le notificará al usuario originador para su futura atención"
 

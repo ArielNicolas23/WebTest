@@ -81,6 +81,8 @@ Public Class WebForm1
 
         If (cleanTextBoxes) Then
             txtApprover.Text = ""
+            txtUsernameApprover.Text = ""
+            txtMailApprover.Text = ""
             txtUser.Text = ""
             txtPassword.Text = ""
             txtApproveMessage.Text = ""
@@ -207,6 +209,10 @@ Public Class WebForm1
         Dim canInsert As Boolean = True
 
         'Validaciones de los campos
+        canInsert = ValidateTextBox(txtApprover, lblModalMessage, "Favor de buscar y seleccionar a un Aprobador", canInsert)
+        canInsert = ValidateTextBox(txtUsernameApprover, lblModalMessage, "Favor de buscar y seleccionar a un Aprobador", canInsert)
+        canInsert = ValidateTextBox(txtMailApprover, lblModalMessage, "Favor de buscar y seleccionar a un Aprobador", canInsert)
+
         canInsert = ValidateTextBox(txtApprover, lblApproverError, "Buscar un Aprobador", canInsert)
         canInsert = ValidateTextBox(txtUser, lblUserError, "Llenar el campo de Usuario", canInsert)
         canInsert = ValidateTextBox(txtPassword, lblPasswordError, "Llenar el campo de Contraseña", canInsert)

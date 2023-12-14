@@ -132,14 +132,17 @@ Public Class ED_ModelsChangesHeader
             result = New DataTable("Result")
             result.Columns.Add("IdModelsChangesHeader", GetType(Guid))
             result.Columns.Add("ChangeNumber", GetType(Int32))
+            result.Columns.Add("OriginName", GetType(String))
             result.Columns.Add("OriginUser", GetType(String))
             result.Columns.Add("OriginComment", GetType(String))
+            result.Columns.Add("ApproverName", GetType(String))
             result.Columns.Add("ApproverUser", GetType(String))
             result.Columns.Add("ApproverComment", GetType(String))
             result.Columns.Add("ApprovalStatus", GetType(String))
             result.Columns.Add("ApprovedOn", GetType(String))
             result.Columns.Add("ModifiedOn", GetType(String))
             result.Columns.Add("Action", GetType(String))
+            result.Columns.Add("OriginEmail", GetType(String))
 
             conn.Open()
 
@@ -149,18 +152,22 @@ Public Class ED_ModelsChangesHeader
                 row = result.NewRow()
                 row("IdModelsChangesHeader") = reader.GetGuid(0)
                 row("ChangeNumber") = reader.GetInt32(1)
-                row("OriginUser") = reader.GetString(2)
-                row("OriginComment") = reader.GetString(3)
-                row("ApproverUser") = reader.GetString(4)
-                row("ApproverComment") = reader.GetString(5)
-                row("ApprovalStatus") = reader.GetString(6)
+                row("OriginName") = reader.GetString(2)
+                row("OriginUser") = reader.GetString(3)
+                row("OriginComment") = reader.GetString(4)
+                row("ApproverName") = reader.GetString(5)
+                row("ApproverUser") = reader.GetString(6)
+                row("ApproverComment") = reader.GetString(7)
+                row("ApprovalStatus") = reader.GetString(8)
 
                 If (reader.IsDBNull(reader.GetOrdinal("ApprovedOn"))) Then
                     row("ApprovedOn") = "-"
                 Else
-                    row("ApprovedOn") = reader.GetDateTime(7).ToString("dd/MMM/yyyy")
+                    row("ApprovedOn") = reader.GetDateTime(9).ToString("dd/MMM/yyyy")
                 End If
-                row("ModifiedOn") = reader.GetDateTime(8).ToString("dd/MMM/yyyy")
+
+                row("ModifiedOn") = reader.GetDateTime(10).ToString("dd/MMM/yyyy")
+                row("OriginEmail") = reader.GetString(11)
 
                 Select Case row("ApprovalStatus")
                     Case "Pendiente"
@@ -198,14 +205,17 @@ Public Class ED_ModelsChangesHeader
             result = New DataTable("Result")
             result.Columns.Add("IdModelsChangesHeader", GetType(Guid))
             result.Columns.Add("ChangeNumber", GetType(Int32))
+            result.Columns.Add("OriginName", GetType(String))
             result.Columns.Add("OriginUser", GetType(String))
             result.Columns.Add("OriginComment", GetType(String))
+            result.Columns.Add("ApproverName", GetType(String))
             result.Columns.Add("ApproverUser", GetType(String))
             result.Columns.Add("ApproverComment", GetType(String))
             result.Columns.Add("ApprovalStatus", GetType(String))
             result.Columns.Add("ApprovedOn", GetType(String))
             result.Columns.Add("ModifiedOn", GetType(String))
             result.Columns.Add("Action", GetType(String))
+            result.Columns.Add("OriginEmail", GetType(String))
 
             conn.Open()
 
@@ -215,17 +225,22 @@ Public Class ED_ModelsChangesHeader
                 row = result.NewRow()
                 row("IdModelsChangesHeader") = reader.GetGuid(0)
                 row("ChangeNumber") = reader.GetInt32(1)
-                row("OriginUser") = reader.GetString(2)
-                row("OriginComment") = reader.GetString(3)
-                row("ApproverUser") = reader.GetString(4)
-                row("ApproverComment") = reader.GetString(5)
-                row("ApprovalStatus") = reader.GetString(6)
+                row("OriginName") = reader.GetString(2)
+                row("OriginUser") = reader.GetString(3)
+                row("OriginComment") = reader.GetString(4)
+                row("ApproverName") = reader.GetString(5)
+                row("ApproverUser") = reader.GetString(6)
+                row("ApproverComment") = reader.GetString(7)
+                row("ApprovalStatus") = reader.GetString(8)
+
                 If (reader.IsDBNull(reader.GetOrdinal("ApprovedOn"))) Then
                     row("ApprovedOn") = "-"
                 Else
-                    row("ApprovedOn") = reader.GetDateTime(7).ToString("dd/MMM/yyyy")
+                    row("ApprovedOn") = reader.GetDateTime(9).ToString("dd/MMM/yyyy")
                 End If
-                row("ModifiedOn") = reader.GetDateTime(8).ToString("dd/MMM/yyyy")
+
+                row("ModifiedOn") = reader.GetDateTime(10).ToString("dd/MMM/yyyy")
+                row("OriginEmail") = reader.GetString(11)
 
                 Select Case row("ApprovalStatus")
                     Case "Pendiente"
@@ -262,14 +277,17 @@ Public Class ED_ModelsChangesHeader
             result = New DataTable("Result")
             result.Columns.Add("IdModelsChangesHeader", GetType(Guid))
             result.Columns.Add("ChangeNumber", GetType(Int32))
+            result.Columns.Add("OriginName", GetType(String))
             result.Columns.Add("OriginUser", GetType(String))
             result.Columns.Add("OriginComment", GetType(String))
+            result.Columns.Add("ApproverName", GetType(String))
             result.Columns.Add("ApproverUser", GetType(String))
             result.Columns.Add("ApproverComment", GetType(String))
             result.Columns.Add("ApprovalStatus", GetType(String))
             result.Columns.Add("ApprovedOn", GetType(String))
             result.Columns.Add("ModifiedOn", GetType(String))
             result.Columns.Add("Action", GetType(String))
+            result.Columns.Add("OriginEmail", GetType(String))
 
             conn.Open()
 
@@ -279,18 +297,22 @@ Public Class ED_ModelsChangesHeader
                 row = result.NewRow()
                 row("IdModelsChangesHeader") = reader.GetGuid(0)
                 row("ChangeNumber") = reader.GetInt32(1)
-                row("OriginUser") = reader.GetString(2)
-                row("OriginComment") = reader.GetString(3)
-                row("ApproverUser") = reader.GetString(4)
-                row("ApproverComment") = reader.GetString(5)
-                row("ApprovalStatus") = reader.GetString(6)
+                row("OriginName") = reader.GetString(2)
+                row("OriginUser") = reader.GetString(3)
+                row("OriginComment") = reader.GetString(4)
+                row("ApproverName") = reader.GetString(5)
+                row("ApproverUser") = reader.GetString(6)
+                row("ApproverComment") = reader.GetString(7)
+                row("ApprovalStatus") = reader.GetString(8)
 
                 If (reader.IsDBNull(reader.GetOrdinal("ApprovedOn"))) Then
                     row("ApprovedOn") = "-"
                 Else
-                    row("ApprovedOn") = reader.GetDateTime(7).ToString("dd/MMM/yyyy")
+                    row("ApprovedOn") = reader.GetDateTime(9).ToString("dd/MMM/yyyy")
                 End If
-                row("ModifiedOn") = reader.GetDateTime(8).ToString("dd/MMM/yyyy")
+
+                row("ModifiedOn") = reader.GetDateTime(10).ToString("dd/MMM/yyyy")
+                row("OriginEmail") = reader.GetString(11)
 
                 row("Action") = ""
 

@@ -30,17 +30,20 @@
             </div>
 
             <div>
-                <asp:GridView  ID="dgvPendingApproval" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="1600px" AllowPaging="True" DataKeyNames="IdModelsChangesHeader">
+                <asp:GridView  ID="dgvPendingApproval" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="2000px" AllowPaging="True" DataKeyNames="IdModelsChangesHeader,OriginEmail">
                     <Columns>
                         <asp:BoundField DataField="IdModelsChangesHeader" Visible="False" ReadOnly="True" />
                         <asp:BoundField DataField="ChangeNumber" HeaderText="No. de Cambio" SortExpression="ChangeNumber" />
-                        <asp:BoundField DataField="OriginUser" HeaderText="Originador" SortExpression="OriginUser" />
+                        <asp:BoundField DataField="OriginName" HeaderText="Nombre Originador" SortExpression="OriginName" />
+                        <asp:BoundField DataField="OriginUser" HeaderText="Usuario Originador" SortExpression="OriginUser" />
                         <asp:BoundField DataField="OriginComment" HeaderText="Comentario" SortExpression="OriginComment" />
                         <asp:BoundField DataField="ModifiedOn" HeaderText="Fecha de Edición" SortExpression="ModifiedOn" />
                         <asp:BoundField DataField="ApprovalStatus" HeaderText="Estatus" SortExpression="ModifiedOn" />
                         <asp:ButtonField CommandName="Action" HeaderText="Acción" ShowHeader="True" DataTextField="Action" />
-                        <asp:BoundField DataField="ApproverUser" HeaderText="Aprobador" SortExpression="ApproverUser" />
+                        <asp:BoundField DataField="ApproverName" HeaderText="Nombre Aprobador" SortExpression="ApproverName" />
+                        <asp:BoundField DataField="ApproverUser" HeaderText="Usuario Aprobador" SortExpression="ApproverUser" />
                         <asp:BoundField DataField="ApprovedOn" HeaderText="Fecha de Aprobación" SortExpression="ApprovedOn" />
+                        <asp:BoundField DataField="OriginEmail" Visible="False" ReadOnly="True" />
                     </Columns>
                     <RowStyle CssClass="dgvCatalogRowOdd" />
                     <EditRowStyle BackColor="#999999" />
@@ -63,7 +66,8 @@
                         <asp:BoundField DataField="Model" HeaderText="Modelo" SortExpression="Model" />
                         <asp:BoundField DataField="Lifespan" HeaderText="Vida Útil" SortExpression="Lifespan" />
                         <asp:BoundField DataField="Unit" HeaderText="Unidad" SortExpression="Unit" />
-                        <asp:BoundField DataField="LastUser" HeaderText="Último Usuario" SortExpression="LastUser" />
+                        <asp:BoundField DataField="LastUserName" HeaderText="Nombre del Usuario" SortExpression="LastUserName" />
+                        <asp:BoundField DataField="LastUser" HeaderText="Usuario" SortExpression="LastUser" />
                         <asp:BoundField DataField="ModifiedOn" HeaderText="Última Actualización" SortExpression="ModifiedOn" />
                         <asp:TemplateField>
                             <ItemTemplate>

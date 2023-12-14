@@ -50,8 +50,12 @@ Public Class ED_ModelsChanges
         Update(IdModelsChanges, Guid.Empty, Guid.Empty, "", 0, "", "", "", "", IsChecked, "", 2)
     End Sub
 
-    Public Sub UpdateApproveOrReject(ByVal IdModelsChanges As Guid, ByVal ModelChangeStatus As String, ByVal ModifiedBy As String)
-        Update(IdModelsChanges, Guid.Empty, Guid.Empty, "", 0, ModelChangeStatus, "", "", "", True, ModifiedBy, 3)
+    Public Sub UpdateApprove(ByVal IdModelsChanges As Guid, ByVal ModifiedBy As String)
+        Update(IdModelsChanges, Guid.Empty, Guid.Empty, "", 0, "Aprobado", "", "", "", True, ModifiedBy, 3)
+    End Sub
+
+    Public Sub UpdateReject(ByVal IdModelsChanges As Guid, ByVal ModifiedBy As String)
+        Update(IdModelsChanges, Guid.Empty, Guid.Empty, "", 0, "Rechazado", "", "", "", True, ModifiedBy, 4)
     End Sub
 
     Private Sub Update(
@@ -157,6 +161,7 @@ Public Class ED_ModelsChanges
             result.Columns.Add("Model", GetType(String))
             result.Columns.Add("Lifespan", GetType(String))
             result.Columns.Add("Unit", GetType(String))
+            result.Columns.Add("LastUserName", GetType(String))
             result.Columns.Add("LastUser", GetType(String))
             result.Columns.Add("ModifiedOn", GetType(String))
             result.Columns.Add("IsChecked", GetType(Boolean))
@@ -173,9 +178,10 @@ Public Class ED_ModelsChanges
                 row("Model") = reader.GetString(1)
                 row("Lifespan") = reader.GetInt32(2)
                 row("Unit") = reader.GetString(3)
-                row("LastUser") = reader.GetString(4)
-                row("ModifiedOn") = reader.GetDateTime(5).ToString("dd/MMM/yyyy")
-                row("IsChecked") = reader.GetBoolean(6)
+                row("LastUserName") = reader.GetString(4)
+                row("LastUser") = reader.GetString(5)
+                row("ModifiedOn") = reader.GetDateTime(6).ToString("dd/MMM/yyyy")
+                row("IsChecked") = reader.GetBoolean(7)
 
                 result.Rows.Add(row)
 
