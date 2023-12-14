@@ -1,17 +1,25 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.ComponentModel
+Imports System.Data.SqlClient
 Imports System.Diagnostics.Eventing
 Imports System.Threading.Tasks
+Imports System.Web.Script.Services
+Imports System.Web.Services
+Imports System.Web.WebPages
 Imports AjaxControlToolkit
+Imports Microsoft.Ajax.Utilities
+
 Public Class CatModuloAprobacion
     Inherits System.Web.UI.Page
 
     ' Variables de las conexiones a BD
     Dim modelChangesHeader As ED_ModelsChangesHeader = New ED_ModelsChangesHeader()
     Dim modelChanges As ED_ModelsChanges = New ED_ModelsChanges()
-    Dim userPlaceholder As String = "martil205"             'Pa que pongan su usuario aquí
+    Dim userPlaceholder As String
 
     ' Carga de página
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Dim userProfile = CType(Session("UserProfile"), Security.UserProfile)
+        userPlaceholder = userProfile.UserName.Split("\")(1)
         If Not Page.IsPostBack Then
             PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApproverUser(userPlaceholder))
         End If
@@ -59,49 +67,42 @@ Public Class CatModuloAprobacion
         ToggleModelsChanges(True)
     End Sub
 
-    ' Método del botón de rechazar cambios
-    Protected Sub cmdRejectChange_Click(sender As Object, e As EventArgs) Handles cmdRejectChange.Click
-        cmdAcceptChange.Text = "Rechazar"
-        txtUser.Text = ""
-        txtPassword.Text = ""
-        txtApproveMessage.Text = ""
-        lblUserError.Text = ""
-        lblPasswordError.Text = ""
-        lblApproverError.Text = ""
-        lblModalInstruction.Text = "Favor de ingresar sus credenciales para confirmar el rechazo"
-        ApproveModal.Show()
-        'RejectModal.Show()
-    End Sub
+    Protected Sub ApproveOrReject(sender As Object, e As EventArgs) Handles cmdApproveChange.Click
+        Dim btn As Button = TryCast(sender, Button)
 
-    ' Método del botón de aprobar cambios
-    Protected Sub cmdApproveChange_Click(sender As Object, e As EventArgs) Handles cmdApproveChange.Click
-        Dim missingModel As Boolean = False
-        cmdAcceptChange.Text = "Aprobar"
-        txtUser.Text = ""
-        txtPassword.Text = ""
-        txtApproveMessage.Text = ""
-        lblUserError.Text = ""
-        lblPasswordError.Text = ""
-        lblApproverError.Text = ""
-        lblModalInstruction.Text = "Favor de ingresar sus credenciales para confirmar la aprobacion"
-        For Each row As GridViewRow In dgvModelChanges.Rows
-            If row.RowType = DataControlRowType.DataRow Then
-                Dim check As CheckBox = TryCast(row.Cells(6).FindControl("IsChecked"), CheckBox)
-                If check.Checked Then
+        Select Case btn.CommandName
+            Case "Approve"
+                Dim isMissingModel As Boolean = False
+                Dim modelsList As String = True
+                For Each row As GridViewRow In dgvModelChanges.Rows
+                    If row.RowType = DataControlRowType.DataRow Then
+                        Dim check As CheckBox = TryCast(row.Cells(6).FindControl("IsChecked"), CheckBox)
+                        If check.Checked Then
 
-                Else
-                    'Llenar mensaje con modelos faltantes
-                    missingModel = True
+                        Else
+                            modelsList += "[" + row.Cells(1).Text + "], "
+                            isMissingModel = True
+                        End If
+                    End If
+                Next row
+
+                If isMissingModel Then
+                    modelsList = modelsList.Substring(0, modelsList.Length - 1)
+                    MsgBox("Aún no se han verificados todos los modelos." + vbNewLine + "Modelos faltantes por verificar: " + modelsList, MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Modelos sin verificar")
+                    Return
                 End If
-            End If
-        Next row
 
-        If missingModel Then
-            MsgBox("Aun no se han verificados todos los modelos", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Pasos sin completar")
-            Return
-        End If
+                cmdAcceptChange.Text = "Aprobar"
+                lblModalInstruction.Text = "Favor de ingresar sus credenciales para confirmar la Aprobación"
+                ApproveModal.Show()
 
-        ApproveModal.Show()
+            Case "Reject"
+                cmdAcceptChange.Text = "Rechazar"
+                lblModalInstruction.Text = "Favor de ingresar sus credenciales para confirmar el Rechazo"
+                ApproveModal.Show()
+        End Select
+        CleanModalFields(True)
+
     End Sub
 
     ' Método que actualiza el IsChecked del modelo seleccionado
@@ -119,78 +120,93 @@ Public Class CatModuloAprobacion
 
 
     Protected Sub cmdAcceptChange_Click(sender As Object, e As EventArgs) Handles cmdAcceptChange.Click
-        Dim approverUser As String
-        Dim approverEmail As String
+        CleanModalFields(False)
+
         Dim canInsert As Boolean = True
 
+        ' Validaciones de los campos
+        Select Case cmdAcceptChange.Text
+            Case "Aprobar"
+                canInsert = ValidateTextBox(txtUser, lblUserError, "Llenar el campo de Usuario", canInsert)
+                canInsert = ValidateTextBox(txtPassword, lblPasswordError, "Llenar el campo de Contraseña", canInsert)
 
-        If cmdAcceptChange.Text = "Aprobar" Then
-            canInsert = ValidateTextBox(txtUser, lblUserError, "Llenar el campo de Usuario", canInsert)
-            canInsert = ValidateTextBox(txtPassword, lblPasswordError, "Llenar el campo de Contraseña", canInsert)
-        Else
-            canInsert = ValidateTextBox(txtUser, lblUserError, "Llenar el campo de Usuario", canInsert)
-            canInsert = ValidateTextBox(txtPassword, lblPasswordError, "Llenar el campo de Contraseña", canInsert)
-            canInsert = ValidateTextBox(txtApproveMessage, lblApproveMessageError, "Llenar el campo de Mensaje", canInsert)
-        End If
-        If Not (canInsert) Then
+            Case "Rechazar"
+                canInsert = ValidateTextBox(txtUser, lblUserError, "Llenar el campo de Usuario", canInsert)
+                canInsert = ValidateTextBox(txtPassword, lblPasswordError, "Llenar el campo de Contraseña", canInsert)
+                canInsert = ValidateTextBox(txtApproveMessage, lblApproveMessageError, "Llenar el campo de Mensaje", canInsert)
+
+        End Select
+
+        If Not canInsert Then
             ApproveModal.Show()
-            Exit Sub
+            Return
         End If
 
-        Dim originUser As String
-        originUser = dgvModelChanges.Rows(0).Cells(4).Text.ToString()
+        Dim row As DataKeyArray = dgvPendingApproval.DataKeys
+        Dim idHeader As Guid = Guid.Parse(row(0).Value.ToString())
+        Dim idModel As Guid
+        Dim originUser As String = userPlaceholder
+        Dim comment As String = txtApproveMessage.Text
+        Dim confirmMessage As String = ""
 
-        If (Security.UserAD.GetUserExists("orizag2", "")) Then
-            approverEmail = Security.UserAD.GetUserEmail(originUser)
-        Else
-            lblModalMessage.Text = "No se encontro al Usuario Aprobador"
+        Dim m_Profile = CType(Session("UserProfile"), Security.UserProfile)
+        Dim actualUser = m_Profile.UserName.Split("\")(1)
+
+        'Validacion de usuario originador
+        If (Not txtUser.Text = actualUser) Then
+            lblModalMessage.Text = "Porfavor ingrese el usuario de su sesión"
             ApproveModal.Show()
             Return
         End If
 
         'Validación del propio usuario
-        If (Security.UserAD.GetUserExists(txtUser.Text, "")) Then 'Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT\") Then
-            approverUser = txtUser.Text
+        If (Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT")) Then
+
         Else
             lblModalMessage.Text = "Usuario o contraseña incorrectos"
             ApproveModal.Show()
             Return
         End If
 
+        Select Case cmdAcceptChange.Text
+            Case "Aprobar"
+                modelChangesHeader.UpdateApproveOrReject(idHeader, comment, "Aprobado", userPlaceholder)
+                confirmMessage = "Se han Aprobado todos los modelos incluidos en este cambio. Se le notificará al usuario originador"
+
+            Case "Rechazar"
+                modelChangesHeader.UpdateApproveOrReject(idHeader, comment, "Rechazado", userPlaceholder)
+                For Each modelRow As GridViewRow In dgvModelChanges.Rows
+                    'idModel = Guid.Parse(modelRow.Cells(0).Text)
+                    idModel = Guid.Parse(dgvModelChanges.DataKeys(modelRow.RowIndex).Value.ToString())
+                    modelChanges.UpdateIsChecked(idModel, False)
+                Next modelRow
+                confirmMessage = "Se han Rechazado todos los modelos incluidos en este cambio. Se le notificará al usuario originador para su futura atención"
+
+        End Select
+
+        ToggleModelsChanges(True)
+        ApproveModal.Hide()
+        MsgBox(confirmMessage, MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+
         Dim dataMail As New ConstructInfo With {
-                                    .EmailType = "CambiosPendientes",
-                                    .UserName = userPlaceholder,
-                                    .Comment = txtApproveMessage.Text.Trim,
-                                    .Link = "<a href=>Fecha De Expiración</a>"
-                                    }
+                            .EmailType = "CambiosPendientes",
+                            .UserName = originUser,
+                            .Comment = txtApproveMessage.Text.Trim,
+                            .Link = "<a href=>Fecha De Expiración</a>"
+                            }
         Dim email As New ModuloGeneralEmail
 
         If email.ConstructEmail(dataMail) Then
-            MsgBox("Se ha enviado un correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+            MsgBox("Se ha enviado un correo a el originador " + originUser, MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
         Else
-            MsgBox("Ha ocurrido un error al mandar correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Error")
+            MsgBox("Ha ocurrido un error al mandar correo a el originador " + originUser, MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Error")
         End If
 
-        Dim id As Guid = Guid.Parse("6feda1e6-f767-4988-ab49-de93ad311746")
-        'Guid.Parse(rows(Index).Value.ToString())
-
-        Dim idHeader As Guid = Guid.Parse("3170bd92-2c35-4148-a38a-2cf6caad13d7")
-        'Guid.Parse(row(index).Value.ToString())
-
-        If cmdAcceptChange.Text = "Aprobar" Then
-
-            modelChangesHeader.UpdateApprovalStatus(idHeader, "Aprobado", userPlaceholder)
-            ToggleModelsChanges(False)
-        Else
-            'update header
-
-            modelChangesHeader.UpdateApprovalStatus(idHeader, "Rechazado", userPlaceholder)
-            ToggleModelsChanges(False)
-
-        End If
-
+        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApproverUser(userPlaceholder))
+        ToggleModelsChanges(True)
     End Sub
 
+    ' Método para validar campos de aprobación
     Protected Function ValidateTextBox(txt As TextBox, lbl As Label, errorMessage As String, canInsert As Boolean)
         If (txt.Text = "") Then
             lbl.Text = errorMessage
@@ -204,8 +220,23 @@ Public Class CatModuloAprobacion
         End If
     End Function
 
-    Protected Sub cmdCancelModal_Click(sender As Object, e As EventArgs) Handles cmdCancelModal.Click
+    ' Método para limpiar campos
+    Protected Sub CleanModalFields(cleanTextBoxes As Boolean)
+        lblUserError.Text = ""
+        lblPasswordError.Text = ""
+        lblApproveMessageError.Text = ""
+        lblModalMessage.Text = ""
 
+        If (cleanTextBoxes) Then
+            txtUser.Text = ""
+            txtPassword.Text = ""
+            txtApproveMessage.Text = ""
+        End If
+    End Sub
+
+    Protected Sub cmdCancelModal_Click(sender As Object, e As EventArgs) Handles cmdCancelModal.Click
+        CleanModalFields(True)
+        ApproveModal.Hide()
     End Sub
 
 

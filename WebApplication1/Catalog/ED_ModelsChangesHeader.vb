@@ -226,7 +226,16 @@ Public Class ED_ModelsChangesHeader
                     row("ApprovedOn") = reader.GetDateTime(7).ToString("dd/MMM/yyyy")
                 End If
                 row("ModifiedOn") = reader.GetDateTime(8).ToString("dd/MMM/yyyy")
-                row("Action") = "Tomar para revisar"
+
+                Select Case row("ApprovalStatus")
+                    Case "Pendiente"
+                        row("Action") = "Tomar para revisar"
+                    Case "En Revisión"
+                        row("Action") = "Liberar"
+                    Case Else
+                        row("Action") = ""
+                End Select
+
                 result.Rows.Add(row)
 
             End While
@@ -284,14 +293,6 @@ Public Class ED_ModelsChangesHeader
                 row("ModifiedOn") = reader.GetDateTime(8).ToString("dd/MMM/yyyy")
 
                 row("Action") = ""
-                'Select Case row("ApprovalStatus")
-                '    Case "Pendiente"
-                '        row("Action") = "Tomar para revisar"
-                '    Case "En Revisión"
-                '        row("Action") = "Liberar"
-                '    Case Else
-                '        row("Action") = ""
-                'End Select
 
                 result.Rows.Add(row)
 

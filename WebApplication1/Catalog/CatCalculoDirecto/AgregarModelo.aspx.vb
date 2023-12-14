@@ -75,7 +75,7 @@ Public Class WebForm1
     Protected Sub CleanModalFields(cleanTextBoxes As Boolean)
         lblApproverError.Text = ""
         lblUserError.Text = ""
-        lblPassworkError.Text = ""
+        lblPasswordError.Text = ""
         lblApproveMessageError.Text = ""
         lblModalMessage.Text = ""
 
@@ -209,7 +209,7 @@ Public Class WebForm1
         'Validaciones de los campos
         canInsert = ValidateTextBox(txtApprover, lblApproverError, "Buscar un Aprobador", canInsert)
         canInsert = ValidateTextBox(txtUser, lblUserError, "Llenar el campo de Usuario", canInsert)
-        canInsert = ValidateTextBox(txtPassword, lblPassworkError, "Llenar el campo de Contraseña", canInsert)
+        canInsert = ValidateTextBox(txtPassword, lblPasswordError, "Llenar el campo de Contraseña", canInsert)
         canInsert = ValidateTextBox(txtApproveMessage, lblApproveMessageError, "Llenar el campo de Mensaje", canInsert)
 
         'Validaciones extra por si acaso
@@ -265,7 +265,7 @@ Public Class WebForm1
             Dim m_Profile = CType(Session("UserProfile"), Security.UserProfile) 'Funcion que valida el usuario originador con el de la sesion 
             Dim actualUser = m_Profile.UserName.Split("\")(1)
             If (Not txtUser.Text = actualUser) Then
-                lblModalMessage.Text = "Porfavor ingrese el usuario de su sesion"
+                lblModalMessage.Text = "Porfavor ingrese el usuario de su sesión"
                 ApproveModal.Show()
                 Return
             End If
@@ -279,57 +279,58 @@ Public Class WebForm1
 
             'Validación del propio usuario
             If (Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT")) Then   'Agregar función para validar el usuario y contraseña 
-                    originUser = txtUser.Text
+                originUser = txtUser.Text
                 originName = Security.UserAD.GetUserName(originUser)                           'Agregar función para buscar el nombre del usuario
                 originEmail = Security.UserAD.GetUserEmail(originUser)
-                Else
-                    lblModalMessage.Text = "Usuario o contraseña incorrectos"
-                    ApproveModal.Show()
-                    Return
-                End If
+            Else
+                lblModalMessage.Text = "Usuario o contraseña incorrectos"
+                ApproveModal.Show()
+                Return
+            End If
 
-                'Validación de registros ya existentes
+            'Validación de registros ya existentes
+            For Each row As DataRow In dt.Rows
+                If (modelsChange.AlreadyExistModelChange(Guid.Empty, row("Modelo"))) Then
+                    foundRepeated = True
+                End If
+            Next row
+
+
+            If (foundRepeated) Then
+                lblModalMessage.Text = "Se ha detectado que uno o varios modelos seleccionados fueron cargados durante el proceso de aprobación. Favor de rectificar."
+                ApproveModal.Show()
+            Else
+                IdModelsChangesHeader = approvedModelsChange.Insert(changeNumber, originUser, originName, originEmail, originComment, approverUser, approverName, approverEmail, approvalStatus, isActive, originUser)
                 For Each row As DataRow In dt.Rows
-                    If (modelsChange.AlreadyExistModelChange(Guid.Empty, row("Modelo"))) Then
-                        foundRepeated = True
-                    End If
+                    idUnit = Guid.Parse(row("IdUnidad"))
+                    model = row("Modelo")
+                    lifeSpan = row("VidaUtil")
+                    modelsChange.Insert(IdModelsChangesHeader, idUnit, model, lifeSpan, modelChangeStatus, originUser, originName, originEmail, isActive, originUser)
                 Next row
 
-                If (foundRepeated) Then
-                    lblModalMessage.Text = "Se ha detectado que uno o varios modelos seleccionados fueron cargados durante el proceso de aprobación. Favor de rectificar."
-                    ApproveModal.Show()
+                ApproveModal.Hide()
+                MsgBox("Se ha completado exitósamente el registro de los cambios", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+
+
+                Dim dataMail As New ConstructInfo With {
+                                .EmailType = "CambiosPendientes",
+                                .UserName = originUser,
+                                .Comment = txtApproveMessage.Text.Trim,
+                                .Link = "<a href=>Fecha De Expiración</a>"
+                                }
+                Dim email As New ModuloGeneralEmail
+
+                If email.ConstructEmail(dataMail) Then
+                    MsgBox("Se ha enviado un correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
                 Else
-                    IdModelsChangesHeader = approvedModelsChange.Insert(changeNumber, originUser, originName, originEmail, originComment, approverUser, approverName, approverEmail, approvalStatus, isActive, originUser)
-                    For Each row As DataRow In dt.Rows
-                        idUnit = Guid.Parse(row("IdUnidad"))
-                        model = row("Modelo")
-                        lifeSpan = row("VidaUtil")
-                        modelsChange.Insert(IdModelsChangesHeader, idUnit, model, lifeSpan, modelChangeStatus, originUser, originName, originEmail, isActive, originUser)
-                    Next row
-
-                    ApproveModal.Hide()
-                    MsgBox("Se ha completado exitósamente el registro de los cambios", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
-
-
-                    Dim dataMail As New ConstructInfo With {
-                                    .EmailType = "CambiosPendientes",
-                                    .UserName = originUser,
-                                    .Comment = txtApproveMessage.Text.Trim,
-                                    .Link = "<a href=>Fecha De Expiración</a>"
-                                    }
-                    Dim email As New ModuloGeneralEmail
-
-                    If email.ConstructEmail(dataMail) Then
-                        MsgBox("Se ha enviado un correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
-                    Else
-                        MsgBox("Ha ocurrido un error al mandar correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Error")
-                    End If
-
-                    CleanModalFields(True)
-                    CleanTable()
+                    MsgBox("Ha ocurrido un error al mandar correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Error")
                 End If
-            Else
-                ApproveModal.Show()
+
+                CleanModalFields(True)
+                CleanTable()
+            End If
+        Else
+            ApproveModal.Show()
         End If
     End Sub
 

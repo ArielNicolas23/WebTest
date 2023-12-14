@@ -266,13 +266,13 @@ Partial Public Class WebForm1
     Protected WithEvents txtPassword As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''lblPassworkError control.
+    '''lblPasswordError control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPassworkError As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblPasswordError As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblApproveMessage control.
@@ -327,13 +327,4 @@ Partial Public Class WebForm1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents cmdCancelModal As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''Buttonpopup control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Buttonpopup As Global.System.Web.UI.WebControls.Button
 End Class

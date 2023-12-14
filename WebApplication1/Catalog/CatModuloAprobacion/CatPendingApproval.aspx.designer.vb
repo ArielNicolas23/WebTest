@@ -167,42 +167,6 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents lblModalInstruction As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblApprover control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblApprover As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''txtApprover control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtApprover As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''txtSearchAD_AutoCompleteExtender control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtSearchAD_AutoCompleteExtender As Global.AjaxControlToolkit.AutoCompleteExtender
-
-    '''<summary>
-    '''lblApproverError control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblApproverError As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
     '''lblUser control.
     '''</summary>
     '''<remarks>
@@ -309,13 +273,4 @@ Partial Public Class CatModuloAprobacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents cmdCancelModal As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''Buttonpopup control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Buttonpopup As Global.System.Web.UI.WebControls.Button
 End Class
