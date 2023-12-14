@@ -165,6 +165,7 @@
     <Content Include="Catalog\CatCalculoDirecto\CatCalculoDirecto.aspx" />
     <Content Include="Catalog\CatCalculoDirecto\AgregarModelo.aspx" />
     <Content Include="Catalog\CatCalculoDirecto\wsGetAdUsers.asmx" />
+    <Content Include="Catalog\CatConfiguracionCalculoDirecto\CatConfiguracionCalculoDirecto.aspx" />
     <Content Include="Catalog\CatModuloAprobacion\CatPendingApproval.aspx" />
     <Content Include="Catalog\CatWorkOrders\CatWorkOrders.aspx" />
     <Content Include="Catalog\CatUnits\CatUnits.aspx" />
@@ -281,6 +282,13 @@
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Catalog\CatConfiguracionCalculoDirecto\CatConfiguracionCalculoDirecto.aspx.designer.vb">
+      <DependentUpon>CatConfiguracionCalculoDirecto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Catalog\CatConfiguracionCalculoDirecto\CatConfiguracionCalculoDirecto.aspx.vb">
+      <DependentUpon>CatConfiguracionCalculoDirecto.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="ExpirationDateRoles.vb" />
     <Compile Include="ewapp_login.aspx.designer.vb">
       <DependentUpon>ewapp_login.aspx</DependentUpon>

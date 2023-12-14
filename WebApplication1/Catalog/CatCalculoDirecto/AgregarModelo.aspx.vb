@@ -277,11 +277,11 @@ Public Class WebForm1
             End If
 
             'Validacion de usuario originador y aprobador
-            If (txtUsernameApprover.Text = actualUser) Then
-                lblModalMessage.Text = "El usuario aprobador no puede ser el mismo que el originador"
-                ApproveModal.Show()
-                Return
-            End If
+            'If (txtUsernameApprover.Text = actualUser) Then
+            'lblModalMessage.Text = "El usuario aprobador no puede ser el mismo que el originador"
+            'ApproveModal.Show()
+            'Return
+            'End If
 
             'Validación del propio usuario
             If (Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT")) Then   'Agregar función para validar el usuario y contraseña 
