@@ -189,7 +189,7 @@ Public Class ED_ModelsChangesHeader
         Return result
     End Function
 
-    Public Function SelectByApprovalStatus(ByVal User As String, ByVal ApprovalStatus As String) As DataTable
+    Public Function SelectByApprovalStatus(ByVal User As String, ByVal ApprovalStatus As String, ByVal UserRole As String) As DataTable
         Dim result As DataTable
         Dim row As DataRow
 
@@ -201,6 +201,7 @@ Public Class ED_ModelsChangesHeader
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@User", User)
             cmd.Parameters.AddWithValue("@ApprovalStatus", ApprovalStatus)
+            cmd.Parameters.AddWithValue("@UserRole", UserRole)
 
             result = New DataTable("Result")
             result.Columns.Add("IdModelsChangesHeader", GetType(Guid))
@@ -242,14 +243,18 @@ Public Class ED_ModelsChangesHeader
                 row("ModifiedOn") = reader.GetDateTime(10).ToString("dd/MMM/yyyy")
                 row("OriginEmail") = reader.GetString(11)
 
-                Select Case row("ApprovalStatus")
-                    Case "Pendiente"
-                        row("Action") = "Tomar para revisar"
-                    Case "En Revisión"
-                        row("Action") = "Liberar"
-                    Case Else
-                        row("Action") = ""
-                End Select
+                If (row("ApproverUser") = User) Then
+                    Select Case row("ApprovalStatus")
+                        Case "Pendiente"
+                            row("Action") = "Tomar para revisar"
+                        Case "En Revisión"
+                            row("Action") = "Liberar"
+                        Case Else
+                            row("Action") = ""
+                    End Select
+                Else
+                    row("Action") = ""
+                End If
 
                 result.Rows.Add(row)
 

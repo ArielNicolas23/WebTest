@@ -232,7 +232,7 @@ Public Class ED_ModelsChanges
                 row("LastUser") = reader.GetString(5)
                 row("ApproverUser") = reader.GetString(6)
                 row("ApprovedOn") = reader.GetDateTime(7).ToString("dd/MMM/yyyy")
-                row("IsChecked") = False 'reader.GetBoolean(8)
+                row("IsChecked") = False
 
                 result.Rows.Add(row)
 
@@ -286,7 +286,7 @@ Public Class ED_ModelsChanges
                 row("LastUser") = reader.GetString(5)
                 row("ApproverUser") = reader.GetString(6)
                 row("ApprovedOn") = reader.GetDateTime(7).ToString("dd/MMM/yyyy")
-                row("IsChecked") = False 'reader.GetBoolean(8)
+                row("IsChecked") = False
 
                 result.Rows.Add(row)
 

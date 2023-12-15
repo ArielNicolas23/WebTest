@@ -65,8 +65,7 @@
                     <asp:BoundField DataField="ApprovedOn" HeaderText="Fecha de Aprobación" SortExpression="ApprovedOn" />
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:CheckBox ID="IsChecked" runat="server" AutoPostBack="true" Checked='<%#Convert.ToBoolean(Eval("IsChecked"))%>' OnCheckedChanged="OnChangeIsChecked" />
-
+                            <asp:CheckBox ID="IsChecked" runat="server" AutoPostBack="true" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

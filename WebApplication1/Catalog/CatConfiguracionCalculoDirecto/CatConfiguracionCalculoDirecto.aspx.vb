@@ -37,15 +37,7 @@ Public Class CatConfiguracionCalculoDirecto
     End Sub
 
     Protected Sub OnChangeIsChecked(sender As Object, e As EventArgs)
-        Dim checkBox As CheckBox = TryCast(sender, CheckBox)
 
-        If checkBox IsNot Nothing Then
-            Dim row As GridViewRow = DirectCast(checkBox.Parent.Parent, GridViewRow)
-            Dim id As Guid = Guid.Parse(dgvModelos.DataKeys(row.RowIndex).Value.ToString())
-            Dim isChecked As Boolean = checkBox.Checked
-
-            modelChanges.UpdateIsChecked(id, isChecked)
-        End If
     End Sub
 
     Protected Sub dgvModelos_SelectedIndexChanged(sender As Object, e As EventArgs) Handles dgvModelos.SelectedIndexChanged

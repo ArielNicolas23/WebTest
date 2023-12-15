@@ -49,9 +49,12 @@ Public Class CatModuloAprobacion
                 Dim index As Integer = Convert.ToInt32(e.CommandArgument)
                 Dim id As Guid = Guid.Parse(row(index).Value.ToString())
 
+                modelChangesHeader.UpdateApprovalStatus(id, "En Revisión", userPlaceholder)
+
+                lblTitle.Text = "Verificación de Modelos"
+                ToggleSection(divFilterHeader, False)
                 ToggleModelsChanges(False)
 
-                modelChangesHeader.UpdateApprovalStatus(id, "En Revisión", userPlaceholder)
                 PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByIdModelsChangesHeader(id))
                 PopulateGrid(dgvModelChanges, modelChanges.SelectByIdModelsChangesHeader(id))
         End Select
@@ -59,12 +62,15 @@ Public Class CatModuloAprobacion
 
     ' Método del botón de buscar por filtros
     Protected Sub cmdSearch_Click(sender As Object, e As EventArgs) Handles cmdSearch.Click
-        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApprovalStatus(userPlaceholder, ddlStatus.SelectedValue))
+        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApprovalStatus(userPlaceholder, ddlStatus.SelectedValue, ddlRole.SelectedValue))
     End Sub
 
     ' Método para cancelar la revisión de los cambios y seleccionar otro cambio
     Protected Sub cmdCancelChange_Click(sender As Object, e As EventArgs) Handles cmdCancelChange.Click
         PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApproverUser(userPlaceholder))
+
+        lblTitle.Text = "Cambios pendientes de Aprobación"
+        ToggleSection(divFilterHeader, True)
         ToggleModelsChanges(True)
     End Sub
 
@@ -191,7 +197,6 @@ Public Class CatModuloAprobacion
 
         End Select
 
-        ToggleModelsChanges(True)
         ApproveModal.Hide()
         MsgBox(confirmMessage, MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
 
@@ -210,6 +215,9 @@ Public Class CatModuloAprobacion
         End If
 
         PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApproverUser(userPlaceholder))
+
+        lblTitle.Text = "Cambios pendientes de Aprobación"
+        ToggleSection(divFilterHeader, True)
         ToggleModelsChanges(True)
     End Sub
 
@@ -246,5 +254,19 @@ Public Class CatModuloAprobacion
         ApproveModal.Hide()
     End Sub
 
+    Protected Sub chkDateFilters_CheckedChanged(sender As Object, e As EventArgs) Handles chkDateFilters.CheckedChanged
+        If chkDateFilters.Checked Then
+            divDateFilters.Visible = True
+        Else
+            divDateFilters.Visible = False
+        End If
+    End Sub
 
+    Protected Sub ToggleSection(control As HtmlGenericControl, show As Boolean)
+        If show Then
+            control.Visible = True
+        Else
+            control.Visible = False
+        End If
+    End Sub
 End Class

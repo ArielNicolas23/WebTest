@@ -4,30 +4,59 @@
 <asp:Content ID="Content" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Cambios pendientes de aprobación" CssClass="catHeader"></asp:Label>
+            <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Cambios pendientes de Aprobación" CssClass="catHeader"></asp:Label>
 
             <div style="height:32px">
 
             </div>
 
-            <div class="catDivHeader">
-                <asp:Label ID="lblStatus" runat="server" Text="Estatus: " CssClass="catLabel" ></asp:Label>
-                <asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="true" CssClass="catDropDownList">
-                    <asp:ListItem>Todos</asp:ListItem>
-                    <asp:ListItem>Pendiente</asp:ListItem>
-                    <asp:ListItem>En Revisión</asp:ListItem>
-                    <asp:ListItem>Aprobado</asp:ListItem>
-                    <asp:ListItem>Rechazado</asp:ListItem>
-                </asp:DropDownList>
+            <div runat="server" id="divFilterHeader" visible="true">
+                <div class="catDivHeader">
+                    <asp:Label ID="lblStatus" runat="server" Text="Estatus: " CssClass="catLabel" ></asp:Label>
+                    <asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="true" CssClass="catDropDownList">
+                        <asp:ListItem>Todos</asp:ListItem>
+                        <asp:ListItem>Pendiente</asp:ListItem>
+                        <asp:ListItem>En Revisión</asp:ListItem>
+                        <asp:ListItem>Aprobado</asp:ListItem>
+                        <asp:ListItem>Rechazado</asp:ListItem>
+                    </asp:DropDownList>
 
-                <asp:Label ID="lblRole" runat="server" Text="Rol de Usuario: " CssClass="catLabel" ></asp:Label>
-                <asp:DropDownList ID="ddlRole" runat="server" AutoPostBack="true" CssClass="catDropDownList">
-                    <asp:ListItem>Ambos</asp:ListItem>
-                    <asp:ListItem>Originador</asp:ListItem>
-                    <asp:ListItem>Aprobador</asp:ListItem>
-                </asp:DropDownList>
-                <asp:Button ID="cmdSearch" runat="server" Text="Buscar Cambios" CssClass="catButton"/>
+                    <asp:Label ID="lblRole" runat="server" Text="Rol de Usuario: " CssClass="catLabel" ></asp:Label>
+                    <asp:DropDownList ID="ddlRole" runat="server" AutoPostBack="true" CssClass="catDropDownList">
+                        <asp:ListItem>Ambos</asp:ListItem>
+                        <asp:ListItem>Originador</asp:ListItem>
+                        <asp:ListItem>Aprobador</asp:ListItem>
+                    </asp:DropDownList>
+
+                    <asp:Label ID="lblDateFilters" runat="server" Text="Buscar por Fecha: " CssClass="catLabel" ></asp:Label>
+                    <asp:CheckBox ID="chkDateFilters" runat="server" AutoPostBack="true"/>
+
+                    <asp:Button ID="cmdSearch" runat="server" Text="Buscar Cambios" CssClass="catButton"/>
+                </div>
+
+                <div runat="server" id="divDateFilters"  class="catDivHeader" visible="false">
+                    <asp:Label ID="lblCreatedOn" runat="server" Text="Fecha de Origen: " CssClass="catLabel" ></asp:Label>
+                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                    <asp:Button ID="Button1" runat="server" Text="Button" />
+                    <asp:Calendar ID="cldCreatedOn" runat="server" Visible="false"></asp:Calendar>
+
+                    <asp:Label ID="lblCreatedOnTo" runat="server" Text="A: " CssClass="catLabel" ></asp:Label>
+                    <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                    <asp:Button ID="Button2" runat="server" Text="Button" />
+                    <asp:Calendar ID="cldCreatedOnTo" runat="server" Visible="false"></asp:Calendar>
+
+                    <asp:Label ID="lblApprovedOn" runat="server" Text="Fecha de Aprobación: " CssClass="catLabel" ></asp:Label>
+                    <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                    <asp:Button ID="Button3" runat="server" Text="Button" />
+                    <asp:Calendar ID="cldApprovedOn" runat="server" Visible="false"></asp:Calendar>
+
+                    <asp:Label ID="lblApprovedOnTo" runat="server" Text="A: " CssClass="catLabel" ></asp:Label>
+                    <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                    <asp:Button ID="Button4" runat="server" Text="Button" />
+                    <asp:Calendar ID="cldApprovedOnTo" runat="server" Visible="false"></asp:Calendar>
+                </div>
             </div>
+
 
             <div>
                 <asp:GridView  ID="dgvPendingApproval" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="2000px" AllowPaging="True" DataKeyNames="IdModelsChangesHeader,OriginEmail">
@@ -54,33 +83,45 @@
             </div>
 
             <div runat="server" id="divModelsChanges" style="margin-top: 50px" visible="false">
-                <div class="catDivHeader" style="width: 1200px; text-align: right">
-                        <asp:Button ID="cmdCancelChange" runat="server" Text="Seleccionar otro Cambio" CssClass="catButton"/>
-                        <asp:Button ID="cmdRejectChange" runat="server" Text="Rechazar Cambios" CssClass="catButton" CommandName="Reject" OnClick="ApproveOrReject"/>
-                        <asp:Button ID="cmdApproveChange" runat="server" Text="Aprobar Cambios" CssClass="catButtonAccept" CommandName="Approve" OnClick="ApproveOrReject"/>
+                <div style="width: 2%;  float: left;">
+                    <asp:Label ID="lblMargin" runat="server" Text=">" CssClass="catIcon"></asp:Label>
                 </div>
 
-                <asp:GridView  ID="dgvModelChanges" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="1200px" AllowPaging="True" DataKeyNames="IdModelsChanges">
-                    <Columns>
-                        <asp:BoundField DataField="IdModelsChanges" Visible="False" />
-                        <asp:BoundField DataField="Model" HeaderText="Modelo" SortExpression="Model" />
-                        <asp:BoundField DataField="Lifespan" HeaderText="Vida Útil" SortExpression="Lifespan" />
-                        <asp:BoundField DataField="Unit" HeaderText="Unidad" SortExpression="Unit" />
-                        <asp:BoundField DataField="LastUserName" HeaderText="Nombre del Usuario" SortExpression="LastUserName" />
-                        <asp:BoundField DataField="LastUser" HeaderText="Usuario" SortExpression="LastUser" />
-                        <asp:BoundField DataField="ModifiedOn" HeaderText="Última Actualización" SortExpression="ModifiedOn" />
-                        <asp:TemplateField>
-                            <ItemTemplate>
-                                <asp:CheckBox ID="IsChecked" runat="server" AutoPostBack="true" Checked='<%#Convert.ToBoolean(Eval("IsChecked"))%>' OnCheckedChanged="OnChangeIsChecked"/>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                    <RowStyle CssClass="dgvCatalogRowOdd" />
-                    <EditRowStyle BackColor="#999999" />
-                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                    <PagerStyle CssClass="dgvPaging"/>
-                    <AlternatingRowStyle CssClass="dgvCatalogRowEven" />
-                </asp:GridView>
+                <div style="margin-left: 2%;">
+                    <div class="catDivHeader" style="width: 1400px;">
+                        <div style="width: 30%; float: left; text-align: left">
+                            <asp:Label ID="lblModalsChanges" runat="server" Font-Size="18pt" Text="Modelos por Verificar" CssClass="catHeaderSub"></asp:Label>
+                        </div>
+                        <div style="margin-left: 30%; text-align: right">
+                            <asp:Button ID="cmdCancelChange" runat="server" Text="Seleccionar otro Cambio" CssClass="catButton"/>
+                            <asp:Button ID="cmdRejectChange" runat="server" Text="Rechazar Cambios" CssClass="catButton" CommandName="Reject" OnClick="ApproveOrReject"/>
+                            <asp:Button ID="cmdApproveChange" runat="server" Text="Aprobar Cambios" CssClass="catButtonAccept" CommandName="Approve" OnClick="ApproveOrReject"/>
+                        </div>
+                    </div>
+
+                    <asp:GridView  ID="dgvModelChanges" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="1400px" AllowPaging="True" DataKeyNames="IdModelsChanges">
+                        <Columns>
+                            <asp:BoundField DataField="IdModelsChanges" Visible="False" />
+                            <asp:BoundField DataField="Model" HeaderText="Modelo" SortExpression="Model" />
+                            <asp:BoundField DataField="Lifespan" HeaderText="Vida Útil" SortExpression="Lifespan" />
+                            <asp:BoundField DataField="Unit" HeaderText="Unidad" SortExpression="Unit" />
+                            <asp:BoundField DataField="LastUserName" HeaderText="Nombre del Usuario" SortExpression="LastUserName" />
+                            <asp:BoundField DataField="LastUser" HeaderText="Usuario" SortExpression="LastUser" />
+                            <asp:BoundField DataField="ModifiedOn" HeaderText="Última Actualización" SortExpression="ModifiedOn" />
+                            <asp:TemplateField HeaderText="Verificar">
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="IsChecked" runat="server" AutoPostBack="true" Checked='<%#Convert.ToBoolean(Eval("IsChecked"))%>' OnCheckedChanged="OnChangeIsChecked"/>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <RowStyle CssClass="dgvCatalogRowOdd" />
+                        <EditRowStyle BackColor="#999999" />
+                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                        <PagerStyle CssClass="dgvPaging"/>
+                        <AlternatingRowStyle CssClass="dgvCatalogRowEven" />
+                    </asp:GridView>
+                </div>
+
             </div>
 
 
