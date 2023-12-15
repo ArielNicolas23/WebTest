@@ -311,6 +311,15 @@ Partial Public Class WebForm1
     Protected WithEvents lblApproveMessageError As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''updProgress control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents updProgress As Global.System.Web.UI.UpdateProgress
+
+    '''<summary>
     '''lblModalMessage control.
     '''</summary>
     '''<remarks>
@@ -318,6 +327,15 @@ Partial Public Class WebForm1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblModalMessage As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''updateInProcess control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents updateInProcess As Global.System.Web.UI.UpdatePanel
 
     '''<summary>
     '''lbAccept control.

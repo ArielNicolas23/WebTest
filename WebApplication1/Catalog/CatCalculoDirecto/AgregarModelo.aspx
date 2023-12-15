@@ -13,6 +13,23 @@
     <asp:UpdatePanel ID="UpdatePanelGeneral" runat="server">
         <ContentTemplate>
             <script type="text/javascript">
+
+                // Get the instance of PageRequestManager.
+                var prm = Sys.WebForms.PageRequestManager.getInstance();
+                // Add initializeRequest and endRequest
+                prm.add_initializeRequest(prm_InitializeRequest);
+
+                // Called when async postback begins
+                function prm_InitializeRequest(sender, args) {
+                    // Disable button that caused a postback
+                    var x = document.getElementById("MainContent_lbAccept");
+                    x.className += "disabled-link";
+
+                    var x = document.getElementById("MainContent_lbCancel");
+                    x.className += "disabled-link";
+                    
+                }
+
                 function ClearADFields() {
                     //CLEAR DATA
                     document.getElementById("MainContent_txtApprover").value = '';
@@ -35,6 +52,11 @@
                      }
                 }
             </script>
+            <style>
+.disabled-link {
+  pointer-events: none;
+}
+</style>
 
                                             
             <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Catálogo de Configuración de Cálculo Directo"></asp:Label>
@@ -215,6 +237,14 @@
 
                         <tr style="margin-top: 10px; margin-bottom: 10px">
                             <td colspan="3">
+                                 <asp:UpdateProgress ID="updProgress"
+ AssociatedUpdatePanelID="updateInProcess"
+ runat="server">
+     <ProgressTemplate>           
+
+       Procesando          
+     </ProgressTemplate>
+ </asp:UpdateProgress>
                                 <asp:Label ID="lblModalMessage" runat="server" ForeColor="Red" Width="504px"></asp:Label>
                             </td>
                         </tr>
@@ -222,9 +252,15 @@
                         <tr>
                             <td colspan="3">
                                 <div align="center">
-                                    <asp:LinkButton class="catLinkButtonConfirm" ID="lbAccept"  runat="server" Text="Aceptar <i class='fa fa-check' data-toggle='tooltip' title='Aceptar'></i> "></asp:LinkButton>
-                                    <asp:LinkButton class="catLinkButton" ID="lbCancel"  runat="server" Text="Cancelar <i class='fa fa-window-close' data-toggle='tooltip' title='Cancelar'></i> "></asp:LinkButton>
+                                    
+                                     <asp:UpdatePanel ID="updateInProcess" runat="server">
+     <ContentTemplate>
+       <asp:LinkButton class="catLinkButtonConfirm" ID="lbAccept"  runat="server" Text="Aceptar <i class='fa fa-check' data-toggle='tooltip' title='Aceptar'></i> "></asp:LinkButton>
+       <asp:LinkButton class="catLinkButton" ID="lbCancel"  runat="server" Text="Cancelar <i class='fa fa-window-close' data-toggle='tooltip' title='Cancelar'></i> "></asp:LinkButton>
 
+     </ContentTemplate>
+ </asp:UpdatePanel> 
+                             
                                 </div>
                             </td>
                         </tr>
