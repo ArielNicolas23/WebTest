@@ -61,9 +61,7 @@ Public Class CatModuloAprobacion
     End Sub
 
     ' Método del botón de buscar por filtros
-    Protected Sub cmdSearch_Click(sender As Object, e As EventArgs) Handles cmdSearch.Click
-        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApprovalStatus(userPlaceholder, ddlStatus.SelectedValue, ddlRole.SelectedValue))
-    End Sub
+
 
     ' Método para cancelar la revisión de los cambios y seleccionar otro cambio
     Protected Sub cmdCancelChange_Click(sender As Object, e As EventArgs) Handles cmdCancelChange.Click
@@ -99,12 +97,12 @@ Public Class CatModuloAprobacion
                     Return
                 End If
 
-                cmdAcceptChange.Text = "Aprobar"
+                lbAccept.Text = "Aprobar"
                 lblModalInstruction.Text = "Favor de ingresar sus credenciales para confirmar la Aprobación"
                 ApproveModal.Show()
 
             Case "Reject"
-                cmdAcceptChange.Text = "Rechazar"
+                lbAccept.Text = "Rechazar"
                 lblModalInstruction.Text = "Favor de ingresar sus credenciales para confirmar el Rechazo"
                 ApproveModal.Show()
         End Select
@@ -126,13 +124,70 @@ Public Class CatModuloAprobacion
     End Sub
 
 
-    Protected Sub cmdAcceptChange_Click(sender As Object, e As EventArgs) Handles cmdAcceptChange.Click
+
+
+    ' Método para validar campos de aprobación
+    Protected Function ValidateTextBox(txt As TextBox, lbl As Label, errorMessage As String, canInsert As Boolean)
+        If (txt.Text = "") Then
+            lbl.Text = errorMessage
+            Return False
+        Else
+            If (canInsert) Then
+                Return True
+            Else
+                Return False
+            End If
+        End If
+    End Function
+
+    ' Método para limpiar campos
+    Protected Sub CleanModalFields(cleanTextBoxes As Boolean)
+        lblUserError.Text = ""
+        lblPasswordError.Text = ""
+        lblApproveMessageError.Text = ""
+        lblModalMessage.Text = ""
+
+        If (cleanTextBoxes) Then
+            txtUser.Text = ""
+            txtPassword.Text = ""
+            txtApproveMessage.Text = ""
+        End If
+    End Sub
+
+
+    Protected Sub chkDateFilters_CheckedChanged(sender As Object, e As EventArgs) Handles chkDateFilters.CheckedChanged
+        If chkDateFilters.Checked Then
+            divDateFilters.Visible = True
+        Else
+            divDateFilters.Visible = False
+        End If
+    End Sub
+
+    Protected Sub ToggleSection(control As HtmlGenericControl, show As Boolean)
+        If show Then
+            control.Visible = True
+        Else
+            control.Visible = False
+        End If
+    End Sub
+
+    Protected Sub lBtnSearc_Click(sender As Object, e As EventArgs) Handles lBtnSearc.Click
+        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApprovalStatus(userPlaceholder, ddlStatus.SelectedValue, ddlRole.SelectedValue))
+    End Sub
+
+
+    Protected Sub lbCancel_Click(sender As Object, e As EventArgs) Handles lbCancel.Click
+        CleanModalFields(True)
+        ApproveModal.Hide()
+    End Sub
+
+    Protected Sub lbAccept_Click(sender As Object, e As EventArgs) Handles lbAccept.Click
         CleanModalFields(False)
 
         Dim canInsert As Boolean = True
 
         ' Validaciones de los campos
-        Select Case cmdAcceptChange.Text
+        Select Case lbAccept.Text
             Case "Aprobar"
                 canInsert = ValidateTextBox(txtUser, lblUserError, "Llenar el campo de Usuario", canInsert)
                 canInsert = ValidateTextBox(txtPassword, lblPasswordError, "Llenar el campo de Contraseña", canInsert)
@@ -163,11 +218,16 @@ Public Class CatModuloAprobacion
         Dim actualUser = m_Profile.UserName.Split("\")(1)
 
         'Validacion de usuario originador
-        If (Not txtUser.Text = actualUser) Then
+        If (Not txtUser.Text.ToLower() = actualUser) Then
             lblModalMessage.Text = "Porfavor ingrese el usuario de su sesión"
             ApproveModal.Show()
             Return
         End If
+        'If (Not txtUser.Text = actualUser) Then
+        'lblModalMessage.Text = "Porfavor ingrese el usuario de su sesión"
+        'ApproveModal.Show()
+        'Return
+        ' End If
 
         'Validación del propio usuario
         If (Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT")) Then
@@ -178,7 +238,7 @@ Public Class CatModuloAprobacion
             Return
         End If
 
-        Select Case cmdAcceptChange.Text
+        Select Case lbAccept.Text
             Case "Aprobar"
                 modelChangesHeader.UpdateApproveOrReject(idHeader, comment, "Aprobado", userPlaceholder)
                 For Each modelRow As GridViewRow In dgvModelChanges.Rows
@@ -219,54 +279,5 @@ Public Class CatModuloAprobacion
         lblTitle.Text = "Cambios pendientes de Aprobación"
         ToggleSection(divFilterHeader, True)
         ToggleModelsChanges(True)
-    End Sub
-
-    ' Método para validar campos de aprobación
-    Protected Function ValidateTextBox(txt As TextBox, lbl As Label, errorMessage As String, canInsert As Boolean)
-        If (txt.Text = "") Then
-            lbl.Text = errorMessage
-            Return False
-        Else
-            If (canInsert) Then
-                Return True
-            Else
-                Return False
-            End If
-        End If
-    End Function
-
-    ' Método para limpiar campos
-    Protected Sub CleanModalFields(cleanTextBoxes As Boolean)
-        lblUserError.Text = ""
-        lblPasswordError.Text = ""
-        lblApproveMessageError.Text = ""
-        lblModalMessage.Text = ""
-
-        If (cleanTextBoxes) Then
-            txtUser.Text = ""
-            txtPassword.Text = ""
-            txtApproveMessage.Text = ""
-        End If
-    End Sub
-
-    Protected Sub cmdCancelModal_Click(sender As Object, e As EventArgs) Handles cmdCancelModal.Click
-        CleanModalFields(True)
-        ApproveModal.Hide()
-    End Sub
-
-    Protected Sub chkDateFilters_CheckedChanged(sender As Object, e As EventArgs) Handles chkDateFilters.CheckedChanged
-        If chkDateFilters.Checked Then
-            divDateFilters.Visible = True
-        Else
-            divDateFilters.Visible = False
-        End If
-    End Sub
-
-    Protected Sub ToggleSection(control As HtmlGenericControl, show As Boolean)
-        If show Then
-            control.Visible = True
-        Else
-            control.Visible = False
-        End If
     End Sub
 End Class

@@ -104,6 +104,15 @@ Partial Public Class CatConfiguracionCalculoDirecto
     Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''FillWithStrings control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents FillWithStrings As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
     '''cmdExportExcel control.
     '''</summary>
     '''<remarks>

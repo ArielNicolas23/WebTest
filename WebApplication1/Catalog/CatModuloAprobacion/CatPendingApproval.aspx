@@ -2,6 +2,15 @@
 
 
 <asp:Content ID="Content" ContentPlaceHolderID="MainContent" runat="server">
+
+    <style>
+        .modalbackground
+        {
+            background-color:black;
+            opacity:0.6;
+        }
+    </style>
+
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Cambios pendientes de Aprobación" CssClass="catHeader"></asp:Label>
@@ -30,8 +39,7 @@
 
                     <asp:Label ID="lblDateFilters" runat="server" Text="Buscar por Fecha: " CssClass="catLabel" ></asp:Label>
                     <asp:CheckBox ID="chkDateFilters" runat="server" AutoPostBack="true"/>
-
-                    <asp:Button ID="cmdSearch" runat="server" Text="Buscar Cambios" CssClass="catButton"/>
+                    <asp:LinkButton style="color:#333333;" ID="lBtnSearc"  runat="server" Text="Buscar <i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i> "></asp:LinkButton>
                 </div>
 
                 <div runat="server" id="divDateFilters"  class="catDivHeader" visible="false">
@@ -96,6 +104,7 @@
                             <asp:Button ID="cmdCancelChange" runat="server" Text="Seleccionar otro Cambio" CssClass="catButton"/>
                             <asp:Button ID="cmdRejectChange" runat="server" Text="Rechazar Cambios" CssClass="catButton" CommandName="Reject" OnClick="ApproveOrReject"/>
                             <asp:Button ID="cmdApproveChange" runat="server" Text="Aprobar Cambios" CssClass="catButtonAccept" CommandName="Approve" OnClick="ApproveOrReject"/>
+
                         </div>
                     </div>
 
@@ -193,8 +202,13 @@
                         <tr>
                             <td colspan="3">
                                 <div align="center">
-                                    <asp:Button ID="cmdAcceptChange" runat="server" BackColor="#53C400" ForeColor="#FFFFFF" Text="Aceptar" />
-                                    <asp:Button ID="cmdCancelModal" runat="server" BackColor="#284775" ForeColor="#FFFFFF" Text="Cancelar" />
+                                    
+                                    <asp:LinkButton style="color:#53C400;" ID="lbAccept"  runat="server" Text="Aceptar <i class='fa fa-check' data-toggle='tooltip' title='Aceptar'></i> "></asp:LinkButton>
+                                    
+                                    <asp:LinkButton style="color:#284775;" ID="lbCancel"  runat="server" Text="cancelar <i class='fa fa-window-close' data-toggle='tooltip' title='cancelar'></i> "></asp:LinkButton>
+                                    
+
+
                                 </div>
                             </td>
                         </tr>

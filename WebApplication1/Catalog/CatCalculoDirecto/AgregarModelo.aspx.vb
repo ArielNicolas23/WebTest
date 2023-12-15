@@ -51,11 +51,11 @@ Public Class WebForm1
         Dim dt As DataTable = Session("DataTable")
 
         If dt.Rows.Count > 0 Then
-            cmdCancelChange.Enabled = True
-            cmdOpenApprove.Enabled = True
+            lbCancelChange.Enabled = True
+            lbOpenApprove.Enabled = True
         Else
-            cmdCancelChange.Enabled = False
-            cmdOpenApprove.Enabled = False
+            lbCancelChange.Enabled = False
+            lbOpenApprove.Enabled = False
         End If
     End Sub
 
@@ -89,7 +89,212 @@ Public Class WebForm1
         End If
     End Sub
 
-    Protected Sub AddModel_Click(sender As Object, e As EventArgs) Handles cmdModel.Click
+
+
+    Protected Sub gvModelos_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles gvModelos.RowDeleting
+        Dim dt As DataTable = Session("DataTable")
+        dt.Rows.Remove(dt.Rows.Item(e.RowIndex))
+        gvModelos.DataSource = dt
+        gvModelos.DataBind()
+
+        Session("DataTable") = dt
+
+        EnableButtons()
+    End Sub
+
+
+
+
+    Protected Sub ddlUnit_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlUnit.SelectedIndexChanged
+
+
+    End Sub
+
+    Protected Sub gvModelos_SelectedIndexChanged(sender As Object, e As EventArgs) Handles gvModelos.SelectedIndexChanged
+
+    End Sub
+
+    Protected Sub txtApprover_TextChanged(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Protected Sub lbCancel_Click(sender As Object, e As EventArgs) Handles lbCancel.Click
+        CleanModalFields(True)
+        ApproveModal.Hide()
+    End Sub
+
+    Protected Sub lbAccept_Click(sender As Object, e As EventArgs) Handles lbAccept.Click
+        CleanModalFields(False)
+
+        txtMailApprover.Enabled = False
+        txtUser.Enabled = False
+        txtPassword.Enabled = False
+
+
+        Dim canInsert As Boolean = True
+
+        'Validaciones de los campos
+        canInsert = ValidateTextBox(txtApprover, lblModalMessage, "Favor de buscar y seleccionar a un Aprobador", canInsert)
+        canInsert = ValidateTextBox(txtUsernameApprover, lblModalMessage, "Favor de buscar y seleccionar a un Aprobador", canInsert)
+        canInsert = ValidateTextBox(txtMailApprover, lblModalMessage, "Favor de buscar y seleccionar a un Aprobador", canInsert)
+
+        canInsert = ValidateTextBox(txtApprover, lblApproverError, "Buscar un Aprobador", canInsert)
+        canInsert = ValidateTextBox(txtUser, lblUserError, "Llenar el campo de Usuario", canInsert)
+        canInsert = ValidateTextBox(txtPassword, lblPasswordError, "Llenar el campo de Contraseña", canInsert)
+        canInsert = ValidateTextBox(txtApproveMessage, lblApproveMessageError, "Llenar el campo de Mensaje", canInsert)
+
+        'Validaciones extra por si acaso
+        If (canInsert) Then
+            Dim modelsChange As ED_ModelsChanges = New ED_ModelsChanges()
+            Dim approvedModelsChange As ED_ModelsChangesHeader = New ED_ModelsChangesHeader()
+            Dim dt As DataTable = Session("DataTable")
+            Dim foundRepeated As Boolean
+
+            Dim originUser As String             'Agregar función para obtener al usuario
+            Dim originName As String
+            Dim originEmail As String
+
+            Dim approverUser As String
+            Dim approverName As String
+            Dim approverEmail As String
+
+            Dim changeNumber As Integer = 1
+            Dim originComment As String = txtApproveMessage.Text
+            Dim approvalStatus As String = "Pendiente"
+            Dim isActive As Boolean = True
+
+            Dim IdModelsChangesHeader As Guid
+            Dim idUnit As Guid
+            Dim model As String
+            Dim lifeSpan As Integer
+            Dim modelChangeStatus As String = "Pendiente"
+
+            Dim strApproverName As String = txtApprover.Text
+
+            'Asignación del usuario aprobador
+            If Not txtUsernameApprover.Text.IsEmpty Then
+                approverUser = txtUsernameApprover.Text
+            Else
+                lblModalMessage.Text = "No se encontro al Usuario Aprobador"
+                txtMailApprover.Enabled = True
+                txtUser.Enabled = True
+                txtPassword.Enabled = True
+
+                ApproveModal.Show()
+
+                Return
+            End If
+
+
+            'Validaciones del usuario aprobador
+            If (Security.UserAD.GetUserExists(approverUser, "")) Then
+                approverName = txtApprover.Text                                  'Agregar función para buscar el nombre del aprobador
+                approverEmail = txtMailApprover.Text
+            Else
+                lblModalMessage.Text = "No se encontro al Usuario Aprobador"
+                txtMailApprover.Enabled = True
+                txtUser.Enabled = True
+                txtPassword.Enabled = True
+
+                ApproveModal.Show()
+                Return
+            End If
+
+
+            'Validacion de usuario originador
+            Dim m_Profile = CType(Session("UserProfile"), Security.UserProfile) 'Funcion que valida el usuario originador con el de la sesion 
+            Dim actualUser = m_Profile.UserName.Split("\")(1)
+            If (Not txtUser.Text.ToLower() = actualUser) Then
+                lblModalMessage.Text = "Porfavor ingrese el usuario de su sesión"
+                txtMailApprover.Enabled = True
+                txtUser.Enabled = True
+                txtPassword.Enabled = True
+
+                ApproveModal.Show()
+                Return
+            End If
+
+            'Validacion de usuario originador y aprobador
+            'If (txtUsernameApprover.Text = actualUser) Then
+            'lblModalMessage.Text = "El usuario aprobador no puede ser el mismo que el originador"
+            'ApproveModal.Show()
+            'Return
+            'End If
+
+            'Validación del propio usuario
+            If (Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT")) Then   'Agregar función para validar el usuario y contraseña 
+                originUser = txtUser.Text
+                originName = Security.UserAD.GetUserName(originUser)                           'Agregar función para buscar el nombre del usuario
+                originEmail = Security.UserAD.GetUserEmail(originUser)
+            Else
+                lblModalMessage.Text = "Usuario o contraseña incorrectos"
+                txtMailApprover.Enabled = True
+                txtUser.Enabled = True
+                txtPassword.Enabled = True
+
+                ApproveModal.Show()
+                Return
+            End If
+
+            'Validación de registros ya existentes
+            For Each row As DataRow In dt.Rows
+                If (modelsChange.AlreadyExistModelChange(Guid.Empty, row("Modelo"))) Then
+                    foundRepeated = True
+                End If
+            Next row
+
+
+            If (foundRepeated) Then
+                lblModalMessage.Text = "Se ha detectado que uno o varios modelos seleccionados fueron cargados durante el proceso de aprobación. Favor de rectificar."
+                txtMailApprover.Enabled = True
+                txtUser.Enabled = True
+                txtPassword.Enabled = True
+                ApproveModal.Show()
+            Else
+                IdModelsChangesHeader = approvedModelsChange.Insert(originUser, originName, originEmail, originComment, approverUser, approverName, approverEmail, approvalStatus, isActive, originUser)
+                For Each row As DataRow In dt.Rows
+                    idUnit = Guid.Parse(row("IdUnidad"))
+                    model = row("Modelo")
+                    lifeSpan = row("VidaUtil")
+                    modelsChange.Insert(IdModelsChangesHeader, idUnit, model, lifeSpan, modelChangeStatus, originUser, originName, originEmail, isActive, originUser)
+                Next row
+
+
+
+                ApproveModal.Hide()
+
+                MsgBox("Se ha completado exitósamente el registro de los cambios", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+
+
+                Dim dataMail As New ConstructInfo With {
+                                .EmailType = "CambiosPendientes",
+                                .UserName = originUser,
+                                .Comment = txtApproveMessage.Text.Trim,
+                                .Link = "<a href=>Fecha De Expiración</a>"
+                                }
+                Dim email As New ModuloGeneralEmail
+
+                If email.ConstructEmail(dataMail) Then
+                    MsgBox("Se ha enviado un correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+                Else
+                    MsgBox("Ha ocurrido un error al mandar correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Error")
+                End If
+
+                CleanModalFields(True)
+                CleanTable()
+                txtMailApprover.Enabled = True
+                txtUser.Enabled = True
+                txtPassword.Enabled = True
+
+            End If
+        Else
+            ApproveModal.Show()
+        End If
+    End Sub
+
+
+
+    Protected Sub ldModel_Click(sender As Object, e As EventArgs) Handles ldModel.Click
         Try
             lblMessage.Text = ""
 
@@ -154,18 +359,7 @@ Public Class WebForm1
 
     End Sub
 
-    Protected Sub gvModelos_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles gvModelos.RowDeleting
-        Dim dt As DataTable = Session("DataTable")
-        dt.Rows.Remove(dt.Rows.Item(e.RowIndex))
-        gvModelos.DataSource = dt
-        gvModelos.DataBind()
-
-        Session("DataTable") = dt
-
-        EnableButtons()
-    End Sub
-
-    Protected Sub cmdCancelChange_Click(sender As Object, e As EventArgs) Handles cmdCancelChange.Click
+    Protected Sub lbCancelChange_Click(sender As Object, e As EventArgs) Handles lbCancelChange.Click
         Dim confirmed As Integer = MsgBox("Se reiniciará el proceso carga y se borrarán todos modelos actualmente agregados. ¿Está seguro de continuar?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
 
         If confirmed = MsgBoxResult.Yes Then
@@ -177,7 +371,7 @@ Public Class WebForm1
         End If
     End Sub
 
-    Protected Sub cmdOpenApprove_Click(sender As Object, e As EventArgs) Handles cmdOpenApprove.Click
+    Protected Sub lbOpenApprove_Click(sender As Object, e As EventArgs) Handles lbOpenApprove.Click
         Dim modelsChange As ED_ModelsChanges = New ED_ModelsChanges()
         Dim dt As DataTable = Session("DataTable")
         Dim foundRepeated As Boolean = False
@@ -196,161 +390,5 @@ Public Class WebForm1
         Else
             ApproveModal.Show()
         End If
-    End Sub
-
-    Protected Sub cmdCancelModal_Click(sender As Object, e As EventArgs) Handles cmdCancelModal.Click
-        CleanModalFields(True)
-        ApproveModal.Hide()
-    End Sub
-
-    Protected Sub cmdAcceptChange_Click(sender As Object, e As EventArgs) Handles cmdAcceptChange.Click
-        CleanModalFields(False)
-
-        Dim canInsert As Boolean = True
-
-        'Validaciones de los campos
-        canInsert = ValidateTextBox(txtApprover, lblModalMessage, "Favor de buscar y seleccionar a un Aprobador", canInsert)
-        canInsert = ValidateTextBox(txtUsernameApprover, lblModalMessage, "Favor de buscar y seleccionar a un Aprobador", canInsert)
-        canInsert = ValidateTextBox(txtMailApprover, lblModalMessage, "Favor de buscar y seleccionar a un Aprobador", canInsert)
-
-        canInsert = ValidateTextBox(txtApprover, lblApproverError, "Buscar un Aprobador", canInsert)
-        canInsert = ValidateTextBox(txtUser, lblUserError, "Llenar el campo de Usuario", canInsert)
-        canInsert = ValidateTextBox(txtPassword, lblPasswordError, "Llenar el campo de Contraseña", canInsert)
-        canInsert = ValidateTextBox(txtApproveMessage, lblApproveMessageError, "Llenar el campo de Mensaje", canInsert)
-
-        'Validaciones extra por si acaso
-        If (canInsert) Then
-            Dim modelsChange As ED_ModelsChanges = New ED_ModelsChanges()
-            Dim approvedModelsChange As ED_ModelsChangesHeader = New ED_ModelsChangesHeader()
-            Dim dt As DataTable = Session("DataTable")
-            Dim foundRepeated As Boolean
-
-            Dim originUser As String             'Agregar función para obtener al usuario
-            Dim originName As String
-            Dim originEmail As String
-
-            Dim approverUser As String
-            Dim approverName As String
-            Dim approverEmail As String
-
-            Dim changeNumber As Integer = 1
-            Dim originComment As String = txtApproveMessage.Text
-            Dim approvalStatus As String = "Pendiente"
-            Dim isActive As Boolean = True
-
-            Dim IdModelsChangesHeader As Guid
-            Dim idUnit As Guid
-            Dim model As String
-            Dim lifeSpan As Integer
-            Dim modelChangeStatus As String = "Pendiente"
-
-            Dim strApproverName As String = txtApprover.Text
-
-            'Asignación del usuario aprobador
-            If Not txtUsernameApprover.Text.IsEmpty Then
-                approverUser = txtUsernameApprover.Text
-            Else
-                lblModalMessage.Text = "No se encontro al Usuario Aprobador"
-                ApproveModal.Show()
-                Return
-            End If
-
-
-            'Validaciones del usuario aprobador
-            If (Security.UserAD.GetUserExists(approverUser, "")) Then
-                approverName = txtApprover.Text                                  'Agregar función para buscar el nombre del aprobador
-                approverEmail = txtMailApprover.Text
-            Else
-                lblModalMessage.Text = "No se encontro al Usuario Aprobador"
-                ApproveModal.Show()
-                Return
-            End If
-
-
-            'Validacion de usuario originador
-            Dim m_Profile = CType(Session("UserProfile"), Security.UserProfile) 'Funcion que valida el usuario originador con el de la sesion 
-            Dim actualUser = m_Profile.UserName.Split("\")(1)
-            If (Not txtUser.Text = actualUser) Then
-                lblModalMessage.Text = "Porfavor ingrese el usuario de su sesión"
-                ApproveModal.Show()
-                Return
-            End If
-
-            'Validacion de usuario originador y aprobador
-            If (txtUsernameApprover.Text = actualUser) Then
-                lblModalMessage.Text = "El usuario aprobador no puede ser el mismo que el originador"
-                ApproveModal.Show()
-                Return
-            End If
-
-            'Validación del propio usuario
-            If (Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT")) Then   'Agregar función para validar el usuario y contraseña 
-                originUser = txtUser.Text
-                originName = Security.UserAD.GetUserName(originUser)                           'Agregar función para buscar el nombre del usuario
-                originEmail = Security.UserAD.GetUserEmail(originUser)
-            Else
-                lblModalMessage.Text = "Usuario o contraseña incorrectos"
-                ApproveModal.Show()
-                Return
-            End If
-
-            'Validación de registros ya existentes
-            For Each row As DataRow In dt.Rows
-                If (modelsChange.AlreadyExistModelChange(Guid.Empty, row("Modelo"))) Then
-                    foundRepeated = True
-                End If
-            Next row
-
-
-            If (foundRepeated) Then
-                lblModalMessage.Text = "Se ha detectado que uno o varios modelos seleccionados fueron cargados durante el proceso de aprobación. Favor de rectificar."
-                ApproveModal.Show()
-            Else
-                IdModelsChangesHeader = approvedModelsChange.Insert(originUser, originName, originEmail, originComment, approverUser, approverName, approverEmail, approvalStatus, isActive, originUser)
-                For Each row As DataRow In dt.Rows
-                    idUnit = Guid.Parse(row("IdUnidad"))
-                    model = row("Modelo")
-                    lifeSpan = row("VidaUtil")
-                    modelsChange.Insert(IdModelsChangesHeader, idUnit, model, lifeSpan, modelChangeStatus, originUser, originName, originEmail, isActive, originUser)
-                Next row
-
-                ApproveModal.Hide()
-                MsgBox("Se ha completado exitósamente el registro de los cambios", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
-
-
-                Dim dataMail As New ConstructInfo With {
-                                .EmailType = "CambiosPendientes",
-                                .UserName = originUser,
-                                .Comment = txtApproveMessage.Text.Trim,
-                                .Link = "<a href=>Fecha De Expiración</a>"
-                                }
-                Dim email As New ModuloGeneralEmail
-
-                If email.ConstructEmail(dataMail) Then
-                    MsgBox("Se ha enviado un correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
-                Else
-                    MsgBox("Ha ocurrido un error al mandar correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Error")
-                End If
-
-                CleanModalFields(True)
-                CleanTable()
-            End If
-        Else
-            ApproveModal.Show()
-        End If
-    End Sub
-
-
-    Protected Sub ddlUnit_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlUnit.SelectedIndexChanged
-
-
-    End Sub
-
-    Protected Sub gvModelos_SelectedIndexChanged(sender As Object, e As EventArgs) Handles gvModelos.SelectedIndexChanged
-
-    End Sub
-
-    Protected Sub txtApprover_TextChanged(sender As Object, e As EventArgs)
-
     End Sub
 End Class

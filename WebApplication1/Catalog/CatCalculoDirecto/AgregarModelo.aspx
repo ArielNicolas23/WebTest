@@ -1,6 +1,15 @@
 ﻿<%@  Page Async="true" Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage.master" CodeBehind="AgregarModelo.aspx.vb" Inherits="WebApplication1.WebForm1" %>
 
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <style>
+        .modalbackground
+        {
+            background-color:black;
+            opacity:0.6;
+        }
+    </style>
     <asp:UpdatePanel ID="UpdatePanelGeneral" runat="server">
         <ContentTemplate>
             <script type="text/javascript">
@@ -59,7 +68,9 @@
                     </td>
 
                     <td>
-                        <asp:Button ID="cmdModel" runat="server" Text="Agregar" BackColor="#004680" ForeColor="#FFFFFF"/>       
+                        
+                        <asp:LinkButton style="color:#004680;" ID="ldModel"  runat="server" Text="Agregar <i class='fa fa-plus' data-toggle='tooltip' title='Agregar'></i> "></asp:LinkButton>
+                        
                     </td>
                 </tr>
             </table>
@@ -74,8 +85,11 @@
         
             <div style="width: 750px">
                 <div style="float: right">
-                    <asp:Button ID="cmdCancelChange" runat="server" Text="Reiniciar Carga de Modelos"  BackColor="#E2DED6" ForeColor="Black"/>
-                    <asp:Button ID="cmdOpenApprove" runat="server" Text="Enviar para Aprobación" BackColor="#284775" ForeColor="#FFFFFF"/>
+                    
+                    <asp:LinkButton style="color:#E2DED6;" ID="lbCancelChange"  runat="server" Text="Reiniciar Carga de Modelos <i class='fa fa-rotate-right' data-toggle='tooltip' title='Reiniciar Carga de Modelos'></i> "></asp:LinkButton>
+                    <asp:LinkButton style="color:#284775;" ID="lbOpenApprove"  runat="server" Text="Enviar para Aprobación <i class='fa fa-envelope' data-toggle='tooltip' title='Enviar para Aprobación'></i> "></asp:LinkButton>
+                    
+                    
                 </div>
             </div>
 
@@ -87,7 +101,7 @@
                     <asp:BoundField DataField="Unidad" HeaderText="Unidad" SortExpression="Unidad" />
                     <asp:BoundField DataField="Usuario" HeaderText="Usuario" SortExpression="Usuario" />
                     <asp:BoundField DataField="IdUnidad" Visible="False" />
-                    <asp:CommandField HeaderText="Acción" ShowDeleteButton="True" />
+                    <asp:CommandField HeaderText="Acción" ShowDeleteButton="True" DeleteText="<i class='fa fa-trash' data-toggle='tooltip' title='Reiniciar Carga de Modelos'></i>" />
                 </Columns>
                 <RowStyle CssClass="dgvCatalogRowOdd" />
                 <EditRowStyle BackColor="#999999" />
@@ -97,12 +111,12 @@
             </asp:GridView>
 
             <asp:Label ID="lblModal" runat="server" Text=""></asp:Label>
-            <ajaxToolkit:ModalPopupExtender ID="ApproveModal" runat="server" TargetControlID="lblModal" PopupControlID="modalpan" PopupDragHandleControlID="headerdiv" BackgroundCssClass="catModalbackground "></ajaxToolkit:ModalPopupExtender>
+            <ajaxToolkit:ModalPopupExtender ID="ApproveModal" runat="server" TargetControlID="lblModal" PopupControlID="modalpan" PopupDragHandleControlID="headerdiv" BackgroundCssClass="modalbackground" ></ajaxToolkit:ModalPopupExtender>
 
 
 
             <asp:Panel ID="modalpan" runat="server" Height="354px" Width="630px">
-                <div id="headerdiv" style="background-color:#284775;  font-size:medium; padding:2px; height:20px;">
+                <div id="headerdiv" style= "background-color:#284775;  font-size:medium; padding:2px; height:20px;">
 
                 </div>
 
@@ -213,8 +227,12 @@
                         <tr>
                             <td colspan="3">
                                 <div align="center">
-                                    <asp:Button ID="cmdAcceptChange" runat="server" BackColor="#53C400" ForeColor="#FFFFFF" Text="Aceptar" />
-                                    <asp:Button ID="cmdCancelModal" runat="server" BackColor="#284775" ForeColor="#FFFFFF" Text="Cancelar" />
+                                    
+                                    
+                                    <asp:LinkButton style="color:#53C400;" ID="lbAccept"  runat="server" Text="Aceptar <i class='fa fa-check' data-toggle='tooltip' title='Aceptar'></i> "></asp:LinkButton>
+                                    
+                                    <asp:LinkButton style="color:#284775;" ID="lbCancel"  runat="server" Text="cancelar <i class='fa fa-window-close' data-toggle='tooltip' title='cancelar'></i> "></asp:LinkButton>
+
                                 </div>
                             </td>
                         </tr>

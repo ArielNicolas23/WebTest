@@ -95,13 +95,13 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents chkDateFilters As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''cmdSearch control.
+    '''lBtnSearc control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cmdSearch As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lBtnSearc As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''divDateFilters control.
@@ -455,20 +455,20 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents lblModalMessage As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''cmdAcceptChange control.
+    '''lbAccept control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cmdAcceptChange As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lbAccept As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
-    '''cmdCancelModal control.
+    '''lbCancel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cmdCancelModal As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lbCancel As Global.System.Web.UI.WebControls.LinkButton
 End Class

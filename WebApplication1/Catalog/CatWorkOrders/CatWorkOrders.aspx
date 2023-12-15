@@ -29,7 +29,7 @@
             <asp:CheckBox ID="chkRework" runat="server" Text="Orden Retrabajada" />
         </td>
         <td style="height: 17px; width: 64px" align="center">
-            <asp:LinkButton style="color:#333333;" ID="lBtnSearch"  runat="server" Text="<i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i>" />
+            <asp:LinkButton style="color:#333333;" ID="lBtnSearch"  runat="server" Text="<i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i> " />
         </td>
         <td style="height: 17px; width: 64px" align="left">
             <asp:LinkButton style="color:#333333;" ID="lBtnReset" runat="server" Text="<i class='fa fa-regular fa-rotate-right' data-toggle='tooltip' title='Reiniciar'></i>" />

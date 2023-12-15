@@ -45,6 +45,7 @@
             </div>
             <div style="width: 750px">
                 <div style="float: right">
+                    <asp:CheckBox ID="FillWithStrings" runat="server" visible="false"/>
                     <asp:Button ID="cmdExportExcel" runat="server" Text="Exportar a Excel"  BackColor="#E2DED6" ForeColor="Black" />
                     <asp:Button ID="cmdEdit" runat="server" Text="  Ir a Editar  " BackColor="#284775" ForeColor="#FFFFFF" />
                 </div>
@@ -55,14 +56,15 @@
             <asp:GridView runat="server" AutoGenerateColumns="False" CellPadding="4" CssClass="dgvCatalog" GridLines="None" Width="680px" AllowPaging="True" ID="dgvModelos">
                 <Columns>
 
-                    <asp:BoundField DataField="IdModelsChanges" Visible="False" ReadOnly="true" />
-                    <asp:BoundField DataField="IdModelsChangesHeader" Visible="False" ReadOnly="True" />
+                    
                     <asp:BoundField DataField="Model" HeaderText="Modelo" SortExpression="Modelo" />
                     <asp:BoundField DataField="Lifespan" HeaderText="Vida Útil" SortExpression="VidaUtil" />
                     <asp:BoundField DataField="Unit" HeaderText="Unidad" SortExpression="Unidad" />
                     <asp:BoundField DataField="LastUser" HeaderText="Usuario" SortExpression="LastUser" />
                     <asp:BoundField DataField="ApproverUser" HeaderText="Aprobador" SortExpression="ApproverUser" />
                     <asp:BoundField DataField="ApprovedOn" HeaderText="Fecha de Aprobación" SortExpression="ApprovedOn" />
+                    <asp:BoundField DataField="IdModelsChanges" Visible="False" ReadOnly="true" />
+                    <asp:BoundField DataField="IdModelsChangesHeader" Visible="False" ReadOnly="True" />
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:CheckBox ID="IsChecked" runat="server" AutoPostBack="true" />

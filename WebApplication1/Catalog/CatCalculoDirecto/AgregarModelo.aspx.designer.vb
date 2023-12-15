@@ -86,13 +86,13 @@ Partial Public Class WebForm1
     Protected WithEvents ddlUnit As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''cmdModel control.
+    '''ldModel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cmdModel As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents ldModel As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''lblMessage control.
@@ -104,22 +104,22 @@ Partial Public Class WebForm1
     Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''cmdCancelChange control.
+    '''lbCancelChange control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cmdCancelChange As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lbCancelChange As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
-    '''cmdOpenApprove control.
+    '''lbOpenApprove control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cmdOpenApprove As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lbOpenApprove As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''gvModelos control.
@@ -311,20 +311,20 @@ Partial Public Class WebForm1
     Protected WithEvents lblModalMessage As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''cmdAcceptChange control.
+    '''lbAccept control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cmdAcceptChange As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lbAccept As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
-    '''cmdCancelModal control.
+    '''lbCancel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cmdCancelModal As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lbCancel As Global.System.Web.UI.WebControls.LinkButton
 End Class
