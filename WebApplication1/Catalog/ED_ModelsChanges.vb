@@ -47,20 +47,21 @@ Public Class ED_ModelsChanges
     End Sub
 
     Public Sub UpdateIsChecked(ByVal IdModelsChanges As Guid, ByVal IsChecked As Boolean)
-        Update(IdModelsChanges, Guid.Empty, Guid.Empty, "", 0, "", "", "", "", IsChecked, "", 2)
+        Update(IdModelsChanges, Guid.Empty, Guid.Empty, Guid.Empty, "", 0, "", "", "", "", IsChecked, "", 2)
     End Sub
 
     Public Sub UpdateApprove(ByVal IdModelsChanges As Guid, ByVal ModifiedBy As String)
-        Update(IdModelsChanges, Guid.Empty, Guid.Empty, "", 0, "Aprobado", "", "", "", True, ModifiedBy, 3)
+        Update(IdModelsChanges, Guid.Empty, Guid.Empty, Guid.Empty, "", 0, "Aprobado", "", "", "", True, ModifiedBy, 3)
     End Sub
 
     Public Sub UpdateReject(ByVal IdModelsChanges As Guid, ByVal ModifiedBy As String)
-        Update(IdModelsChanges, Guid.Empty, Guid.Empty, "", 0, "Rechazado", "", "", "", True, ModifiedBy, 4)
+        Update(IdModelsChanges, Guid.Empty, Guid.Empty, Guid.Empty, "", 0, "Rechazado", "", "", "", True, ModifiedBy, 4)
     End Sub
 
     Private Sub Update(
             ByVal IdModelsChanges As Guid,
             ByVal IdModelsChangesHeader As Guid,
+            ByVal ChangedOnIdModelsChangesHeader As Guid,
             ByVal IdUnidad As Guid,
             ByVal Model As String,
             ByVal Lifespan As Integer,
@@ -80,6 +81,7 @@ Public Class ED_ModelsChanges
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@IdModelsChanges", IdModelsChanges)
             cmd.Parameters.AddWithValue("@IdModelsChangesHeader", IdModelsChangesHeader)
+            cmd.Parameters.AddWithValue("@ChangedOnIdModelsChangesHeader", ChangedOnIdModelsChangesHeader)
             cmd.Parameters.AddWithValue("@IdUnidad", IdUnidad)
             cmd.Parameters.AddWithValue("@Model", Model)
             cmd.Parameters.AddWithValue("@Lifespan", Lifespan)

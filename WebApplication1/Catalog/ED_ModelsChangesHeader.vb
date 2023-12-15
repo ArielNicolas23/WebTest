@@ -11,7 +11,6 @@ Public Class ED_ModelsChangesHeader
     End Sub
 
     Public Function Insert(
-            ByVal ChangeNumber As Integer,
             ByVal OriginUser As String,
             ByVal OriginName As String,
             ByVal OriginEmail As String,
@@ -30,7 +29,6 @@ Public Class ED_ModelsChangesHeader
             cmd.CommandText = "spED_ED_ModelsChangesHeader_Insert"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
-            cmd.Parameters.AddWithValue("@ChangeNumber", ChangeNumber)
             cmd.Parameters.AddWithValue("@OriginUser", OriginUser)
             cmd.Parameters.AddWithValue("@OriginName", OriginName)
             cmd.Parameters.AddWithValue("@OriginEmail", OriginEmail)
@@ -53,7 +51,6 @@ Public Class ED_ModelsChangesHeader
 
     Private Sub Update(
             ByVal IdModelsChangesHeader As Guid,
-            ByVal ChangeNumber As Integer,
             ByVal OriginUser As String,
             ByVal OriginName As String,
             ByVal OriginComment As String,
@@ -73,7 +70,6 @@ Public Class ED_ModelsChangesHeader
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@IdModelsChangesHeader", IdModelsChangesHeader)
-            cmd.Parameters.AddWithValue("@ChangeNumber", ChangeNumber)
             cmd.Parameters.AddWithValue("@OriginUser", OriginUser)
             cmd.Parameters.AddWithValue("@OriginName", OriginName)
             cmd.Parameters.AddWithValue("@OriginEmail", OriginEmail)
@@ -93,11 +89,11 @@ Public Class ED_ModelsChangesHeader
     End Sub
 
     Public Sub UpdateApprovalStatus(ByVal IdModelsChangesHeader As Guid, ByVal ApprovalStatus As String, ByVal ModifiedBy As String)
-        Update(IdModelsChangesHeader, 0, "", "", "", "", "", "", "", "", ApprovalStatus, ModifiedBy, 2)
+        Update(IdModelsChangesHeader, "", "", "", "", "", "", "", "", ApprovalStatus, ModifiedBy, 2)
     End Sub
 
     Public Sub UpdateApproveOrReject(ByVal IdModelsChangesHeader As Guid, ByVal ApproverComment As String, ByVal ApprovalStatus As String, ByVal ModifiedBy As String)
-        Update(IdModelsChangesHeader, 0, "", "", "", "", "", "", "", ApproverComment, ApprovalStatus, ModifiedBy, 3)
+        Update(IdModelsChangesHeader, "", "", "", "", "", "", "", ApproverComment, ApprovalStatus, ModifiedBy, 3)
     End Sub
 
     Public Sub Delete(ByVal IdModelsChangesHeader As Guid)
@@ -131,7 +127,7 @@ Public Class ED_ModelsChangesHeader
 
             result = New DataTable("Result")
             result.Columns.Add("IdModelsChangesHeader", GetType(Guid))
-            result.Columns.Add("ChangeNumber", GetType(Int32))
+            result.Columns.Add("ChangeNumber", GetType(String))
             result.Columns.Add("OriginName", GetType(String))
             result.Columns.Add("OriginUser", GetType(String))
             result.Columns.Add("OriginComment", GetType(String))
@@ -151,7 +147,7 @@ Public Class ED_ModelsChangesHeader
 
                 row = result.NewRow()
                 row("IdModelsChangesHeader") = reader.GetGuid(0)
-                row("ChangeNumber") = reader.GetInt32(1)
+                row("ChangeNumber") = reader.GetInt32(1).ToString("D4")
                 row("OriginName") = reader.GetString(2)
                 row("OriginUser") = reader.GetString(3)
                 row("OriginComment") = reader.GetString(4)
@@ -205,7 +201,7 @@ Public Class ED_ModelsChangesHeader
 
             result = New DataTable("Result")
             result.Columns.Add("IdModelsChangesHeader", GetType(Guid))
-            result.Columns.Add("ChangeNumber", GetType(Int32))
+            result.Columns.Add("ChangeNumber", GetType(String))
             result.Columns.Add("OriginName", GetType(String))
             result.Columns.Add("OriginUser", GetType(String))
             result.Columns.Add("OriginComment", GetType(String))
@@ -225,7 +221,7 @@ Public Class ED_ModelsChangesHeader
 
                 row = result.NewRow()
                 row("IdModelsChangesHeader") = reader.GetGuid(0)
-                row("ChangeNumber") = reader.GetInt32(1)
+                row("ChangeNumber") = reader.GetInt32(1).ToString("D4")
                 row("OriginName") = reader.GetString(2)
                 row("OriginUser") = reader.GetString(3)
                 row("OriginComment") = reader.GetString(4)
@@ -281,7 +277,7 @@ Public Class ED_ModelsChangesHeader
 
             result = New DataTable("Result")
             result.Columns.Add("IdModelsChangesHeader", GetType(Guid))
-            result.Columns.Add("ChangeNumber", GetType(Int32))
+            result.Columns.Add("ChangeNumber", GetType(String))
             result.Columns.Add("OriginName", GetType(String))
             result.Columns.Add("OriginUser", GetType(String))
             result.Columns.Add("OriginComment", GetType(String))
@@ -301,7 +297,7 @@ Public Class ED_ModelsChangesHeader
 
                 row = result.NewRow()
                 row("IdModelsChangesHeader") = reader.GetGuid(0)
-                row("ChangeNumber") = reader.GetInt32(1)
+                row("ChangeNumber") = reader.GetInt32(1).ToString("D4")
                 row("OriginName") = reader.GetString(2)
                 row("OriginUser") = reader.GetString(3)
                 row("OriginComment") = reader.GetString(4)

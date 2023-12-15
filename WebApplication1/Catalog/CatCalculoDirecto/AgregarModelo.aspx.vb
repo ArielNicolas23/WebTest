@@ -306,7 +306,7 @@ Public Class WebForm1
                 lblModalMessage.Text = "Se ha detectado que uno o varios modelos seleccionados fueron cargados durante el proceso de aprobación. Favor de rectificar."
                 ApproveModal.Show()
             Else
-                IdModelsChangesHeader = approvedModelsChange.Insert(changeNumber, originUser, originName, originEmail, originComment, approverUser, approverName, approverEmail, approvalStatus, isActive, originUser)
+                IdModelsChangesHeader = approvedModelsChange.Insert(originUser, originName, originEmail, originComment, approverUser, approverName, approverEmail, approvalStatus, isActive, originUser)
                 For Each row As DataRow In dt.Rows
                     idUnit = Guid.Parse(row("IdUnidad"))
                     model = row("Modelo")
