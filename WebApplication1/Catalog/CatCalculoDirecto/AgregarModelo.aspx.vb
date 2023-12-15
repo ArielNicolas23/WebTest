@@ -51,11 +51,13 @@ Public Class WebForm1
         Dim dt As DataTable = Session("DataTable")
 
         If dt.Rows.Count > 0 Then
-            lbCancelChange.Enabled = True
-            lbOpenApprove.Enabled = True
+            divButtons.Visible = True
+            'lbCancelChange.Enabled = True
+            'lbOpenApprove.Enabled = True
         Else
-            lbCancelChange.Enabled = False
-            lbOpenApprove.Enabled = False
+            divButtons.Visible = False
+            'lbCancelChange.Enabled = False
+            'lbOpenApprove.Enabled = False
         End If
     End Sub
 

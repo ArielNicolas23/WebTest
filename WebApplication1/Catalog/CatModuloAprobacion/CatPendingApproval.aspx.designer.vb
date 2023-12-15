@@ -122,22 +122,22 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents lblCreatedOn As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''TextBox1 control.
+    '''txtCreatedOn control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox1 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtCreatedOn As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Button1 control.
+    '''btnCreatedOn control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnCreatedOn As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''cldCreatedOn control.
@@ -158,22 +158,22 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents lblCreatedOnTo As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''TextBox2 control.
+    '''txtCreatedOnTo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox2 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtCreatedOnTo As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Button2 control.
+    '''btnCreatedOnTo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Button2 As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnCreatedOnTo As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''cldCreatedOnTo control.
@@ -194,22 +194,22 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents lblApprovedOn As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''TextBox3 control.
+    '''txtApprovedOn control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox3 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtApprovedOn As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Button3 control.
+    '''btnApprovedOn control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Button3 As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnApprovedOn As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''cldApprovedOn control.
@@ -230,22 +230,22 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents lblApprovedOnTo As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''TextBox4 control.
+    '''txtApprovedOnTo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBox4 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtApprovedOnTo As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Button4 control.
+    '''btnApprovedOnTo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Button4 As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnApprovedOnTo As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''cldApprovedOnTo control.

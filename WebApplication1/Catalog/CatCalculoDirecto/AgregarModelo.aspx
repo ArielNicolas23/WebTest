@@ -68,9 +68,7 @@
                     </td>
 
                     <td>
-                        
-                        <asp:LinkButton style="color:#004680;" ID="ldModel"  runat="server" Text="Agregar <i class='fa fa-plus' data-toggle='tooltip' title='Agregar'></i> "></asp:LinkButton>
-                        
+                        <asp:LinkButton class="catLinkButtonAccept" ID="ldModel"  runat="server" Text="Agregar <i class='fa fa-plus' data-toggle='tooltip' title='Agregar'></i> "></asp:LinkButton>
                     </td>
                 </tr>
             </table>
@@ -83,18 +81,15 @@
                 <br />
             </div>
         
-            <div style="width: 750px">
+            <div runat="server" id="divButtons" visible="true" style="width: 750px; margin-bottom: 32px">
                 <div style="float: right">
-                    
-                    <asp:LinkButton style="color:#E2DED6;" ID="lbCancelChange"  runat="server" Text="Reiniciar Carga de Modelos <i class='fa fa-rotate-right' data-toggle='tooltip' title='Reiniciar Carga de Modelos'></i> "></asp:LinkButton>
-                    <asp:LinkButton style="color:#284775;" ID="lbOpenApprove"  runat="server" Text="Enviar para Aprobación <i class='fa fa-envelope' data-toggle='tooltip' title='Enviar para Aprobación'></i> "></asp:LinkButton>
-                    
-                    
+                    <asp:LinkButton class="catLinkButton" ID="lbCancelChange"  runat="server" Text="Reiniciar Carga de Modelos <i class='fa fa-rotate-right' data-toggle='tooltip' title='Reiniciar Carga de Modelos'></i> "></asp:LinkButton>
+                    <asp:LinkButton class="catLinkButtonAccept" ID="lbOpenApprove"  runat="server" Text="Enviar para Aprobación <i class='fa fa-envelope' data-toggle='tooltip' title='Enviar para Aprobación'></i> "></asp:LinkButton>
                 </div>
             </div>
 
             <!-- Cosas-->
-            <asp:GridView runat="server" AutoGenerateColumns="False" CellPadding="4" CssClass="dgvCatalog" GridLines="None" Width="680px" AllowPaging="True" ID="gvModelos">
+            <asp:GridView runat="server" AutoGenerateColumns="False" CellPadding="4" CssClass="dgvCatalog" GridLines="None" Width="750px" AllowPaging="True" ID="gvModelos">
                 <Columns>
                     <asp:BoundField DataField="Modelo" HeaderText="Modelo" />
                     <asp:BoundField DataField="VidaUtil" HeaderText="Vida Útil" SortExpression="VidaUtil" />
@@ -227,11 +222,8 @@
                         <tr>
                             <td colspan="3">
                                 <div align="center">
-                                    
-                                    
-                                    <asp:LinkButton style="color:#53C400;" ID="lbAccept"  runat="server" Text="Aceptar <i class='fa fa-check' data-toggle='tooltip' title='Aceptar'></i> "></asp:LinkButton>
-                                    
-                                    <asp:LinkButton style="color:#284775;" ID="lbCancel"  runat="server" Text="cancelar <i class='fa fa-window-close' data-toggle='tooltip' title='cancelar'></i> "></asp:LinkButton>
+                                    <asp:LinkButton class="catLinkButtonConfirm" ID="lbAccept"  runat="server" Text="Aceptar <i class='fa fa-check' data-toggle='tooltip' title='Aceptar'></i> "></asp:LinkButton>
+                                    <asp:LinkButton class="catLinkButton" ID="lbCancel"  runat="server" Text="Cancelar <i class='fa fa-window-close' data-toggle='tooltip' title='Cancelar'></i> "></asp:LinkButton>
 
                                 </div>
                             </td>

@@ -32,14 +32,49 @@
     font-size: 16px;
     background-color: #284775;
     color: white;
+    padding: 5px 15px;
     margin: 0px 10px;
+    border-radius: 20px;
 }
 
 .catButton {
     font-size: 16px;
     background-color: #E2DED6;
     color: black;
+    padding: 5px 15px;
     margin: 0px 10px;
+    border-radius: 20px;
+}
+
+/* Estilos de link button */
+.catLinkButtonConfirm {
+    font-size: 18px;
+    background-color: #53C400;
+    color: white;
+    padding: 5px 15px;
+    margin: 0px 10px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+.catLinkButtonAccept {
+    font-size: 18px;
+    background-color: #284775;
+    color: white;
+    padding: 5px 15px;
+    margin: 0px 10px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+.catLinkButton {
+    font-size: 18px;
+    background-color: #E2DED6;
+    color: black;
+    padding: 5px 15px;
+    margin: 0px 10px;
+    border-radius: 20px;
+    text-decoration: none;
 }
 
 /* Estilos de Header*/

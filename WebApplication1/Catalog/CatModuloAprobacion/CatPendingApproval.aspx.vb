@@ -172,7 +172,7 @@ Public Class CatModuloAprobacion
     End Sub
 
     Protected Sub lBtnSearc_Click(sender As Object, e As EventArgs) Handles lBtnSearc.Click
-        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApprovalStatus(userPlaceholder, ddlStatus.SelectedValue, ddlRole.SelectedValue))
+        'PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApprovalStatus(userPlaceholder, ddlStatus.SelectedValue, ddlRole.SelectedValue, txtCreatedOn.Text, txtCreatedOnTo.Text, txtApprovedOn.Text, txtApprovedOnTo.Text, chkDateFilters.Checked))
     End Sub
 
 
@@ -279,5 +279,41 @@ Public Class CatModuloAprobacion
         lblTitle.Text = "Cambios pendientes de Aprobación"
         ToggleSection(divFilterHeader, True)
         ToggleModelsChanges(True)
+    End Sub
+
+    Protected Sub OpenCalendar(sender As Object, e As EventArgs)
+        Dim btn As LinkButton = TryCast(sender, LinkButton)
+
+        Select Case btn.ID
+            Case "btnCreatedOn"
+                cldCreatedOn.Visible = True
+            Case "btnCreatedOnTo"
+                cldCreatedOnTo.Visible = True
+            Case "btnApprovedOn"
+                cldApprovedOn.Visible = True
+            Case "btnApprovedOnTo"
+                cldApprovedOnTo.Visible = True
+        End Select
+
+    End Sub
+
+    Protected Sub SelectDate(sender As Object, e As EventArgs) Handles cldApprovedOnTo.SelectionChanged, cldApprovedOn.SelectionChanged, cldCreatedOnTo.SelectionChanged, cldCreatedOn.SelectionChanged
+        Dim btn As Calendar = TryCast(sender, Calendar)
+
+        Select Case btn.ID
+            Case "cldCreatedOn"
+                txtCreatedOn.Text = cldCreatedOn.SelectedDate
+                cldCreatedOn.Visible = False
+            Case "cldCreatedOnTo"
+                txtCreatedOnTo.Text = cldCreatedOnTo.SelectedDate
+                cldCreatedOnTo.Visible = False
+            Case "cldApprovedOn"
+                txtApprovedOn.Text = cldApprovedOn.SelectedDate
+                cldApprovedOn.Visible = False
+            Case "cldApprovedOnTo"
+                txtApprovedOn.Text = cldApprovedOnTo.SelectedDate
+                cldApprovedOn.Visible = False
+        End Select
+
     End Sub
 End Class
