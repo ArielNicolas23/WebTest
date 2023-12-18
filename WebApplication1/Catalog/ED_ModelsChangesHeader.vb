@@ -187,13 +187,12 @@ Public Class ED_ModelsChangesHeader
 
     Public Function SelectByApprovalStatus(
             ByVal User As String,
-            ByVal ApprovalStatus As String,
-            ByVal UserRole As String,
-            ByVal CreatedOn As Date,
-            ByVal CreatedOnTo As Date,
-            ByVal ApprovedOn As Date,
-            ByVal ApprovedOnTo As Date,
-            ByVal FilterDate As Boolean) As DataTable
+            Optional ByVal ApprovalStatus As String = Nothing,
+            Optional ByVal UserRole As String = Nothing,
+            Optional ByVal CreatedOn As Date = Nothing,
+            Optional ByVal CreatedOnTo As Date = Nothing,
+            Optional ByVal ApprovedOn As Date = Nothing,
+            Optional ByVal ApprovedOnTo As Date = Nothing) As DataTable
 
         Dim result As DataTable
         Dim row As DataRow
@@ -205,15 +204,13 @@ Public Class ED_ModelsChangesHeader
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@User", User)
-            cmd.Parameters.AddWithValue("@ApprovalStatus", ApprovalStatus)
-            cmd.Parameters.AddWithValue("@UserRole", UserRole)
+            cmd.Parameters.AddWithValue("@ApprovalStatus", If(ApprovalStatus = "Todos", DBNull.Value, ApprovalStatus))
+            cmd.Parameters.AddWithValue("@UserRole", If(UserRole = "Ambos", DBNull.Value, UserRole))
 
-            cmd.Parameters.AddWithValue("@CreatedOn", CreatedOn)
-            cmd.Parameters.AddWithValue("@CreatedOnTo", CreatedOnTo)
-            cmd.Parameters.AddWithValue("@ApprovedOn", ApprovedOn)
-            cmd.Parameters.AddWithValue("@ApprovedOnTo", ApprovedOnTo)
-
-            cmd.Parameters.AddWithValue("@FilterDate", FilterDate)
+            cmd.Parameters.AddWithValue("@CreatedOn", If(CreatedOn = DateTime.MinValue, DBNull.Value, CreatedOn))
+            cmd.Parameters.AddWithValue("@CreatedOnTo", If(CreatedOnTo = DateTime.MinValue, DBNull.Value, CreatedOnTo))
+            cmd.Parameters.AddWithValue("@ApprovedOn", If(ApprovedOn = DateTime.MinValue, DBNull.Value, ApprovedOn))
+            cmd.Parameters.AddWithValue("@ApprovedOnTo", If(ApprovedOnTo = DateTime.MinValue, DBNull.Value, ApprovedOnTo))
 
 
             result = New DataTable("Result")

@@ -44,9 +44,9 @@
 
                 <div runat="server" id="divDateFilters"  class="catDivHeader" visible="false">
                     <asp:Label ID="lblCreatedOn" runat="server" Text="Fecha de Origen: " CssClass="catLabel" ></asp:Label>
-                    <asp:TextBox ID="txtCreatedOn" runat="server" Text="<%# DateTime.Today %>"></asp:TextBox>
+                    <asp:TextBox ID="txtCreatedOn" runat="server"></asp:TextBox>
                     <asp:LinkButton ID="btnCreatedOn" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
-                    <asp:Calendar ID="cldCreatedOn" runat="server" Visible="False" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="190px" NextPrevFormat="FullMonth" Width="350px" SelectedDate="<%# DateTime.Today %>">
+                    <asp:Calendar ID="cldCreatedOn" runat="server" Visible="False" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="190px" NextPrevFormat="FullMonth" Width="350px">
                         <DayHeaderStyle Font-Bold="True" Font-Size="8pt" />
                         <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" VerticalAlign="Bottom" />
                         <OtherMonthDayStyle ForeColor="#999999" />

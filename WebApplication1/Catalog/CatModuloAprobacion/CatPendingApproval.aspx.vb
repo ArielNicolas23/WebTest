@@ -172,7 +172,16 @@ Public Class CatModuloAprobacion
     End Sub
 
     Protected Sub lBtnSearc_Click(sender As Object, e As EventArgs) Handles lBtnSearc.Click
-        'PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApprovalStatus(userPlaceholder, ddlStatus.SelectedValue, ddlRole.SelectedValue, txtCreatedOn.Text, txtCreatedOnTo.Text, txtApprovedOn.Text, txtApprovedOnTo.Text, chkDateFilters.Checked))
+        Dim user As String = userPlaceholder
+        Dim approvalStatus As String = ddlStatus.SelectedValue
+        Dim userRole As String = ddlRole.SelectedValue
+
+        Dim modifiedOn As Nullable(Of Date) = cldCreatedOn.SelectedDate
+        Dim modifiedOnTo As Date = cldCreatedOnTo.SelectedDate
+        Dim approvedOn As Date = cldApprovedOn.SelectedDate
+        Dim approvedOnTo As Date = cldApprovedOnTo.SelectedDate
+
+        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApprovalStatus(user, approvalStatus, userRole, modifiedOn, modifiedOnTo, approvedOn, approvedOnTo))
     End Sub
 
 
