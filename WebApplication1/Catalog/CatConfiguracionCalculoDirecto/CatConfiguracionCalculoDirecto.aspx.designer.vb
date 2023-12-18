@@ -138,4 +138,76 @@ Partial Public Class CatConfiguracionCalculoDirecto
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents dgvModelos As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''lblModelosAprobadosHeader control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblModelosAprobadosHeader As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''dgvModelosAprovados control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents dgvModelosAprovados As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''lblModal control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblModal As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''EditModal control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents EditModal As Global.AjaxControlToolkit.ModalPopupExtender
+
+    '''<summary>
+    '''modalpan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents modalpan As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''dgvModelosEditar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents dgvModelosEditar As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''lbAccept control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbAccept As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''lbCancel control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbCancel As Global.System.Web.UI.WebControls.LinkButton
 End Class

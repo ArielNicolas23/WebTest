@@ -47,7 +47,7 @@ Public Class CatModuloAprobacion
             Case "Action"
                 Dim row As DataKeyArray = dgvPendingApproval.DataKeys
                 Dim index As Integer = Convert.ToInt32(e.CommandArgument)
-                Dim id As Guid = Guid.Parse(row(index).Value.ToString())
+                Dim id As Guid = Guid.Parse(row(index).Value.ToString)
 
                 modelChangesHeader.UpdateApprovalStatus(id, "En Revisión", userPlaceholder)
 
