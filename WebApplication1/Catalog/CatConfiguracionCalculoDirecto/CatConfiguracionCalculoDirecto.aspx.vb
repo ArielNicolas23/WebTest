@@ -166,4 +166,132 @@ Public Class CatConfiguracionCalculoDirecto
         ''''''''''''''''''''''''''''''''''''
 
     End Sub
+
+    Protected Sub dgvModelos_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles dgvModelos.RowCommand
+        ' Grey out expired training courses
+        lblModelosAprobadosHeader.Text = "Modelos Seleccionados"
+        Dim rowa As DataKeyArray = dgvModelos.DataKeys
+        Dim indexevent As Integer = Convert.ToInt32(e.CommandArgument)
+        Dim row As GridViewRow = dgvModelos.Rows.Item(indexevent)
+
+        For Each checkrow In dgvModelosAprovados.Rows
+
+            If row.Cells(0).Text = checkrow.Cells(0).Text Then
+                MsgBox("Este modelo ya esta seleccionado", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Modelo ya seleccionado")
+                Exit Sub
+            End If
+
+        Next
+
+
+
+
+        'Create datatable and columns
+        Dim dtable As New System.Data.DataTable
+
+
+        dtable.Columns.Add(New DataColumn("Model"))
+        dtable.Columns.Add(New DataColumn("Lifespan"))
+        dtable.Columns.Add(New DataColumn("Unit"))
+        dtable.Columns.Add(New DataColumn("LastUser"))
+        dtable.Columns.Add(New DataColumn("ApproverUser"))
+        dtable.Columns.Add(New DataColumn("ApprovedOn"))
+        dtable.Columns.Add(New DataColumn("IdModelsChanges"))
+        dtable.Columns.Add(New DataColumn("IdModelsChangesHeader"))
+
+
+        'Create counter to prevent out of bounds exception
+        Dim i As Integer = Row.Cells.Count
+
+        'Create object for RowValues
+        Dim RowValues As Object() = {"", "", "", "", "", "", "", ""}
+
+        'Fill row values appropriately
+        For index As Integer = 0 To i - 2
+            RowValues(index) = row.Cells(index).Text
+        Next
+
+        'create new data row
+        Dim dRow As DataRow
+        dRow = dtable.Rows.Add(RowValues)
+
+        For Each copyrow In dgvModelosAprovados.Rows
+
+            For index As Integer = 0 To i - 2
+
+                RowValues(index) = copyrow.Cells(index).Text
+            Next
+            dtable.Rows.Add(RowValues)
+        Next
+
+
+        dtable.AcceptChanges()
+
+        'now bind datatable to gridview... 
+        dgvModelosAprovados.DataSource = dtable
+        dgvModelosAprovados.DataBind()
+
+
+
+    End Sub
+
+
+    'esto aun no jala
+    Protected Sub cmdEdit_Click(sender As Object, e As EventArgs) Handles cmdEdit.Click
+        EditModal.Show()
+        Dim rowa As DataKeyArray = dgvModelos.DataKeys
+        'Dim indexevent As Integer = Convert.ToInt32(e.CommandArgument)
+        Dim row As GridViewRow = dgvModelosAprovados.Rows.Item(0)
+
+
+        For Each Aprobadorow In dgvModelosAprovados.Rows
+
+        Next
+
+
+        'Create datatable and columns
+        Dim dtable As New System.Data.DataTable
+
+
+        dtable.Columns.Add(New DataColumn("Model"))
+        dtable.Columns.Add(New DataColumn("Lifespan"))
+        dtable.Columns.Add(New DataColumn("Unit"))
+        dtable.Columns.Add(New DataColumn("LastUser"))
+        dtable.Columns.Add(New DataColumn("ApproverUser"))
+        dtable.Columns.Add(New DataColumn("ApprovedOn"))
+        dtable.Columns.Add(New DataColumn("IdModelsChanges"))
+        dtable.Columns.Add(New DataColumn("IdModelsChangesHeader"))
+
+
+        'Create counter to prevent out of bounds exception
+        Dim i As Integer = row.Cells.Count
+
+        'Create object for RowValues
+        Dim RowValues As Object() = {"", "", "", "", "", "", "", ""}
+
+        'Fill row values appropriately
+        'For index As Integer = 0 To i - 2
+        'RowValues(index) = row.Cells(index).Text
+        'Next
+
+        'create new data row
+        'Dim dRow As DataRow
+        'dRow = dtable.Rows.Add(RowValues)
+
+        For Each copyrow In dgvModelosAprovados.Rows
+
+            For index As Integer = 0 To i - 2
+
+                RowValues(index) = copyrow.Cells(index).Text
+            Next
+            dtable.Rows.Add(RowValues)
+        Next
+
+
+        dtable.AcceptChanges()
+
+        'now bind datatable to gridview... 
+        dgvModelosEditar.DataSource = dtable
+        dgvModelosEditar.DataBind()
+    End Sub
 End Class
