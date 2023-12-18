@@ -39,57 +39,84 @@
 
                     <asp:Label ID="lblDateFilters" runat="server" Text="Buscar por Fecha: " CssClass="catLabel" ></asp:Label>
                     <asp:CheckBox ID="chkDateFilters" runat="server" AutoPostBack="true"/>
-                    <asp:LinkButton class="catLinkButton" ID="lBtnSearc"  runat="server" Text="Buscar <i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i> "></asp:LinkButton>
+                    <asp:LinkButton class="catLinkButton" ID="btnSearch"  runat="server" visible="false" Text="Buscar <i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i> "></asp:LinkButton>
                 </div>
 
                 <div runat="server" id="divDateFilters"  class="catDivHeader" visible="false">
-                    <asp:Label ID="lblCreatedOn" runat="server" Text="Fecha de Origen: " CssClass="catLabel" ></asp:Label>
-                    <asp:TextBox ID="txtCreatedOn" runat="server"></asp:TextBox>
-                    <asp:LinkButton ID="btnCreatedOn" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
-                    <asp:Calendar ID="cldCreatedOn" runat="server" Visible="False" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="190px" NextPrevFormat="FullMonth" Width="350px">
-                        <DayHeaderStyle Font-Bold="True" Font-Size="8pt" />
-                        <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" VerticalAlign="Bottom" />
-                        <OtherMonthDayStyle ForeColor="#999999" />
-                        <SelectedDayStyle BackColor="#333399" ForeColor="White" />
-                        <TitleStyle BackColor="White" BorderColor="Black" BorderWidth="4px" Font-Bold="True" Font-Size="12pt" ForeColor="#333399" />
-                        <TodayDayStyle BackColor="#CCCCCC" />
-                    </asp:Calendar>
-
-                    <asp:Label ID="lblCreatedOnTo" runat="server" Text="A: " CssClass="catLabel" ></asp:Label>
-                    <asp:TextBox ID="txtCreatedOnTo" runat="server"></asp:TextBox>
-                    <asp:LinkButton ID="btnCreatedOnTo" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
-                    <asp:Calendar ID="cldCreatedOnTo" runat="server" Visible="False" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="190px" NextPrevFormat="FullMonth" Width="350px">
-                        <DayHeaderStyle Font-Bold="True" Font-Size="8pt" />
-                        <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" VerticalAlign="Bottom" />
-                        <OtherMonthDayStyle ForeColor="#999999" />
-                        <SelectedDayStyle BackColor="#333399" ForeColor="White" />
-                        <TitleStyle BackColor="White" BorderColor="Black" BorderWidth="4px" Font-Bold="True" Font-Size="12pt" ForeColor="#333399" />
-                        <TodayDayStyle BackColor="#CCCCCC" />
-                    </asp:Calendar>
-
-                    <asp:Label ID="lblApprovedOn" runat="server" Text="Fecha de Aprobación: " CssClass="catLabel" ></asp:Label>
-                    <asp:TextBox ID="txtApprovedOn" runat="server"></asp:TextBox>
-                    <asp:LinkButton ID="btnApprovedOn" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
-                    <asp:Calendar ID="cldApprovedOn" runat="server" Visible="False" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="190px" NextPrevFormat="FullMonth" Width="350px">
-                        <DayHeaderStyle Font-Bold="True" Font-Size="8pt" />
-                        <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" VerticalAlign="Bottom" />
-                        <OtherMonthDayStyle ForeColor="#999999" />
-                        <SelectedDayStyle BackColor="#333399" ForeColor="White" />
-                        <TitleStyle BackColor="White" BorderColor="Black" BorderWidth="4px" Font-Bold="True" Font-Size="12pt" ForeColor="#333399" />
-                        <TodayDayStyle BackColor="#CCCCCC" />
-                    </asp:Calendar>
-
-                    <asp:Label ID="lblApprovedOnTo" runat="server" Text="A: " CssClass="catLabel" ></asp:Label>
-                    <asp:TextBox ID="txtApprovedOnTo" runat="server"></asp:TextBox>
-                    <asp:LinkButton ID="btnApprovedOnTo" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
-                    <asp:Calendar ID="cldApprovedOnTo" runat="server" Visible="False" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="190px" NextPrevFormat="FullMonth" Width="350px">
-                        <DayHeaderStyle Font-Bold="True" Font-Size="8pt" />
-                        <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" VerticalAlign="Bottom" />
-                        <OtherMonthDayStyle ForeColor="#999999" />
-                        <SelectedDayStyle BackColor="#333399" ForeColor="White" />
-                        <TitleStyle BackColor="White" BorderColor="Black" BorderWidth="4px" Font-Bold="True" Font-Size="12pt" ForeColor="#333399" />
-                        <TodayDayStyle BackColor="#CCCCCC" />
-                    </asp:Calendar>
+                    <table style="width: 1200px;">
+                        <tr>
+                            <td>
+                                <asp:Label ID="lblCreatedOn" runat="server" Text="Últ. Fecha de Edición: " CssClass="catLabel" ></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblCreatedOnTo" runat="server" Text="A: " CssClass="catLabel" ></asp:Label>
+                            </td>   
+                            <td>
+                                <asp:Label ID="lblApprovedOn" runat="server" Text="Fecha de Aprobación: " CssClass="catLabel" ></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblApprovedOnTo" runat="server" Text="A: " CssClass="catLabel" ></asp:Label>
+                            </td>
+                        <tr>
+                            <td>
+                                <asp:TextBox ID="txtCreatedOn" runat="server" Enabled="False"></asp:TextBox>
+                                <asp:LinkButton ID="btnCreatedOn" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
+                                <asp:Calendar ID="cldCreatedOn" runat="server" Visible="False" class="catCalendar" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px">
+                                    <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
+                                    <NextPrevStyle VerticalAlign="Bottom" />
+                                    <OtherMonthDayStyle ForeColor="#808080" />
+                                    <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
+                                    <SelectorStyle BackColor="#CCCCCC" />
+                                    <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
+                                    <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
+                                    <WeekendDayStyle BackColor="#FFFFCC" />
+                                </asp:Calendar>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="txtCreatedOnTo" runat="server" Enabled="False"></asp:TextBox>
+                                <asp:LinkButton ID="btnCreatedOnTo" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
+                                <asp:Calendar ID="cldCreatedOnTo" runat="server" Visible="False" class="catCalendar" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px">
+                                    <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
+                                    <NextPrevStyle VerticalAlign="Bottom" />
+                                    <OtherMonthDayStyle ForeColor="#808080" />
+                                    <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
+                                    <SelectorStyle BackColor="#CCCCCC" />
+                                    <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
+                                    <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
+                                    <WeekendDayStyle BackColor="#FFFFCC" />
+                                </asp:Calendar>
+                                
+                            </td>
+                            <td>
+                                <asp:TextBox ID="txtApprovedOn" runat="server" Enabled="False"></asp:TextBox>
+                                <asp:LinkButton ID="btnApprovedOn" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
+                                <asp:Calendar ID="cldApprovedOn" runat="server" Visible="False" class="catCalendar" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px">
+                                    <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
+                                    <NextPrevStyle VerticalAlign="Bottom" />
+                                    <OtherMonthDayStyle ForeColor="#808080" />
+                                    <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
+                                    <SelectorStyle BackColor="#CCCCCC" />
+                                    <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
+                                    <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
+                                    <WeekendDayStyle BackColor="#FFFFCC" />
+                                </asp:Calendar>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="txtApprovedOnTo" runat="server" Enabled="False"></asp:TextBox>
+                                <asp:LinkButton ID="btnApprovedOnTo" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
+                                <asp:Calendar ID="cldApprovedOnTo" runat="server" Visible="False" class="catCalendar" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px">
+                                    <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
+                                    <NextPrevStyle VerticalAlign="Bottom" />
+                                    <OtherMonthDayStyle ForeColor="#808080" />
+                                    <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
+                                    <SelectorStyle BackColor="#CCCCCC" />
+                                    <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
+                                    <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
+                                    <WeekendDayStyle BackColor="#FFFFCC" />
+                                </asp:Calendar>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
@@ -102,7 +129,7 @@
                         <asp:BoundField DataField="OriginName" HeaderText="Nombre Originador" SortExpression="OriginName" />
                         <asp:BoundField DataField="OriginUser" HeaderText="Usuario Originador" SortExpression="OriginUser" />
                         <asp:BoundField DataField="OriginComment" HeaderText="Comentario" SortExpression="OriginComment" />
-                        <asp:BoundField DataField="ModifiedOn" HeaderText="Fecha de Edición" SortExpression="ModifiedOn" />
+                        <asp:BoundField DataField="ModifiedOn" HeaderText="Últ. Fecha de Edición" SortExpression="ModifiedOn" />
                         <asp:BoundField DataField="ApprovalStatus" HeaderText="Estatus" SortExpression="ModifiedOn" />
                         <asp:ButtonField CommandName="Action" HeaderText="Acción" ShowHeader="True" DataTextField="Action" />
                         <asp:BoundField DataField="ApproverName" HeaderText="Nombre Aprobador" SortExpression="ApproverName" />

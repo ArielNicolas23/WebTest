@@ -95,13 +95,13 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents chkDateFilters As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''lBtnSearc control.
+    '''btnSearch control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lBtnSearc As Global.System.Web.UI.WebControls.LinkButton
+    Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''divDateFilters control.
@@ -120,6 +120,33 @@ Partial Public Class CatModuloAprobacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblCreatedOn As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblCreatedOnTo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblCreatedOnTo As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblApprovedOn control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblApprovedOn As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblApprovedOnTo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblApprovedOnTo As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''txtCreatedOn control.
@@ -149,15 +176,6 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents cldCreatedOn As Global.System.Web.UI.WebControls.Calendar
 
     '''<summary>
-    '''lblCreatedOnTo control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblCreatedOnTo As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
     '''txtCreatedOnTo control.
     '''</summary>
     '''<remarks>
@@ -185,15 +203,6 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents cldCreatedOnTo As Global.System.Web.UI.WebControls.Calendar
 
     '''<summary>
-    '''lblApprovedOn control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblApprovedOn As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
     '''txtApprovedOn control.
     '''</summary>
     '''<remarks>
@@ -219,15 +228,6 @@ Partial Public Class CatModuloAprobacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents cldApprovedOn As Global.System.Web.UI.WebControls.Calendar
-
-    '''<summary>
-    '''lblApprovedOnTo control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblApprovedOnTo As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''txtApprovedOnTo control.

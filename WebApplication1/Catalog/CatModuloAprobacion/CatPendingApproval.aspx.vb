@@ -20,7 +20,9 @@ Public Class CatModuloAprobacion
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim userProfile = CType(Session("UserProfile"), Security.UserProfile)
         userPlaceholder = userProfile.UserName.Split("\")(1)
+
         If Not Page.IsPostBack Then
+            ResetDates()
             PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApproverUser(userPlaceholder))
         End If
 
@@ -59,9 +61,6 @@ Public Class CatModuloAprobacion
                 PopulateGrid(dgvModelChanges, modelChanges.SelectByIdModelsChangesHeader(id))
         End Select
     End Sub
-
-    ' Método del botón de buscar por filtros
-
 
     ' Método para cancelar la revisión de los cambios y seleccionar otro cambio
     Protected Sub cmdCancelChange_Click(sender As Object, e As EventArgs) Handles cmdCancelChange.Click
@@ -123,9 +122,6 @@ Public Class CatModuloAprobacion
         End If
     End Sub
 
-
-
-
     ' Método para validar campos de aprobación
     Protected Function ValidateTextBox(txt As TextBox, lbl As Label, errorMessage As String, canInsert As Boolean)
         If (txt.Text = "") Then
@@ -159,6 +155,7 @@ Public Class CatModuloAprobacion
         If chkDateFilters.Checked Then
             divDateFilters.Visible = True
         Else
+            ResetDates()
             divDateFilters.Visible = False
         End If
     End Sub
@@ -171,7 +168,7 @@ Public Class CatModuloAprobacion
         End If
     End Sub
 
-    Protected Sub lBtnSearc_Click(sender As Object, e As EventArgs) Handles lBtnSearc.Click
+    Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles ddlStatus.SelectedIndexChanged, ddlRole.SelectedIndexChanged
         Dim user As String = userPlaceholder
         Dim approvalStatus As String = ddlStatus.SelectedValue
         Dim userRole As String = ddlRole.SelectedValue
@@ -320,9 +317,22 @@ Public Class CatModuloAprobacion
                 txtApprovedOn.Text = cldApprovedOn.SelectedDate
                 cldApprovedOn.Visible = False
             Case "cldApprovedOnTo"
-                txtApprovedOn.Text = cldApprovedOnTo.SelectedDate
-                cldApprovedOn.Visible = False
+                txtApprovedOnTo.Text = cldApprovedOnTo.SelectedDate
+                cldApprovedOnTo.Visible = False
         End Select
 
+        btnSearch_Click(sender, e)
+    End Sub
+
+    Private Sub ResetDates()
+        cldCreatedOn.SelectedDate = DateTime.Today.AddDays(-30)
+        cldCreatedOnTo.SelectedDate = DateTime.Today
+        cldApprovedOn.SelectedDate = DateTime.Today.AddDays(-30)
+        cldApprovedOnTo.SelectedDate = DateTime.Today
+
+        txtCreatedOn.Text = cldCreatedOn.SelectedDate
+        txtCreatedOnTo.Text = cldCreatedOnTo.SelectedDate
+        txtApprovedOn.Text = cldApprovedOn.SelectedDate
+        txtApprovedOnTo.Text = cldApprovedOnTo.SelectedDate
     End Sub
 End Class

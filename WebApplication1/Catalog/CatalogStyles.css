@@ -182,3 +182,14 @@ tr.dgvPaging {
     text-align: left;
     margin-bottom: 16px;
 }
+
+/* Estilos de calendarios flotantes */
+.catCalendar {
+    position: absolute;
+
+/*    width: 140px;
+    height: 30px;
+
+    background-color: blue;
+    color: white;*/
+}
