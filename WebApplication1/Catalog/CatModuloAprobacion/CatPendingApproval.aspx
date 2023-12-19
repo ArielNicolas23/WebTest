@@ -39,84 +39,57 @@
 
                     <asp:Label ID="lblDateFilters" runat="server" Text="Buscar por Fecha: " CssClass="catLabel" ></asp:Label>
                     <asp:CheckBox ID="chkDateFilters" runat="server" AutoPostBack="true"/>
-                    <asp:LinkButton class="catLinkButton" ID="btnSearch"  runat="server" visible="false" Text="Buscar <i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i> "></asp:LinkButton>
+                    <asp:LinkButton class="catLinkButton" ID="lBtnSearc"  runat="server" Text="Buscar <i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i> "></asp:LinkButton>
                 </div>
 
                 <div runat="server" id="divDateFilters"  class="catDivHeader" visible="false">
-                    <table style="width: 1200px;">
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblCreatedOn" runat="server" Text="Últ. Fecha de Edición: " CssClass="catLabel" ></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblCreatedOnTo" runat="server" Text="A: " CssClass="catLabel" ></asp:Label>
-                            </td>   
-                            <td>
-                                <asp:Label ID="lblApprovedOn" runat="server" Text="Fecha de Aprobación: " CssClass="catLabel" ></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblApprovedOnTo" runat="server" Text="A: " CssClass="catLabel" ></asp:Label>
-                            </td>
-                        <tr>
-                            <td>
-                                <asp:TextBox ID="txtCreatedOn" runat="server" Enabled="False"></asp:TextBox>
-                                <asp:LinkButton ID="btnCreatedOn" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
-                                <asp:Calendar ID="cldCreatedOn" runat="server" Visible="False" class="catCalendar" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px">
-                                    <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
-                                    <NextPrevStyle VerticalAlign="Bottom" />
-                                    <OtherMonthDayStyle ForeColor="#808080" />
-                                    <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
-                                    <SelectorStyle BackColor="#CCCCCC" />
-                                    <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
-                                    <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
-                                    <WeekendDayStyle BackColor="#FFFFCC" />
-                                </asp:Calendar>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtCreatedOnTo" runat="server" Enabled="False"></asp:TextBox>
-                                <asp:LinkButton ID="btnCreatedOnTo" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
-                                <asp:Calendar ID="cldCreatedOnTo" runat="server" Visible="False" class="catCalendar" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px">
-                                    <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
-                                    <NextPrevStyle VerticalAlign="Bottom" />
-                                    <OtherMonthDayStyle ForeColor="#808080" />
-                                    <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
-                                    <SelectorStyle BackColor="#CCCCCC" />
-                                    <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
-                                    <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
-                                    <WeekendDayStyle BackColor="#FFFFCC" />
-                                </asp:Calendar>
-                                
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtApprovedOn" runat="server" Enabled="False"></asp:TextBox>
-                                <asp:LinkButton ID="btnApprovedOn" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
-                                <asp:Calendar ID="cldApprovedOn" runat="server" Visible="False" class="catCalendar" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px">
-                                    <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
-                                    <NextPrevStyle VerticalAlign="Bottom" />
-                                    <OtherMonthDayStyle ForeColor="#808080" />
-                                    <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
-                                    <SelectorStyle BackColor="#CCCCCC" />
-                                    <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
-                                    <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
-                                    <WeekendDayStyle BackColor="#FFFFCC" />
-                                </asp:Calendar>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtApprovedOnTo" runat="server" Enabled="False"></asp:TextBox>
-                                <asp:LinkButton ID="btnApprovedOnTo" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
-                                <asp:Calendar ID="cldApprovedOnTo" runat="server" Visible="False" class="catCalendar" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px">
-                                    <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
-                                    <NextPrevStyle VerticalAlign="Bottom" />
-                                    <OtherMonthDayStyle ForeColor="#808080" />
-                                    <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
-                                    <SelectorStyle BackColor="#CCCCCC" />
-                                    <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
-                                    <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
-                                    <WeekendDayStyle BackColor="#FFFFCC" />
-                                </asp:Calendar>
-                            </td>
-                        </tr>
-                    </table>
+                    <asp:Label ID="lblCreatedOn" runat="server" Text="Fecha de Origen: " CssClass="catLabel" ></asp:Label>
+                    <asp:TextBox ID="txtCreatedOn" runat="server"></asp:TextBox>
+                    <asp:LinkButton ID="btnCreatedOn" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
+                    <asp:Calendar ID="cldCreatedOn" runat="server" Visible="False" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="190px" NextPrevFormat="FullMonth" Width="350px">
+                        <DayHeaderStyle Font-Bold="True" Font-Size="8pt" />
+                        <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" VerticalAlign="Bottom" />
+                        <OtherMonthDayStyle ForeColor="#999999" />
+                        <SelectedDayStyle BackColor="#333399" ForeColor="White" />
+                        <TitleStyle BackColor="White" BorderColor="Black" BorderWidth="4px" Font-Bold="True" Font-Size="12pt" ForeColor="#333399" />
+                        <TodayDayStyle BackColor="#CCCCCC" />
+                    </asp:Calendar>
+
+                    <asp:Label ID="lblCreatedOnTo" runat="server" Text="A: " CssClass="catLabel" ></asp:Label>
+                    <asp:TextBox ID="txtCreatedOnTo" runat="server"></asp:TextBox>
+                    <asp:LinkButton ID="btnCreatedOnTo" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
+                    <asp:Calendar ID="cldCreatedOnTo" runat="server" Visible="False" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="190px" NextPrevFormat="FullMonth" Width="350px">
+                        <DayHeaderStyle Font-Bold="True" Font-Size="8pt" />
+                        <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" VerticalAlign="Bottom" />
+                        <OtherMonthDayStyle ForeColor="#999999" />
+                        <SelectedDayStyle BackColor="#333399" ForeColor="White" />
+                        <TitleStyle BackColor="White" BorderColor="Black" BorderWidth="4px" Font-Bold="True" Font-Size="12pt" ForeColor="#333399" />
+                        <TodayDayStyle BackColor="#CCCCCC" />
+                    </asp:Calendar>
+
+                    <asp:Label ID="lblApprovedOn" runat="server" Text="Fecha de Aprobación: " CssClass="catLabel" ></asp:Label>
+                    <asp:TextBox ID="txtApprovedOn" runat="server"></asp:TextBox>
+                    <asp:LinkButton ID="btnApprovedOn" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
+                    <asp:Calendar ID="cldApprovedOn" runat="server" Visible="False" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="190px" NextPrevFormat="FullMonth" Width="350px">
+                        <DayHeaderStyle Font-Bold="True" Font-Size="8pt" />
+                        <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" VerticalAlign="Bottom" />
+                        <OtherMonthDayStyle ForeColor="#999999" />
+                        <SelectedDayStyle BackColor="#333399" ForeColor="White" />
+                        <TitleStyle BackColor="White" BorderColor="Black" BorderWidth="4px" Font-Bold="True" Font-Size="12pt" ForeColor="#333399" />
+                        <TodayDayStyle BackColor="#CCCCCC" />
+                    </asp:Calendar>
+
+                    <asp:Label ID="lblApprovedOnTo" runat="server" Text="A: " CssClass="catLabel" ></asp:Label>
+                    <asp:TextBox ID="txtApprovedOnTo" runat="server"></asp:TextBox>
+                    <asp:LinkButton ID="btnApprovedOnTo" runat="server" OnClick="OpenCalendar" class="catLinkButton" Text="<i class='fa fa-calendar' data-toggle='tooltip' title='Seleccionar Fecha'></i> " />
+                    <asp:Calendar ID="cldApprovedOnTo" runat="server" Visible="False" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="190px" NextPrevFormat="FullMonth" Width="350px">
+                        <DayHeaderStyle Font-Bold="True" Font-Size="8pt" />
+                        <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" VerticalAlign="Bottom" />
+                        <OtherMonthDayStyle ForeColor="#999999" />
+                        <SelectedDayStyle BackColor="#333399" ForeColor="White" />
+                        <TitleStyle BackColor="White" BorderColor="Black" BorderWidth="4px" Font-Bold="True" Font-Size="12pt" ForeColor="#333399" />
+                        <TodayDayStyle BackColor="#CCCCCC" />
+                    </asp:Calendar>
                 </div>
             </div>
 
@@ -129,7 +102,7 @@
                         <asp:BoundField DataField="OriginName" HeaderText="Nombre Originador" SortExpression="OriginName" />
                         <asp:BoundField DataField="OriginUser" HeaderText="Usuario Originador" SortExpression="OriginUser" />
                         <asp:BoundField DataField="OriginComment" HeaderText="Comentario" SortExpression="OriginComment" />
-                        <asp:BoundField DataField="ModifiedOn" HeaderText="Últ. Fecha de Edición" SortExpression="ModifiedOn" />
+                        <asp:BoundField DataField="ModifiedOn" HeaderText="Fecha de Edición" SortExpression="ModifiedOn" />
                         <asp:BoundField DataField="ApprovalStatus" HeaderText="Estatus" SortExpression="ModifiedOn" />
                         <asp:ButtonField CommandName="Action" HeaderText="Acción" ShowHeader="True" DataTextField="Action" />
                         <asp:BoundField DataField="ApproverName" HeaderText="Nombre Aprobador" SortExpression="ApproverName" />
@@ -145,7 +118,7 @@
                 </asp:GridView>
             </div>
 
-            <div runat="server" id="divModelsChanges" style="margin-top: 50px" visible="false">
+                        <div runat="server" id="divModelsChanges" style="margin-top: 50px" visible="false">
                 <div style="width: 2%;  float: left;">
                     <asp:Label ID="lblMargin" runat="server" Text=">" CssClass="catIcon"></asp:Label>
                 </div>
@@ -187,6 +160,47 @@
                 </div>
 
             </div>
+            <div runat="server" id="divModelsView" style="margin-top: 50px" visible="false">
+    <div style="width: 2%;  float: left;">
+        <asp:Label ID="Label1" runat="server" Text=">" CssClass="catIcon"></asp:Label>
+    </div>
+
+    <div style="margin-left: 2%;">
+        <div class="catDivHeader" style="width: 1400px;">
+            <div style="width: 30%; float: left; text-align: left">
+                <asp:Label ID="Label2" runat="server" Font-Size="18pt" Text="Detalles de Modelos" CssClass="catHeaderSub"></asp:Label>
+            </div>
+            <div style="margin-left: 30%; text-align: right">
+                <asp:Button ID="Button1" runat="server" Text="Seleccionar otro Cambio" CssClass="catButton"/>
+                <asp:Button ID="Button3" runat="server" Text="Editar" CssClass="catButtonAccept" CommandName="Approve"/>
+
+            </div>
+        </div>
+
+        <asp:GridView  ID="dgvModelView" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="1400px" AllowPaging="True" DataKeyNames="IdModelsChanges">
+            <Columns>
+                <asp:BoundField DataField="IdModelsChanges" Visible="False" />
+                <asp:BoundField DataField="Model" HeaderText="Modelo" SortExpression="Model" />
+                <asp:BoundField DataField="Lifespan" HeaderText="Vida Útil" SortExpression="Lifespan" />
+                <asp:BoundField DataField="Unit" HeaderText="Unidad" SortExpression="Unit" />
+                <asp:BoundField DataField="LastUserName" HeaderText="Nombre del Usuario" SortExpression="LastUserName" />
+                <asp:BoundField DataField="LastUser" HeaderText="Usuario" SortExpression="LastUser" />
+                <asp:BoundField DataField="ModifiedOn" HeaderText="Última Actualización" SortExpression="ModifiedOn" />
+                <asp:TemplateField HeaderText="Verificar">
+                    <ItemTemplate>
+                        <asp:CheckBox ID="IsChecked" runat="server" AutoPostBack="true" Checked='<%#Convert.ToBoolean(Eval("IsChecked"))%>' OnCheckedChanged="OnChangeIsChecked" Enabled="False"/>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+            <RowStyle CssClass="dgvCatalogRowOdd" />
+            <EditRowStyle BackColor="#999999" />
+            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+            <PagerStyle CssClass="dgvPaging"/>
+            <AlternatingRowStyle CssClass="dgvCatalogRowEven" />
+        </asp:GridView>
+    </div>
+
+</div>
 
 
 
@@ -265,10 +279,64 @@
                     </table>
                 </div>
             </asp:Panel>
+
+            
+            <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
+            <ajaxToolkit:ModalPopupExtender ID="Modaledit" runat="server" TargetControlID="Label3" PopupControlID="editModal" PopupDragHandleControlID="headerdiv" BackgroundCssClass="modalbackground"></ajaxToolkit:ModalPopupExtender>
+
+
+            <asp:Panel ID="editModal" runat="server" Height="300px" Width="630px">
+                <div id="headerdiv0" style="background-color:#284775;  font-size:medium; padding:2px; height:20px;">
+                </div>
+                <div class="auto-style1" style="background-color:#f7f6f3;  font-size:medium; padding:2px;">
+                    <table class="auto-style3" width="630">
+                        <tr>
+                            <td colspan="3" class="auto-style1">
+                                <asp:Label ID="lblModalInstruction0" runat="server" Font-Bold="True">Cambio rechazado por:</asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" class="auto-style4">Nombre:</td>
+                            <td align="left" class="auto-style6">
+                                <asp:TextBox ID="txtUserEdit" runat="server" CausesValidation="True" Enabled="False" Width="260px"></asp:TextBox>
+                            </td>
+                            <td class="auto-style5">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td align="left" class="auto-style4">Usuario:</td>
+                            <td align="left" class="auto-style6">
+                                <asp:TextBox ID="txtUserEdit0" runat="server" CausesValidation="True" Enabled="False" Width="260px"></asp:TextBox>
+                            </td>
+                            <td class="auto-style5">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td align="left" style="width: 100px">
+                                <asp:Label ID="lblApproveMessage0" runat="server" Font-Bold="True" Text="Comentarios:" Width="100px"></asp:Label>
+                            </td>
+                            <td align="left" class="auto-style6">
+                                <asp:TextBox ID="txtApproveMessageEdit" runat="server" Height="104px" ReadOnly="True" TextMode="MultiLine" Width="260px"></asp:TextBox>
+                            </td>
+                            <td class="auto-style5">
+                                <asp:Label ID="lblApproveMessageError0" runat="server" ForeColor="Red"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr style="margin-top: 10px; margin-bottom: 10px">
+                            <td colspan="3">
+                                <asp:Label ID="lblModalMessage0" runat="server" ForeColor="Red" Width="504px"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <div align="center">
+                                    <asp:LinkButton ID="lbEdit" runat="server" class="catLinkButtonConfirm" Text="Ir a Editar &lt;i class='fa fa-check' data-toggle='tooltip' title='Aceptar'&gt;&lt;/i&gt; "></asp:LinkButton>
+                                    <asp:LinkButton ID="lbCancel0" runat="server" class="catLinkButton" Text="Cancelar &lt;i class='fa fa-window-close' data-toggle='tooltip' title='Cancelar'&gt;&lt;/i&gt; "></asp:LinkButton>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </asp:Panel>
+
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
-
-
-
-

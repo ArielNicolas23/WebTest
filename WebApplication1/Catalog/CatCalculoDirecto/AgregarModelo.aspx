@@ -23,10 +23,10 @@
                 function prm_InitializeRequest(sender, args) {
                     // Disable button that caused a postback
                     var x = document.getElementById("MainContent_lbAccept");
-                    x.className += "disabled-link";
+                    x.className += " disabled-link";
 
                     var x = document.getElementById("MainContent_lbCancel");
-                    x.className += "disabled-link";
+                    x.className += " disabled-link";
                     
                 }
 

@@ -260,10 +260,10 @@ Public Class ED_ModelsChangesHeader
                         Case "En Revisión"
                             row("Action") = "Liberar"
                         Case Else
-                            row("Action") = ""
+                            row("Action") = "Revisar"  'dejar vacio, solo es prueba
                     End Select
                 Else
-                    row("Action") = ""
+                    row("Action") = "Revisar"
                 End If
 
                 result.Rows.Add(row)
