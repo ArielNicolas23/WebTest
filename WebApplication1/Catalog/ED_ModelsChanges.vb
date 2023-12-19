@@ -247,6 +247,59 @@ Public Class ED_ModelsChanges
         Return result
     End Function
 
+    Public Function SelectByIdModelsChangesHeaderApprovedUnitID() As DataTable
+        Dim result As DataTable
+        Dim row As DataRow
+
+        Using conn As New SqlConnection(Me.dbCon)
+
+            Dim cmd As SqlCommand = New SqlCommand()
+            cmd.CommandText = "spED_ED_ModelsChanges_SelectByIdModelsChangesApprovedUnitID"
+            cmd.Connection = conn
+            cmd.CommandType = CommandType.StoredProcedure
+            'cmd.Parameters.AddWithValue("@IdModelsChangesHeader", IdModelsChanges)
+
+            result = New DataTable("Result")
+            result.Columns.Add("IdModelsChanges", GetType(Guid))
+            result.Columns.Add("IdModelsChangesHeader", GetType(Guid))
+            result.Columns.Add("IdCatUnits", GetType(Guid))
+            result.Columns.Add("Model", GetType(String))
+            result.Columns.Add("Lifespan", GetType(String))
+            result.Columns.Add("Unit", GetType(String))
+            result.Columns.Add("LastUser", GetType(String))
+            result.Columns.Add("ApproverUser", GetType(String))
+            result.Columns.Add("ApprovedOn", GetType(String))
+            result.Columns.Add("IsChecked", GetType(Boolean))
+            conn.Open()
+
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+
+            While reader.Read()
+
+                row = result.NewRow()
+
+                row("IdModelsChanges") = reader.GetGuid(0)
+                row("IdModelsChangesHeader") = reader.GetGuid(1)
+                row("IdCatUnits") = reader.GetGuid(2)
+                row("Model") = reader.GetString(3)
+                row("Lifespan") = reader.GetInt32(4)
+                row("Unit") = reader.GetString(5)
+                row("LastUser") = reader.GetString(6)
+                row("ApproverUser") = reader.GetString(7)
+                row("ApprovedOn") = reader.GetDateTime(8).ToString("dd/MMM/yyyy")
+                row("IsChecked") = False
+
+                result.Rows.Add(row)
+
+            End While
+
+            conn.Close()
+            conn.Dispose()
+        End Using
+
+        Return result
+    End Function
+
     Public Function SelectByIdModelsChangesHeaderApprovedFilter(ByVal model As String, ByVal lifespan As String, ByVal unit As Guid, ByVal optionsql As Integer) As DataTable
         Dim result As DataTable
         Dim row As DataRow

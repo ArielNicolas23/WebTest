@@ -168,4 +168,7 @@ Public Class Catalog_CatUnits
         dgvUnits.EditIndex = -1
     End Sub
 
+    Protected Sub dgvUnits_SelectedIndexChanged(sender As Object, e As EventArgs) Handles dgvUnits.SelectedIndexChanged
+
+    End Sub
 End Class
