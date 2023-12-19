@@ -169,12 +169,11 @@ Public Class CatConfiguracionCalculoDirecto
 
     Protected Sub dgvModelos_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles dgvModelos.RowCommand
         ' Grey out expired training courses
-        lblModelosAprobadosHeader.Text = "Modelos Seleccionados"
         Dim rowa As DataKeyArray = dgvModelos.DataKeys
         Dim indexevent As Integer = Convert.ToInt32(e.CommandArgument)
         Dim row As GridViewRow = dgvModelos.Rows.Item(indexevent)
 
-        For Each checkrow In dgvModelosAprovados.Rows
+        For Each checkrow In dgvSelectedModels.Rows
 
             If row.Cells(0).Text = checkrow.Cells(0).Text Then
                 MsgBox("Este modelo ya esta seleccionado", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Modelo ya seleccionado")
@@ -215,7 +214,7 @@ Public Class CatConfiguracionCalculoDirecto
         Dim dRow As DataRow
         dRow = dtable.Rows.Add(RowValues)
 
-        For Each copyrow In dgvModelosAprovados.Rows
+        For Each copyrow In dgvSelectedModels.Rows
 
             For index As Integer = 0 To i - 2
 
@@ -228,8 +227,8 @@ Public Class CatConfiguracionCalculoDirecto
         dtable.AcceptChanges()
 
         'now bind datatable to gridview... 
-        dgvModelosAprovados.DataSource = dtable
-        dgvModelosAprovados.DataBind()
+        dgvSelectedModels.DataSource = dtable
+        dgvSelectedModels.DataBind()
 
 
 
@@ -238,13 +237,12 @@ Public Class CatConfiguracionCalculoDirecto
 
     'esto aun no jala
     Protected Sub cmdEdit_Click(sender As Object, e As EventArgs) Handles cmdEdit.Click
-        EditModal.Show()
         Dim rowa As DataKeyArray = dgvModelos.DataKeys
         'Dim indexevent As Integer = Convert.ToInt32(e.CommandArgument)
-        Dim row As GridViewRow = dgvModelosAprovados.Rows.Item(0)
+        Dim row As GridViewRow = dgvSelectedModels.Rows.Item(0)
 
 
-        For Each Aprobadorow In dgvModelosAprovados.Rows
+        For Each Aprobadorow In dgvSelectedModels.Rows
 
         Next
 
@@ -278,7 +276,7 @@ Public Class CatConfiguracionCalculoDirecto
         'Dim dRow As DataRow
         'dRow = dtable.Rows.Add(RowValues)
 
-        For Each copyrow In dgvModelosAprovados.Rows
+        For Each copyrow In dgvSelectedModels.Rows
 
             For index As Integer = 0 To i - 2
 
@@ -291,7 +289,5 @@ Public Class CatConfiguracionCalculoDirecto
         dtable.AcceptChanges()
 
         'now bind datatable to gridview... 
-        dgvModelosEditar.DataSource = dtable
-        dgvModelosEditar.DataBind()
     End Sub
 End Class

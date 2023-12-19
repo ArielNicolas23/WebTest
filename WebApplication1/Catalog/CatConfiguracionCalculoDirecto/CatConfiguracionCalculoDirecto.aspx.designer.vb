@@ -95,15 +95,6 @@ Partial Public Class CatConfiguracionCalculoDirecto
     Protected WithEvents cmdSearch As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''lblMessage control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
     '''FillWithStrings control.
     '''</summary>
     '''<remarks>
@@ -131,6 +122,15 @@ Partial Public Class CatConfiguracionCalculoDirecto
     Protected WithEvents cmdEdit As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
+    '''lblModels control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblModels As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''dgvModelos control.
     '''</summary>
     '''<remarks>
@@ -140,74 +140,20 @@ Partial Public Class CatConfiguracionCalculoDirecto
     Protected WithEvents dgvModelos As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
-    '''lblModelosAprobadosHeader control.
+    '''lblSelectedModels control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblModelosAprobadosHeader As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblSelectedModels As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''dgvModelosAprovados control.
+    '''dgvSelectedModels control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents dgvModelosAprovados As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
-    '''lblModal control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblModal As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''EditModal control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents EditModal As Global.AjaxControlToolkit.ModalPopupExtender
-
-    '''<summary>
-    '''modalpan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents modalpan As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
-    '''dgvModelosEditar control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents dgvModelosEditar As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
-    '''lbAccept control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lbAccept As Global.System.Web.UI.WebControls.LinkButton
-
-    '''<summary>
-    '''lbCancel control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lbCancel As Global.System.Web.UI.WebControls.LinkButton
+    Protected WithEvents dgvSelectedModels As Global.System.Web.UI.WebControls.GridView
 End Class
