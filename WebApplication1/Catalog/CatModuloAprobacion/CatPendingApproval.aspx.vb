@@ -69,8 +69,11 @@ Public Class CatModuloAprobacion
                         lblTitle.Text = "Detalles de Modelo"
                         ToggleSection(divFilterHeader, False)
                         ToggleModelsView(False)
-
-                        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByIdModelsChangesHeader(id))
+                        Dim infoHeader As DataTable = modelChangesHeader.SelectByIdModelsChangesHeader(id)
+                        txtUserEdit.Text = infoHeader.Rows(0).Item(5)
+                        txtUserEdit0.Text = infoHeader.Rows(0).Item(6)
+                        txtApproveMessageEdit.Text = infoHeader.Rows(0).Item(7)
+                        PopulateGrid(dgvPendingApproval, infoHeader)
                         PopulateGrid(dgvModelView, modelChanges.SelectByIdModelsChangesHeader(id))
 
 
