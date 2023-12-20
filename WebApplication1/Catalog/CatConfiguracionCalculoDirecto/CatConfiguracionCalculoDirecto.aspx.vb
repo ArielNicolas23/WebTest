@@ -25,15 +25,21 @@ Public Class CatConfiguracionCalculoDirecto
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim userProfile = CType(Session("UserProfile"), Security.UserProfile)
         userPlaceholder = userProfile.UserName.Split("\")(1)
-        lblSelectedModels.Visible = False
+
         If Not Page.IsPostBack Then
-            Dim catUnits As CatUnits = New CatUnits()
-            ddlUnit.DataSource = catUnits.SelectAll("", False).AsDataView
-            ddlUnit.DataTextField = "Unit"
-            ddlUnit.DataValueField = "IdUnit"
-            ddlUnit.DataBind()
-            PopulateGrid(dgvModelos, modelChanges.SelectByIdModelsChangesHeaderApprovedUnitID())
+            Session("SelectedModels") = GenerateTable()
+            PopulateDropDown()
+            PopulateGrid(dgvModelos, modelChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, Guid.Empty))
         End If
+    End Sub
+
+    ' Llenado de dropdown
+    Protected Sub PopulateDropDown()
+        Dim catUnits As CatUnits = New CatUnits()
+        ddlUnit.DataSource = catUnits.SelectAll("", False).AsDataView
+        ddlUnit.DataTextField = "Unit"
+        ddlUnit.DataValueField = "IdUnit"
+        ddlUnit.DataBind()
     End Sub
 
     ' Llenado de tablas
@@ -42,35 +48,61 @@ Public Class CatConfiguracionCalculoDirecto
         dgv.DataBind()
     End Sub
 
-    Protected Sub OnChangeIsChecked(sender As Object, e As EventArgs)
-
+    ' Toggle para tabla de seleccionados
+    Protected Sub ToggleSelected()
+        If dgvSelectedModels.Rows.Count > 0 Then
+            divSelectedModels.Visible = True
+        Else
+            divSelectedModels.Visible = False
+        End If
     End Sub
 
-    Protected Sub dgvModelos_SelectedIndexChanged(sender As Object, e As EventArgs) Handles dgvModelos.SelectedIndexChanged
-
+    ' Toggle para sección de edición
+    Protected Sub ToggleEdition(showEditing As Boolean)
+        If showEditing Then
+            lblTitle.Text = "Edición de Modelos Aprobados"
+            divHeader.Visible = False
+            divApprovedModels.Visible = False
+            divEditModels.Visible = True
+        Else
+            lblTitle.Text = "Catálogo de Configuración de Cálculo Directo"
+            divHeader.Visible = True
+            divApprovedModels.Visible = True
+            divEditModels.Visible = False
+        End If
     End Sub
 
-    Protected Sub cmdSearch_Click(sender As Object, e As EventArgs) Handles cmdSearch.Click
+    ' Base de las tablas
+    Protected Function GenerateTable()
+        Dim dataTable As New System.Data.DataTable
 
-        If txtModel.Text = "" And txtLifeSpan.Text = "" Then
-            PopulateGrid(dgvModelos, modelChanges.SelectByIdModelsChangesHeaderApprovedFilter(txtModel.Text, txtLifeSpan.Text, Guid.Parse(ddlUnit.Text), 3))
-        End If
-        If txtModel.Text <> "" And txtLifeSpan.Text = "" Then
-            PopulateGrid(dgvModelos, modelChanges.SelectByIdModelsChangesHeaderApprovedFilter(txtModel.Text, "", Guid.Parse(ddlUnit.Text), 5))
-        End If
-        If txtModel.Text = "" And txtLifeSpan.Text <> "" Then
-            PopulateGrid(dgvModelos, modelChanges.SelectByIdModelsChangesHeaderApprovedFilter("", txtLifeSpan.Text, Guid.Parse(ddlUnit.Text), 6))
-        End If
-        If txtModel.Text <> "" And txtLifeSpan.Text <> "" Then
-            PopulateGrid(dgvModelos, modelChanges.SelectByIdModelsChangesHeaderApprovedFilter(txtModel.Text, txtLifeSpan.Text, Guid.Parse(ddlUnit.Text), 7))
+        dataTable.Columns.Add(New DataColumn("IdModelsChanges"))
+        dataTable.Columns.Add(New DataColumn("IdModelsChangesHeader"))
+        dataTable.Columns.Add(New DataColumn("IdCatUnits"))
+        dataTable.Columns.Add(New DataColumn("Model"))
+        dataTable.Columns.Add(New DataColumn("Lifespan"))
+        dataTable.Columns.Add(New DataColumn("Unit"))
+        dataTable.Columns.Add(New DataColumn("LastUser"))
+        dataTable.Columns.Add(New DataColumn("ApproverUser"))
+        dataTable.Columns.Add(New DataColumn("ApprovedOn"))
+
+        Return dataTable
+    End Function
+
+    ' Búsqueda de modelos
+    Protected Sub cmdSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        Dim idCatUnits As Guid
+
+        If ddlUnit.SelectedValue = "" Then
+            idCatUnits = Guid.Empty
+        Else
+            idCatUnits = Guid.Parse(ddlUnit.SelectedValue)
         End If
 
-
-
+        PopulateGrid(dgvModelos, modelChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, idCatUnits))
     End Sub
 
-    Protected Sub cmdExportExcel_Click(ByVal sender As System.Object,
-  ByVal e As System.EventArgs) Handles cmdExportExcel.Click
+    Protected Sub cmdExportExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdExportExcel.Click
 
         'PopulateGrid(dgvModelos, modelChanges.SelectByIdModelsChangesHeaderApprovedFilter())
 
@@ -105,7 +137,7 @@ Public Class CatConfiguracionCalculoDirecto
         range = objSheet.Range("A1", Reflection.Missing.Value)
         range = range.Resize(dgvModelos.Rows.Count + 1, dgvModelos.Columns.Count)
 
-        If (Me.FillWithStrings.Checked = False) Then
+        If True Then 'Me.FillWithStrings.Checked = False) Then
             'Create an array.
             Dim saRet(dgvModelos.Rows.Count, dgvModelos.Columns.Count) As String
 
@@ -158,100 +190,61 @@ Public Class CatConfiguracionCalculoDirecto
         objSheet = Nothing
         objSheets = Nothing
         objBooks = Nothing
-
-
-
-
-
-
-        ''''''''''''''''''''''''''''''''''''
-
     End Sub
 
     Protected Sub dgvModelos_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles dgvModelos.RowCommand
-        ' Grey out expired training courses
-        'Dim rowa As DataKeyArray = dgvModelos.DataKeys
 
+        Select Case e.CommandName
+            Case "Select"
+                Dim indexevent As Integer = Convert.ToInt32(e.CommandArgument)
+                Dim row As GridViewRow = dgvModelos.Rows.Item(indexevent)
 
-        lblSelectedModels.Visible = True
+                For Each checkrow In dgvSelectedModels.Rows
+                    If row.Cells(4).Text = checkrow.Cells(4).Text Then
+                        MsgBox("Este modelo ya esta seleccionado", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Modelo ya seleccionado")
+                        Exit Sub
+                    End If
+                Next
 
-        Dim indexevent As Integer = Convert.ToInt32(e.CommandArgument)
-        Dim row As GridViewRow = dgvModelos.Rows.Item(indexevent)
+                Dim dtable As Data.DataTable = GenerateTable()
 
+                Dim i As Integer = row.Cells.Count
 
+                Dim RowValues As Object() = {"", "", "", "", "", "", "", "", ""}
 
-        For Each checkrow In dgvSelectedModels.Rows
+                For index As Integer = 0 To i - 2
+                    RowValues(index) = row.Cells(index).Text
+                Next
 
-            If row.Cells(3).Text = checkrow.Cells(3).Text Then
-                MsgBox("Este modelo ya esta seleccionado", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Modelo ya seleccionado")
-                Exit Sub
-            End If
+                Dim dRow As DataRow
+                dRow = dtable.Rows.Add(RowValues)
 
-        Next
+                For Each copyrow In dgvSelectedModels.Rows
+                    For index As Integer = 0 To i - 2
+                        RowValues(index) = copyrow.Cells(index).Text
+                    Next
+                    dtable.Rows.Add(RowValues)
+                Next
 
+                dtable.AcceptChanges()
 
-
-
-        'Create datatable and columns
-        Dim dtable As New System.Data.DataTable
-
-        dtable.Columns.Add(New DataColumn("IdModelsChanges"))
-        dtable.Columns.Add(New DataColumn("IdModelsChangesHeader"))
-        dtable.Columns.Add(New DataColumn("IdCatUnits"))
-        dtable.Columns.Add(New DataColumn("Model"))
-        dtable.Columns.Add(New DataColumn("Lifespan"))
-        dtable.Columns.Add(New DataColumn("Unit"))
-        dtable.Columns.Add(New DataColumn("LastUser"))
-        dtable.Columns.Add(New DataColumn("ApproverUser"))
-        dtable.Columns.Add(New DataColumn("ApprovedOn"))
-
-
-
-        'Create counter to prevent out of bounds exception
-        Dim i As Integer = Row.Cells.Count
-
-        'Create object for RowValues
-        Dim RowValues As Object() = {"", "", "", "", "", "", "", "", ""}
-
-        'Fill row values appropriately
-        For index As Integer = 0 To i - 2
-            RowValues(index) = row.Cells(index).Text
-        Next
-
-        'create new data row
-        Dim dRow As DataRow
-        dRow = dtable.Rows.Add(RowValues)
-
-        For Each copyrow In dgvSelectedModels.Rows
-
-            For index As Integer = 0 To i - 2
-
-                RowValues(index) = copyrow.Cells(index).Text
-            Next
-            dtable.Rows.Add(RowValues)
-        Next
-
-
-        dtable.AcceptChanges()
-
-        'now bind datatable to gridview... 
-        dgvSelectedModels.DataSource = dtable
-        dgvSelectedModels.DataBind()
-
-
-
+                Session("SelectedModels") = dtable
+                PopulateGrid(dgvSelectedModels, dtable)
+                ToggleSelected()
+        End Select
     End Sub
 
 
-    'esto aun no jala
+    ' Botón para ir a editar
     Protected Sub cmdEdit_Click(sender As Object, e As EventArgs) Handles cmdEdit.Click
+        If dgvSelectedModels.Rows.Count > 0 Then
+            dgvEditModels.DataSource = CopySameTable(1)
+            dgvEditModels.DataBind()
 
-        dgvEditModels.DataSource = CopySameTable(1)
-        dgvEditModels.DataBind()
-
-        dgvModelos.Visible = False
-        dgvSelectedModels.Visible = False
-        lblModels.Visible = False
+            ToggleEdition(True)
+        Else
+            MsgBox("Se necesitan seleccionar uno o más modelos para editar", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
+        End If
     End Sub
 
     Protected Sub PopulateEditGrid()
@@ -302,7 +295,7 @@ Public Class CatConfiguracionCalculoDirecto
         If optionCopy = 1 Then
             For Each copyrow In dgvSelectedModels.Rows
 
-                For index As Integer = 0 To i - 1
+                For index As Integer = 0 To i - 2                   'Cambié esto a 2, según por la columna del Delete
 
                     RowValues(index) = copyrow.Cells(index).Text
                 Next
@@ -317,7 +310,7 @@ Public Class CatConfiguracionCalculoDirecto
         If optionCopy = 2 Then
             For Each copyrow In dgvEditModels.Rows
 
-                For index As Integer = 0 To i - 1
+                For index As Integer = 0 To i - 2                   'Cambié esto a 2, según por la columna del Delete
 
                     RowValues(index) = copyrow.Cells(index).Text
                 Next
@@ -330,7 +323,7 @@ Public Class CatConfiguracionCalculoDirecto
         If optionCopy = 3 Then
             For Each copyrow In dgvEditModels.Rows
 
-                For index As Integer = 0 To i - 1
+                For index As Integer = 0 To i - 2                   'Cambié esto a 2, según por la columna del Delete
 
                     RowValues(index) = copyrow.Cells(index).Text
                 Next
@@ -341,9 +334,7 @@ Public Class CatConfiguracionCalculoDirecto
 
         End If
 
-
-
-
+        Return dtable
     End Function
 
     Protected Sub dgvEditModels_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles dgvEditModels.RowUpdating
@@ -434,5 +425,20 @@ Public Class CatConfiguracionCalculoDirecto
         dgvEditModels.EditIndex = -1
         dgvEditModels.DataSource = dgvEditModels
         dgvEditModels.DataBind()
+    End Sub
+
+    Protected Sub dgvSelectedModels_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles dgvSelectedModels.RowDeleting
+        Dim dt As Data.DataTable = Session("SelectedModels")
+        dt.Rows.Remove(dt.Rows.Item(e.RowIndex))
+
+        Session("SelectedModels") = dt
+        PopulateGrid(dgvSelectedModels, dt)
+        ToggleSelected()
+    End Sub
+
+    Protected Sub cmdResetSelected_Click(sender As Object, e As EventArgs) Handles cmdResetSelected.Click
+        Session("SelectedModels") = GenerateTable()
+        PopulateGrid(dgvSelectedModels, Session("SelectedModels"))
+        ToggleSelected()
     End Sub
 End Class

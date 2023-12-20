@@ -79,7 +79,7 @@
 
 /* Estilos de Header*/
 .catHeader {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
     color: royalblue;
     width: 100%;
@@ -87,7 +87,7 @@
 }
 
 .catHeaderSub {
-    font-size: 16px;
+    font-size: 24px;
     color: #284775;
     margin-left: 10px;
     margin-right: 10px;

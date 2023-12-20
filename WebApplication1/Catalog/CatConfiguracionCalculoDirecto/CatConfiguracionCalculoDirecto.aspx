@@ -5,51 +5,49 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="UpdatePanelGeneral" runat="server">
         <ContentTemplate>
-            <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Catálogo de Configuración de Cálculo Directo"></asp:Label>
+            <asp:Label ID="lblTitle" runat="server" CssClass="catHeader" Text="Catálogo de Configuración de Cálculo Directo"></asp:Label>
 
             <div style="height: 32px">
-            </div>      
-            <table>
-                <tr>
-                    <td style="height: 17px; width: 128px; text-align: right">
-                        <asp:Label ID="lblModel" runat="server" Text="Modelo:" Width="70px"></asp:Label>
-                    </td>
-                    <td style="height: 17px; width: 128px; text-align: right">
-                        <asp:TextBox ID="txtModel" runat="server"></asp:TextBox>
-                    </td>
-                    <td style="height: 17px; width: 128px; text-align: right">
-                        <asp:Label ID="lblLifespan" runat="server" Text="Vida Útil:" Width="70px"></asp:Label>
-                    </td>
-                    <td style="height: 17px; width: 128px; text-align: right">
-                        <asp:TextBox ID="txtLifeSpan" runat="server"></asp:TextBox>
-                    </td>
-                    <td style="height: 17px; width: 128px; text-align: right">
-                        <asp:Label ID="lblUnit" runat="server" Text="Unidad:" Width="70px"></asp:Label>
-                    </td>
-                    <td style="height: 17px; width: 128px; text-align: right">
-                        <asp:DropDownList ID="ddlUnit" runat="server" AutoPostBack="True" Height="16px" style="margin-bottom: 0px"></asp:DropDownList>
-                    </td>
-                    <td style="height: 17px; width: 128px; text-align: right">
-                        <asp:Button ID="cmdSearch" runat="server" Text="Buscar" BackColor="#004680" ForeColor="#FFFFFF" />
-                    </td>
-                </tr>
-            </table>
 
-            <div style="width: 750px">
-                <div style="float: right">
-                    <asp:CheckBox ID="FillWithStrings" runat="server" visible="false"/>
-                    <asp:Button ID="cmdExportExcel" runat="server" Text="Exportar a Excel"  BackColor="#E2DED6" ForeColor="Black" />
-                    <asp:Button ID="cmdEdit" runat="server" Text="  Ir a Editar  " BackColor="#284775" ForeColor="#FFFFFF" />
+            </div>
+            
+            <div id="divHeader" runat="server">
+                <div runat="server" class="catDivHeader">
+                    <asp:Label ID="lblModel" runat="server" Text="Modelo:" CssClass="catLabel" ></asp:Label>
+                    <asp:TextBox ID="txtModel" runat="server" ></asp:TextBox>
+
+                    <asp:Label ID="lblLifespan" runat="server" Text="Vida Útil:" CssClass="catLabel"></asp:Label>
+                    <asp:TextBox ID="txtLifeSpan" runat="server" TextMode="Number"></asp:TextBox>
+
+                    <asp:Label ID="lblUnit" runat="server" Text="Unidad:" CssClass="catLabel"></asp:Label>
+                    <asp:DropDownList ID="ddlUnit" runat="server" AutoPostBack="True" CssClass="catDropDownList" AppendDataBoundItems="true">
+                        <asp:ListItem Text="Todas" Value="" /> 
+                    </asp:DropDownList>
+
+                    <asp:LinkButton ID="btnSearch" runat="server" class="catLinkButton" Text="Buscar <i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i> " ></asp:LinkButton>
+                </div>
+
+                <div style="height: 32px">
+
                 </div>
             </div>
 
-            <div id="divApprovedModels">
+
+            <div id="divApprovedModels" runat="server">
                 <table style="padding: 20px">
                     <tr>
-                        <td>
-                            <div>
-                                <asp:Label ID="lblModels" runat="server" Font-Size="18pt" Text="Modelos Aprobados" CssClass="catHeaderSub"></asp:Label>
-                                <asp:GridView ID="dgvModelos" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="700px" AllowPaging="True" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
+                        <td style="vertical-align: top;">
+                            <div style="width: 750px; padding: 0px 25px">
+                                <div class="catDivHeader">
+                                    <div style="width: 40%; float: left; text-align: left">
+                                        <asp:Label ID="lblModels" runat="server" Text="Modelos Aprobados" CssClass="catHeaderSub"></asp:Label>
+                                    </div>
+                                    <div style="margin-left: 40%; text-align: right">
+                                        <asp:Button ID="cmdExportExcel" runat="server" Text="Exportar a Excel"  CssClass="catButton" />
+                                        <asp:Button ID="cmdEdit" runat="server" Text="Ir a Editar" CssClass="catButtonAccept" />
+                                    </div>
+                                </div>
+                                <asp:GridView ID="dgvModelos" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" AllowPaging="True" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
                                     <Columns>
                                         <asp:BoundField DataField="IdModelsChanges" Visible="False"  />
                                         <asp:BoundField DataField="IdModelsChangesHeader" Visible="False"  />
@@ -70,10 +68,18 @@
                                 </asp:GridView>
                             </div>
                         </td>
-                        <td>
-                            <div id="divSelectedModels">
-                                <asp:Label ID="lblSelectedModels" runat="server" Font-Size="18pt" Text="Modelos Seleccionados" CssClass="catHeaderSub"></asp:Label>
-                                <asp:GridView  runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="600px" AllowPaging="True" ID="dgvSelectedModels">
+
+                        <td style="vertical-align: top;">
+                            <div id="divSelectedModels" style="width: 750px; padding: 0px 25px" runat="server" visible="false">
+                                <div class="catDivHeader">
+                                    <div style="width: 40%; float: left; text-align: left">
+                                        <asp:Label ID="lblSelectedModels" runat="server" Text="Modelos Seleccionados" CssClass="catHeaderSub"></asp:Label>
+                                    </div>
+                                    <div style="margin-left: 40%; text-align: right">
+                                        <asp:Button ID="cmdResetSelected" runat="server" Text="Reiniciar Seleccionados"  CssClass="catButton" />
+                                    </div>
+                                </div>
+                                <asp:GridView  runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="750px" AllowPaging="True" ID="dgvSelectedModels" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
                                     <Columns>
                                         <asp:BoundField DataField="IdModelsChanges" Visible="False" />
                                         <asp:BoundField DataField="IdModelsChangesHeader" Visible="False"  />
@@ -84,6 +90,8 @@
                                         <asp:BoundField DataField="LastUser" HeaderText="Usuario" SortExpression="LastUser" />
                                         <asp:BoundField DataField="ApproverUser" HeaderText="Aprobador" SortExpression="ApproverUser" />
                                         <asp:BoundField DataField="ApprovedOn" HeaderText="Fecha de Aprobación" SortExpression="ApprovedOn" />
+                                        
+                                        <asp:CommandField HeaderText="Acción" ShowDeleteButton="True" />
                                         
                                     </Columns>
                                     <RowStyle CssClass="dgvCatalogRowOdd" />
@@ -97,10 +105,14 @@
                     </tr>
                 </table>
             </div>
-            <asp:Label ID="lblMessage" runat="server" ForeColor="Red" Height="12px" Width="479px"></asp:Label><br />
-            <div id="divEditModels">
+
+            <div id="divEditModels" runat="server" visible="false">
                 <%-- Aquí la nueva tabla --%>
-                <asp:GridView  runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="600px" AllowPaging="True" ID="dgvEditModels">
+                <div class="catDivHeader">
+                    <asp:Label ID="Label1" runat="server" Text="Edición de Modelos" CssClass="catHeaderSub"></asp:Label>
+                    <asp:Label ID="lblMessage" runat="server" ForeColor="Red" Height="12px" Width="479px"></asp:Label>
+                </div>
+                <asp:GridView  runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="600px" AllowPaging="True" ID="dgvEditModels" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
                     <Columns>
                         <asp:BoundField DataField="IdModelsChanges" Visible="False" ReadOnly="true" />
                         <asp:BoundField DataField="IdModelsChangesHeader" Visible="False" ReadOnly="True" />
@@ -122,6 +134,11 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
+                    <RowStyle CssClass="dgvCatalogRowOdd" />
+                    <EditRowStyle BackColor="#999999" />
+                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                    <PagerStyle CssClass="dgvPaging"/>
+                    <AlternatingRowStyle CssClass="dgvCatalogRowEven" />
                 </asp:GridView>
             </div>
         </ContentTemplate>

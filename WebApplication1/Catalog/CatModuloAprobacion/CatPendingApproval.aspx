@@ -13,7 +13,7 @@
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Cambios pendientes de Aprobación" CssClass="catHeader"></asp:Label>
+            <asp:Label ID="lblTitle" runat="server" Text="Cambios pendientes de Aprobación" CssClass="catHeader"></asp:Label>
 
             <div style="height:32px">
 
@@ -39,7 +39,7 @@
 
                     <asp:Label ID="lblDateFilters" runat="server" Text="Buscar por Fecha: " CssClass="catLabel" ></asp:Label>
                     <asp:CheckBox ID="chkDateFilters" runat="server" AutoPostBack="true"/>
-                    <asp:LinkButton class="catLinkButton" ID="lBtnSearc"  runat="server" Text="Buscar <i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i> "></asp:LinkButton>
+                    <asp:LinkButton class="catLinkButton" ID="lBtnSearc"  runat="server" Text="Buscar <i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i> " visible="false"></asp:LinkButton>
                 </div>
 
                 <div runat="server" id="divDateFilters"  class="catDivHeader" visible="false">
@@ -126,7 +126,7 @@
                 <div style="margin-left: 2%;">
                     <div class="catDivHeader" style="width: 1400px;">
                         <div style="width: 30%; float: left; text-align: left">
-                            <asp:Label ID="lblModalsChanges" runat="server" Font-Size="18pt" Text="Modelos por Verificar" CssClass="catHeaderSub"></asp:Label>
+                            <asp:Label ID="lblModalsChanges" runat="server" Text="Modelos por Verificar" CssClass="catHeaderSub"></asp:Label>
                         </div>
                         <div style="margin-left: 30%; text-align: right">
                             <asp:Button ID="cmdCancelChange" runat="server" Text="Seleccionar otro Cambio" CssClass="catButton"/>
