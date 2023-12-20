@@ -101,7 +101,7 @@ Public Class CatConfiguracionCalculoDirecto
 
         PopulateGrid(dgvModelos, modelChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, idCatUnits))
     End Sub
-
+    'metodo para exportar la tabla a una hoja de excel
     Protected Sub cmdExportExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdExportExcel.Click
 
         'PopulateGrid(dgvModelos, modelChanges.SelectByIdModelsChangesHeaderApprovedFilter())
@@ -196,6 +196,22 @@ Public Class CatConfiguracionCalculoDirecto
 
         Select Case e.CommandName
             Case "Select"
+
+                Dim data As Data.DataTable = Session("Test")
+                'Dim datarow As DataRow = data.Rows(e.CommandSource)
+
+                Dim rowkey As DataKeyArray = dgvModelos.DataKeys
+                Dim rowkeySelected As DataKeyArray = dgvSelectedModels.DataKeys
+                Dim indexkey As Integer = Convert.ToInt32(e.CommandArgument)
+                Dim id As Guid = Guid.Parse(rowkey(indexkey).Values(0).ToString())
+                Dim idHeader As Guid = Guid.Parse(rowkey(indexkey).Values(1).ToString())
+                Dim idUnit As Guid = Guid.Parse(rowkey(indexkey).Values(2).ToString())
+                'Dim id As Guid = Guid.Parse(rowkey(indexkey).Value.ToString)
+                'Dim idheader As Guid = Guid.Parse(rowkey(indexkey).Values.Keys
+
+
+
+
                 Dim indexevent As Integer = Convert.ToInt32(e.CommandArgument)
                 Dim row As GridViewRow = dgvModelos.Rows.Item(indexevent)
 
@@ -210,9 +226,25 @@ Public Class CatConfiguracionCalculoDirecto
 
                 Dim i As Integer = row.Cells.Count
 
+
                 Dim RowValues As Object() = {"", "", "", "", "", "", "", "", ""}
 
-                For index As Integer = 0 To i - 2
+                For index As Integer = 0 To 2
+                    If index = 0 Then
+                        RowValues(index) = id
+                    End If
+
+                    If index = 1 Then
+                        RowValues(index) = idHeader
+                    End If
+
+                    If index = 2 Then
+                        RowValues(index) = idUnit
+                    End If
+
+                Next
+
+                For index As Integer = 3 To i - 2
                     RowValues(index) = row.Cells(index).Text
                 Next
 
@@ -220,7 +252,22 @@ Public Class CatConfiguracionCalculoDirecto
                 dRow = dtable.Rows.Add(RowValues)
 
                 For Each copyrow In dgvSelectedModels.Rows
-                    For index As Integer = 0 To i - 2
+                    'creo que los for se pueden sacar del for each pero lo dejo como estaba funcional
+                    For index As Integer = 0 To dgvSelectedModels.Rows.Count - 1
+
+                        For indexcell As Integer = 0 To 2
+
+                            RowValues(indexcell) = Guid.Parse(rowkeySelected(dgvSelectedModels.Rows(index).DataItem).Values(indexcell).ToString())
+
+
+                        Next
+
+
+
+                    Next
+
+
+                    For index As Integer = 3 To i - 2
                         RowValues(index) = copyrow.Cells(index).Text
                     Next
                     dtable.Rows.Add(RowValues)
@@ -238,8 +285,42 @@ Public Class CatConfiguracionCalculoDirecto
     ' Botón para ir a editar
     Protected Sub cmdEdit_Click(sender As Object, e As EventArgs) Handles cmdEdit.Click
         If dgvSelectedModels.Rows.Count > 0 Then
-            dgvEditModels.DataSource = CopySameTable(1)
-            dgvEditModels.DataBind()
+            'dgvEditModels.DataSource = CopySameTable(1)
+            'dgvEditModels.DataBind()
+
+            Dim rowkeySelected As DataKeyArray = dgvSelectedModels.DataKeys
+
+            Dim dtable As Data.DataTable = GenerateTable()
+
+            Dim i As Integer = dgvSelectedModels.Columns.Count
+            Dim RowValues As Object() = {"", "", "", "", "", "", "", "", ""}
+            For Each copyrow In dgvSelectedModels.Rows
+                'creo que los for se pueden sacar del for each pero lo dejo como estaba funcional
+                For index As Integer = 0 To dgvSelectedModels.Rows.Count - 1
+
+                    For indexcell As Integer = 0 To 2
+                        RowValues(indexcell) = Guid.Parse(rowkeySelected(dgvSelectedModels.Rows(index).DataItem).Values(indexcell).ToString())
+
+                    Next
+
+                Next
+
+
+                For index As Integer = 3 To i - 2
+                    RowValues(index) = copyrow.Cells(index).Text
+                Next
+                dtable.Rows.Add(RowValues)
+            Next
+
+            dtable.AcceptChanges()
+
+            Session("SelectedModels") = dtable
+            PopulateGrid(dgvEditModels, dtable)
+
+
+
+
+
 
             ToggleEdition(True)
         Else
