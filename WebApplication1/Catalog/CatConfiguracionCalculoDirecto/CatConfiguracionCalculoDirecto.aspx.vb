@@ -19,6 +19,7 @@ Public Class CatConfiguracionCalculoDirecto
     ' Variables de las conexiones a BD
     Dim modelChangesHeader As ED_ModelsChangesHeader = New ED_ModelsChangesHeader()
     Dim modelChanges As ED_ModelsChanges = New ED_ModelsChanges()
+    Dim catUnits As CatUnits = New CatUnits()
     Dim userPlaceholder As String
 
     ' Carga de página
@@ -35,7 +36,6 @@ Public Class CatConfiguracionCalculoDirecto
 
     ' Llenado de dropdown
     Protected Sub PopulateDropDown()
-        Dim catUnits As CatUnits = New CatUnits()
         ddlUnit.DataSource = catUnits.SelectAll("", False).AsDataView
         ddlUnit.DataTextField = "Unit"
         ddlUnit.DataValueField = "IdUnit"
@@ -43,7 +43,7 @@ Public Class CatConfiguracionCalculoDirecto
     End Sub
 
     ' Llenado de tablas
-    Protected Sub PopulateGrid(dgv As GridView, dt As System.Data.DataTable)
+    Protected Sub PopulateGrid(dgv As GridView, dt As Data.DataTable)
         dgv.DataSource = dt
         dgv.DataBind()
     End Sub
@@ -89,6 +89,15 @@ Public Class CatConfiguracionCalculoDirecto
         Return dataTable
     End Function
 
+
+
+
+
+
+
+
+
+
     ' Búsqueda de modelos
     Protected Sub cmdSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         Dim idCatUnits As Guid
@@ -101,25 +110,42 @@ Public Class CatConfiguracionCalculoDirecto
 
         PopulateGrid(dgvModelos, modelChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, idCatUnits))
     End Sub
-    'metodo para exportar la tabla a una hoja de excel
+
+    ' Botón para ir a editar
+    Protected Sub cmdEdit_Click(sender As Object, e As EventArgs) Handles cmdEdit.Click
+        If dgvSelectedModels.Rows.Count > 0 Then
+
+            Dim rowkeySelected As DataKeyArray = dgvSelectedModels.DataKeys
+
+            Dim dtable As Data.DataTable = GenerateTable()
+
+            Dim i As Integer = dgvSelectedModels.Columns.Count
+            Dim RowValues As Object() = {"", "", "", "", "", "", "", "", ""}
+            For Each copyrow In dgvSelectedModels.Rows
+                'creo que los for se pueden sacar del for each pero lo dejo como estaba funcional
+                For index As Integer = 0 To dgvSelectedModels.Rows.Count - 1
+                    For indexcell As Integer = 0 To 2
+                        RowValues(indexcell) = Guid.Parse(rowkeySelected(dgvSelectedModels.Rows(index).DataItem).Values(indexcell).ToString())
+                    Next
+                Next
+                For index As Integer = 3 To i - 2
+                    RowValues(index) = copyrow.Cells(index).Text
+                Next
+                dtable.Rows.Add(RowValues)
+            Next
+
+            dtable.AcceptChanges()
+
+            Session("SelectedModels") = dtable
+            PopulateGrid(dgvEditModels, dtable)
+            ToggleEdition(True)
+        Else
+            MsgBox("Se necesitan seleccionar uno o más modelos para editar", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
+        End If
+    End Sub
+
+    ' Método para exportar la tabla a una hoja de excel
     Protected Sub cmdExportExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdExportExcel.Click
-
-        'PopulateGrid(dgvModelos, modelChanges.SelectByIdModelsChangesHeaderApprovedFilter())
-
-        'Dim app As Microsoft.Office.Interop.Excel._Application = New Microsoft.Office.Interop.Excel.Application()
-
-        'Dim workbook As Microsoft.Office.Interop.Excel._Workbook = app.Workbooks.Add(Type.Missing)
-
-        'Dim worksheet As Microsoft.Office.Interop.Excel._Worksheet = Nothing
-
-        'app.Visible = True
-
-        'worksheet = workbook.Sheets("Sheet1")
-        'worksheet = workbook.ActiveSheet
-
-        'Dim Today As DateTime = DateTime.Today
-        'worksheet.Name = "Modelos_FE" + Today.ToString("dd-MM-yyyy")
-
         Dim objBooks As Excel.Workbooks
         Dim objSheets As Excel.Sheets
         Dim objSheet As Excel._Worksheet
@@ -192,6 +218,15 @@ Public Class CatConfiguracionCalculoDirecto
         objBooks = Nothing
     End Sub
 
+
+
+
+
+
+
+
+
+
     Protected Sub dgvModelos_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles dgvModelos.RowCommand
 
         Select Case e.CommandName
@@ -209,14 +244,11 @@ Public Class CatConfiguracionCalculoDirecto
                 'Dim id As Guid = Guid.Parse(rowkey(indexkey).Value.ToString)
                 'Dim idheader As Guid = Guid.Parse(rowkey(indexkey).Values.Keys
 
-
-
-
                 Dim indexevent As Integer = Convert.ToInt32(e.CommandArgument)
                 Dim row As GridViewRow = dgvModelos.Rows.Item(indexevent)
 
                 For Each checkrow In dgvSelectedModels.Rows
-                    If row.Cells(4).Text = checkrow.Cells(4).Text Then
+                    If row.Cells(3).Text = checkrow.Cells(3).Text Then
                         MsgBox("Este modelo ya esta seleccionado", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Modelo ya seleccionado")
                         Exit Sub
                     End If
@@ -225,7 +257,6 @@ Public Class CatConfiguracionCalculoDirecto
                 Dim dtable As Data.DataTable = GenerateTable()
 
                 Dim i As Integer = row.Cells.Count
-
 
                 Dim RowValues As Object() = {"", "", "", "", "", "", "", "", ""}
 
@@ -241,7 +272,6 @@ Public Class CatConfiguracionCalculoDirecto
                     If index = 2 Then
                         RowValues(index) = idUnit
                     End If
-
                 Next
 
                 For index As Integer = 3 To i - 2
@@ -254,19 +284,10 @@ Public Class CatConfiguracionCalculoDirecto
                 For Each copyrow In dgvSelectedModels.Rows
                     'creo que los for se pueden sacar del for each pero lo dejo como estaba funcional
                     For index As Integer = 0 To dgvSelectedModels.Rows.Count - 1
-
                         For indexcell As Integer = 0 To 2
-
                             RowValues(indexcell) = Guid.Parse(rowkeySelected(dgvSelectedModels.Rows(index).DataItem).Values(indexcell).ToString())
-
-
                         Next
-
-
-
                     Next
-
-
                     For index As Integer = 3 To i - 2
                         RowValues(index) = copyrow.Cells(index).Text
                     Next
@@ -282,231 +303,8 @@ Public Class CatConfiguracionCalculoDirecto
     End Sub
 
 
-    ' Botón para ir a editar
-    Protected Sub cmdEdit_Click(sender As Object, e As EventArgs) Handles cmdEdit.Click
-        If dgvSelectedModels.Rows.Count > 0 Then
-            'dgvEditModels.DataSource = CopySameTable(1)
-            'dgvEditModels.DataBind()
-
-            Dim rowkeySelected As DataKeyArray = dgvSelectedModels.DataKeys
-
-            Dim dtable As Data.DataTable = GenerateTable()
-
-            Dim i As Integer = dgvSelectedModels.Columns.Count
-            Dim RowValues As Object() = {"", "", "", "", "", "", "", "", ""}
-            For Each copyrow In dgvSelectedModels.Rows
-                'creo que los for se pueden sacar del for each pero lo dejo como estaba funcional
-                For index As Integer = 0 To dgvSelectedModels.Rows.Count - 1
-
-                    For indexcell As Integer = 0 To 2
-                        RowValues(indexcell) = Guid.Parse(rowkeySelected(dgvSelectedModels.Rows(index).DataItem).Values(indexcell).ToString())
-
-                    Next
-
-                Next
 
 
-                For index As Integer = 3 To i - 2
-                    RowValues(index) = copyrow.Cells(index).Text
-                Next
-                dtable.Rows.Add(RowValues)
-            Next
-
-            dtable.AcceptChanges()
-
-            Session("SelectedModels") = dtable
-            PopulateGrid(dgvEditModels, dtable)
-
-
-
-
-
-
-            ToggleEdition(True)
-        Else
-            MsgBox("Se necesitan seleccionar uno o más modelos para editar", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
-        End If
-    End Sub
-
-    Protected Sub PopulateEditGrid()
-        'Dim dt As CatConfiguracionCalculoDirecto = New CatConfiguracionCalculoDirecto
-        dgvEditModels.DataSource = CopySameTable(2)
-        dgvEditModels.DataBind()
-    End Sub
-
-    Protected Sub dgvEditModels_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles dgvEditModels.RowEditing
-        dgvEditModels.EditIndex = e.NewEditIndex
-        PopulateEditGrid()
-    End Sub
-
-    Protected Function CopySameTable(optionCopy As Integer)
-        'Dim rowa As DataKeyArray = dgvModelos.DataKeys
-        'Dim indexevent As Integer = Convert.ToInt32(e.CommandArgument)
-        Dim row As GridViewRow = dgvSelectedModels.Rows.Item(0)
-
-
-        Dim dtable As New System.Data.DataTable
-
-        dtable.Columns.Add(New DataColumn("IdModelsChanges"))
-        dtable.Columns.Add(New DataColumn("IdModelsChangesHeader"))
-        dtable.Columns.Add(New DataColumn("IdCatUnits"))
-        dtable.Columns.Add(New DataColumn("Model"))
-        dtable.Columns.Add(New DataColumn("Lifespan"))
-        dtable.Columns.Add(New DataColumn("Unit"))
-        dtable.Columns.Add(New DataColumn("LastUser"))
-        dtable.Columns.Add(New DataColumn("ApproverUser"))
-        dtable.Columns.Add(New DataColumn("ApprovedOn"))
-
-
-
-        'Create counter to prevent out of bounds exception
-        Dim i As Integer = row.Cells.Count
-
-        'Create object for RowValues
-        Dim RowValues As Object() = {"", "", "", "", "", "", "", "", ""}
-
-        'Fill row values appropriately
-        'For index As Integer = 0 To i - 2
-        'RowValues(index) = row.Cells(index).Text
-        'Next
-
-        'create New Data row
-        'Dim dRow As DataRow
-        'dRow = dtable.Rows.Add(RowValues)
-        If optionCopy = 1 Then
-            For Each copyrow In dgvSelectedModels.Rows
-
-                For index As Integer = 0 To i - 2                   'Cambié esto a 2, según por la columna del Delete
-
-                    RowValues(index) = copyrow.Cells(index).Text
-                Next
-                dtable.Rows.Add(RowValues)
-            Next
-
-
-            dtable.AcceptChanges()
-            Return dtable
-
-        End If
-        If optionCopy = 2 Then
-            For Each copyrow In dgvEditModels.Rows
-
-                For index As Integer = 0 To i - 2                   'Cambié esto a 2, según por la columna del Delete
-
-                    RowValues(index) = copyrow.Cells(index).Text
-                Next
-                dtable.Rows.Add(RowValues)
-            Next
-            dtable.AcceptChanges()
-            Return dtable
-
-        End If
-        If optionCopy = 3 Then
-            For Each copyrow In dgvEditModels.Rows
-
-                For index As Integer = 0 To i - 2                   'Cambié esto a 2, según por la columna del Delete
-
-                    RowValues(index) = copyrow.Cells(index).Text
-                Next
-                dtable.Rows.Add(RowValues)
-            Next
-            dtable.AcceptChanges()
-            Return dtable
-
-        End If
-
-        Return dtable
-    End Function
-
-    Protected Sub dgvEditModels_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles dgvEditModels.RowUpdating
-        Try
-            'lblMessage.Text = ""
-
-            Dim catUnits As CatUnits = New CatUnits()
-            Dim row As GridViewRow = dgvEditModels.Rows(e.RowIndex)
-            'Dim names As DataKeyArray = dgvEditModels.DataKeys()
-            'Dim idUnit As Guid = Guid.Parse(names.Item(e.RowIndex).Value.ToString())
-            Dim strModel As String = CType((row.Cells(3).Controls(0)), WebControls.TextBox).Text.Trim.ToUpper()
-            Dim strLifespan As String = CType((row.Cells(4).Controls(0)), WebControls.TextBox).Text.Trim.ToUpper()
-            Dim strUnit As String = CType((row.Cells(5).Controls(0)), WebControls.TextBox).Text.Trim.ToUpper()
-
-            If (strModel = "") Then
-                lblMessage.Text = "Favor de escribir un nombre para el Modelo"
-                Return
-            End If
-
-            If (strLifespan = "") Then
-                lblMessage.Text = "Favor de escribir un valor para la Vida Util"
-                Return
-            End If
-
-            If (strUnit = "") Then
-                lblMessage.Text = "Favor de escribir un nombre para la Unidad"
-                Return
-            End If
-
-            If (Not Regex.IsMatch(strLifespan, "^[0-9 ]+$")) Then
-                lblMessage.Text = "Favor de escribir un valor numerico"
-                Return
-            End If
-            'Dim find As String = "IdUnit ='" + idUnit.ToString + "'"
-            'Dim temp As Integer = catUnits.SelectAll("", False).Select(find).Count
-            'If (temp = 0) Then
-            'If (catUnits.AlreadyExistUnit(idUnit, strUnit)) Then
-            'lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Unidad con el nombre ingresado: [" + strUnit + "]"
-            'Else
-            'catUnits.Insert(strUnit, strLifespan, True, "Admin")
-            'MsgBox("Se agregó el registro con éxito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Éxito")
-            'catUnits = Nothing
-
-            'dgvEditModels.EditIndex = -1
-            'CopySameTable(2)
-            'PopulateGrid("", False)
-            'End If
-            'Else
-            'If (catUnits.AlreadyExistUnit(idUnit, strUnit)) Then
-            'lblMessage.Text = "No es posble guardar los cambios debido a que ya existe una Unidad con el nombre ingresado: [" + strUnit + "]"
-            'Else
-            'catUnits.Update(idUnit, strUnit, strLifespan, True, "Admin")
-            dgvEditModels.EditIndex = -1
-            MsgBox("Se actualizó el registro con éxito", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Éxito")
-            catUnits = Nothing
-            e.Cancel = True
-
-            'PopulateGrid(dgvEditModels, modelChanges.SelectByIdModelsChangesHeaderApprovedUnitID())
-
-            CopySameTable(2)
-
-            'PopulateGrid("", False)
-            'End If
-            'End If
-
-        Catch ex As FormatException
-            lblMessage.Text = "Favor de escribir un número válido para el valor de la Unidad"
-
-        Catch ex As OverflowException
-            lblMessage.Text = "El valor de la Unidad es demasiado grande para guardar"
-
-        Catch ex As Exception
-            lblMessage.Text = "Ocurrió un error al intentar guardar los datos: " + ex.Message
-
-        End Try
-    End Sub
-
-    Protected Sub UpdateDgvAfterUpdate()
-
-    End Sub
-
-
-    Protected Sub dgvEditModels_RowUpdated(sender As Object, e As GridViewUpdatedEventArgs) Handles dgvEditModels.RowUpdated
-
-    End Sub
-
-    Protected Sub dgvEditModels_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles dgvEditModels.RowCancelingEdit
-        dgvEditModels.EditIndex = -1
-        dgvEditModels.DataSource = dgvEditModels
-        dgvEditModels.DataBind()
-    End Sub
 
     Protected Sub dgvSelectedModels_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles dgvSelectedModels.RowDeleting
         Dim dt As Data.DataTable = Session("SelectedModels")
@@ -518,8 +316,149 @@ Public Class CatConfiguracionCalculoDirecto
     End Sub
 
     Protected Sub cmdResetSelected_Click(sender As Object, e As EventArgs) Handles cmdResetSelected.Click
-        Session("SelectedModels") = GenerateTable()
-        PopulateGrid(dgvSelectedModels, Session("SelectedModels"))
-        ToggleSelected()
+        Dim confirmed As Integer = MsgBox("Se reiniciará el proceso de selección de modelos. ¿Desea deseleccionar todo y empezar de nuevo?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
+
+        If confirmed = MsgBoxResult.Yes Then
+            Session("SelectedModels") = GenerateTable()
+            PopulateGrid(dgvSelectedModels, Session("SelectedModels"))
+            ToggleSelected()
+        Else
+
+        End If
     End Sub
+
+
+
+
+    Protected Sub cmdCancelEdit_Click(sender As Object, e As EventArgs) Handles cmdCancelEdit.Click
+        Dim confirmed As Integer = MsgBox("Se reiniciará el proceso de selección de modelos. ¿Desea deseleccionar todo y empezar de nuevo?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
+
+        If confirmed = MsgBoxResult.Yes Then
+            Session("SelectedModels") = GenerateTable()
+            PopulateGrid(dgvSelectedModels, Session("SelectedModels"))
+            ToggleEdition(False)
+            ToggleSelected()
+        Else
+
+        End If
+    End Sub
+
+    Protected Sub dgvEditModels_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles dgvEditModels.RowEditing
+        dgvEditModels.EditIndex = e.NewEditIndex
+
+        Dim dt As Data.DataTable = Session("SelectedModels")
+        dgvEditModels.DataSource = dt
+        dgvEditModels.DataBind()
+
+        Dim unit = dt.Rows(e.NewEditIndex).Item(5).ToString
+        Dim units = catUnits.SelectAll("", False).AsDataView
+
+        Dim ddlEdit As DropDownList = DirectCast(dgvEditModels.Rows(e.NewEditIndex).FindControl("txtEditUnit"), DropDownList)
+        ddlEdit.DataSource = units
+        ddlEdit.DataTextField = "Unit"
+        ddlEdit.DataValueField = "IdUnit"
+        ddlEdit.DataBind()
+        ddlEdit.Items.FindByText(unit).Selected = True
+    End Sub
+
+    Protected Sub dgvEditModels_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles dgvEditModels.RowCancelingEdit
+        dgvEditModels.EditIndex = -1
+        dgvEditModels.DataSource = DirectCast(Session("SelectedModels"), Data.DataTable)
+        dgvEditModels.DataBind()
+    End Sub
+
+    Protected Sub dgvEditModels_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles dgvEditModels.RowUpdating
+        Dim dt As Data.DataTable = DirectCast(Session("SelectedModels"), Data.DataTable)
+        Dim row As DataRow = dt.Rows(e.RowIndex)
+
+        Dim txtEditModel As WebControls.TextBox = DirectCast(dgvEditModels.Rows(e.RowIndex).FindControl("txtEditModel"), WebControls.TextBox)
+        Dim txtEditLifespan As WebControls.TextBox = DirectCast(dgvEditModels.Rows(e.RowIndex).FindControl("txtEditLifespan"), WebControls.TextBox)
+        Dim ddlEditUnit As DropDownList = DirectCast(dgvEditModels.Rows(e.RowIndex).FindControl("txtEditUnit"), DropDownList)
+
+        Try
+            lblMessage.Text = ""
+
+            If (txtEditModel.Text = "") Then
+                lblMessage.Text = "Favor de escribir un nombre para el Modelo"
+                Return
+            End If
+
+            If (txtEditLifespan.Text = "") Then
+                lblMessage.Text = "Favor de escribir un valor para la Vida Útil"
+                Return
+            End If
+
+            If (ddlEditUnit.Text = "") Then
+                lblMessage.Text = "Favor de seleccionar una Unidad"
+                Return
+            End If
+
+            If (Not Regex.IsMatch(txtEditLifespan.Text, "^[0-9 ]+$")) Then
+                lblMessage.Text = "Favor de escribir un valor numérico para la Vida Útil"
+                Return
+            End If
+
+            If (modelChanges.AlreadyExistModelChange(Guid.Parse(row("IdModelsChanges")), txtEditModel.Text)) Then
+                lblMessage.Text = "No es posble ingresar el Modelo debido a que ya existe un Modelo activo registrado con ese nombre: [" + txtEditModel.Text + "]"
+                Return
+            End If
+
+        Catch ex As FormatException
+            lblMessage.Text = "Favor de escribir un número válido para el valor de la Unidad"
+
+        Catch ex As OverflowException
+            lblMessage.Text = "El valor de la Unidad es demasiado grande para guardar"
+
+        Catch ex As Exception
+            lblMessage.Text = "Ocurrió un error al intentar guardar los datos: " + ex.Message
+
+        End Try
+
+        row("IdCatUnits") = ddlEditUnit.SelectedValue
+        row("Model") = txtEditModel.Text
+        row("Lifespan") = txtEditLifespan.Text
+        row("Unit") = ddlEditUnit.SelectedItem
+
+        dgvEditModels.EditIndex = -1
+
+        Session("SelectedModels") = dt
+        dgvEditModels.DataSource = dt
+        dgvEditModels.DataBind()
+    End Sub
+
+    Protected Sub dgvEditModels_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles dgvEditModels.RowDeleting
+        Dim dt As Data.DataTable = DirectCast(Session("SelectedModels"), Data.DataTable)
+
+        dt.Rows(e.RowIndex).Delete()
+
+        Session("SelectedModels") = dt
+        dgvEditModels.DataSource = dt
+        dgvEditModels.DataBind()
+    End Sub
+
+
+
+    'Protected Sub dgvEditModels_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles dgvEditModels.RowEditing
+    '    dgvEditModels.EditIndex = e.NewEditIndex
+    '    PopulateEditGrid()
+    'End Sub
+
+    'Protected Sub dgvEditModels_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles dgvEditModels.RowUpdating
+
+    'End Sub
+
+
+    'Protected Sub dgvEditModels_RowUpdated(sender As Object, e As GridViewUpdatedEventArgs) Handles dgvEditModels.RowUpdated
+
+    'End Sub
+
+    'Protected Sub dgvEditModels_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles dgvEditModels.RowCancelingEdit
+    '    dgvEditModels.EditIndex = -1
+    '    dgvEditModels.DataSource = dgvEditModels
+    '    dgvEditModels.DataBind()
+    'End Sub
+
+
+
+
 End Class

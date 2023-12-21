@@ -194,13 +194,31 @@ Partial Public Class CatConfiguracionCalculoDirecto
     Protected WithEvents divEditModels As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''Label1 control.
+    '''lblEditModels control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblEditModels As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''cmdCancelEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdCancelEdit As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''cmdApproveEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdApproveEdit As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''lblMessage control.

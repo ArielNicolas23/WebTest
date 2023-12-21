@@ -108,38 +108,74 @@
 
             <div id="divEditModels" runat="server" visible="false">
                 <%-- Aquí la nueva tabla --%>
-                <div class="catDivHeader">
-                    <asp:Label ID="Label1" runat="server" Text="Edición de Modelos" CssClass="catHeaderSub"></asp:Label>
-                    <asp:Label ID="lblMessage" runat="server" ForeColor="Red" Height="12px" Width="479px"></asp:Label>
+                <div style="width: 750px; padding: 0px 25px">
+                    <div class="catDivHeader">
+                        <div style="width: 30%; float: left; text-align: left">
+                            <asp:Label ID="lblEditModels" runat="server" Text="Edición de Modelos" CssClass="catHeaderSub"></asp:Label>
+                        </div>
+                        <div style="margin-left: 30%; text-align: right">
+                            <asp:Button ID="cmdCancelEdit" runat="server" Text="Cancelar Edición"  CssClass="catButton" />
+                            <asp:Button ID="cmdApproveEdit" runat="server" Text="Aprobar Cambios" CssClass="catButtonAccept" />
+                        </div>
+                    </div>
+                    <div style="margin: 10px 0px">
+                        <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
+                    </div>
+                    <asp:GridView  runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" AllowPaging="True" ID="dgvEditModels" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
+                        <Columns>
+                            <asp:BoundField DataField="IdModelsChanges" Visible="False" ReadOnly="True" />
+                            <asp:BoundField DataField="IdModelsChangesHeader" Visible="False" ReadOnly="True" />
+                            <asp:BoundField DataField="IdCatUnits" HeaderText="IdUnidad" ReadOnly="True" visible="False" />
+                            <%--<asp:BoundField DataField="Model" HeaderText="Modelo" SortExpression="Modelo" />--%>
+                            <asp:TemplateField HeaderText="Modelo">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEditModel" runat="server" Text='<%# Eval("Model") %>'></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtEditModel" runat="server" Text='<%# Bind("Model") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+                            <%--<asp:BoundField DataField="Lifespan" HeaderText="Vida Útil" SortExpression="VidaUtil" />--%>
+                            <asp:TemplateField HeaderText="Vida Útil">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEditLifespan" runat="server" Text='<%# Eval("Lifespan") %>'></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txtEditLifespan" runat="server" Text='<%# Bind("Lifespan") %>' TextMode="Number"></asp:TextBox>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+                            <%--<asp:BoundField DataField="Unit" HeaderText="Unidad" SortExpression="Unidad" />--%>
+                            <asp:TemplateField HeaderText="Unidad">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEditUnit" runat="server" Text='<%# Eval("Unit") %>'></asp:Label>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:DropDownList ID="txtEditUnit" runat="server">
+
+                                    </asp:DropDownList>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="LastUser" HeaderText="Usuario" SortExpression="LastUser" ReadOnly="True"/>
+                            <asp:BoundField DataField="ApproverUser" HeaderText="Aprobador" SortExpression="ApproverUser" ReadOnly="True"/>
+                            <asp:BoundField DataField="ApprovedOn" HeaderText="Fecha de Aprobación" SortExpression="ApprovedOn" ReadOnly="True"/>
+                            <asp:TemplateField>
+                                <EditItemTemplate>
+                                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="&lt;i class='fa fa-regular fa-check' style='color:#333333;' data-toggle='tooltip' title='Actualizar'&gt;&lt;/i&gt;"></asp:LinkButton>
+                                    &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="&lt;i class='fa fa-regular fa-ban' style='color:#333333;' data-toggle='tooltip' title='Cancelar'&gt;&lt;/i&gt;"></asp:LinkButton>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="&lt;i class='fa fa-regular fa-edit' style='color:#333333;' data-toggle='tooltip' title='Editar campo'&gt;&lt;/i&gt;"></asp:LinkButton>
+                                    &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Delete" Text="&lt;i class='fa fa-regular fa-trash' style='color:#333333;' data-toggle='tooltip' title='Eliminar campo'&gt;&lt;/i&gt;"></asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <RowStyle CssClass="dgvCatalogRowOdd" />
+                        <EditRowStyle BackColor="#999999" />
+                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                        <PagerStyle CssClass="dgvPaging"/>
+                        <AlternatingRowStyle CssClass="dgvCatalogRowEven" />
+                    </asp:GridView>
                 </div>
-                <asp:GridView  runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="600px" AllowPaging="True" ID="dgvEditModels" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
-                    <Columns>
-                        <asp:BoundField DataField="IdModelsChanges" Visible="False" ReadOnly="true" />
-                        <asp:BoundField DataField="IdModelsChangesHeader" Visible="False" ReadOnly="True" />
-                        <asp:BoundField DataField="IdUnit" HeaderText="IdUnidad" ReadOnly="True" visible="false" />
-                        <asp:BoundField DataField="Model" HeaderText="Modelo" SortExpression="Modelo" />
-                        <asp:BoundField DataField="Lifespan" HeaderText="Vida Útil" SortExpression="VidaUtil" />
-                        <asp:BoundField DataField="Unit" HeaderText="Unidad" SortExpression="Unidad" />
-                        <asp:BoundField DataField="LastUser" HeaderText="Usuario" SortExpression="LastUser" />
-                        <asp:BoundField DataField="ApproverUser" HeaderText="Aprobador" SortExpression="ApproverUser" />
-                        <asp:BoundField DataField="ApprovedOn" HeaderText="Fecha de Aprobación" SortExpression="ApprovedOn" />
-                        <asp:TemplateField>
-                            <EditItemTemplate>
-                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="&lt;i class='fa fa-regular fa-check' style='color:#333333;' data-toggle='tooltip' title='Actualizar'&gt;&lt;/i&gt;"></asp:LinkButton>
-                                &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="&lt;i class='fa fa-regular fa-ban' style='color:#333333;' data-toggle='tooltip' title='Cancelar'&gt;&lt;/i&gt;"></asp:LinkButton>
-                            </EditItemTemplate>
-                            <ItemTemplate>
-                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="&lt;i class='fa fa-regular fa-edit' style='color:#333333;' data-toggle='tooltip' title='Editar campo'&gt;&lt;/i&gt;"></asp:LinkButton>
-                                &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Delete" Text="&lt;i class='fa fa-regular fa-trash' style='color:#333333;' data-toggle='tooltip' title='Eliminar campo'&gt;&lt;/i&gt;"></asp:LinkButton>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                    <RowStyle CssClass="dgvCatalogRowOdd" />
-                    <EditRowStyle BackColor="#999999" />
-                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                    <PagerStyle CssClass="dgvPaging"/>
-                    <AlternatingRowStyle CssClass="dgvCatalogRowEven" />
-                </asp:GridView>
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
