@@ -234,6 +234,7 @@ Public Class ED_ModelsChanges
             result.Columns.Add("LastUser", GetType(String))
             result.Columns.Add("ApproverUser", GetType(String))
             result.Columns.Add("ApprovedOn", GetType(String))
+            result.Columns.Add("IsChecked", GetType(Boolean))
             conn.Open()
 
             Dim reader As SqlDataReader = cmd.ExecuteReader()
@@ -251,7 +252,7 @@ Public Class ED_ModelsChanges
                 row("LastUser") = reader.GetString(6)
                 row("ApproverUser") = reader.GetString(7)
                 row("ApprovedOn") = reader.GetDateTime(8).ToString("dd/MMM/yyyy")
-
+                row("IsChecked") = False
                 result.Rows.Add(row)
 
             End While

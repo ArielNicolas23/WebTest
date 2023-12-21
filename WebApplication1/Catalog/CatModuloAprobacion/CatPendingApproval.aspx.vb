@@ -64,7 +64,7 @@ Public Class CatModuloAprobacion
                 Dim id As Guid = Guid.Parse(row(index).Value.ToString)
                 Session("CurrentID") = id
 
-                Select Case DataRow.Item(11).ToString
+                Select Case datarow.Item(11).ToString
                     Case "Revisar"
 
                         lblTitle.Text = "Detalles de Modelo"

@@ -58,7 +58,11 @@
                                         <asp:BoundField DataField="LastUser" HeaderText="Usuario" SortExpression="LastUser" />
                                         <asp:BoundField DataField="ApproverUser" HeaderText="Aprobador" SortExpression="ApproverUser" />
                                         <asp:BoundField DataField="ApprovedOn" HeaderText="Fecha de Aprobación" SortExpression="ApprovedOn" />
-                                        <asp:CommandField HeaderText="Acción" ShowSelectButton="True" />
+                                        <asp:TemplateField HeaderText="Verificar">
+                                        <ItemTemplate>
+                                          <asp:CheckBox ID="IsChecked" runat="server" AutoPostBack="true" Checked='<%#Convert.ToBoolean(Eval("IsChecked"))%>' OnCheckedChanged="OnChangeIsChecked"/>
+                                        </ItemTemplate>
+                                        </asp:TemplateField>
                                     </Columns>
                                     <RowStyle CssClass="dgvCatalogRowOdd" />
                                     <EditRowStyle BackColor="#999999" />
@@ -81,6 +85,7 @@
                                 </div>
                                 <asp:GridView  runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="750px" AllowPaging="True" ID="dgvSelectedModels" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
                                     <Columns>
+                                        <asp:CommandField HeaderText="Acción" ShowDeleteButton="True" />
                                         <asp:BoundField DataField="IdModelsChanges" Visible="False" />
                                         <asp:BoundField DataField="IdModelsChangesHeader" Visible="False"  />
                                         <asp:BoundField DataField="IdCatUnits" Visible="False" />
@@ -91,7 +96,7 @@
                                         <asp:BoundField DataField="ApproverUser" HeaderText="Aprobador" SortExpression="ApproverUser" />
                                         <asp:BoundField DataField="ApprovedOn" HeaderText="Fecha de Aprobación" SortExpression="ApprovedOn" />
                                         
-                                        <asp:CommandField HeaderText="Acción" ShowDeleteButton="True" />
+                                        
                                         
                                     </Columns>
                                     <RowStyle CssClass="dgvCatalogRowOdd" />

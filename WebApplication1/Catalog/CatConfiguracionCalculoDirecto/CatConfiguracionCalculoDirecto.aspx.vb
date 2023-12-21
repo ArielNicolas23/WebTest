@@ -29,8 +29,11 @@ Public Class CatConfiguracionCalculoDirecto
 
         If Not Page.IsPostBack Then
             Session("SelectedModels") = GenerateTable()
+            Session("EditModels") = GenerateTable()
             PopulateDropDown()
-            PopulateGrid(dgvModelos, modelChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, Guid.Empty))
+            Session("Models") = modelChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, Guid.Empty)
+            PopulateGrid(dgvModelos, Session("Models"))
+
         End If
     End Sub
 
@@ -113,7 +116,9 @@ Public Class CatConfiguracionCalculoDirecto
 
     ' Botón para ir a editar
     Protected Sub cmdEdit_Click(sender As Object, e As EventArgs) Handles cmdEdit.Click
-        If dgvSelectedModels.Rows.Count > 0 Then
+        Dim dataTableSelected As Data.DataTable = Session("SelectedModels")
+        If dataTableSelected.Rows.Count > 0 Then
+            'dgvSelectedModels.Rows.Count > 0 Then
 
             Dim rowkeySelected As DataKeyArray = dgvSelectedModels.DataKeys
 
@@ -121,23 +126,29 @@ Public Class CatConfiguracionCalculoDirecto
 
             Dim i As Integer = dgvSelectedModels.Columns.Count
             Dim RowValues As Object() = {"", "", "", "", "", "", "", "", ""}
-            For Each copyrow In dgvSelectedModels.Rows
-                'creo que los for se pueden sacar del for each pero lo dejo como estaba funcional
-                For index As Integer = 0 To dgvSelectedModels.Rows.Count - 1
+
+            If dgvSelectedModels.Rows.Count > 0 Then
+                For index As Integer = 0 To dataTableSelected.Rows.Count - 1
+                    'dgvSelectedModels.Rows.Count -1
                     For indexcell As Integer = 0 To 2
-                        RowValues(indexcell) = Guid.Parse(rowkeySelected(dgvSelectedModels.Rows(index).DataItem).Values(indexcell).ToString())
+                        RowValues(indexcell) = dataTableSelected.Rows(index).Item(indexcell).ToString()
+                        'Guid.Parse(rowkeySelected(dgvSelectedModels.Rows(index).DataItem).Values(indexcell).ToString())
                     Next
+                    For indexcell As Integer = 3 To i - 2
+                        RowValues(indexcell) = dataTableSelected.Rows(index).Item(indexcell).ToString()
+                        'dgvSelectedModels.Rows(index).Cells(indexcell).Text
+                    Next
+                    dtable.Rows.Add(RowValues)
                 Next
-                For index As Integer = 3 To i - 2
-                    RowValues(index) = copyrow.Cells(index).Text
-                Next
-                dtable.Rows.Add(RowValues)
-            Next
+            End If
+
+
+
 
             dtable.AcceptChanges()
-
+            Session("EditModels") = dtable
             Session("SelectedModels") = dtable
-            PopulateGrid(dgvEditModels, dtable)
+            PopulateGrid(dgvEditModels, Session("EditModels"))
             ToggleEdition(True)
         Else
             MsgBox("Se necesitan seleccionar uno o más modelos para editar", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
@@ -307,8 +318,32 @@ Public Class CatConfiguracionCalculoDirecto
 
 
     Protected Sub dgvSelectedModels_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles dgvSelectedModels.RowDeleting
+
+
         Dim dt As Data.DataTable = Session("SelectedModels")
-        dt.Rows.Remove(dt.Rows.Item(e.RowIndex))
+
+
+        Dim dtModelos As Data.DataTable = Session("Models")
+
+
+        For rowcount As Integer = 0 To dgvModelos.Rows.Count - 1
+            Dim idSelected As Guid = Guid.Parse(dt.Rows(e.RowIndex).Item(0).ToString())
+            'Guid.Parse(rowkeySelected(dgvSelectedModels.Rows(rowcount).DataItem).Values(0).ToString())
+            If idSelected = dtModelos.Rows(rowcount).Item(0) Then
+                'Dim dt As Data.DataTable = Session("SelectedModels")
+                dtModelos.Rows(rowcount).Item(9) = False
+
+                dt.Rows.Remove(dt.Rows.Item(e.RowIndex))
+                Session("SelectedModels") = dt
+                Session("Models") = dtModelos
+                PopulateGrid(dgvModelos, dtModelos)
+                PopulateGrid(dgvSelectedModels, dt)
+                ToggleSelected()
+                Exit Sub
+            End If
+        Next
+
+
 
         Session("SelectedModels") = dt
         PopulateGrid(dgvSelectedModels, dt)
@@ -334,8 +369,13 @@ Public Class CatConfiguracionCalculoDirecto
         Dim confirmed As Integer = MsgBox("Se reiniciará el proceso de selección de modelos. ¿Desea deseleccionar todo y empezar de nuevo?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
 
         If confirmed = MsgBoxResult.Yes Then
+
             Session("SelectedModels") = GenerateTable()
             PopulateGrid(dgvSelectedModels, Session("SelectedModels"))
+            'puse esto para que se reiniciaran los checks
+            Session("Models") = modelChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, Guid.Empty)
+
+            PopulateGrid(dgvModelos, Session("Models"))
             ToggleEdition(False)
             ToggleSelected()
         Else
@@ -427,16 +467,119 @@ Public Class CatConfiguracionCalculoDirecto
     End Sub
 
     Protected Sub dgvEditModels_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles dgvEditModels.RowDeleting
-        Dim dt As Data.DataTable = DirectCast(Session("SelectedModels"), Data.DataTable)
+        Dim dt As Data.DataTable = Session("EditModels")
+        'por algun motivo estos me despues de borrar uno el de hasta arriba no se podia borrar y no arrojaba error, con este cvreo que ya esta bien
+        'DirectCast(Session("SelectedModels"), Data.DataTable)
 
-        dt.Rows(e.RowIndex).Delete()
-
-        Session("SelectedModels") = dt
+        'dt.Rows(e.RowIndex).Delete()
+        dt.Rows.Remove(dt.Rows.Item(e.RowIndex))
+        Session("EditModels") = dt
         dgvEditModels.DataSource = dt
         dgvEditModels.DataBind()
     End Sub
 
 
+    Protected Sub OnChangeIsChecked(sender As Object, e As EventArgs)
+        Dim checkBox As WebControls.CheckBox = TryCast(sender, WebControls.CheckBox)
+
+        If checkBox IsNot Nothing Then
+            Dim row As GridViewRow = DirectCast(checkBox.Parent.Parent, GridViewRow)
+            Dim dataTableModels As Data.DataTable = Session("Models")
+
+            Dim id As Guid = Guid.Parse(dataTableModels.Rows(row.RowIndex).Item(0).ToString())
+            'Guid.Parse(dgvModelos.DataKeys(row.RowIndex).Value.ToString()) antiguo y funciona
+            Dim isChecked As Boolean = checkBox.Checked
+
+            Dim rowkey As DataKeyArray = dgvModelos.DataKeys
+            Dim rowkeySelected As DataKeyArray = dgvSelectedModels.DataKeys
+            'Dim indexkey As Integer = Convert.ToInt32(e.CommandArgument)
+            'Dim id As Guid = Guid.Parse(rowkey(indexkey).Values(0).ToString())
+            Dim idHeader As Guid = Guid.Parse(dataTableModels.Rows(row.RowIndex).Item(1).ToString())
+            'Guid.Parse(rowkey(row.RowIndex).Values(1).ToString())
+            Dim idUnit As Guid = Guid.Parse(dataTableModels.Rows(row.RowIndex).Item(2).ToString())
+            'Guid.Parse(rowkey(row.RowIndex).Values(2).ToString())
+
+            Dim datacopy As Data.DataTable = Session("SelectedModels")
+            'Dim id As Guid = Guid.Parse(rowkey(indexkey).Value.ToString)
+            'Dim idheader As Guid = Guid.Parse(rowkey(indexkey).Values.Keys
+
+            'Dim indexevent As Integer = Convert.ToInt32(e.CommandArgument)
+            'Dim row As GridViewRow = dgvModelos.Rows.Item(indexevent)
+            If checkBox.Checked = False Then
+
+                For rowcount As Integer = 0 To dgvSelectedModels.Rows.Count - 1
+                    Dim idSelected As Guid = Guid.Parse(datacopy.Rows(rowcount).Item(1).ToString())
+                    'Guid.Parse(rowkeySelected(dgvSelectedModels.Rows(rowcount).DataItem).Values(0).ToString())
+                    If idSelected = id Then
+                        'Dim dt As Data.DataTable = Session("SelectedModels")
+                        datacopy.Rows.Remove(datacopy.Rows.Item(rowcount))
+
+                        Session("SelectedModels") = datacopy
+                        PopulateGrid(dgvSelectedModels, datacopy)
+                        ToggleSelected()
+                        Exit Sub
+                    End If
+                Next
+            End If
+            If checkBox.Checked = True Then
+                dataTableModels.Rows(row.RowIndex).Item(9) = True
+            End If
+
+            Dim dtable As Data.DataTable = GenerateTable()
+
+            Dim i As Integer = row.Cells.Count
+
+            Dim RowValues As Object() = {"", "", "", "", "", "", "", "", ""}
+
+            For index As Integer = 0 To 2
+                If index = 0 Then
+                    RowValues(index) = id
+                End If
+
+                If index = 1 Then
+                    RowValues(index) = idHeader
+                End If
+
+                If index = 2 Then
+                    RowValues(index) = idUnit
+                End If
+            Next
+
+            For index As Integer = 3 To i - 2
+                RowValues(index) = row.Cells(index).Text
+            Next
+
+            Dim dRow As DataRow
+            dRow = dtable.Rows.Add(RowValues)
+
+
+            If dgvSelectedModels.Rows.Count > 0 Then
+                For index As Integer = 0 To datacopy.Rows.Count - 1
+                    'dgvSelectedModels.Rows.Count -1
+                    For indexcell As Integer = 0 To 2
+                        RowValues(indexcell) = datacopy.Rows(index).Item(indexcell).ToString()
+                        'Guid.Parse(rowkeySelected(dgvSelectedModels.Rows(index).DataItem).Values(indexcell).ToString())
+                    Next
+                    For indexcell As Integer = 3 To i - 2
+                        RowValues(indexcell) = datacopy.Rows(index).Item(indexcell).ToString()
+                        'dgvSelectedModels.Rows(index).Cells(indexcell).Text
+                    Next
+                    dtable.Rows.Add(RowValues)
+                Next
+            End If
+
+
+            dtable.AcceptChanges()
+            Session("Models") = dataTableModels
+            Session("SelectedModels") = dtable
+            PopulateGrid(dgvSelectedModels, dtable)
+            ToggleSelected()
+            
+
+
+
+        End If
+    End Sub
 
     'Protected Sub dgvEditModels_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles dgvEditModels.RowEditing
     '    dgvEditModels.EditIndex = e.NewEditIndex
