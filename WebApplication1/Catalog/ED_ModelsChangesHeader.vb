@@ -88,6 +88,22 @@ Public Class ED_ModelsChangesHeader
         End Using
     End Sub
 
+    Public Sub UpdateApprovalEdit(
+            ByVal IdModelsChangesHeader As Guid,
+            ByVal OriginUser As String,
+            ByVal OriginName As String,
+            ByVal OriginComment As String,
+            ByVal OriginEmail As String,
+            ByVal ApproverUser As String,
+            ByVal ApproverName As String,
+            ByVal ApproverEmail As String,
+            ByVal ApproverComment As String,
+            ByVal ApprovalStatus As String,
+            ByVal ModifiedBy As String
+            )
+        Update(IdModelsChangesHeader, OriginUser, OriginName, OriginComment, OriginEmail, ApproverUser, ApproverName, ApproverEmail, ApproverComment, ApprovalStatus, ModifiedBy, 2)
+    End Sub
+
     Public Sub UpdateApprovalStatus(ByVal IdModelsChangesHeader As Guid, ByVal ApprovalStatus As String, ByVal ModifiedBy As String)
         Update(IdModelsChangesHeader, "", "", "", "", "", "", "", "", ApprovalStatus, ModifiedBy, 2)
     End Sub

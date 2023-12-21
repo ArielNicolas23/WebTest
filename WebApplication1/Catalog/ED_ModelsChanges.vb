@@ -58,6 +58,20 @@ Public Class ED_ModelsChanges
         Update(IdModelsChanges, Guid.Empty, Guid.Empty, Guid.Empty, "", 0, "Rechazado", "", "", "", True, ModifiedBy, 4)
     End Sub
 
+    Public Sub UpdateEdit(ByVal IdModelsChanges As Guid,
+                          ByVal IdModelsChangesHeader As Guid,
+                          ByVal ChangedOnIdModelsChangesHeader As Guid,
+                          ByVal IdUnidad As Guid,
+                          ByVal Model As String,
+                          ByVal Lifespan As Integer,
+                          ByVal ModelChangeStatus As String,
+                          ByVal LastUser As String,
+                          ByVal LastUserName As String,
+                          ByVal LastUserEmail As String,
+                          ByVal ModifiedBy As String) 'Informacion por enviar
+        Update(IdModelsChanges, IdModelsChangesHeader, ChangedOnIdModelsChangesHeader, IdUnidad, Model, Lifespan, ModelChangeStatus, LastUser, LastUserName, LastUserEmail, False, ModifiedBy, 1)
+    End Sub
+
     Private Sub Update(
             ByVal IdModelsChanges As Guid,
             ByVal IdModelsChangesHeader As Guid,

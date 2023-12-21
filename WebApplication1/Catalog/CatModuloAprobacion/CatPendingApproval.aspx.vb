@@ -62,6 +62,7 @@ Public Class CatModuloAprobacion
                 Dim row As DataKeyArray = dgvPendingApproval.DataKeys
                 Dim index As Integer = Convert.ToInt32(e.CommandArgument)
                 Dim id As Guid = Guid.Parse(row(index).Value.ToString)
+                Session("CurrentID") = id
 
                 Select Case DataRow.Item(11).ToString
                     Case "Revisar"
@@ -371,10 +372,11 @@ Public Class CatModuloAprobacion
     End Sub
 
     Protected Sub lbEdit_Click(sender As Object, e As EventArgs) Handles lbEdit.Click
-
+        Response.Redirect("../CatCalculoDirecto/AgregarModelo.aspx?id=" + Session("CurrentID").ToString)
     End Sub
 
     Protected Sub lbCancel0_Click(sender As Object, e As EventArgs) Handles lbCancel0.Click
+
         Modaledit.Hide()
     End Sub
 
