@@ -1,4 +1,5 @@
-﻿Imports Microsoft.VisualBasic
+﻿Imports Microsoft.Ajax.Utilities
+Imports Microsoft.VisualBasic
 Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Net.NetworkInformation
@@ -59,9 +60,9 @@ Public Class ED_ModelsChanges
     End Sub
 
     Public Sub UpdateEdit(ByVal IdModelsChanges As Guid,
-                          ByVal IdModelsChangesHeader As Guid,
-                          ByVal ChangedOnIdModelsChangesHeader As Guid,
-                          ByVal IdUnidad As Guid,
+                          ByVal IdModelsChangesHeader As Guid?,
+                          ByVal ChangedOnIdModelsChangesHeader As Guid?,
+                          ByVal IdUnidad As Guid?,
                           ByVal Model As String,
                           ByVal Lifespan As Integer,
                           ByVal ModelChangeStatus As String,
@@ -73,10 +74,10 @@ Public Class ED_ModelsChanges
     End Sub
 
     Private Sub Update(
-            ByVal IdModelsChanges As Guid,
-            ByVal IdModelsChangesHeader As Guid,
-            ByVal ChangedOnIdModelsChangesHeader As Guid,
-            ByVal IdUnidad As Guid,
+            ByVal IdModelsChanges As Guid?,
+            ByVal IdModelsChangesHeader As Guid?,
+            ByVal ChangedOnIdModelsChangesHeader As Guid?,
+            ByVal IdUnidad As Guid?,
             ByVal Model As String,
             ByVal Lifespan As Integer,
             ByVal ModelChangeStatus As String,
@@ -86,7 +87,6 @@ Public Class ED_ModelsChanges
             ByVal IsChecked As Boolean,
             ByVal ModifiedBy As String,
             ByVal OptionU As Integer) 'no permite poner option
-
         Using conn As New SqlConnection(Me.dbCon)
 
             Dim cmd As SqlCommand = New SqlCommand()
@@ -95,16 +95,59 @@ Public Class ED_ModelsChanges
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@IdModelsChanges", IdModelsChanges)
             cmd.Parameters.AddWithValue("@IdModelsChangesHeader", IdModelsChangesHeader)
-            cmd.Parameters.AddWithValue("@ChangedOnIdModelsChangesHeader", ChangedOnIdModelsChangesHeader)
-            cmd.Parameters.AddWithValue("@IdUnidad", IdUnidad)
-            cmd.Parameters.AddWithValue("@Model", Model)
-            cmd.Parameters.AddWithValue("@Lifespan", Lifespan)
-            cmd.Parameters.AddWithValue("@ModelChangeStatus", ModelChangeStatus)
-            cmd.Parameters.AddWithValue("@LastUser", LastUser)
-            cmd.Parameters.AddWithValue("@LastUserName", LastUserName)
-            cmd.Parameters.AddWithValue("@LastUserEmail", LastUserEmail)
-            cmd.Parameters.AddWithValue("@IsChecked", IsChecked)
-            cmd.Parameters.AddWithValue("@ModifiedBy", ModifiedBy)
+            If Not ChangedOnIdModelsChangesHeader.HasValue Then
+                cmd.Parameters.AddWithValue("@ChangedOnIdModelsChangesHeader", DBNull.Value)
+            Else
+                cmd.Parameters.AddWithValue("@ChangedOnIdModelsChangesHeader", ChangedOnIdModelsChangesHeader)
+            End If
+
+            If Not IdUnidad.HasValue Then
+                cmd.Parameters.AddWithValue("@IdUnidad", DBNull.Value)
+            Else
+                cmd.Parameters.AddWithValue("@IdUnidad", IdUnidad)
+            End If
+
+            If Not Model.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@Model", Model)
+            Else
+                cmd.Parameters.AddWithValue("@Model", DBNull.Value)
+            End If
+
+            If Lifespan Then
+                cmd.Parameters.AddWithValue("@Lifespan", Lifespan)
+            Else
+                cmd.Parameters.AddWithValue("@Lifespan", DBNull.Value)
+            End If
+            If Not ModelChangeStatus.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@ModelChangeStatus", Model)
+            Else
+                cmd.Parameters.AddWithValue("@ModelChangeStatus", DBNull.Value)
+            End If
+            If Not LastUser.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@LastUser", LastUser)
+            Else
+                cmd.Parameters.AddWithValue("@LastUser", DBNull.Value)
+            End If
+            If Not LastUserName.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@LastUserName", LastUserName)
+            Else
+                cmd.Parameters.AddWithValue("@LastUserName", DBNull.Value)
+            End If
+            If Not LastUserEmail.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@LastUserEmail", LastUserEmail)
+            Else
+                cmd.Parameters.AddWithValue("@LastUserEmail", DBNull.Value)
+            End If
+            If Not IsChecked = Nothing Then
+                cmd.Parameters.AddWithValue("@IsChecked", LastUserEmail)
+            Else
+                cmd.Parameters.AddWithValue("@IsChecked", DBNull.Value)
+            End If
+            If Not ModifiedBy.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@ModifiedBy", ModifiedBy)
+            Else
+                cmd.Parameters.AddWithValue("@ModifiedBy", DBNull.Value)
+            End If
             cmd.Parameters.AddWithValue("@Option", OptionU)
 
             conn.Open()
@@ -160,6 +203,56 @@ Public Class ED_ModelsChanges
         Return result
     End Function
 
+    Public Function SelectByIdModelsChanges(ByVal IdModelsChanges As Guid) As DataTable
+        Dim result As DataTable
+        Dim row As DataRow
+
+        Using conn As New SqlConnection(Me.dbCon)
+
+            Dim cmd As SqlCommand = New SqlCommand()
+            cmd.CommandText = "spED_ED_ModelsChanges_SearchById"
+            cmd.Connection = conn
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@IdModelsChanges", IdModelsChanges)
+
+            result = New DataTable("Result")
+            result.Columns.Add("IdModelsChanges", GetType(Guid))
+            result.Columns.Add("Model", GetType(String))
+            result.Columns.Add("Lifespan", GetType(String))
+            result.Columns.Add("Unit", GetType(String))
+            result.Columns.Add("IdUnit", GetType(String))
+            result.Columns.Add("LastUserName", GetType(String))
+            result.Columns.Add("LastUser", GetType(String))
+            result.Columns.Add("ModifiedOn", GetType(String))
+            result.Columns.Add("IsChecked", GetType(Boolean))
+
+            conn.Open()
+
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+
+                row = result.NewRow()
+
+                row("IdModelsChanges") = reader.GetGuid(0)
+                row("Model") = reader.GetString(1)
+                row("Lifespan") = reader.GetInt32(2)
+                row("Unit") = reader.GetString(3)
+                row("IdUnit") = reader.GetGuid(4)
+                row("LastUserName") = reader.GetString(5)
+                row("LastUser") = reader.GetString(6)
+                row("ModifiedOn") = reader.GetDateTime(7).ToString("dd/MMM/yyyy")
+                row("IsChecked") = reader.GetBoolean(8)
+
+                result.Rows.Add(row)
+
+            End While
+
+            conn.Close()
+            conn.Dispose()
+        End Using
+
+        Return result
+    End Function
     Public Function SelectByIdModelsChangesHeader(ByVal IdModelsChangesHeader As Guid) As DataTable
         Dim result As DataTable
         Dim row As DataRow
@@ -177,6 +270,7 @@ Public Class ED_ModelsChanges
             result.Columns.Add("Model", GetType(String))
             result.Columns.Add("Lifespan", GetType(String))
             result.Columns.Add("Unit", GetType(String))
+            result.Columns.Add("IdUnit", GetType(String))
             result.Columns.Add("LastUserName", GetType(String))
             result.Columns.Add("LastUser", GetType(String))
             result.Columns.Add("ModifiedOn", GetType(String))
@@ -194,10 +288,11 @@ Public Class ED_ModelsChanges
                 row("Model") = reader.GetString(1)
                 row("Lifespan") = reader.GetInt32(2)
                 row("Unit") = reader.GetString(3)
-                row("LastUserName") = reader.GetString(4)
-                row("LastUser") = reader.GetString(5)
-                row("ModifiedOn") = reader.GetDateTime(6).ToString("dd/MMM/yyyy")
-                row("IsChecked") = reader.GetBoolean(7)
+                row("IdUnit") = reader.GetGuid(4)
+                row("LastUserName") = reader.GetString(5)
+                row("LastUser") = reader.GetString(6)
+                row("ModifiedOn") = reader.GetDateTime(7).ToString("dd/MMM/yyyy")
+                row("IsChecked") = reader.GetBoolean(8)
 
                 result.Rows.Add(row)
 
