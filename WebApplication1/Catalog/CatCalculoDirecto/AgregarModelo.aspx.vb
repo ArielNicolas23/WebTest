@@ -723,7 +723,7 @@ Public Class WebForm1
             Dim modelsChange As ED_ModelsChanges = New ED_ModelsChanges()
             Dim approvedModelsChange As ED_ModelsChangesHeader = New ED_ModelsChangesHeader()
             Dim dt As System.Data.DataTable = Session("Models")
-            Dim delt As System.Data.DataTable = Session("Models")
+            Dim delt As ArrayList = Session("DelModels")
             Dim foundRepeated As Boolean
 
             Dim originUser As String             'Agregar función para obtener al usuario
@@ -844,9 +844,13 @@ Public Class WebForm1
                     Else
                         modelsChange.Insert(IdModelsChangesHeader, idUnit, model, lifeSpan, modelChangeStatus, originUser, originName, originEmail, isActive, originUser)
                     End If
-
-
                 Next row
+                'Deshabilita los registros de la lista, si estos se encuentran en la base de datos
+                For Each row As Guid In delt
+                    Dim updateRow As DataTable = modelsChange.SelectByIdModelsChanges(row)
+                    If (updateRow.Rows.Count > 0) Then modelsChange.Delete(row)
+                Next
+
 
 
 
