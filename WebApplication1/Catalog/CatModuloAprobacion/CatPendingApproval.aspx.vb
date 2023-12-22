@@ -51,7 +51,20 @@ Public Class CatModuloAprobacion
             divModelsView.Visible = True
         End If
     End Sub
+    Protected Sub PopulateHeaderTable(dt As DataTable)
+        lblInfoChange.Text = dt.Rows(0).Item(1).ToString
+        lblInfoStatus.Text = dt.Rows(0).Item(8).ToString
 
+        lblOrigName.Text = dt.Rows(0).Item(2).ToString
+        lblOrigUser.Text = dt.Rows(0).Item(3).ToString
+        lblOrigDateEdit.Text = dt.Rows(0).Item(9).ToString
+        lblOrigComment.Text = dt.Rows(0).Item(4).ToString
+
+        lblAprName.Text = dt.Rows(0).Item(5).ToString
+        lblAprUser.Text = dt.Rows(0).Item(6).ToString
+        lblAprDateEdit.Text = dt.Rows(0).Item(10).ToString
+        lblAprComment.Text = dt.Rows(0).Item(7).ToString
+    End Sub
     ' Método para ejecutar la acción del Header seleccionado
     Protected Sub dgvPendingApproval_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles dgvPendingApproval.RowCommand
         Select Case e.CommandName
@@ -69,12 +82,16 @@ Public Class CatModuloAprobacion
 
                         lblTitle.Text = "Detalles de Modelo"
                         ToggleSection(divFilterHeader, False)
+                        ToggleSection(divdgvPendingApproval, False)
+                        ToggleSection(divInfoTable, True)
                         ToggleModelsView(False)
                         Dim infoHeader As DataTable = modelChangesHeader.SelectByIdModelsChangesHeader(id)
                         txtUserEdit.Text = infoHeader.Rows(0).Item(5)
                         txtUserEdit0.Text = infoHeader.Rows(0).Item(6)
                         txtApproveMessageEdit.Text = infoHeader.Rows(0).Item(7)
-                        PopulateGrid(dgvPendingApproval, infoHeader)
+                        'PopulateGrid(dgvPendingApproval, infoHeader)
+                        'llena tabla de infoHeader
+                        PopulateHeaderTable(infoHeader)
                         PopulateGrid(dgvModelView, modelChanges.SelectByIdModelsChangesHeader(id))
 
 
@@ -83,9 +100,13 @@ Public Class CatModuloAprobacion
 
                         lblTitle.Text = "Verificación de Modelos"
                         ToggleSection(divFilterHeader, False)
+                        ToggleSection(divdgvPendingApproval, False)
+                        ToggleSection(divInfoTable, True)
                         ToggleModelsChanges(False)
-
-                        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByIdModelsChangesHeader(id))
+                        Dim infoHeader As DataTable = modelChangesHeader.SelectByIdModelsChangesHeader(id)
+                        'PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByIdModelsChangesHeader(id))
+                        'llena tabla de infoHeader
+                        PopulateHeaderTable(infoHeader)
                         PopulateGrid(dgvModelChanges, modelChanges.SelectByIdModelsChangesHeader(id))
 
                 End Select
@@ -99,6 +120,8 @@ Public Class CatModuloAprobacion
 
         lblTitle.Text = "Cambios pendientes de Aprobación"
         ToggleSection(divFilterHeader, True)
+        ToggleSection(divdgvPendingApproval, True)
+        ToggleSection(divInfoTable, False)
         ToggleModelsChanges(True)
         ToggleModelsView(True)
     End Sub
@@ -316,6 +339,8 @@ Public Class CatModuloAprobacion
 
         lblTitle.Text = "Cambios pendientes de Aprobación"
         ToggleSection(divFilterHeader, True)
+        ToggleSection(divdgvPendingApproval, True)
+        ToggleSection(divInfoTable, False)
         ToggleModelsChanges(True)
     End Sub
 
@@ -385,6 +410,8 @@ Public Class CatModuloAprobacion
 
         lblTitle.Text = "Cambios pendientes de Aprobación"
         ToggleSection(divFilterHeader, True)
+        ToggleSection(divdgvPendingApproval, True)
+        ToggleSection(divInfoTable, False)
         ToggleModelsChanges(True)
         ToggleModelsView(True)
     End Sub

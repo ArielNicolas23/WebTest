@@ -143,9 +143,9 @@ Public Class ED_ModelsChanges
                 cmd.Parameters.AddWithValue("@LastUserEmail", DBNull.Value)
             End If
             If Not IsChecked = Nothing Then
-                cmd.Parameters.AddWithValue("@IsChecked", LastUserEmail)
+                cmd.Parameters.AddWithValue("@IsChecked", IsChecked)
             Else
-                cmd.Parameters.AddWithValue("@IsChecked", DBNull.Value)
+                cmd.Parameters.AddWithValue("@IsChecked", False)
             End If
             If Not ModifiedBy.IsNullOrWhiteSpace Then
                 cmd.Parameters.AddWithValue("@ModifiedBy", ModifiedBy)

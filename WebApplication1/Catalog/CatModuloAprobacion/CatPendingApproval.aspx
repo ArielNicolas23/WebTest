@@ -9,6 +9,48 @@
             background-color:black;
             opacity:0.6;
         }
+        .data tr:nth-child(even){background-color: #f2f2f2;}
+        .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+        .data th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+        .auto-style1 {
+            width: 650px;
+        }
+        .auto-style2 {
+            height: 23px;
+        }
+        .auto-style3 {
+            width: 291px;
+        }
+        .auto-style4 {
+            width: 289px;
+        }
+        .auto-style5 {
+            width: 351px;
+        }
+        .auto-style6 {
+            height: 23px;
+            width: 255px;
+        }
+        .auto-style7 {
+            width: 130px;
+        }
+        .auto-style8 {
+            height: 23px;
+            width: 130px;
+        }
+        .auto-style9 {
+            width: 255px;
+        }
     </style>
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -94,21 +136,20 @@
             </div>
 
 
-            <div>
+            <div runat="server" ID="divdgvPendingApproval">
                 <asp:GridView  ID="dgvPendingApproval" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="2000px" AllowPaging="True" DataKeyNames="IdModelsChangesHeader,OriginEmail">
                     <Columns>
                         <asp:BoundField DataField="IdModelsChangesHeader" Visible="False" ReadOnly="True" />
                         <asp:BoundField DataField="ChangeNumber" HeaderText="No. de Cambio" SortExpression="ChangeNumber" />
                         <asp:BoundField DataField="OriginName" HeaderText="Nombre Originador" SortExpression="OriginName" />
                         <asp:BoundField DataField="OriginUser" HeaderText="Usuario Originador" SortExpression="OriginUser" />
-                        <asp:BoundField DataField="OriginComment" HeaderText="Comentario" SortExpression="OriginComment" />
                         <asp:BoundField DataField="ModifiedOn" HeaderText="Fecha de Edición" SortExpression="ModifiedOn" />
                         <asp:BoundField DataField="ApprovalStatus" HeaderText="Estatus" SortExpression="ModifiedOn" />
                         <asp:ButtonField CommandName="Action" HeaderText="Acción" ShowHeader="True" DataTextField="Action" />
                         <asp:BoundField DataField="ApproverName" HeaderText="Nombre Aprobador" SortExpression="ApproverName" />
                         <asp:BoundField DataField="ApproverUser" HeaderText="Usuario Aprobador" SortExpression="ApproverUser" />
                         <asp:BoundField DataField="ApprovedOn" HeaderText="Fecha de Aprobación" SortExpression="ApprovedOn" />
-                        <asp:BoundField DataField="OriginEmail" Visible="False" ReadOnly="True" />
+                        <asp:BoundField DataField="OriginEmail" ReadOnly="True" Visible="False" />
                     </Columns>
                     <RowStyle CssClass="dgvCatalogRowOdd" />
                     <EditRowStyle BackColor="#999999" />
@@ -117,7 +158,85 @@
                     <AlternatingRowStyle CssClass="dgvCatalogRowEven" />
                 </asp:GridView>
             </div>
+            <div runat="server" id="divInfoTable"  style="display: table; width: 1000px;" visible="False">
+                <div>
+                    <table style="margin-left: 30px; width: 650px; margin-bottom: 20px;" class="auto-style1">
+                        <tr>
+                            <td class="auto-style9" style="background-color: #517aa9; color: white; font-weight: bold;">Numero de cambio:</td>
+                            <td class="">
+                                <asp:Label ID="lblInfoChange" runat="server" Text="Label"></asp:Label>
+                            </td>
+                            <td class="" style="background-color: #517aa9; color: white; font-weight: bold;">Estatus:</td>
+                            <td class="">
+                                <asp:Label ID="lblInfoStatus" runat="server" Text="Label"></asp:Label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div  style="float:left; width: 350px; margin-left: 30px; margin-right: 30px;">
+                    <table class="data" style="width: 350px">
+                        <tr>
+                            <td colspan="2" style="background-color: #517aa9; color: white; font-weight: bold;">Datos Originador</td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style8">Nombre:</td>
+                            <td class="auto-style2" align="left">
+                                <asp:Label ID="lblOrigName" runat="server" Text="Label"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style8">Usuario:</td>
+                            <td class="auto-style2" align="left">
+                                <asp:Label ID="lblOrigUser" runat="server" Text="Label"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style7">Fecha de Edicion:</td>
+                            <td align="left">
+                                <asp:Label ID="lblOrigDateEdit" runat="server" Text="Label"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style7">Comentarios:</td>
+                            <td align="left">
+                                <asp:Label ID="lblOrigComment" runat="server" Text="Label"></asp:Label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div  style="float:left; width: 350px; margin-left: 30px; margin-right: 30px;">
+                    <table class="data" style="width: 350px">
+                        <tr>
+                            <td colspan="2" style="background-color: #517aa9; color: white; font-weight: bold;">Datos Aprobador</td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style7">Nombre:</td>
+                            <td align="left">
+                                <asp:Label ID="lblAprName" runat="server" Text="Label"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style7">Usuario:</td>
+                            <td align="left">
+                                <asp:Label ID="lblAprUser" runat="server" Text="Label"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                             <td class="auto-style7">Fecha de Edicion:</td>
+                            <td align="left">
+                                <asp:Label ID="lblAprDateEdit" runat="server" Text="Label"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style7">Comentarios:</td>
+                            <td align="left">
+                                <asp:Label ID="lblAprComment" runat="server" Text="Label"></asp:Label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
+            </div>
                         <div runat="server" id="divModelsChanges" style="margin-top: 50px" visible="false">
                 <div style="width: 2%;  float: left;">
                     <asp:Label ID="lblMargin" runat="server" Text=">" CssClass="catIcon"></asp:Label>

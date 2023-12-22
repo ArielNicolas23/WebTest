@@ -257,6 +257,15 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents cldApprovedOnTo As Global.System.Web.UI.WebControls.Calendar
 
     '''<summary>
+    '''divdgvPendingApproval control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divdgvPendingApproval As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
     '''dgvPendingApproval control.
     '''</summary>
     '''<remarks>
@@ -264,6 +273,105 @@ Partial Public Class CatModuloAprobacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents dgvPendingApproval As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''divInfoTable control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divInfoTable As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''lblInfoChange control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblInfoChange As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblInfoStatus control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblInfoStatus As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblOrigName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblOrigName As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblOrigUser control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblOrigUser As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblOrigDateEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblOrigDateEdit As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblOrigComment control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblOrigComment As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblAprName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblAprName As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblAprUser control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblAprUser As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblAprDateEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblAprDateEdit As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblAprComment control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblAprComment As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''divModelsChanges control.
