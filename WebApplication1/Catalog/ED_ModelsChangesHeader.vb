@@ -1,4 +1,5 @@
-﻿Imports Microsoft.VisualBasic
+﻿Imports Microsoft.Ajax.Utilities
+Imports Microsoft.VisualBasic
 Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Net.NetworkInformation
@@ -70,16 +71,46 @@ Public Class ED_ModelsChangesHeader
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@IdModelsChangesHeader", IdModelsChangesHeader)
-            cmd.Parameters.AddWithValue("@OriginUser", OriginUser)
-            cmd.Parameters.AddWithValue("@OriginName", OriginName)
-            cmd.Parameters.AddWithValue("@OriginEmail", OriginEmail)
-            cmd.Parameters.AddWithValue("@OriginComment", OriginComment)
-            cmd.Parameters.AddWithValue("@ApproverUser", ApproverUser)
-            cmd.Parameters.AddWithValue("@ApproverName", ApproverName)
-            cmd.Parameters.AddWithValue("@ApproverEmail", ApproverEmail)
-            cmd.Parameters.AddWithValue("@ApproverComment", ApproverComment)
-            cmd.Parameters.AddWithValue("@ApprovalStatus", ApprovalStatus)
-            cmd.Parameters.AddWithValue("@ModifiedBy", ModifiedBy)
+            If OriginUser.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@OriginUser", DBNull.Value)
+            Else cmd.Parameters.AddWithValue("@OriginUser", OriginUser)
+            End If
+            If OriginName.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@OriginName", DBNull.Value)
+            Else cmd.Parameters.AddWithValue("@OriginName", OriginName)
+            End If
+            If OriginEmail.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@OriginEmail", DBNull.Value)
+            Else cmd.Parameters.AddWithValue("@OriginEmail", OriginEmail)
+            End If
+            If OriginComment.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@OriginComment", DBNull.Value)
+            Else cmd.Parameters.AddWithValue("@OriginComment", OriginComment)
+            End If
+            If ApproverUser.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@ApproverUser", DBNull.Value)
+            Else cmd.Parameters.AddWithValue("@ApproverUser", ApproverUser)
+            End If
+            If ApproverName.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@ApproverName", DBNull.Value)
+            Else cmd.Parameters.AddWithValue("@ApproverName", ApproverName)
+            End If
+            If ApproverEmail.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@ApproverEmail", DBNull.Value)
+            Else cmd.Parameters.AddWithValue("@ApproverEmail", ApproverEmail)
+            End If
+            If ApproverComment.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@ApproverComment", DBNull.Value)
+            Else cmd.Parameters.AddWithValue("@ApproverComment", ApproverComment)
+            End If
+            If ApprovalStatus.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@ApprovalStatus", DBNull.Value)
+            Else cmd.Parameters.AddWithValue("@ApprovalStatus", ApprovalStatus)
+            End If
+            If ModifiedBy.IsNullOrWhiteSpace Then
+                cmd.Parameters.AddWithValue("@ModifiedBy", DBNull.Value)
+            Else cmd.Parameters.AddWithValue("@ModifiedBy", ModifiedBy)
+            End If
             cmd.Parameters.AddWithValue("@Option", OptionU)
             conn.Open()
             cmd.ExecuteNonQuery()
@@ -101,7 +132,7 @@ Public Class ED_ModelsChangesHeader
             ByVal ApprovalStatus As String,
             ByVal ModifiedBy As String
             )
-        Update(IdModelsChangesHeader, OriginUser, OriginName, OriginComment, OriginEmail, ApproverUser, ApproverName, ApproverEmail, ApproverComment, ApprovalStatus, ModifiedBy, 2)
+        Update(IdModelsChangesHeader, OriginUser, OriginName, OriginComment, OriginEmail, ApproverUser, ApproverName, ApproverEmail, ApproverComment, ApprovalStatus, ModifiedBy, 1)
     End Sub
 
     Public Sub UpdateApprovalStatus(ByVal IdModelsChangesHeader As Guid, ByVal ApprovalStatus As String, ByVal ModifiedBy As String)

@@ -380,4 +380,12 @@ Public Class CatModuloAprobacion
         Modaledit.Hide()
     End Sub
 
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApproverUser(userPlaceholder))
+
+        lblTitle.Text = "Cambios pendientes de Aprobación"
+        ToggleSection(divFilterHeader, True)
+        ToggleModelsChanges(True)
+        ToggleModelsView(True)
+    End Sub
 End Class

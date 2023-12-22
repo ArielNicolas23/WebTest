@@ -44,6 +44,7 @@ Public Class WebForm1
                 modelsEdit = modelChanges.SelectByIdModelsChangesHeader(Guid.Parse(id))
                 'Guarda los modelos a editar en una variable de sesion
                 Session("Models") = modelsEdit
+                Session("HeaderId") = headerEdit.Rows(0).Item(0)
 
                 'Inicializa dropdown
                 ddlUnitEdit.DataSource = catUnits.SelectAll("", False).AsDataView
@@ -531,7 +532,7 @@ Public Class WebForm1
             Dim strModel As String = CType((rows.Cells(1).Controls(0)), System.Web.UI.WebControls.TextBox).Text.Trim.ToUpper()
             Dim strLifeSpan As String = CType((rows.Cells(2).Controls(0)), System.Web.UI.WebControls.TextBox).Text.Trim.ToUpper()
             Dim strUnit As String = CType((rows.Cells(3).Controls(1)), System.Web.UI.WebControls.DropDownList).SelectedItem.Text.Trim.ToUpper()
-            Dim idUnit As String = CType((rows.Cells(3).Controls(1)), System.Web.UI.WebControls.DropDownList).Text.Trim.ToUpper()
+            Dim idUnit As String = CType((rows.Cells(3).Controls(1)), System.Web.UI.WebControls.DropDownList).SelectedValue.Trim.ToUpper()
 
             If (strModel = "") Then
                 lblMessageEdit.Text = "Favor de escribir el nombre del Modelo"
@@ -566,7 +567,7 @@ Public Class WebForm1
                     dt.Rows(e.RowIndex)("Model") = strModel
                     dt.Rows(e.RowIndex)("Lifespan") = strLifeSpan
                     dt.Rows(e.RowIndex)("Unit") = strUnit
-
+                    dt.Rows(e.RowIndex)("IdUnit") = idUnit
                     dgvEdit.EditIndex = -1
                     dgvEdit.DataSource = dt
                     dgvEdit.DataBind()
@@ -643,6 +644,7 @@ Public Class WebForm1
                     row("Model") = strModel
                     row("Lifespan") = strLifeSpan
                     row("Unit") = strUnit
+                    row("IdUnit") = idUnit
                     row("LastUser") = actualUser 'Agregar función para obtener al usuario
 
                     dt.Rows.Add(row)
@@ -682,7 +684,7 @@ Public Class WebForm1
         Dim listRepeated As String = ""
 
         For Each row As DataRow In dt.Rows
-            If (modelsChange.AlreadyExistModelChange(Guid.Empty, row("Model"))) Then
+            If (modelsChange.AlreadyExistModelChange(row("IdModelsChanges"), row("Model"))) Then
                 foundRepeated = True
                 listRepeated += "[" + row("Model") + "], "
             End If
@@ -721,7 +723,7 @@ Public Class WebForm1
             Dim modelsChange As ED_ModelsChanges = New ED_ModelsChanges()
             Dim approvedModelsChange As ED_ModelsChangesHeader = New ED_ModelsChangesHeader()
             Dim dt As System.Data.DataTable = Session("Models")
-            Dim delt As System.Data.DataTable = Session("Models")
+            Dim delt As ArrayList = Session("DelModels")
             Dim foundRepeated As Boolean
 
             Dim originUser As String             'Agregar función para obtener al usuario
@@ -813,7 +815,7 @@ Public Class WebForm1
 
             'Validación de registros ya existentes
             For Each row As DataRow In dt.Rows
-                If (modelsChange.AlreadyExistModelChange(Guid.Empty, row("Model"))) Then
+                If (modelsChange.AlreadyExistModelChange(row("IdModelsChanges"), row("Model"))) Then
                     foundRepeated = True
                 End If
             Next row
@@ -826,16 +828,29 @@ Public Class WebForm1
                 txtPasswordEdit.Enabled = True
                 ApproveModalEdit.Show()
             Else
-                'Update
-                IdModelsChangesHeader = headerEdit.Rows(0).Item(0)
-                approvedModelsChange.UpdateApprovalEdit(IdModelsChangesHeader, originUser, originName, originComment, originEmail, approverUser, approverName, approverEmail, Nothing, "Pendiente", actualUser)
+                'Updateheader
+                IdModelsChangesHeader = Session("HeaderId")
+                approvedModelsChange.UpdateApprovalEdit(IdModelsChangesHeader, originUser, originName, originComment, originEmail, approverUser, approverName, approverEmail, "", "Pendiente", actualUser)
                 For Each row As DataRow In dt.Rows
                     IdModel = row("IdModelsChanges")
-                    idUnit = Guid.Parse(row("IdUnidad"))
+                    idUnit = Guid.Parse(row("IdUnit"))
                     model = row("Model")
                     lifeSpan = row("Lifespan")
-                    modelsChange.UpdateEdit(IdModel, IdModelsChangesHeader, Nothing, idUnit, model, lifeSpan, Nothing, originUser, originName, originEmail, actualUser)
+
+                    'Verifica si es actualizacion de registro o nuevo registro
+                    Dim updateRow As DataTable = modelsChange.SelectByIdModelsChanges(IdModel)
+                    If (updateRow.Rows.Count > 0) Then
+                        modelsChange.UpdateEdit(IdModel, IdModelsChangesHeader, Nothing, idUnit, model, lifeSpan, modelChangeStatus, originUser, originName, originEmail, actualUser)
+                    Else
+                        modelsChange.Insert(IdModelsChangesHeader, idUnit, model, lifeSpan, modelChangeStatus, originUser, originName, originEmail, isActive, originUser)
+                    End If
                 Next row
+                'Deshabilita los registros de la lista, si estos se encuentran en la base de datos
+                For Each row As Guid In delt
+                    Dim updateRow As DataTable = modelsChange.SelectByIdModelsChanges(row)
+                    If (updateRow.Rows.Count > 0) Then modelsChange.Delete(row)
+                Next
+
 
 
 
@@ -859,7 +874,6 @@ Public Class WebForm1
                 End If
 
                 CleanModalFieldsEdit(True)
-                CleanTableEdit()
                 txtMailApproverEdit.Enabled = True
                 txtUserEdit.Enabled = True
                 txtPasswordEdit.Enabled = True
