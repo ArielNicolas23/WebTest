@@ -29,8 +29,9 @@ Public Class CatConfiguracionCalculoDirecto
 
         If Not Page.IsPostBack Then
             Session("SelectedModels") = GenerateTable()
+            Session("Models") = GenerateTable()
             PopulateDropDown()
-            PopulateGrid(dgvModelos, modelsChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, Guid.Empty))
+            PopulateGridModals(dgvModelos, modelsChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, Guid.Empty))
         End If
     End Sub
 
@@ -63,6 +64,7 @@ Public Class CatConfiguracionCalculoDirecto
             End If
         Next
 
+        Session("Models") = dt
         dgv.DataSource = dt
         dgv.DataBind()
     End Sub
