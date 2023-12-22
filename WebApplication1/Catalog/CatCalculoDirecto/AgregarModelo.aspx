@@ -91,27 +91,27 @@
 
 </div>     
             <table>
-                <tr>
-                    <td style="height: 17px; width: 128px; text-align: right">
-                        <asp:Label ID="lblModel" runat="server" Text="Modelo:" Width="70px"  CssClass="catLabel"></asp:Label>
+                <tr style="height: 30px;">
+                    <td style="width: 128px; text-align: right">
+                        <asp:Label ID="lblModel" runat="server" Text="Modelo:" CssClass="catLabel"></asp:Label>
                     </td> 
-                    <td style="height: 17px; width: 128px; text-align: right">
+                    <td style="width: 128px; text-align: right">
                         <asp:TextBox ID="txtModel" runat="server"></asp:TextBox>
                     </td>
                 </tr>
             
-                <tr>
-                    <td style="height: 17px; width: 128px; text-align: right">   
-                        <asp:Label ID="lblLifespan" runat="server" Text="Vida Útil:" Width="70px" CssClass="catLabel" ></asp:Label>
+                <tr style="height: 30px;">
+                    <td style="width: 128px; text-align: right">   
+                        <asp:Label ID="lblLifespan" runat="server" Text="Vida Útil:" CssClass="catLabel" ></asp:Label>
                     </td> 
-                    <td style="height: 17px; width: 128px; text-align: right">
+                    <td style="width: 128px; text-align: right">
                         <asp:TextBox ID="txtLifeSpan" runat="server"></asp:TextBox>
                     </td>
-                    <td style="height: 17px; width: 128px; text-align: right">
-                        <asp:Label ID="lblUnit" runat="server" Text="Unidad:"></asp:Label>
+                    <td style="width: 128px; text-align: right">
+                        <asp:Label ID="lblUnit" runat="server" Text="Unidad:" CssClass="catLabel"></asp:Label>
                     </td> 
-                    <td style="height: 17px; width: 128px; text-align: right">
-                        <asp:DropDownList ID="ddlUnit" runat="server" AutoPostBack="True" Height="16px" CssClass="catDropDownList">
+                    <td style="width: 128px; text-align: right">
+                        <asp:DropDownList ID="ddlUnit" runat="server" AutoPostBack="True" CssClass="catDropDownList">
                         </asp:DropDownList>
                     </td>
 
@@ -144,7 +144,7 @@
                     <asp:BoundField DataField="Unidad" HeaderText="Unidad" SortExpression="Unidad" />
                     <asp:BoundField DataField="Usuario" HeaderText="Usuario" SortExpression="Usuario" />
                     <asp:BoundField DataField="IdUnidad" Visible="False" />
-                    <asp:CommandField HeaderText="Acción" ShowDeleteButton="True" DeleteText="<i class='fa fa-trash' data-toggle='tooltip' title='Reiniciar Carga de Modelos'></i>" EditText="&lt;i class='fa fa-regular fa-edit' style='color:#333333;' data-toggle='tooltip' title='Editar campo'&gt;&lt;/i&gt;" ShowEditButton="True" />
+                    <asp:CommandField HeaderText="Acción" ShowDeleteButton="True" DeleteText="<i class='fa fa-trash' data-toggle='tooltip' title='Reiniciar Carga de Modelos'></i>" />
                 </Columns>
                 <RowStyle CssClass="dgvCatalogRowOdd" />
                 <EditRowStyle BackColor="#999999" />

@@ -39,7 +39,7 @@
 
                     <asp:Label ID="lblDateFilters" runat="server" Text="Buscar por Fecha: " CssClass="catLabel" ></asp:Label>
                     <asp:CheckBox ID="chkDateFilters" runat="server" AutoPostBack="true"/>
-                    <asp:LinkButton class="catLinkButton" ID="lBtnSearc"  runat="server" Text="Buscar <i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i> "></asp:LinkButton>
+                    <asp:LinkButton class="catLinkButton" ID="lBtnSearc"  runat="server" Visible="False" Text="Buscar <i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i> "></asp:LinkButton>
                 </div>
 
                 <div runat="server" id="divDateFilters"  class="catDivHeader" visible="false">

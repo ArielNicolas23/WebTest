@@ -50,15 +50,6 @@ Partial Public Class Catalog_CatWorkOrders
     Protected WithEvents txtWorkOrder As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''lblArea control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblArea As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
     '''cmbArea control.
     '''</summary>
     '''<remarks>

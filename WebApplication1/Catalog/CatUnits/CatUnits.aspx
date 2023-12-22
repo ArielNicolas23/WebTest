@@ -10,23 +10,12 @@
 <div style="height: 32px">
 
 </div>
-
-<table>
-    <tr>
-        <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Label ID="lblUnit" runat="server" Text="Unidad:" CssClass="catLabel"></asp:Label>
-        </td>
-        <td style="height: 17px; width: 64px">
-            <asp:TextBox ID="txtUnit" runat="server"></asp:TextBox>
-        </td>
-        <td style="height: 17px; width: 64px" align="center">
-            <asp:LinkButton style="color:#333333;" ID="lBtnSearch"  runat="server" Text="<i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i>" />
-        </td>
-        <td style="height: 17px; width: 64px" align="left">
-            <asp:LinkButton style="color:#333333;" ID="lBtnReset" runat="server" Text="<i class='fa fa-regular fa-rotate-right' data-toggle='tooltip' title='Reiniciar'></i>" />
-        </td>
-    </tr>
-</table>
+            <div class="catDivHeader">
+                <asp:Label ID="lblUnit" runat="server" Text="Unidad:" CssClass="catLabel"></asp:Label>
+                <asp:TextBox ID="txtUnit" runat="server"></asp:TextBox>
+                <asp:LinkButton ID="lBtnSearch" CssClass="catLinkButton" runat="server" Text="<i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i>" />
+                <asp:LinkButton ID="lBtnReset" CssClass="catLinkButton" runat="server" Text="<i class='fa fa-regular fa-rotate-right' data-toggle='tooltip' title='Reiniciar'></i>" />
+            </div>
 
 <div>
     <br />
@@ -56,18 +45,16 @@
     </tr>
 </table>
 </div>
-<asp:GridView ID="dgvUnits" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog"  GridLines="None" DataKeyNames = "IdUnit" Width="300px" AllowPaging="True">
+<asp:GridView ID="dgvUnits" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog"  GridLines="None" DataKeyNames = "IdUnit" Width="450px" AllowPaging="True">
     <Columns>
          <asp:BoundField DataField="IdUnit" HeaderText="IdUnidad" ReadOnly="True" visible="false">
      
      <HeaderStyle HorizontalAlign="Center" />
   </asp:BoundField>
  <asp:BoundField DataField="Unit" HeaderText="Unidad">
-     <ItemStyle Width="100px" />
      <HeaderStyle HorizontalAlign="Center" />
  </asp:BoundField>
  <asp:BoundField DataField="UnitValue" HeaderText="Valor" ReadOnly="false">
-     <ItemStyle Width="100px" />
      <HeaderStyle HorizontalAlign="Center" />
  </asp:BoundField>
          <asp:TemplateField>

@@ -8,26 +8,13 @@
 <div style="height: 32px">
 
 </div>
-
-<table>
-    <tr>
-        <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Label ID="lblStatus" runat="server" Text="Status de SAP:" CssClass="catLabel"></asp:Label>
-        </td>
-        <td style="height: 17px; width: 64px">
-            <asp:TextBox ID="txtStatus" runat="server"></asp:TextBox>
-        </td>
-        <td style="height: 17px; width: 128px; text-align: right">
-            <asp:CheckBox ID="chkRework" runat="server" Text="Es Retrabajo"  />
-        </td>
-        <td style="height: 17px; width: 64px" align="center">
-            <asp:LinkButton style="color:#333333;" ID="lBtnSearch"  runat="server" Text="<i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i>" />
-        </td>
-        <td style="height: 17px; width: 64px" align="left">
-            <asp:LinkButton style="color:#333333;" ID="lBtnReset" runat="server" Text="<i class='fa fa-regular fa-rotate-right' data-toggle='tooltip' title='Reiniciar'></i>" />
-        </td>
-    </tr>
-</table>
+            <div class="catDivHeader">
+                <asp:Label ID="lblStatus" runat="server" Text="Status de SAP:" CssClass="catLabel"></asp:Label>
+                <asp:TextBox ID="txtStatus" runat="server"></asp:TextBox>
+                <asp:CheckBox ID="chkRework" runat="server" Text="Es Retrabajo"  />
+                <asp:LinkButton ID="lBtnSearch"  CssClass="catLinkButton" runat="server" Text="<i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i>" />
+                <asp:LinkButton ID="lBtnReset" CssClass="catLinkButton" runat="server" Text="<i class='fa fa-regular fa-rotate-right' data-toggle='tooltip' title='Reiniciar'></i>" />
+            </div>
 
 <div>
     <br />
@@ -54,14 +41,14 @@
     </tr>
 </table>
 </div>
-<asp:GridView ID="dgvStatusTable" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog"   GridLines="None" DataKeyNames = "IdCatReworkStatus" Width="300px" AllowPaging="True">
+<asp:GridView ID="dgvStatusTable" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog"   GridLines="None" DataKeyNames = "IdCatReworkStatus" Width="450px" AllowPaging="True">
     <Columns>
                <asp:BoundField DataField="IdCatReworkStatus" HeaderText="IdUnit" ReadOnly="True" visible="false">
    
    <HeaderStyle HorizontalAlign="Left" />
 </asp:BoundField>
-        <asp:BoundField DataField="SAPStatus" HeaderText="SAP Status" SortExpression="sapStatus" ><ItemStyle Width="100px" /></asp:BoundField>
-        <asp:CheckBoxField DataField="IsRework" HeaderText="Es Retrabajo" > <ItemStyle Width="100px" /></asp:CheckBoxField >
+        <asp:BoundField DataField="SAPStatus" HeaderText="SAP Status" SortExpression="sapStatus" ></asp:BoundField>
+        <asp:CheckBoxField DataField="IsRework" HeaderText="Es Retrabajo" ></asp:CheckBoxField >
                <asp:TemplateField ShowHeader="True">
                                 <HeaderTemplate >
                  <asp:DropDownList ID="DropDownListc" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownListc_SelectedIndexChanged">

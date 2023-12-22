@@ -11,36 +11,19 @@
 
 </div>
 
-<table>
-    <tr>
-        <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Label ID="lblWorkOrder" runat="server" Text="Orden de Trabajo:" CssClass="catLabel"></asp:Label>
-        </td>
-        <td style="height: 17px; width: 64px">
-            <asp:TextBox ID="txtWorkOrder" runat="server"></asp:TextBox>
-        </td>
-        <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Label ID="lblArea" runat="server" Text="Módulo:" CssClass="catLabel"></asp:Label>
-        </td>
-        <td style="height: 17px; width: 128px">
-            <asp:DropDownList ID="cmbArea" runat="server" Width="128px" CssClass="catDropDownList">
-                <asp:ListItem>Módulo 1</asp:ListItem>
-                <asp:ListItem>Módulo 2</asp:ListItem>
-                <asp:ListItem>Módulo 3</asp:ListItem>
-                <asp:ListItem>Módulo 4</asp:ListItem>
-            </asp:DropDownList>
-        </td>
-        <td style="height: 17px; width: 196px; text-align: right">
-            <asp:CheckBox ID="chkRework" runat="server" Text="Orden Retrabajada" />
-        </td>
-        <td style="height: 17px; width: 64px" align="center">
-            <asp:LinkButton style="color:#333333;" ID="lBtnSearch"  runat="server" Text="<i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i> " />
-        </td>
-        <td style="height: 17px; width: 64px" align="left">
-            <asp:LinkButton style="color:#333333;" ID="lBtnReset" runat="server" Text="<i class='fa fa-regular fa-rotate-right' data-toggle='tooltip' title='Reiniciar'></i>" />
-        </td>
-    </tr>
-</table>
+            <div class="catDivHeader">
+                <asp:Label ID="lblWorkOrder" CssClass="catLabel" runat="server" Text="Orden de Trabajo:"></asp:Label>
+                <asp:TextBox ID="txtWorkOrder" runat="server"></asp:TextBox>
+                <asp:DropDownList ID="cmbArea" runat="server" Width="128px" CssClass="catDropDownList">
+                    <asp:ListItem>Módulo 1</asp:ListItem>
+                    <asp:ListItem>Módulo 2</asp:ListItem>
+                    <asp:ListItem>Módulo 3</asp:ListItem>
+                    <asp:ListItem>Módulo 4</asp:ListItem>
+                </asp:DropDownList>
+                <asp:CheckBox ID="chkRework" runat="server" Text="Orden Retrabajada" />
+                <asp:LinkButton ID="lBtnSearch" CssClass="catLinkButton" runat="server" Text="<i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i> " />
+                <asp:LinkButton ID="lBtnReset" CssClass="catLinkButton" runat="server" Text="<i class='fa fa-regular fa-rotate-right' data-toggle='tooltip' title='Reiniciar'></i>" />
+            </div>
 
 <div>
     <br />
@@ -56,7 +39,7 @@
 
            
 
-<asp:GridView ID="dgvWorkOrders" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" DataKeyNames="IdCatReworkOrders" Width="680px" AllowPaging="True">
+<asp:GridView ID="dgvWorkOrders" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" DataKeyNames="IdCatReworkOrders" Width="750px" AllowPaging="True">
     <Columns>
                        <asp:BoundField DataField="IdCatReworkOrders" HeaderText="IdCatReworkOrders" ReadOnly="True" visible="false">
    <ItemStyle Width="100px" />
