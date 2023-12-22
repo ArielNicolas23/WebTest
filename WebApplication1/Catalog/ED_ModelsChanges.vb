@@ -160,9 +160,6 @@ Public Class ED_ModelsChanges
             conn.Dispose()
         End Using
     End Sub
-    Public Sub UpdateInactivate(ByVal IdModelsChanges As Guid, ByVal ChangedOnIdModelsChangesHeader As Guid, ByVal ModifiedBy As String)
-        Update(IdModelsChanges, Guid.Empty, ChangedOnIdModelsChangesHeader, Guid.Empty, "", 0, "Inactivo", "", "", "", False, ModifiedBy, 5)
-    End Sub
     Public Sub Delete(ByVal IdModelsChanges As Guid)
 
         Using conn As New SqlConnection(Me.dbCon)
