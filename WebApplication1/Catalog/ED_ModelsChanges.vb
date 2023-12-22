@@ -58,6 +58,10 @@ Public Class ED_ModelsChanges
         Update(IdModelsChanges, Guid.Empty, Guid.Empty, Guid.Empty, "", 0, "Rechazado", "", "", "", True, ModifiedBy, 4)
     End Sub
 
+    Public Sub UpdateInactivate(ByVal IdModelsChanges As Guid, ByVal ChangedOnIdModelsChangesHeader As Guid, ByVal ModifiedBy As String)
+        Update(IdModelsChanges, Guid.Empty, ChangedOnIdModelsChangesHeader, Guid.Empty, "", 0, "Inactivo", "", "", "", False, ModifiedBy, 5)
+    End Sub
+
     Public Sub UpdateEdit(ByVal IdModelsChanges As Guid,
                           ByVal IdModelsChangesHeader As Guid,
                           ByVal ChangedOnIdModelsChangesHeader As Guid,

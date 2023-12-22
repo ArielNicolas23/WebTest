@@ -17,8 +17,8 @@ Public Class CatConfiguracionCalculoDirecto
     Dim objBook As Excel._Workbook
 
     ' Variables de las conexiones a BD
-    Dim modelChangesHeader As ED_ModelsChangesHeader = New ED_ModelsChangesHeader()
-    Dim modelChanges As ED_ModelsChanges = New ED_ModelsChanges()
+    Dim modelsChangesHeader As ED_ModelsChangesHeader = New ED_ModelsChangesHeader()
+    Dim modelsChanges As ED_ModelsChanges = New ED_ModelsChanges()
     Dim catUnits As CatUnits = New CatUnits()
     Dim userPlaceholder As String
 
@@ -29,11 +29,8 @@ Public Class CatConfiguracionCalculoDirecto
 
         If Not Page.IsPostBack Then
             Session("SelectedModels") = GenerateTable()
-            Session("EditModels") = GenerateTable()
             PopulateDropDown()
-            Session("Models") = modelChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, Guid.Empty)
-            PopulateGrid(dgvModelos, Session("Models"))
-
+            PopulateGrid(dgvModelos, modelsChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, Guid.Empty))
         End If
     End Sub
 
@@ -47,6 +44,25 @@ Public Class CatConfiguracionCalculoDirecto
 
     ' Llenado de tablas
     Protected Sub PopulateGrid(dgv As GridView, dt As Data.DataTable)
+        dgv.DataSource = dt
+        dgv.DataBind()
+    End Sub
+
+    ' Llenado de tabla de Modelos aprobados, y verificar si está seleccionado
+    Protected Sub PopulateGridModals(dgv As GridView, dt As Data.DataTable)
+        Dim dtSelected As Data.DataTable = Session("SelectedModels")
+
+        For Each row As DataRow In dt.Rows
+            Dim idPrincipal As String = Convert.ToString(row("IdModelsChanges"))
+            Dim filaSeleccionada As DataRow() = dtSelected.Select("IdModelsChanges = '" & idPrincipal & "'")
+
+            If filaSeleccionada.Length > 0 Then
+                row("IsChecked") = True
+            Else
+                row("IsChecked") = False
+            End If
+        Next
+
         dgv.DataSource = dt
         dgv.DataBind()
     End Sub
@@ -111,7 +127,7 @@ Public Class CatConfiguracionCalculoDirecto
             idCatUnits = Guid.Parse(ddlUnit.SelectedValue)
         End If
 
-        PopulateGrid(dgvModelos, modelChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, idCatUnits))
+        PopulateGridModals(dgvModelos, modelsChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, idCatUnits))
     End Sub
 
     ' Botón para ir a editar
@@ -142,13 +158,9 @@ Public Class CatConfiguracionCalculoDirecto
                 Next
             End If
 
-
-
-
             dtable.AcceptChanges()
-            Session("EditModels") = dtable
             Session("SelectedModels") = dtable
-            PopulateGrid(dgvEditModels, Session("EditModels"))
+            PopulateGrid(dgvEditModels, dtable)
             ToggleEdition(True)
         Else
             MsgBox("Se necesitan seleccionar uno o más modelos para editar", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
@@ -336,7 +348,7 @@ Public Class CatConfiguracionCalculoDirecto
                 dt.Rows.Remove(dt.Rows.Item(e.RowIndex))
                 Session("SelectedModels") = dt
                 Session("Models") = dtModelos
-                PopulateGrid(dgvModelos, dtModelos)
+                PopulateGridModals(dgvModelos, dtModelos)
                 PopulateGrid(dgvSelectedModels, dt)
                 ToggleSelected()
                 Exit Sub
@@ -372,10 +384,19 @@ Public Class CatConfiguracionCalculoDirecto
 
             Session("SelectedModels") = GenerateTable()
             PopulateGrid(dgvSelectedModels, Session("SelectedModels"))
-            'puse esto para que se reiniciaran los checks
-            Session("Models") = modelChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, Guid.Empty)
 
-            PopulateGrid(dgvModelos, Session("Models"))
+            'puse esto para que se reiniciaran los checks
+            'Session("Models") = modelsChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, Guid.Empty)
+
+            Dim idCatUnits As Guid
+
+            If ddlUnit.SelectedValue = "" Then
+                idCatUnits = Guid.Empty
+            Else
+                idCatUnits = Guid.Parse(ddlUnit.SelectedValue)
+            End If
+
+            PopulateGridModals(dgvModelos, modelsChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, idCatUnits))
             ToggleEdition(False)
             ToggleSelected()
         Else
@@ -438,7 +459,7 @@ Public Class CatConfiguracionCalculoDirecto
                 Return
             End If
 
-            If (modelChanges.AlreadyExistModelChange(Guid.Parse(row("IdModelsChanges")), txtEditModel.Text)) Then
+            If (modelsChanges.AlreadyExistModelChange(Guid.Parse(row("IdModelsChanges")), txtEditModel.Text)) Then
                 lblMessage.Text = "No es posble ingresar el Modelo debido a que ya existe un Modelo activo registrado con ese nombre: [" + txtEditModel.Text + "]"
                 Return
             End If
@@ -467,16 +488,40 @@ Public Class CatConfiguracionCalculoDirecto
     End Sub
 
     Protected Sub dgvEditModels_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles dgvEditModels.RowDeleting
-        Dim dt As Data.DataTable = Session("EditModels")
-        'por algun motivo estos me despues de borrar uno el de hasta arriba no se podia borrar y no arrojaba error, con este cvreo que ya esta bien
-        'DirectCast(Session("SelectedModels"), Data.DataTable)
+        Dim dt As Data.DataTable = DirectCast(Session("SelectedModels"), Data.DataTable)
+        Dim confirmed As Integer
 
-        'dt.Rows(e.RowIndex).Delete()
-        dt.Rows.Remove(dt.Rows.Item(e.RowIndex))
-        Session("EditModels") = dt
-        dgvEditModels.DataSource = dt
-        dgvEditModels.DataBind()
+        If dt.Rows.Count <= 1 Then
+            confirmed = MsgBox("Remover el últmo Modelo hará que se cancele el proceso de Aprobación. ¿Está seguro de continuar?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
+            If confirmed = MsgBoxResult.Yes Then
+                Session("SelectedModels") = GenerateTable()
+                PopulateGrid(dgvSelectedModels, Session("SelectedModels"))
+                ToggleSelected()
+            Else
+
+            End If
+        Else
+            confirmed = MsgBox("¿Está seguro de remover este Modelo de la lista para Aprobar?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
+            If confirmed = MsgBoxResult.Yes Then
+
+                dt.Rows.RemoveAt(e.RowIndex)
+
+                Session("SelectedModels") = dt
+                dgvEditModels.DataSource = dt
+                dgvEditModels.DataBind()
+            Else
+
+            End If
+        End If
     End Sub
+
+
+
+
+
+
+
+
 
 
     Protected Sub OnChangeIsChecked(sender As Object, e As EventArgs)
@@ -574,34 +619,222 @@ Public Class CatConfiguracionCalculoDirecto
             Session("SelectedModels") = dtable
             PopulateGrid(dgvSelectedModels, dtable)
             ToggleSelected()
-            
-
-
-
         End If
     End Sub
 
-    'Protected Sub dgvEditModels_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles dgvEditModels.RowEditing
-    '    dgvEditModels.EditIndex = e.NewEditIndex
-    '    PopulateEditGrid()
-    'End Sub
-
-    'Protected Sub dgvEditModels_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles dgvEditModels.RowUpdating
-
-    'End Sub
-
-
-    'Protected Sub dgvEditModels_RowUpdated(sender As Object, e As GridViewUpdatedEventArgs) Handles dgvEditModels.RowUpdated
-
-    'End Sub
-
-    'Protected Sub dgvEditModels_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles dgvEditModels.RowCancelingEdit
-    '    dgvEditModels.EditIndex = -1
-    '    dgvEditModels.DataSource = dgvEditModels
-    '    dgvEditModels.DataBind()
-    'End Sub
 
 
 
 
+
+
+
+
+
+    Protected Sub lbCancel_Click(sender As Object, e As EventArgs) Handles lbCancel.Click
+        CleanModalFields(True)
+        ApproveModal.Hide()
+    End Sub
+
+    Protected Sub lbAccept_Click(sender As Object, e As EventArgs) Handles lbAccept.Click
+        CleanModalFields(False)
+        EnableTextBoxes(False)
+
+        Dim canInsert As Boolean = True
+
+        'Validaciones de los campos
+        canInsert = ValidateTextBox(txtApprover, lblModalMessage, "Favor de buscar y seleccionar a un Aprobador", canInsert)
+        canInsert = ValidateTextBox(txtUsernameApprover, lblModalMessage, "Favor de buscar y seleccionar a un Aprobador", canInsert)
+        canInsert = ValidateTextBox(txtMailApprover, lblModalMessage, "Favor de buscar y seleccionar a un Aprobador", canInsert)
+
+        canInsert = ValidateTextBox(txtApprover, lblApproverError, "Buscar un Aprobador", canInsert)
+        canInsert = ValidateTextBox(txtUser, lblUserError, "Llenar el campo de Usuario", canInsert)
+        canInsert = ValidateTextBox(txtPassword, lblPasswordError, "Llenar el campo de Contraseña", canInsert)
+        canInsert = ValidateTextBox(txtApproveMessage, lblApproveMessageError, "Llenar el campo de Mensaje", canInsert)
+
+        'Validaciones extra por si acaso
+        If (canInsert) Then
+            Dim dt As System.Data.DataTable = Session("SelectedModels")
+            Dim foundRepeated As Boolean
+
+            Dim originUser As String
+            Dim originName As String
+            Dim originEmail As String
+
+            Dim approverUser As String
+            Dim approverName As String
+            Dim approverEmail As String
+
+            Dim originComment As String = txtApproveMessage.Text
+            Dim approvalStatus As String = "Pendiente"
+            Dim isActive As Boolean = True
+
+            Dim idModelsChanges As Guid
+            Dim idModelsChangesHeader As Guid
+            Dim idCatUnits As Guid
+            Dim model As String
+            Dim lifeSpan As Integer
+            Dim modelChangeStatus As String = "Pendiente"
+
+            Dim strApproverName As String = txtApprover.Text
+
+            ' Asignación del usuario aprobador
+            If Not txtUsernameApprover.Text.IsEmpty Then
+                approverUser = txtUsernameApprover.Text
+            Else
+                lblModalMessage.Text = "No se encontro al Usuario Aprobador"
+                EnableTextBoxes(True)
+                ApproveModal.Show()
+                Return
+            End If
+
+
+            ' Validaciones del usuario aprobador
+            If (Security.UserAD.GetUserExists(approverUser, "")) Then
+                approverName = txtApprover.Text
+                approverEmail = txtMailApprover.Text
+            Else
+                lblModalMessage.Text = "No se encontro al Usuario Aprobador"
+                EnableTextBoxes(True)
+                ApproveModal.Show()
+                Return
+            End If
+
+
+            ' Validacion de usuario originador
+            Dim m_Profile = CType(Session("UserProfile"), Security.UserProfile)
+            Dim actualUser = m_Profile.UserName.Split("\")(1)
+            If (Not txtUser.Text.ToLower() = actualUser) Then
+                lblModalMessage.Text = "Porfavor ingrese el usuario de su sesión"
+                EnableTextBoxes(True)
+                ApproveModal.Show()
+                Return
+            End If
+
+            ' Validacion de usuario originador y aprobador
+            If (txtUsernameApprover.Text = actualUser) Then
+                lblModalMessage.Text = "El usuario aprobador no puede ser el mismo que el originador"
+                EnableTextBoxes(True)
+                ApproveModal.Show()
+                Return
+            End If
+
+            ' Validación del propio usuario
+            If (Security.UserAD.ValidateUser(txtUser.Text, txtPassword.Text, "ENT")) Then
+                originUser = txtUser.Text
+                originName = Security.UserAD.GetUserName(originUser)
+                originEmail = Security.UserAD.GetUserEmail(originUser)
+            Else
+                lblModalMessage.Text = "Usuario o contraseña incorrectos"
+                EnableTextBoxes(True)
+                ApproveModal.Show()
+                Return
+            End If
+
+            ' Validación de registros ya existentes
+            For Each row As DataRow In dt.Rows
+                If (modelsChanges.AlreadyExistModelChange(Guid.Empty, row("Model"))) Then
+                    foundRepeated = True
+                End If
+            Next row
+
+
+            If (foundRepeated) Then
+                lblModalMessage.Text = "Se ha detectado que uno o varios modelos seleccionados fueron cargados durante el proceso de aprobación. Favor de rectificar."
+                EnableTextBoxes(True)
+                ApproveModal.Show()
+            Else
+                idModelsChangesHeader = modelsChangesHeader.Insert(originUser, originName, originEmail, originComment, approverUser, approverName, approverEmail, approvalStatus, isActive, originUser)
+                For Each row As DataRow In dt.Rows
+                    idModelsChanges = Guid.Parse(row("IdModelsChanges"))
+                    idCatUnits = Guid.Parse(row("IdCatUnits"))
+                    model = row("Model")
+                    lifeSpan = row("Lifespan")
+                    modelsChanges.UpdateInactivate(idModelsChanges, idModelsChangesHeader, originUser)
+                    modelsChanges.Insert(idModelsChangesHeader, idCatUnits, model, lifeSpan, modelChangeStatus, originUser, originName, originEmail, isActive, originUser)
+                Next row
+
+                ApproveModal.Hide()
+
+                MsgBox("Se ha completado exitósamente el registro de los cambios", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+
+
+                Dim dataMail As New ConstructInfo With {
+                                .EmailType = "CambiosPendientes",
+                                .UserName = originUser,
+                                .Comment = txtApproveMessage.Text.Trim,
+                                .Link = "<a href=>Fecha De Expiración</a>"
+                                }
+                Dim email As New ModuloGeneralEmail
+
+                If email.ConstructEmail(dataMail) Then
+                    MsgBox("Se ha enviado un correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+                Else
+                    MsgBox("Ha ocurrido un error al mandar correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Error")
+                End If
+
+                CleanModalFields(True)
+                EnableTextBoxes(True)
+
+            End If
+        Else
+            EnableTextBoxes(True)
+            ApproveModal.Show()
+        End If
+    End Sub
+
+    Protected Sub CleanModalFields(cleanTextBoxes As Boolean)
+        lblApproverError.Text = ""
+        lblUserError.Text = ""
+        lblPasswordError.Text = ""
+        lblApproveMessageError.Text = ""
+        lblModalMessage.Text = ""
+
+        If (cleanTextBoxes) Then
+            txtApprover.Text = ""
+            txtUsernameApprover.Text = ""
+            txtMailApprover.Text = ""
+            txtUser.Text = ""
+            txtPassword.Text = ""
+            txtApproveMessage.Text = ""
+        End If
+    End Sub
+
+    Protected Function ValidateTextBox(txt As WebControls.TextBox, lbl As WebControls.Label, errorMessage As String, canInsert As Boolean)
+        If (txt.Text = "") Then
+            lbl.Text = errorMessage
+            Return False
+        Else
+            If (canInsert) Then
+                Return True
+            Else
+                Return False
+            End If
+        End If
+    End Function
+
+    Protected Sub EnableTextBoxes(enable As Boolean)
+        txtUser.Enabled = enable
+        txtPassword.Enabled = enable
+    End Sub
+
+    Protected Sub cmdApproveEdit_Click(sender As Object, e As EventArgs) Handles cmdApproveEdit.Click
+        Dim dt As Data.DataTable = Session("SelectedModels")
+        Dim foundRepeated As Boolean = False
+        Dim listRepeated As String = ""
+
+        For Each row As DataRow In dt.Rows
+            If (modelsChanges.AlreadyExistModelChange(Guid.Parse(row("IdModelsChanges")), row("Model"))) Then
+                foundRepeated = True
+                listRepeated += "[" + row("Model") + "], "
+            End If
+        Next row
+
+        If (foundRepeated) Then
+            listRepeated = listRepeated.Substring(0, listRepeated.Length - 1)
+            lblMessage.Text = "Se ha detectado que alguno de los modelos ha sido ingresado al sistema durante el flujo de configuración: " + listRepeated + ". Favor de rectificar los datos"
+        Else
+            ApproveModal.Show()
+        End If
+    End Sub
 End Class
