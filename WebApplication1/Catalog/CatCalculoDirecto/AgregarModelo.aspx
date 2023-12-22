@@ -85,7 +85,7 @@
 
             </div>
             <div runat="server" id="divModelsNew" visible="false">
-                <asp:Label ID="Label5" runat="server" Font-Size="18pt" Text="Nueva Configuración de Cálculo Directo"></asp:Label>
+                <asp:Label ID="Label5" runat="server" Font-Size="18pt" Text="Nueva Configuración de Cálculo Directo" CssClass="catHeader"></asp:Label>
 
 <div style="height: 32px">
 
@@ -93,7 +93,7 @@
             <table>
                 <tr>
                     <td style="height: 17px; width: 128px; text-align: right">
-                        <asp:Label ID="lblModel" runat="server" Text="Modelo:" Width="70px" ></asp:Label>
+                        <asp:Label ID="lblModel" runat="server" Text="Modelo:" Width="70px"  CssClass="catLabel"></asp:Label>
                     </td> 
                     <td style="height: 17px; width: 128px; text-align: right">
                         <asp:TextBox ID="txtModel" runat="server"></asp:TextBox>
@@ -102,7 +102,7 @@
             
                 <tr>
                     <td style="height: 17px; width: 128px; text-align: right">   
-                        <asp:Label ID="lblLifespan" runat="server" Text="Vida Útil:" Width="70px" ></asp:Label>
+                        <asp:Label ID="lblLifespan" runat="server" Text="Vida Útil:" Width="70px" CssClass="catLabel" ></asp:Label>
                     </td> 
                     <td style="height: 17px; width: 128px; text-align: right">
                         <asp:TextBox ID="txtLifeSpan" runat="server"></asp:TextBox>
@@ -111,7 +111,7 @@
                         <asp:Label ID="lblUnit" runat="server" Text="Unidad:"></asp:Label>
                     </td> 
                     <td style="height: 17px; width: 128px; text-align: right">
-                        <asp:DropDownList ID="ddlUnit" runat="server" AutoPostBack="True" Height="16px">
+                        <asp:DropDownList ID="ddlUnit" runat="server" AutoPostBack="True" Height="16px" CssClass="catDropDownList">
                         </asp:DropDownList>
                     </td>
 
@@ -163,7 +163,7 @@
 <table>
     <tr>
         <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Label ID="Label1" runat="server" Text="Modelo:" Width="70px" ></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text="Modelo:" Width="70px" CssClass="catLabel"></asp:Label>
         </td> 
         <td style="height: 17px; width: 128px; text-align: right">
             <asp:TextBox ID="txtModelEdit" runat="server"></asp:TextBox>
@@ -172,13 +172,13 @@
 
     <tr>
         <td style="height: 17px; width: 128px; text-align: right">   
-            <asp:Label ID="Label2" runat="server" Text="Vida Útil:" Width="70px" ></asp:Label>
+            <asp:Label ID="Label2" runat="server" Text="Vida Útil:" Width="70px" CssClass="catLabel"></asp:Label>
         </td> 
         <td style="height: 17px; width: 128px; text-align: right">
             <asp:TextBox ID="txtLifeSpanEdit" runat="server"></asp:TextBox>
         </td>
         <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Label ID="Label3" runat="server" Text="Unidad:"></asp:Label>
+            <asp:Label ID="Label3" runat="server" Text="Unidad:" CssClass="catLabel"></asp:Label>
         </td> 
         <td style="height: 17px; width: 128px; text-align: right">
             <asp:DropDownList ID="ddlUnitEdit" runat="server" AutoPostBack="True" Height="16px">
@@ -202,7 +202,7 @@
 <div runat="server" id="divButtonsEdit" visible="true" style="width: 750px; margin-bottom: 32px">
     <div style="float: right">
         <asp:LinkButton class="catLinkButton" ID="lbCancelChangeEdit"  runat="server" Text="Limpiar Carga de Modelos &lt;i class='fa fa-rotate-right' data-toggle='tooltip' title='Reiniciar Carga de Modelos'&gt;&lt;/i&gt; "></asp:LinkButton>
-        <asp:LinkButton class="catLinkButtonAccept" ID="lbOpenApproveEdit"  runat="server" Text="Enviar para Aprobación <i class='fa fa-envelope' data-toggle='tooltip' title='Enviar para Aprobación'></i> "></asp:LinkButton>
+        <asp:LinkButton class="catLinkButtonAccept" ID="lbOpenApproveEdit"  runat="server" CssClass="catButtonAccept" Text="Enviar para Aprobación <i class='fa fa-envelope' data-toggle='tooltip' title='Enviar para Aprobación'></i> "></asp:LinkButton>
     </div>
 </div>
 

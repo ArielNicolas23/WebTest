@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage.master" CodeBehind="CatUnits.aspx.vb" Inherits="WebApplication1.Catalog_CatUnits" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Catálogo de Unidades"></asp:Label>
+
+    <asp:UpdatePanel ID="UpdatePanelGeneral" runat="server">
+        <ContentTemplate>
+
+
+    <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Catálogo de Unidades" CssClass="catHeader"></asp:Label>
 
 <div style="height: 32px">
 
@@ -9,7 +14,7 @@
 <table>
     <tr>
         <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Label ID="lblUnit" runat="server" Text="Unidad:"></asp:Label>
+            <asp:Label ID="lblUnit" runat="server" Text="Unidad:" CssClass="catLabel"></asp:Label>
         </td>
         <td style="height: 17px; width: 64px">
             <asp:TextBox ID="txtUnit" runat="server"></asp:TextBox>
@@ -51,18 +56,18 @@
     </tr>
 </table>
 </div>
-<asp:GridView ID="dgvUnits" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames = "IdUnit" Width="680px" AllowPaging="True">
+<asp:GridView ID="dgvUnits" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog"  GridLines="None" DataKeyNames = "IdUnit" Width="300px" AllowPaging="True">
     <Columns>
          <asp:BoundField DataField="IdUnit" HeaderText="IdUnidad" ReadOnly="True" visible="false">
      
      <HeaderStyle HorizontalAlign="Center" />
   </asp:BoundField>
  <asp:BoundField DataField="Unit" HeaderText="Unidad">
-     <ItemStyle Width="200px" />
+     <ItemStyle Width="100px" />
      <HeaderStyle HorizontalAlign="Center" />
  </asp:BoundField>
  <asp:BoundField DataField="UnitValue" HeaderText="Valor" ReadOnly="false">
-     <ItemStyle Width="200px" />
+     <ItemStyle Width="100px" />
      <HeaderStyle HorizontalAlign="Center" />
  </asp:BoundField>
          <asp:TemplateField>
@@ -90,11 +95,12 @@
     
 
     </Columns>
-    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-    <EditRowStyle BackColor="#999999" />
-    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                    <RowStyle CssClass="dgvCatalogRowOdd" />
+                    <EditRowStyle BackColor="#999999" />
+                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                    <PagerStyle CssClass="dgvPaging"/>
+                    <AlternatingRowStyle CssClass="dgvCatalogRowEven" />
 </asp:GridView>
+            </ContentTemplate>
+            </asp:UpdatePanel>
 </asp:Content>

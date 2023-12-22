@@ -388,4 +388,8 @@ Public Class CatModuloAprobacion
         ToggleModelsChanges(True)
         ToggleModelsView(True)
     End Sub
+
+    Protected Sub lBtnSearc_Click(sender As Object, e As EventArgs) Handles lBtnSearc.Click
+
+    End Sub
 End Class

@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage.master" CodeBehind="CatWorkOrders.aspx.vb" Inherits="WebApplication1.Catalog_CatWorkOrders" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-        <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Catálogo de Órdenes de Retrabajo"></asp:Label>
+
+
+    <asp:UpdatePanel ID="UpdatePanelGeneral" runat="server">
+        <ContentTemplate>
+
+        <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Catálogo de Órdenes de Retrabajo" CssClass="catHeader"></asp:Label>
 
 <div style="height: 32px">
 
@@ -9,16 +14,16 @@
 <table>
     <tr>
         <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Label ID="lblWorkOrder" runat="server" Text="Orden de Trabajo:"></asp:Label>
+            <asp:Label ID="lblWorkOrder" runat="server" Text="Orden de Trabajo:" CssClass="catLabel"></asp:Label>
         </td>
         <td style="height: 17px; width: 64px">
             <asp:TextBox ID="txtWorkOrder" runat="server"></asp:TextBox>
         </td>
         <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Label ID="lblArea" runat="server" Text="Módulo:"></asp:Label>
+            <asp:Label ID="lblArea" runat="server" Text="Módulo:" CssClass="catLabel"></asp:Label>
         </td>
         <td style="height: 17px; width: 128px">
-            <asp:DropDownList ID="cmbArea" runat="server" Width="128px">
+            <asp:DropDownList ID="cmbArea" runat="server" Width="128px" CssClass="catDropDownList">
                 <asp:ListItem>Módulo 1</asp:ListItem>
                 <asp:ListItem>Módulo 2</asp:ListItem>
                 <asp:ListItem>Módulo 3</asp:ListItem>
@@ -51,13 +56,14 @@
 
            
 
-<asp:GridView ID="dgvWorkOrders" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="IdCatReworkOrders" Width="680px" AllowPaging="True">
+<asp:GridView ID="dgvWorkOrders" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" DataKeyNames="IdCatReworkOrders" Width="680px" AllowPaging="True">
     <Columns>
                        <asp:BoundField DataField="IdCatReworkOrders" HeaderText="IdCatReworkOrders" ReadOnly="True" visible="false">
    <ItemStyle Width="100px" />
    <HeaderStyle HorizontalAlign="Left" />
 </asp:BoundField>
         <asp:BoundField DataField="WorkOrder" HeaderText="Orden de Trabajo" SortExpression="workOrder"  />
+
                        <asp:TemplateField HeaderText="Módulo">
                            <ItemTemplate>
                                <asp:Label  ID="lblArea" runat="server" Text='<%# Bind("Area") %>'>[lblArea]</asp:Label>
@@ -93,11 +99,12 @@
                            </ItemTemplate>
                        </asp:TemplateField>
     </Columns>
-    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-    <EditRowStyle BackColor="#999999" />
-    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+     <RowStyle CssClass="dgvCatalogRowOdd" />
+     <EditRowStyle BackColor="#999999" />
+     <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+     <PagerStyle CssClass="dgvPaging"/>
+     <AlternatingRowStyle CssClass="dgvCatalogRowEven" />
 </asp:GridView>
+            </ContentTemplate>
+            </asp:UpdatePanel>
 </asp:Content>

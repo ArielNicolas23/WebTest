@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage.master" CodeBehind="CatReworkStatus.aspx.vb" Inherits="WebApplication1.Catalog_CatReworkStatus" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Catálogo de Status de Retrabajo"></asp:Label>
+
+    <asp:UpdatePanel ID="UpdatePanelGeneral" runat="server">
+        <ContentTemplate>
+    <asp:Label ID="lblTitle" runat="server" Font-Size="18pt" Text="Catálogo de Status de Retrabajo" CssClass="catHeader"></asp:Label>
 
 <div style="height: 32px">
 
@@ -9,13 +12,13 @@
 <table>
     <tr>
         <td style="height: 17px; width: 128px; text-align: right">
-            <asp:Label ID="lblStatus" runat="server" Text="Status de SAP:"></asp:Label>
+            <asp:Label ID="lblStatus" runat="server" Text="Status de SAP:" CssClass="catLabel"></asp:Label>
         </td>
         <td style="height: 17px; width: 64px">
             <asp:TextBox ID="txtStatus" runat="server"></asp:TextBox>
         </td>
         <td style="height: 17px; width: 128px; text-align: right">
-            <asp:CheckBox ID="chkRework" runat="server" Text="Es Retrabajo" />
+            <asp:CheckBox ID="chkRework" runat="server" Text="Es Retrabajo"  />
         </td>
         <td style="height: 17px; width: 64px" align="center">
             <asp:LinkButton style="color:#333333;" ID="lBtnSearch"  runat="server" Text="<i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i>" />
@@ -51,14 +54,14 @@
     </tr>
 </table>
 </div>
-<asp:GridView ID="dgvStatusTable" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames = "IdCatReworkStatus" Width="680px" AllowPaging="True">
+<asp:GridView ID="dgvStatusTable" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog"   GridLines="None" DataKeyNames = "IdCatReworkStatus" Width="300px" AllowPaging="True">
     <Columns>
                <asp:BoundField DataField="IdCatReworkStatus" HeaderText="IdUnit" ReadOnly="True" visible="false">
    
    <HeaderStyle HorizontalAlign="Left" />
 </asp:BoundField>
-        <asp:BoundField DataField="SAPStatus" HeaderText="SAP Status" SortExpression="sapStatus" ><ItemStyle Width="230px" /></asp:BoundField>
-        <asp:CheckBoxField DataField="IsRework" HeaderText="Es Retrabajo" > <ItemStyle Width="230px" /></asp:CheckBoxField >
+        <asp:BoundField DataField="SAPStatus" HeaderText="SAP Status" SortExpression="sapStatus" ><ItemStyle Width="100px" /></asp:BoundField>
+        <asp:CheckBoxField DataField="IsRework" HeaderText="Es Retrabajo" > <ItemStyle Width="100px" /></asp:CheckBoxField >
                <asp:TemplateField ShowHeader="True">
                                 <HeaderTemplate >
                  <asp:DropDownList ID="DropDownListc" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownListc_SelectedIndexChanged">
@@ -80,11 +83,13 @@
                    </ItemTemplate>
                </asp:TemplateField>
     </Columns>
-    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-    <EditRowStyle BackColor="#999999" />
-    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+    <RowStyle CssClass="dgvCatalogRowOdd" />
+     <EditRowStyle BackColor="#999999" />
+     <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+     <PagerStyle CssClass="dgvPaging"/>
+     <AlternatingRowStyle CssClass="dgvCatalogRowEven" />
+
 </asp:GridView>
+</ContentTemplate>
+</asp:UpdatePanel>
 </asp:Content>

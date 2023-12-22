@@ -555,7 +555,7 @@ Public Class CatConfiguracionCalculoDirecto
             If checkBox.Checked = False Then
 
                 For rowcount As Integer = 0 To dgvSelectedModels.Rows.Count - 1
-                    Dim idSelected As Guid = Guid.Parse(datacopy.Rows(rowcount).Item(1).ToString())
+                    Dim idSelected As Guid = Guid.Parse(datacopy.Rows(rowcount).Item(0).ToString())
                     'Guid.Parse(rowkeySelected(dgvSelectedModels.Rows(rowcount).DataItem).Values(0).ToString())
                     If idSelected = id Then
                         'Dim dt As Data.DataTable = Session("SelectedModels")

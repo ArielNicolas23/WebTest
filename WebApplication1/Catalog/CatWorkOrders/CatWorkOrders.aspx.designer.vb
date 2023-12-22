@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class Catalog_CatWorkOrders
 
     '''<summary>
+    '''UpdatePanelGeneral control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanelGeneral As Global.System.Web.UI.UpdatePanel
+
+    '''<summary>
     '''lblTitle control.
     '''</summary>
     '''<remarks>
