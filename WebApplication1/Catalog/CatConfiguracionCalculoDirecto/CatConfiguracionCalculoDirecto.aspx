@@ -158,7 +158,7 @@
                                 </div>
                                 <asp:GridView  runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="750px" AllowPaging="False" ID="dgvSelectedModels" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
                                     <Columns>
-                                        <asp:CommandField HeaderText="Acción" ShowDeleteButton="True" />
+                                        <asp:CommandField HeaderText="Acción" ShowDeleteButton="True" DeleteText="&lt;i class='fa fa-regular fa-trash' style='color:#333333;' data-toggle='tooltip' title='Deseleccionar'&gt;&lt;/i&gt;"/>
                                         <asp:BoundField DataField="IdModelsChanges" Visible="False" />
                                         <asp:BoundField DataField="IdModelsChangesHeader" Visible="False"  />
                                         <asp:BoundField DataField="IdCatUnits" Visible="False" />

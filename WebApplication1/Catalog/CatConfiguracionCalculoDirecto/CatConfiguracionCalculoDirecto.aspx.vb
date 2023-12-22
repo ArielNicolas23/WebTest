@@ -370,6 +370,16 @@ Public Class CatConfiguracionCalculoDirecto
         If confirmed = MsgBoxResult.Yes Then
             Session("SelectedModels") = GenerateTable()
             PopulateGrid(dgvSelectedModels, Session("SelectedModels"))
+
+            Dim idCatUnits As Guid
+
+            If ddlUnit.SelectedValue = "" Then
+                idCatUnits = Guid.Empty
+            Else
+                idCatUnits = Guid.Parse(ddlUnit.SelectedValue)
+            End If
+
+            PopulateGridModals(dgvModelos, modelsChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, idCatUnits))
             ToggleSelected()
         Else
 
@@ -496,8 +506,22 @@ Public Class CatConfiguracionCalculoDirecto
         If dt.Rows.Count <= 1 Then
             confirmed = MsgBox("Remover el últmo Modelo hará que se cancele el proceso de Aprobación. ¿Está seguro de continuar?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
             If confirmed = MsgBoxResult.Yes Then
+                dt.Rows.RemoveAt(e.RowIndex)
+
                 Session("SelectedModels") = GenerateTable()
                 PopulateGrid(dgvSelectedModels, Session("SelectedModels"))
+
+
+                Dim idCatUnits As Guid
+
+                If ddlUnit.SelectedValue = "" Then
+                    idCatUnits = Guid.Empty
+                Else
+                    idCatUnits = Guid.Parse(ddlUnit.SelectedValue)
+                End If
+
+                PopulateGridModals(dgvModelos, modelsChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, idCatUnits))
+                ToggleEdition(False)
                 ToggleSelected()
             Else
 
@@ -735,7 +759,7 @@ Public Class CatConfiguracionCalculoDirecto
 
             ' Validación de registros ya existentes
             For Each row As DataRow In dt.Rows
-                If (modelsChanges.AlreadyExistModelChange(Guid.Empty, row("Model"))) Then
+                If (modelsChanges.AlreadyExistModelChange(Guid.Parse(row("IdModelsChanges")), row("Model"))) Then
                     foundRepeated = True
                 End If
             Next row
@@ -775,9 +799,23 @@ Public Class CatConfiguracionCalculoDirecto
                     MsgBox("Ha ocurrido un error al mandar correo a " + txtApprover.Text.Split("||")(0).Trim(), MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Error")
                 End If
 
+                Session("SelectedModels") = GenerateTable()
+                PopulateGrid(dgvSelectedModels, Session("SelectedModels"))
+
+                Dim idCatUnitsFilter As Guid
+
+                If ddlUnit.SelectedValue = "" Then
+                    idCatUnitsFilter = Guid.Empty
+                Else
+                    idCatUnitsFilter = Guid.Parse(ddlUnit.SelectedValue)
+                End If
+
                 CleanModalFields(True)
                 EnableTextBoxes(True)
 
+                PopulateGridModals(dgvModelos, modelsChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, idCatUnitsFilter))
+                ToggleEdition(False)
+                ToggleSelected()
             End If
         Else
             EnableTextBoxes(True)
