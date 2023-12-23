@@ -57,13 +57,24 @@ Public Class CatModuloAprobacion
 
         lblOrigName.Text = dt.Rows(0).Item(2).ToString
         lblOrigUser.Text = dt.Rows(0).Item(3).ToString
-        lblOrigDateEdit.Text = dt.Rows(0).Item(9).ToString
+        lblOrigDateEdit.Text = dt.Rows(0).Item(10).ToString
         lblOrigComment.Text = dt.Rows(0).Item(4).ToString
 
         lblAprName.Text = dt.Rows(0).Item(5).ToString
         lblAprUser.Text = dt.Rows(0).Item(6).ToString
-        lblAprDateEdit.Text = dt.Rows(0).Item(10).ToString
+        lblAprDateEdit.Text = dt.Rows(0).Item(9).ToString
         lblAprComment.Text = dt.Rows(0).Item(7).ToString
+        Select Case lblInfoStatus.Text
+            Case "En Revisión"
+                tdInfoStatus.Attributes.Add("style", "background:yellow;")
+            Case "Pendiente"
+                tdInfoStatus.Attributes.Add("style", "background:orange;")
+            Case "Aprobado"
+                tdInfoStatus.Attributes.Add("style", "background:green;")
+            Case "Rechazado"
+                tdInfoStatus.Attributes.Add("style", "background:red;")
+        End Select
+
     End Sub
     ' Método para ejecutar la acción del Header seleccionado
     Protected Sub dgvPendingApproval_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles dgvPendingApproval.RowCommand

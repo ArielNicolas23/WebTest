@@ -51,6 +51,9 @@
         .auto-style9 {
             width: 255px;
         }
+        .auto-style10 {
+            width: 151px;
+        }
     </style>
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -163,11 +166,11 @@
                     <table style="margin-left: 30px; width: 650px; margin-bottom: 20px;" class="auto-style1">
                         <tr>
                             <td class="auto-style9" style="background-color: #517aa9; color: white; font-weight: bold;">Numero de cambio:</td>
-                            <td class="">
+                            <td class="auto-style10">
                                 <asp:Label ID="lblInfoChange" runat="server" Text="Label"></asp:Label>
                             </td>
                             <td class="" style="background-color: #517aa9; color: white; font-weight: bold;">Estatus:</td>
-                            <td class="">
+                            <td class="" runat="server" id="tdInfoStatus">
                                 <asp:Label ID="lblInfoStatus" runat="server" Text="Label"></asp:Label>
                             </td>
                         </tr>

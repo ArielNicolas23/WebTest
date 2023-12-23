@@ -293,6 +293,15 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents lblInfoChange As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''tdInfoStatus control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tdInfoStatus As Global.System.Web.UI.HtmlControls.HtmlTableCell
+
+    '''<summary>
     '''lblInfoStatus control.
     '''</summary>
     '''<remarks>
