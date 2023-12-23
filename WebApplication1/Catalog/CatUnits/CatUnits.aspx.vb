@@ -55,6 +55,10 @@ Public Class Catalog_CatUnits
                 lblMessage.Text = "Favor de escribir un valor para la Unidad"
                 Return
             End If
+            If (strUnitValue = "0") Then
+                lblMessage.Text = "El valor de la unidad debe ser un numero mayor a 0"
+                Return
+            End If
 
             If (Not Regex.IsMatch(strUnitValue, "^[0-9 ]+$")) Then
                 lblMessage.Text = "Favor de escribir un valor numerico"

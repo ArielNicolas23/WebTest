@@ -67,7 +67,6 @@
                         document.getElementById("MainContent_txtMailApprover").value = document.getElementById("MainContent_txtApprover").value.split('||')[2].trim();
                         document.getElementById("MainContent_txtApprover").value = document.getElementById("MainContent_txtApprover").value.split('||')[0].trim();
                         document.getElementById("btnRefresh").disabled = true;
-
                         document.getElementById("MainContent_txtApprover").disabled = true;
                         document.getElementById("btnRefresh").disabled = false;
                     }

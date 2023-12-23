@@ -385,7 +385,7 @@
                         </tr>
 
                         <tr style="margin-top: 10px; margin-bottom: 10px">
-                            <td colspan="3">
+                            <td colspan="3" class="auto-style2">
                                 <asp:Label ID="lblModalMessage" runat="server" ForeColor="Red" Width="504px"></asp:Label>
                             </td>
                         </tr>

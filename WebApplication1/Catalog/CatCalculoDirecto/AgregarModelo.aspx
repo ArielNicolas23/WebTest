@@ -254,7 +254,7 @@
                                 <asp:Label ID="lblApprover" runat="server" Text="Aprobador:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
 
-                            <td align="left" class="auto-style6">
+                            <td align="left" class="auto-style2">
                                 <div class="button-group">
                                     <asp:TextBox ID="txtApprover" runat="server" Width="260px" onchange="ADUserFound()" ></asp:TextBox>
                                     <button type="button" title="Limpiar campo de Aprobador" class="catModalButton" id="btnRefresh" onclick="ClearADFields()" width="15px" disabled="disabled"><i class="fa fa-refresh"></i></button>
@@ -278,7 +278,7 @@
 
                             </td>
 
-                            <td align="left" class="auto-style6">
+                            <td align="left" class="auto-style2">
                                 <asp:TextBox ID="txtUsernameApprover" runat="server" Width="260px" Enabled="False">
 
                                 </asp:TextBox>
@@ -290,7 +290,7 @@
 
                             </td>
 
-                            <td align="left" class="auto-style6">
+                            <td align="left" class="auto-style2">
                                 <asp:TextBox ID="txtMailApprover" runat="server" Width="260px" Enabled="False">
 
                                 </asp:TextBox>
@@ -302,7 +302,7 @@
                                 <asp:Label ID="lblUser" runat="server" Text="Usuario:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
 
-                            <td align="left" class="auto-style6">
+                            <td align="left" class="auto-style2">
                                 <asp:TextBox ID="txtUser" runat="server" Width="260px" CausesValidation="True"></asp:TextBox>
                             </td>
 
@@ -316,7 +316,7 @@
                                 <asp:Label ID="lblPassword" runat="server" Text="Contraseña:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
 
-                            <td align="left" class="auto-style6">
+                            <td align="left" class="auto-style2">
                                 <asp:TextBox ID="txtPassword" runat="server" Width="260px" TextMode="Password"></asp:TextBox>
                             </td>
 
@@ -330,7 +330,7 @@
                                 <asp:Label ID="lblApproveMessage" runat="server" Text="Comentarios:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
 
-                            <td align="left" class="auto-style6">
+                            <td align="left" class="auto-style2">
                                 <asp:TextBox ID="txtApproveMessage" runat="server" Height="104px" Width="260px" TextMode="MultiLine"></asp:TextBox>
                             </td>
 
@@ -393,7 +393,7 @@
                                <asp:Label ID="Label8" runat="server" Text="Aprobador:" Width="100px" Font-Bold="True"></asp:Label>
                            </td>
 
-                           <td align="left" class="auto-style6">
+                           <td align="left" class="auto-style1">
                                <div class="button-group">
                                    <asp:TextBox ID="txtApproverEdit" runat="server" Width="260px" onchange="ADUserFoundEdit()" ></asp:TextBox>
                                    <button type="button" title="Limpiar campo de Aprobador" class="catModalButton" id="btnRefreshEdit" onclick="ClearADFields()" width="15px" disabled="disabled"><i class="fa fa-refresh"></i></button>
@@ -417,7 +417,7 @@
 
                            </td>
 
-                           <td align="left" class="auto-style6">
+                           <td align="left" class="auto-style1">
                                <asp:TextBox ID="txtUsernameApproverEdit" runat="server" Width="260px" Enabled="False"></asp:TextBox>
                            </td>
                        </tr>
@@ -427,7 +427,7 @@
 
                            </td>
 
-                           <td align="left" class="auto-style6">
+                           <td align="left" class="auto-style1">
                                <asp:TextBox ID="txtMailApproverEdit" runat="server" Width="260px" Enabled="False"></asp:TextBox>
                            </td>
                        </tr>
@@ -437,7 +437,7 @@
                                <asp:Label ID="Label10" runat="server" Text="Usuario:" Width="100px" Font-Bold="True"></asp:Label>
                            </td>
 
-                           <td align="left" class="auto-style6">
+                           <td align="left" class="auto-style1">
                                <asp:TextBox ID="txtUserEdit" runat="server" Width="260px" CausesValidation="True"></asp:TextBox>
                            </td>
 
@@ -451,7 +451,7 @@
                                <asp:Label ID="Label12" runat="server" Text="Contraseña:" Width="100px" Font-Bold="True"></asp:Label>
                            </td>
 
-                           <td align="left" class="auto-style6">
+                           <td align="left" class="auto-style1">
                                <asp:TextBox ID="txtPasswordEdit" runat="server" Width="260px" TextMode="Password"></asp:TextBox>
                            </td>
 
@@ -465,7 +465,7 @@
                                <asp:Label ID="Label14" runat="server" Text="Comentarios:" Width="100px" Font-Bold="True"></asp:Label>
                            </td>
 
-                           <td align="left" class="auto-style6">
+                           <td align="left" class="auto-style1">
                                <asp:TextBox ID="txtApproveMessageEdit" runat="server" Height="104px" Width="260px" TextMode="MultiLine"></asp:TextBox>
                            </td>
 
@@ -509,4 +509,4 @@ runat="server">
 
         </ContentTemplate>
     </asp:UpdatePanel>
-</asp:Content>
+    </asp:Content>
