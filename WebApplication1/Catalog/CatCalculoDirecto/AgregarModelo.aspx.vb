@@ -257,7 +257,6 @@ Public Class WebForm1
                 approverUser = txtUsernameApprover.Text
             Else
                 lblModalMessage.Text = "No se encontro al Usuario Aprobador"
-                txtMailApprover.Enabled = True
                 txtUser.Enabled = True
                 txtPassword.Enabled = True
 
@@ -273,7 +272,6 @@ Public Class WebForm1
                 approverEmail = txtMailApprover.Text
             Else
                 lblModalMessage.Text = "No se encontro al Usuario Aprobador"
-                txtMailApprover.Enabled = True
                 txtUser.Enabled = True
                 txtPassword.Enabled = True
 
@@ -287,7 +285,6 @@ Public Class WebForm1
             Dim actualUser = m_Profile.UserName.Split("\")(1)
             If (Not txtUser.Text.ToLower() = actualUser) Then
                 lblModalMessage.Text = "Porfavor ingrese el usuario de su sesión"
-                txtMailApprover.Enabled = True
                 txtUser.Enabled = True
                 txtPassword.Enabled = True
 
@@ -309,7 +306,6 @@ Public Class WebForm1
                 originEmail = Security.UserAD.GetUserEmail(originUser)
             Else
                 lblModalMessage.Text = "Usuario o contraseña incorrectos"
-                txtMailApprover.Enabled = True
                 txtUser.Enabled = True
                 txtPassword.Enabled = True
 
@@ -327,7 +323,7 @@ Public Class WebForm1
 
             If (foundRepeated) Then
                 lblModalMessage.Text = "Se ha detectado que uno o varios modelos seleccionados fueron cargados durante el proceso de aprobación. Favor de rectificar."
-                txtMailApprover.Enabled = True
+
                 txtUser.Enabled = True
                 txtPassword.Enabled = True
                 ApproveModal.Show()
@@ -363,7 +359,7 @@ Public Class WebForm1
 
                 CleanModalFields(True)
                 CleanTable()
-                txtMailApprover.Enabled = True
+                EnableButtons()
                 txtUser.Enabled = True
                 txtPassword.Enabled = True
 
@@ -701,7 +697,6 @@ Public Class WebForm1
     Protected Sub lbAcceptEdit_Click(sender As Object, e As EventArgs) Handles lbAcceptEdit.Click
         CleanModalFieldsEdit(False)
 
-        txtMailApproverEdit.Enabled = False
         txtUserEdit.Enabled = False
         txtPasswordEdit.Enabled = False
 
@@ -753,7 +748,6 @@ Public Class WebForm1
                 approverUser = txtUsernameApproverEdit.Text
             Else
                 lblModalMessageEdit.Text = "No se encontro al Usuario Aprobador"
-                txtMailApproverEdit.Enabled = True
                 txtUserEdit.Enabled = True
                 txtPasswordEdit.Enabled = True
 
@@ -769,7 +763,6 @@ Public Class WebForm1
                 approverEmail = txtMailApproverEdit.Text
             Else
                 lblModalMessageEdit.Text = "No se encontro al Usuario Aprobador"
-                txtMailApproverEdit.Enabled = True
                 txtUserEdit.Enabled = True
                 txtPasswordEdit.Enabled = True
 
@@ -783,7 +776,6 @@ Public Class WebForm1
             Dim actualUser = m_Profile.UserName.Split("\")(1)
             If (Not txtUserEdit.Text.ToLower() = actualUser) Then
                 lblModalMessageEdit.Text = "Porfavor ingrese el usuario de su sesión"
-                txtMailApproverEdit.Enabled = True
                 txtUserEdit.Enabled = True
                 txtPasswordEdit.Enabled = True
 
@@ -805,7 +797,6 @@ Public Class WebForm1
                 originEmail = Security.UserAD.GetUserEmail(originUser)
             Else
                 lblModalMessageEdit.Text = "Usuario o contraseña incorrectos"
-                txtMailApproverEdit.Enabled = True
                 txtUserEdit.Enabled = True
                 txtPasswordEdit.Enabled = True
 
@@ -823,7 +814,7 @@ Public Class WebForm1
 
             If (foundRepeated) Then
                 lblModalMessageEdit.Text = "Se ha detectado que uno o varios modelos seleccionados fueron cargados durante el proceso de aprobación. Favor de rectificar."
-                txtMailApproverEdit.Enabled = True
+
                 txtUserEdit.Enabled = True
                 txtPasswordEdit.Enabled = True
                 ApproveModalEdit.Show()
@@ -874,9 +865,9 @@ Public Class WebForm1
                 End If
 
                 CleanModalFieldsEdit(True)
-                txtMailApproverEdit.Enabled = True
                 txtUserEdit.Enabled = True
                 txtPasswordEdit.Enabled = True
+                EnableButtons()
 
             End If
         Else
