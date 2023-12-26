@@ -119,7 +119,7 @@
                                         <asp:Button ID="cmdEdit" runat="server" Text="Ir a Editar" CssClass="catButtonAccept" />
                                     </div>
                                 </div>
-                                <asp:GridView ID="dgvModelos" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" AllowPaging="False" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
+                                <asp:GridView ID="dgvModelos" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
                                     <Columns>
                                         <asp:BoundField DataField="IdModelsChanges" Visible="False"  />
                                         <asp:BoundField DataField="IdModelsChangesHeader" Visible="False"  />
@@ -130,7 +130,7 @@
                                         <asp:BoundField DataField="LastUser" HeaderText="Usuario" SortExpression="LastUser" />
                                         <asp:BoundField DataField="ApproverUser" HeaderText="Aprobador" SortExpression="ApproverUser" />
                                         <asp:BoundField DataField="ApprovedOn" HeaderText="Fecha de Aprobación" SortExpression="ApprovedOn" />
-                                        <asp:TemplateField HeaderText="Verificar">
+                                        <asp:TemplateField HeaderText="Seleccionar">
                                         <ItemTemplate>
                                           <asp:CheckBox ID="IsChecked" runat="server" AutoPostBack="true" Checked='<%#Convert.ToBoolean(Eval("IsChecked"))%>' OnCheckedChanged="OnChangeIsChecked"/>
                                         </ItemTemplate>

@@ -37,6 +37,10 @@
     border-radius: 20px;
 }
 
+    .catButtonAccept:hover {
+        background-color: #111f33;
+    }
+
 .catButton {
     font-size: 16px;
     background-color: #E2DED6;
@@ -45,6 +49,10 @@
     margin: 0px 10px;
     border-radius: 20px;
 }
+
+    .catButton:hover {
+        background-color: #a3a09b;
+    }
 
 /* Estilos de link button */
 .catLinkButtonConfirm {
@@ -57,6 +65,10 @@
     text-decoration: none;
 }
 
+    .catLinkButtonConfirm:hover {
+        background-color: #358000;
+    }
+
 .catLinkButtonAccept {
     font-size: 18px;
     background-color: #284775;
@@ -67,6 +79,10 @@
     text-decoration: none;
 }
 
+    .catLinkButtonAccept:hover {
+        background-color: #111f33;
+    }
+
 .catLinkButton {
     font-size: 18px;
     background-color: #E2DED6;
@@ -76,6 +92,10 @@
     border-radius: 20px;
     text-decoration: none;
 }
+
+    .catLinkButton:hover {
+        background-color: #a3a09b;
+    }
 
 /* Estilos de Header*/
 .catHeader {
@@ -124,10 +144,21 @@
     color: #284775;
 }
 
+    .dgvCatalogRowOdd:hover {
+        background-color: #FFEB9C;
+        color: #9C6500;
+    }
+
 .dgvCatalogRowEven {
     background-color: #ffffff;
     color: #333333;
 }
+
+    .dgvCatalogRowEven:hover {
+        background-color: #FFEB9C;
+        color: #9C6500;
+    }
+
 
 .dgvPaging {
     font-weight: bold;

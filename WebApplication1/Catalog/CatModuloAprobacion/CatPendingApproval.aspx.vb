@@ -186,6 +186,8 @@ Public Class CatModuloAprobacion
 
             modelChanges.UpdateIsChecked(id, isChecked)
         End If
+
+        ChangeCheckedCount()
     End Sub
 
     ' Método para validar campos de aprobación
@@ -442,5 +444,26 @@ Public Class CatModuloAprobacion
     Protected Sub txtUserEdit0_TextChanged(sender As Object, e As EventArgs) Handles txtUserEdit0.TextChanged
 
 
+    End Sub
+
+    Protected Sub dgvModelChanges_DataBound(sender As Object, e As EventArgs) Handles dgvModelChanges.DataBound
+        ChangeCheckedCount()
+    End Sub
+
+    Protected Sub ChangeCheckedCount()
+        Dim totalChecked As Integer = 0
+        Dim totalRows As Integer = 0
+
+        For Each row As GridViewRow In dgvModelChanges.Rows
+            totalRows = totalRows + 1
+            If row.RowType = DataControlRowType.DataRow Then
+                Dim check As CheckBox = TryCast(row.Cells(7).FindControl("IsChecked"), CheckBox)
+                If check.Checked Then
+                    totalChecked = totalChecked + 1
+                End If
+            End If
+        Next row
+
+        dgvModelChanges.HeaderRow.Cells(7).Text = "Verificados " + totalChecked.ToString() + " / " + totalRows.ToString()
     End Sub
 End Class

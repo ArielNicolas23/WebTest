@@ -227,7 +227,7 @@ overflow: scroll;
                             </td>
                         </tr>
                         <tr>
-                            <td class="auto-style7">Fecha de Edicion:</td>
+                            <td class="auto-style7">Fecha de Edición:</td>
                             <td align="left">
                                 <asp:Label ID="lblOrigDateEdit" runat="server" Text="Label"></asp:Label>
                             </td>
@@ -258,7 +258,7 @@ overflow: scroll;
                             </td>
                         </tr>
                         <tr>
-                             <td class="auto-style7">Fecha de Edicion:</td>
+                             <td class="auto-style7">Fecha de Edición:</td>
                             <td align="left">
                                 <asp:Label ID="lblAprDateEdit" runat="server" Text="Label"></asp:Label>
                             </td>
