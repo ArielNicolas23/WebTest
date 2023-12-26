@@ -100,9 +100,9 @@ Public Class CatConfiguracionCalculoDirecto
         dataTable.Columns.Add(New DataColumn("IdModelsChanges"))
         dataTable.Columns.Add(New DataColumn("IdModelsChangesHeader"))
         dataTable.Columns.Add(New DataColumn("IdCatUnits"))
-        dataTable.Columns.Add(New DataColumn("Model"))
+        dataTable.Columns.Add("Model", GetType(String))
         dataTable.Columns.Add(New DataColumn("Lifespan"))
-        dataTable.Columns.Add(New DataColumn("Unit"))
+        dataTable.Columns.Add("Unit", GetType(String))
         dataTable.Columns.Add(New DataColumn("LastUser"))
         dataTable.Columns.Add(New DataColumn("ApproverUser"))
         dataTable.Columns.Add(New DataColumn("ApprovedOn"))
@@ -426,7 +426,7 @@ Public Class CatConfiguracionCalculoDirecto
         Dim unit = dt.Rows(e.NewEditIndex).Item(5).ToString
         Dim units = catUnits.SelectAll("", False).AsDataView
 
-        Dim ddlEdit As DropDownList = DirectCast(dgvEditModels.Rows(e.NewEditIndex).FindControl("txtEditUnit"), DropDownList)
+        Dim ddlEdit As DropDownList = CType(dgvEditModels.Rows(e.NewEditIndex).FindControl("txtEditUnit"), DropDownList) 'DirectCast(dgvEditModels.Rows(e.NewEditIndex).FindControl("txtEditUnit"), DropDownList)
         ddlEdit.DataSource = units
         ddlEdit.DataTextField = "Unit"
         ddlEdit.DataValueField = "IdUnit"
@@ -617,7 +617,7 @@ Public Class CatConfiguracionCalculoDirecto
             Next
 
             For index As Integer = 3 To i - 2
-                RowValues(index) = row.Cells(index).Text
+                RowValues(index) = HttpUtility.HtmlDecode(row.Cells(index).Text.ToString())
             Next
 
             Dim dRow As DataRow

@@ -12,7 +12,7 @@
     </style>
     <asp:UpdatePanel ID="UpdatePanelGeneral" runat="server">
         <ContentTemplate>
-            <script type="text/javascript">
+            <script type="text/javascript" >
 
                 // Get the instance of PageRequestManager.
                 var prm = Sys.WebForms.PageRequestManager.getInstance();
@@ -78,6 +78,8 @@
                         document.getElementById("btnRefresh").disabled = false;
                     }
                 }
+
+                
             </script>
             <style>
 .disabled-link {
@@ -242,7 +244,7 @@
 
             <asp:Label ID="lblModal" runat="server" Text=""></asp:Label>
             <ajaxToolkit:ModalPopupExtender ID="ApproveModal" runat="server" TargetControlID="lblModal" PopupControlID="modalpan" PopupDragHandleControlID="headerdiv" BackgroundCssClass="modalbackground" ></ajaxToolkit:ModalPopupExtender>
-            <asp:Panel ID="modalpan" runat="server" Height="354px" Width="630px">
+            <asp:Panel ID="modalpan" runat="server" Height="354px" Width="630px" DefaultButton="lbAccept">
                 <div id="headerdiv" style= "background-color:#284775;  font-size:medium; padding:2px; height:20px;">
 
                 </div>
@@ -260,9 +262,9 @@
                                 <asp:Label ID="lblApprover" runat="server" Text="Aprobador:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
 
-                            <td align="left" class="auto-style6">
+                            <td align="left" class="auto-style2">
                                 <div class="button-group">
-                                    <asp:TextBox ID="txtApprover" runat="server" Width="260px" onchange="ADUserFound()" ></asp:TextBox>
+                                    <asp:TextBox ID="txtApprover" runat="server" Width="260px"  onchange="ADUserFound()" ></asp:TextBox>
                                     <button type="button" title="Limpiar campo de Aprobador" class="catModalButton" id="btnRefresh" onclick="ClearADFields()" width="15px" disabled="disabled"><i class="fa fa-refresh"></i></button>
                                 </div>
                                 <ajaxToolkit:AutoCompleteExtender ID="txtSearchAD_AutoCompleteExtender" runat="server" TargetControlID="txtApprover" ServiceMethod="GetADUsers" ServicePath="wsGetAdUsers.asmx" MinimumPrefixLength="3" CompletionInterval="500" EnableCaching="false" CompletionSetCount="10" CompletionListElementID="AutoCompleteContainer">
@@ -284,7 +286,7 @@
 
                             </td>
 
-                            <td align="left" class="auto-style6">
+                            <td align="left" class="auto-style2">
                                 <asp:TextBox ID="txtUsernameApprover" runat="server" Width="260px" Enabled="False">
 
                                 </asp:TextBox>
@@ -296,7 +298,7 @@
 
                             </td>
 
-                            <td align="left" class="auto-style6">
+                            <td align="left" class="auto-style2">
                                 <asp:TextBox ID="txtMailApprover" runat="server" Width="260px" Enabled="False">
 
                                 </asp:TextBox>
@@ -308,7 +310,7 @@
                                 <asp:Label ID="lblUser" runat="server" Text="Usuario:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
 
-                            <td align="left" class="auto-style6">
+                            <td align="left" class="auto-style2">
                                 <asp:TextBox ID="txtUser" runat="server" Width="260px" CausesValidation="True"></asp:TextBox>
                             </td>
 
@@ -322,8 +324,8 @@
                                 <asp:Label ID="lblPassword" runat="server" Text="Contraseña:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
 
-                            <td align="left" class="auto-style6">
-                                <asp:TextBox ID="txtPassword" runat="server" Width="260px" TextMode="Password"></asp:TextBox>
+                            <td align="left" class="auto-style2">
+                                <asp:TextBox ID="txtPassword" runat="server" Width="260px"  TextMode="Password"></asp:TextBox>
                             </td>
 
                             <td class="auto-style5">
@@ -336,7 +338,7 @@
                                 <asp:Label ID="lblApproveMessage" runat="server" Text="Comentarios:" Width="100px" Font-Bold="True"></asp:Label>
                             </td>
 
-                            <td align="left" class="auto-style6">
+                            <td align="left" class="auto-style2">
                                 <asp:TextBox ID="txtApproveMessage" runat="server" Height="104px" Width="260px" TextMode="MultiLine"></asp:TextBox>
                             </td>
 
@@ -346,7 +348,7 @@
                         </tr>
 
                         <tr style="margin-top: 10px; margin-bottom: 10px">
-                            <td colspan="3">
+                            <td colspan="3" class="auto-style1">
                                  <asp:UpdateProgress ID="updProgress"
  AssociatedUpdatePanelID="updateInProcess"
  runat="server">
@@ -365,9 +367,9 @@
                                     
                                      <asp:UpdatePanel ID="updateInProcess" runat="server">
      <ContentTemplate>
-       <asp:LinkButton class="catLinkButtonConfirm" ID="lbAccept"  runat="server" Text="Aceptar <i class='fa fa-check' data-toggle='tooltip' title='Aceptar'></i> "></asp:LinkButton>
+       <asp:LinkButton class="catLinkButtonConfirm" ID="lbAccept"   runat="server" Text="Aceptar <i class='fa fa-check' data-toggle='tooltip' title='Aceptar'></i> "></asp:LinkButton>
        <asp:LinkButton class="catLinkButton" ID="lbCancel"  runat="server" Text="Cancelar <i class='fa fa-window-close' data-toggle='tooltip' title='Cancelar'></i> "></asp:LinkButton>
-
+         
      </ContentTemplate>
  </asp:UpdatePanel> 
                              
@@ -381,7 +383,7 @@
 
                        <asp:Label ID="lblModalEdit" runat="server"></asp:Label>
            <ajaxToolkit:ModalPopupExtender ID="ApproveModalEdit" runat="server" TargetControlID="lblModalEdit" PopupControlID="ModalPanEdit" PopupDragHandleControlID="headerdivEdit" BackgroundCssClass="modalbackground" ></ajaxToolkit:ModalPopupExtender>
-           <asp:Panel ID="ModalPanEdit" runat="server" Height="354px" Width="630px">
+           <asp:Panel ID="ModalPanEdit" runat="server" Height="354px" Width="630px" DefaultButton="lbAcceptEdit">
                <div id="headerdivEdit" style= "background-color:#284775;  font-size:medium; padding:2px; height:20px;">
 
                </div>
@@ -399,7 +401,7 @@
                                <asp:Label ID="Label8" runat="server" Text="Aprobador:" Width="100px" Font-Bold="True"></asp:Label>
                            </td>
 
-                           <td align="left" class="auto-style6">
+                           <td align="left" class="auto-style1">
                                <div class="button-group">
                                    <asp:TextBox ID="txtApproverEdit" runat="server" Width="260px" onchange="ADUserFoundEdit()" ></asp:TextBox>
                                    <button type="button" title="Limpiar campo de Aprobador" class="catModalButton" id="btnRefreshEdit" onclick="ClearADFields()" width="15px" disabled="disabled"><i class="fa fa-refresh"></i></button>
@@ -423,7 +425,7 @@
 
                            </td>
 
-                           <td align="left" class="auto-style6">
+                           <td align="left" class="auto-style1">
                                <asp:TextBox ID="txtUsernameApproverEdit" runat="server" Width="260px" Enabled="False"></asp:TextBox>
                            </td>
                        </tr>
@@ -433,7 +435,7 @@
 
                            </td>
 
-                           <td align="left" class="auto-style6">
+                           <td align="left" class="auto-style1">
                                <asp:TextBox ID="txtMailApproverEdit" runat="server" Width="260px" Enabled="False"></asp:TextBox>
                            </td>
                        </tr>
@@ -443,7 +445,7 @@
                                <asp:Label ID="Label10" runat="server" Text="Usuario:" Width="100px" Font-Bold="True"></asp:Label>
                            </td>
 
-                           <td align="left" class="auto-style6">
+                           <td align="left" class="auto-style1">
                                <asp:TextBox ID="txtUserEdit" runat="server" Width="260px" CausesValidation="True"></asp:TextBox>
                            </td>
 
@@ -457,7 +459,7 @@
                                <asp:Label ID="Label12" runat="server" Text="Contraseña:" Width="100px" Font-Bold="True"></asp:Label>
                            </td>
 
-                           <td align="left" class="auto-style6">
+                           <td align="left" class="auto-style1">
                                <asp:TextBox ID="txtPasswordEdit" runat="server" Width="260px" TextMode="Password"></asp:TextBox>
                            </td>
 
@@ -471,7 +473,7 @@
                                <asp:Label ID="Label14" runat="server" Text="Comentarios:" Width="100px" Font-Bold="True"></asp:Label>
                            </td>
 
-                           <td align="left" class="auto-style6">
+                           <td align="left" class="auto-style1">
                                <asp:TextBox ID="txtApproveMessageEdit" runat="server" Height="104px" Width="260px" TextMode="MultiLine"></asp:TextBox>
                            </td>
 
@@ -515,4 +517,4 @@ runat="server">
 
         </ContentTemplate>
     </asp:UpdatePanel>
-</asp:Content>
+    </asp:Content>

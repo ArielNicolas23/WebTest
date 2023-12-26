@@ -67,7 +67,6 @@
                         document.getElementById("MainContent_txtMailApprover").value = document.getElementById("MainContent_txtApprover").value.split('||')[2].trim();
                         document.getElementById("MainContent_txtApprover").value = document.getElementById("MainContent_txtApprover").value.split('||')[0].trim();
                         document.getElementById("btnRefresh").disabled = true;
-
                         document.getElementById("MainContent_txtApprover").disabled = true;
                         document.getElementById("btnRefresh").disabled = false;
                     }
@@ -120,7 +119,7 @@
                                         <asp:Button ID="cmdEdit" runat="server" Text="Ir a Editar" CssClass="catButtonAccept" />
                                     </div>
                                 </div>
-                                <asp:GridView ID="dgvModelos" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" AllowPaging="False" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
+                                <asp:GridView ID="dgvModelos" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" AllowPaging="true" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
                                     <Columns>
                                         <asp:BoundField DataField="IdModelsChanges" Visible="False"  />
                                         <asp:BoundField DataField="IdModelsChangesHeader" Visible="False"  />
@@ -264,7 +263,7 @@
             <asp:Label ID="lblModal" runat="server" Text=""></asp:Label>
             <ajaxToolkit:ModalPopupExtender ID="ApproveModal" runat="server" TargetControlID="lblModal" PopupControlID="modalpan" PopupDragHandleControlID="headerdiv" BackgroundCssClass="modalbackground" ></ajaxToolkit:ModalPopupExtender>
 
-            <asp:Panel ID="modalpan" runat="server" Height="354px" Width="630px">
+            <asp:Panel ID="modalpan" runat="server" Height="354px" Width="630px" DefaultButton="lbAccept">
                 <div id="headerdiv" style= "background-color:#284775;  font-size:medium; padding:2px; height:20px;">
 
                 </div>

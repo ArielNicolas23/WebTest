@@ -143,7 +143,7 @@ Public Class CatModuloAprobacion
         Select Case btn.CommandName
             Case "Approve"
                 Dim isMissingModel As Boolean = False
-                Dim modelsList As String = True
+                Dim modelsList As String = ""
                 For Each row As GridViewRow In dgvModelChanges.Rows
                     If row.RowType = DataControlRowType.DataRow Then
                         Dim check As CheckBox = TryCast(row.Cells(6).FindControl("IsChecked"), CheckBox)
@@ -253,6 +253,7 @@ Public Class CatModuloAprobacion
         ApproveModal.Hide()
     End Sub
 
+
     Protected Sub lbAccept_Click(sender As Object, e As EventArgs) Handles lbAccept.Click
         CleanModalFields(False)
 
@@ -312,7 +313,9 @@ Public Class CatModuloAprobacion
 
         Select Case lbAccept.Text
             Case "Aprobar"
+
                 modelChangesHeader.UpdateApproveOrReject(idHeader, comment, "Aprobado", userPlaceholder)
+
                 For Each modelRow As GridViewRow In dgvModelChanges.Rows
                     idModel = Guid.Parse(dgvModelChanges.DataKeys(modelRow.RowIndex).Value.ToString())
                     modelChanges.UpdateApprove(idModel, userPlaceholder)
@@ -419,7 +422,6 @@ Public Class CatModuloAprobacion
     Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApproverUser(userPlaceholder))
 
-        lblTitle.Text = "Cambios pendientes de Aprobación"
         ToggleSection(divFilterHeader, True)
         ToggleSection(divdgvPendingApproval, True)
         ToggleSection(divInfoTable, False)
@@ -431,9 +433,14 @@ Public Class CatModuloAprobacion
 
     End Sub
 
+
     Protected Sub dgvPendingApproval_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles dgvPendingApproval.PageIndexChanging
         dgvPendingApproval.PageIndex = e.NewPageIndex
 
         PopulateGrid(dgvPendingApproval, Session("DTApproval"))
+    End Sub
+    Protected Sub txtUserEdit0_TextChanged(sender As Object, e As EventArgs) Handles txtUserEdit0.TextChanged
+
+
     End Sub
 End Class

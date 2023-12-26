@@ -365,7 +365,10 @@ Public Class WebForm1
 
             End If
         Else
+            txtUser.Enabled = True
+            txtPassword.Enabled = True
             ApproveModal.Show()
+
         End If
     End Sub
 
@@ -878,5 +881,9 @@ Public Class WebForm1
     Protected Sub lbCancelEdit_Click(sender As Object, e As EventArgs) Handles lbCancelEdit.Click
         CleanModalFieldsEdit(True)
         ApproveModalEdit.Hide()
+    End Sub
+
+    Protected Sub txtPassword_TextChanged(sender As Object, e As EventArgs) Handles txtPassword.TextChanged
+
     End Sub
 End Class
