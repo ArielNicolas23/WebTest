@@ -680,13 +680,13 @@ Partial Public Class WebForm1
     Protected WithEvents lblApproveMessageErrorEdit As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''UpdateProgress1 control.
+    '''UpdateProgressEdit control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents UpdateProgress1 As Global.System.Web.UI.UpdateProgress
+    Protected WithEvents UpdateProgressEdit As Global.System.Web.UI.UpdateProgress
 
     '''<summary>
     '''lblModalMessageEdit control.
@@ -698,13 +698,13 @@ Partial Public Class WebForm1
     Protected WithEvents lblModalMessageEdit As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''UpdatePanel1 control.
+    '''updateInProcessEdit control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents UpdatePanel1 As Global.System.Web.UI.UpdatePanel
+    Protected WithEvents updateInProcessEdit As Global.System.Web.UI.UpdatePanel
 
     '''<summary>
     '''lbAcceptEdit control.

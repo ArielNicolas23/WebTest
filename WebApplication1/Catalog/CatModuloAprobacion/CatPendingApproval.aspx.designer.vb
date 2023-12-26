@@ -617,6 +617,15 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents lblApproveMessageError As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''UpdateProgress control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdateProgress As Global.System.Web.UI.UpdateProgress
+
+    '''<summary>
     '''lblModalMessage control.
     '''</summary>
     '''<remarks>
@@ -624,6 +633,15 @@ Partial Public Class CatModuloAprobacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblModalMessage As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''updateInProcess control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents updateInProcess As Global.System.Web.UI.UpdatePanel
 
     '''<summary>
     '''lbAccept control.
@@ -725,6 +743,15 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents lblApproveMessageError0 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''UpdateProgressEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdateProgressEdit As Global.System.Web.UI.UpdateProgress
+
+    '''<summary>
     '''lblModalMessage0 control.
     '''</summary>
     '''<remarks>
@@ -732,6 +759,15 @@ Partial Public Class CatModuloAprobacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblModalMessage0 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''updateInProcessEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents updateInProcessEdit As Global.System.Web.UI.UpdatePanel
 
     '''<summary>
     '''lbEdit control.

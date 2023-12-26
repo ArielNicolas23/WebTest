@@ -52,11 +52,11 @@
                                <asp:Label  ID="lblArea" runat="server" Text='<%# Bind("Area") %>'>[lblArea]</asp:Label>
                            </ItemTemplate>
                            <EditItemTemplate>
-                               <asp:DropDownList DataField="Area"  ID="Area" runat="server" Width="128px" Enabled="true" >
-                                <asp:ListItem>Módulo 1</asp:ListItem>
-                                <asp:ListItem>Módulo 2</asp:ListItem>
-                                <asp:ListItem>Módulo 3</asp:ListItem>
-                                <asp:ListItem>Módulo 4</asp:ListItem>
+                               <asp:DropDownList DataField="Area"  ID="ddlArea" runat="server" Width="128px" Enabled="true" >
+                                <asp:ListItem>módulo 1</asp:ListItem>
+                                <asp:ListItem>módulo 2</asp:ListItem>
+                                <asp:ListItem>módulo 3</asp:ListItem>
+                                <asp:ListItem>módulo 4</asp:ListItem>
                                 </asp:DropDownList>
                                </EditItemTemplate>
                        </asp:TemplateField>
