@@ -166,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Catalog\CalculoDirecto\CalculoDirecto.aspx" />
     <Content Include="Catalog\CatCalculoDirecto\CatCalculoDirecto.aspx" />
     <Content Include="Catalog\CatCalculoDirecto\AgregarModelo.aspx" />
     <Content Include="Catalog\CatCalculoDirecto\wsGetAdUsers.asmx" />
@@ -286,6 +287,13 @@
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Catalog\CalculoDirecto\CalculoDirecto.aspx.designer.vb">
+      <DependentUpon>CalculoDirecto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Catalog\CalculoDirecto\CalculoDirecto.aspx.vb">
+      <DependentUpon>CalculoDirecto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Catalog\CatConfiguracionCalculoDirecto\CatConfiguracionCalculoDirecto.aspx.designer.vb">
       <DependentUpon>CatConfiguracionCalculoDirecto.aspx</DependentUpon>
     </Compile>

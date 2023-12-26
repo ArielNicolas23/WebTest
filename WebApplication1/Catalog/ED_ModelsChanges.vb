@@ -206,6 +206,57 @@ Public Class ED_ModelsChanges
         Return result
     End Function
 
+    Public Function SelectByModel(ByVal Model As String) As DataTable
+        Dim result As DataTable
+        Dim row As DataRow
+
+        Using conn As New SqlConnection(Me.dbCon)
+
+            Dim cmd As SqlCommand = New SqlCommand()
+            cmd.CommandText = "spED_ED_ModelsChanges_SelectByModel"
+            cmd.Connection = conn
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@Model", Model)
+
+            result = New DataTable("Result")
+            result.Columns.Add("IdModelsChanges", GetType(Guid))
+            result.Columns.Add("Model", GetType(String))
+            result.Columns.Add("Lifespan", GetType(String))
+            result.Columns.Add("Unit", GetType(String))
+            result.Columns.Add("IdUnit", GetType(String))
+            result.Columns.Add("LastUserName", GetType(String))
+            result.Columns.Add("LastUser", GetType(String))
+            result.Columns.Add("ModifiedOn", GetType(String))
+            result.Columns.Add("IsChecked", GetType(Boolean))
+
+            conn.Open()
+
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+
+                row = result.NewRow()
+
+                row("IdModelsChanges") = reader.GetGuid(0)
+                row("Model") = reader.GetString(1)
+                row("Lifespan") = reader.GetInt32(2)
+                row("Unit") = reader.GetString(3)
+                row("IdUnit") = reader.GetGuid(4)
+                row("LastUserName") = reader.GetString(5)
+                row("LastUser") = reader.GetString(6)
+                row("ModifiedOn") = reader.GetDateTime(7).ToString("dd/MMM/yyyy")
+                row("IsChecked") = reader.GetBoolean(8)
+
+                result.Rows.Add(row)
+
+            End While
+
+            conn.Close()
+            conn.Dispose()
+        End Using
+
+        Return result
+    End Function
+
     Public Function SelectByIdModelsChanges(ByVal IdModelsChanges As Guid) As DataTable
         Dim result As DataTable
         Dim row As DataRow

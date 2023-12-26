@@ -185,11 +185,6 @@ Public Class CatUnits
     End Function
 
 End Class
-
-
-
-
-
 Public Class CatReworkOrders
     Protected dbCon As String
 
@@ -300,7 +295,45 @@ Public Class CatReworkOrders
 
         Return result
     End Function
+    Public Function SelectByOrder(ByVal WorkOrder As String) As DataTable
 
+        Dim result As DataTable
+        Dim row As DataRow
+
+        Using conn As New SqlConnection(Me.dbCon)
+
+            Dim cmd As SqlCommand = New SqlCommand()
+            cmd.CommandText = "spED_CatReworkOrders_SelectByWorkOrder"
+            cmd.Connection = conn
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@WorkOrder", WorkOrder)
+
+
+            result = New DataTable("Result")
+            result.Columns.Add("IdCatReworkOrders", GetType(Guid))
+            result.Columns.Add("WorkOrder", GetType(String))
+            result.Columns.Add("Area", GetType(String))
+            result.Columns.Add("IsRework", GetType(Boolean))
+
+            conn.Open()
+
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+
+                row = result.NewRow()
+                row("IdCatReworkOrders") = reader.GetGuid(0)
+                row("WorkOrder") = reader.GetString(1)
+                row("Area") = reader.GetString(2)
+                row("IsRework") = reader.GetBoolean(3)
+
+                result.Rows.Add(row)
+
+            End While
+
+        End Using
+
+        Return result
+    End Function
     Public Function SelectAll(
             ByVal WorkOrder As String,
             ByVal Area As String,
@@ -385,11 +418,6 @@ Public Class CatReworkOrders
     End Function
 
 End Class
-
-
-
-
-
 Public Class CatReworkStatus
     Protected dbCon As String
 
