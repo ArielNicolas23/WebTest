@@ -329,7 +329,7 @@
             <asp:Label ID="lblModal" runat="server" Text=""></asp:Label>
             <ajaxToolkit:ModalPopupExtender ID="ApproveModal" runat="server" TargetControlID="lblModal" PopupControlID="modalpan" PopupDragHandleControlID="headerdiv" BackgroundCssClass="modalbackground"></ajaxToolkit:ModalPopupExtender>
 
-            <asp:Panel ID="modalpan" runat="server" Height="300px" Width="630px">
+            <asp:Panel ID="modalpan" runat="server" Height="300px" Width="630px" DefaultButton="lbAccept">
                 <div id="headerdiv" style="background-color:#284775;  font-size:medium; padding:2px; height:20px;">
 
                 </div>
@@ -407,7 +407,7 @@
             <ajaxToolkit:ModalPopupExtender ID="Modaledit" runat="server" TargetControlID="Label3" PopupControlID="editModal" PopupDragHandleControlID="headerdiv" BackgroundCssClass="modalbackground"></ajaxToolkit:ModalPopupExtender>
 
 
-            <asp:Panel ID="editModal" runat="server" Height="300px" Width="630px">
+            <asp:Panel ID="editModal" runat="server" Height="300px" Width="630px" DefaultButton="lbEdit">
                 <div id="headerdiv0" style="background-color:#284775;  font-size:medium; padding:2px; height:20px;">
                 </div>
                 <div class="auto-style1" style="background-color:#f7f6f3;  font-size:medium; padding:2px;">
