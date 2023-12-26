@@ -30,7 +30,7 @@ Public Class CatModuloAprobacion
 
     ' Llenado de tablas
     Protected Sub PopulateGrid(dgv As GridView, dt As DataTable)
-        Session("Test") = dt
+        Session("DTApproval") = dt
         dgv.DataSource = dt
         dgv.DataBind()
     End Sub
@@ -80,7 +80,7 @@ Public Class CatModuloAprobacion
     Protected Sub dgvPendingApproval_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles dgvPendingApproval.RowCommand
         Select Case e.CommandName
             Case "Action"
-                Dim data As DataTable = Session("Test")
+                Dim data As DataTable = Session("DTApproval")
                 Dim datarow As DataRow = data.Rows(e.CommandArgument)
 
                 Dim row As DataKeyArray = dgvPendingApproval.DataKeys
@@ -429,5 +429,11 @@ Public Class CatModuloAprobacion
 
     Protected Sub lBtnSearc_Click(sender As Object, e As EventArgs) Handles lBtnSearc.Click
 
+    End Sub
+
+    Protected Sub dgvPendingApproval_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles dgvPendingApproval.PageIndexChanging
+        dgvPendingApproval.PageIndex = e.NewPageIndex
+
+        PopulateGrid(dgvPendingApproval, Session("DTApproval"))
     End Sub
 End Class

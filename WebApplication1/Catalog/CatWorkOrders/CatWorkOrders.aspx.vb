@@ -15,6 +15,7 @@ Public Class Catalog_CatWorkOrders
     Protected Sub PopulateGrid(workOrder As String, area As String, isRework As Boolean, isSearch As Boolean)
         Dim catReworkOrders As CatReworkOrders = New CatReworkOrders()
         dgvWorkOrders.DataSource = catReworkOrders.SelectAll(workOrder, area, isRework, isSearch)
+        Session("dtWos") = catReworkOrders.SelectAll(workOrder, area, isRework, isSearch)
         dgvWorkOrders.DataBind()
     End Sub
 
@@ -113,6 +114,13 @@ Public Class Catalog_CatWorkOrders
 
     Protected Sub dgvWorkOrders_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles dgvWorkOrders.RowEditing
         dgvWorkOrders.EditIndex = e.NewEditIndex
+
+        Dim dt As System.Data.DataTable = Session("dtWos")
+        Dim unit = dt.Rows(e.NewEditIndex).Item(2).ToString.ToLower
+        'Configurar dropdown list
+        Dim ddlUnitEditGrid As DropDownList = CType(dgvWorkOrders.Rows(e.NewEditIndex).FindControl("ddlArea"), DropDownList)
+        'ddlUnitEditGrid.Items.FindByText(Unit).Selected = True
+
         PopulateGrid("", "", False, False)
     End Sub
     Protected Sub dgvWorkOrders_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles dgvWorkOrders.PageIndexChanging

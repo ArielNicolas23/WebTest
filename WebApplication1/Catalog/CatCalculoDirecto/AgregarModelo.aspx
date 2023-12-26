@@ -28,6 +28,12 @@
                     var x = document.getElementById("MainContent_lbCancel");
                     x.className += " disabled-link";
 
+                    var x = document.getElementById("MainContent_lbAcceptEdit");
+                    x.className += " disabled-link";
+
+                    var x = document.getElementById("MainContent_lbCancelEdit");
+                    x.className += " disabled-link";
+
                 }
                 function ClearADFieldsEdit() {
                     //CLEAR DATA
@@ -137,7 +143,7 @@
             </div>
 
             <!-- Cosas-->
-            <asp:GridView runat="server" AutoGenerateColumns="False" CellPadding="4" CssClass="dgvCatalog" GridLines="None" Width="750px" AllowPaging="True" ID="gvModelos">
+            <asp:GridView runat="server" AutoGenerateColumns="False" CellPadding="4" CssClass="dgvCatalog" GridLines="None" Width="750px" ID="gvModelos">
                 <Columns>
                     <asp:BoundField DataField="Modelo" HeaderText="Modelo" />
                     <asp:BoundField DataField="VidaUtil" HeaderText="Vida Útil" SortExpression="VidaUtil" />
@@ -207,7 +213,7 @@
 </div>
 
 <!-- Cosas-->
-<asp:GridView runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames = "IdModelsChanges" CssClass="dgvCatalog" GridLines="None" Width="750px" AllowPaging="True" ID="dgvEdit">
+<asp:GridView runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames = "IdModelsChanges" CssClass="dgvCatalog" GridLines="None" Width="750px" ID="dgvEdit">
     <Columns>
         <asp:BoundField DataField="IdModelsChanges" HeaderText="IdModelsChanges" ReadOnly="True" visible="false"/>
         <asp:BoundField DataField="Model" HeaderText="Modelo" />
@@ -476,8 +482,8 @@
 
                        <tr style="margin-top: 10px; margin-bottom: 10px">
                            <td colspan="3">
-                                <asp:UpdateProgress ID="UpdateProgress1"
-AssociatedUpdatePanelID="updateInProcess"
+                                <asp:UpdateProgress ID="UpdateProgressEdit"
+AssociatedUpdatePanelID="updateInProcessEdit"
 runat="server">
     <ProgressTemplate>           
 
@@ -492,7 +498,7 @@ runat="server">
                            <td colspan="3">
                                <div align="center">
                                    
-                                    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                    <asp:UpdatePanel ID="updateInProcessEdit" runat="server">
     <ContentTemplate>
       <asp:LinkButton class="catLinkButtonConfirm" ID="lbAcceptEdit"  runat="server" Text="Aceptar <i class='fa fa-check' data-toggle='tooltip' title='Aceptar'></i> "></asp:LinkButton>
       <asp:LinkButton class="catLinkButton" ID="lbCancelEdit"  runat="server" Text="Cancelar <i class='fa fa-window-close' data-toggle='tooltip' title='Cancelar'></i> "></asp:LinkButton>

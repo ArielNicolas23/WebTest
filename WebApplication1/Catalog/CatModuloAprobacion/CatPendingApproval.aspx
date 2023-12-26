@@ -2,8 +2,41 @@
 
 
 <asp:Content ID="Content" ContentPlaceHolderID="MainContent" runat="server">
+     <script type="text/javascript">
 
+     // Get the instance of PageRequestManager.
+     var prm = Sys.WebForms.PageRequestManager.getInstance();
+     // Add initializeRequest and endRequest
+     prm.add_initializeRequest(prm_InitializeRequest);
+
+     // Called when async postback begins
+     function prm_InitializeRequest(sender, args) {
+         // Disable button that caused a postback
+         var x = document.getElementById("MainContent_lbEdit");
+         x.className += " disabled-link";
+
+         var x = document.getElementById("MainContent_lbCancel0");
+         x.className += " disabled-link";
+
+         var x = document.getElementById("MainContent_lbAccept");
+         x.className += " disabled-link";
+
+         var x = document.getElementById("MainContent_lbCancel");
+         x.className += " disabled-link";
+
+
+     }
+     </script>
     <style>
+        .disabled-link {
+  pointer-events: none;
+}
+        .scroll  
+{
+weight: 800px;
+height: 400px; 
+overflow: scroll; 
+}
         .modalbackground
         {
             background-color:black;
@@ -257,8 +290,8 @@
 
                         </div>
                     </div>
-
-                    <asp:GridView  ID="dgvModelChanges" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="1400px" AllowPaging="True" DataKeyNames="IdModelsChanges">
+                    <div class="scroll">
+                    <asp:GridView  ID="dgvModelChanges" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="1400px" DataKeyNames="IdModelsChanges">
                         <Columns>
                             <asp:BoundField DataField="IdModelsChanges" Visible="False" />
                             <asp:BoundField DataField="Model" HeaderText="Modelo" SortExpression="Model" />
@@ -279,6 +312,7 @@
                         <PagerStyle CssClass="dgvPaging"/>
                         <AlternatingRowStyle CssClass="dgvCatalogRowEven" />
                     </asp:GridView>
+                        </div>
                 </div>
 
             </div>
@@ -298,8 +332,8 @@
 
             </div>
         </div>
-
-        <asp:GridView  ID="dgvModelView" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="1400px" AllowPaging="True" DataKeyNames="IdModelsChanges">
+        <div class="scroll">
+        <asp:GridView  ID="dgvModelView" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="1400px" DataKeyNames="IdModelsChanges">
             <Columns>
                 <asp:BoundField DataField="IdModelsChanges" Visible="False" />
                 <asp:BoundField DataField="Model" HeaderText="Modelo" SortExpression="Model" />
@@ -320,6 +354,7 @@
             <PagerStyle CssClass="dgvPaging"/>
             <AlternatingRowStyle CssClass="dgvCatalogRowEven" />
         </asp:GridView>
+            </div>
     </div>
 
 </div>
@@ -386,6 +421,14 @@
 
                         <tr style="margin-top: 10px; margin-bottom: 10px">
                             <td colspan="3">
+                                                                <asp:UpdateProgress ID="UpdateProgress"
+AssociatedUpdatePanelID="updateInProcess"
+runat="server">
+    <ProgressTemplate>           
+
+      Procesando          
+    </ProgressTemplate>
+</asp:UpdateProgress>
                                 <asp:Label ID="lblModalMessage" runat="server" ForeColor="Red" Width="504px"></asp:Label>
                             </td>
                         </tr>
@@ -393,9 +436,14 @@
                         <tr>
                             <td colspan="3">
                                 <div align="center">
+                                                                                                        <asp:UpdatePanel ID="updateInProcess" runat="server">
+<ContentTemplate>
                                     <asp:LinkButton class="catLinkButtonConfirm" ID="lbAccept"  runat="server" Text="Aceptar <i class='fa fa-check' data-toggle='tooltip' title='Aceptar'></i> "></asp:LinkButton>
                                     <asp:LinkButton class="catLinkButton" ID="lbCancel"  runat="server" Text="Cancelar <i class='fa fa-window-close' data-toggle='tooltip' title='Cancelar'></i> "></asp:LinkButton>
-                                </div>
+        
+    </ContentTemplate>
+</asp:UpdatePanel>                              
+    </div>
                             </td>
                         </tr>
                     </table>
@@ -404,7 +452,7 @@
 
             
             <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
-            <ajaxToolkit:ModalPopupExtender ID="Modaledit" runat="server" TargetControlID="Label3" PopupControlID="editModal" PopupDragHandleControlID="headerdiv" BackgroundCssClass="modalbackground"></ajaxToolkit:ModalPopupExtender>
+            <ajaxToolkit:ModalPopupExtender ID="Modaledit" runat="server" TargetControlID="Label3" PopupControlID="editModal" PopupDragHandleControlID="headerdiv0" BackgroundCssClass="modalbackground"></ajaxToolkit:ModalPopupExtender>
 
 
             <asp:Panel ID="editModal" runat="server" Height="300px" Width="630px">
@@ -444,15 +492,28 @@
                         </tr>
                         <tr style="margin-top: 10px; margin-bottom: 10px">
                             <td colspan="3">
+                                                                <asp:UpdateProgress ID="UpdateProgressEdit"
+AssociatedUpdatePanelID="updateInProcessEdit"
+runat="server">
+    <ProgressTemplate>           
+
+      Procesando          
+    </ProgressTemplate>
+</asp:UpdateProgress>
                                 <asp:Label ID="lblModalMessage0" runat="server" ForeColor="Red" Width="504px"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="3">
                                 <div align="center">
+                                                                    <asp:UpdatePanel ID="updateInProcessEdit" runat="server">
+<ContentTemplate>
                                     <asp:LinkButton ID="lbEdit" runat="server" class="catLinkButtonConfirm" Text="Ir a Editar &lt;i class='fa fa-check' data-toggle='tooltip' title='Aceptar'&gt;&lt;/i&gt; "></asp:LinkButton>
                                     <asp:LinkButton ID="lbCancel0" runat="server" class="catLinkButton" Text="Cancelar &lt;i class='fa fa-window-close' data-toggle='tooltip' title='Cancelar'&gt;&lt;/i&gt; "></asp:LinkButton>
-                                </div>
+    
+    </ContentTemplate>
+</asp:UpdatePanel>                             
+    </div>
                             </td>
                         </tr>
                     </table>
