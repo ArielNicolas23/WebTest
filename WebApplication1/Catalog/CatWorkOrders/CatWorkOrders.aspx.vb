@@ -117,11 +117,12 @@ Public Class Catalog_CatWorkOrders
 
         Dim dt As System.Data.DataTable = Session("dtWos")
         Dim unit = dt.Rows(e.NewEditIndex).Item(2).ToString.ToLower
+        PopulateGrid("", "", False, False)
         'Configurar dropdown list
         Dim ddlUnitEditGrid As DropDownList = CType(dgvWorkOrders.Rows(e.NewEditIndex).FindControl("ddlArea"), DropDownList)
-        'ddlUnitEditGrid.Items.FindByText(Unit).Selected = True
+        ddlUnitEditGrid.Items.FindByText(unit).Selected = True
 
-        PopulateGrid("", "", False, False)
+
     End Sub
     Protected Sub dgvWorkOrders_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles dgvWorkOrders.PageIndexChanging
         dgvWorkOrders.PageIndex = e.NewPageIndex
