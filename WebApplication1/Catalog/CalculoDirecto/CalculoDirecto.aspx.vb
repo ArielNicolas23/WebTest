@@ -42,6 +42,11 @@ Public Class CalculoDirecto
             Return
         End If
 
+        If dtOrder.Rows(0).Item(3) = False Then
+            Label3.Text = "La orden no es para retrabajo"
+            Return
+        End If
+
         lblDispOrden.Text = dtOrder.Rows(0).Item(1)
         lblDispModelo.Text = dtModels.Rows(0).Item(1)
         Dim lifespan As Integer = dtModels.Rows(0).Item(2)
