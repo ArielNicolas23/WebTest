@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="wcfMIIProxy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="wcfMIIProxy" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="wcfMIIProxy/Imports">
+      <xsd:import schemaLocation="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc?xsd=xsd0" namespace="wcfMIIProxy" />
+      <xsd:import schemaLocation="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/wcfMIIProxy" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProductionOrderDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductionOrderDetails" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProductionOrderDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductionOrderDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProductionOrderDetails_VP_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductionOrderDetails_VP" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProductionOrderDetails_VP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductionOrderDetails_VPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_MIN_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderMatMstBscDat_MIN" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_MIN_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderMatMstBscDat_MINResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_MIN_VP_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderMatMstBscDat_MIN_VP" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_MIN_VP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderMatMstBscDat_MIN_VPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProductionOrderDetails_MIN_VP_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductionOrderDetails_MIN_VP" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProductionOrderDetails_MIN_VP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductionOrderDetails_MIN_VPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProductionOrderDetails_MIN_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductionOrderDetails_MIN" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProductionOrderDetails_MIN_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductionOrderDetails_MINResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_VP_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderMatMstBscDat_VP" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_VP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderMatMstBscDat_VPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderMatMstBscDat" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderMatMstBscDatResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetMRPPOs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMRPPOs" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetMRPPOs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMRPPOsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetMRPPOs_VP_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMRPPOs_VP" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetMRPPOs_VP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMRPPOs_VPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderForSerial_VP_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderForSerial_VP" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderForSerial_VP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderForSerial_VPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderForSerial_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderForSerial" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderForSerial_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderForSerialResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_MINRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderMatMstBscDat_MINRequest" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_MINRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderMatMstBscDat_MINRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderBSynch_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderBSynch" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderBSynch_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderBSynchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetCoatingPOs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCoatingPOs" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetCoatingPOs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCoatingPOsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderStepDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderStepDetail" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderStepDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderStepDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderHybridStepDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderHybridStepDetail" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetProdOrderHybridStepDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProdOrderHybridStepDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetEGIncoming_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEGIncoming" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetEGIncoming_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEGIncomingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetReleasedPOsByMRP_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReleasedPOsByMRP" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetReleasedPOsByMRP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReleasedPOsByMRPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetReleasedPOsByMRPType_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReleasedPOsByMRPType" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetReleasedPOsByMRPType_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReleasedPOsByMRPTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetReleasedLocalPOs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReleasedLocalPOs" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetReleasedLocalPOs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReleasedLocalPOsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetReleasedRemotePOs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReleasedRemotePOs" />
+  </wsdl:message>
+  <wsdl:message name="IwcfProductionOrderDetails_GetReleasedRemotePOs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReleasedRemotePOsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IwcfProductionOrderDetails">
+    <wsdl:operation name="GetProductionOrderDetails">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProductionOrderDetails" message="tns:IwcfProductionOrderDetails_GetProductionOrderDetails_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProductionOrderDetailsResponse" message="tns:IwcfProductionOrderDetails_GetProductionOrderDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductionOrderDetails_VP">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProductionOrderDetails_VP" message="tns:IwcfProductionOrderDetails_GetProductionOrderDetails_VP_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProductionOrderDetails_VPResponse" message="tns:IwcfProductionOrderDetails_GetProductionOrderDetails_VP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderMatMstBscDat_MIN">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDat_MIN" message="tns:IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_MIN_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDat_MINResponse" message="tns:IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_MIN_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderMatMstBscDat_MIN_VP">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDat_MIN_VP" message="tns:IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_MIN_VP_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDat_MIN_VPResponse" message="tns:IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_MIN_VP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductionOrderDetails_MIN_VP">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProductionOrderDetails_MIN_VP" message="tns:IwcfProductionOrderDetails_GetProductionOrderDetails_MIN_VP_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProductionOrderDetails_MIN_VPResponse" message="tns:IwcfProductionOrderDetails_GetProductionOrderDetails_MIN_VP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductionOrderDetails_MIN">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProductionOrderDetails_MIN" message="tns:IwcfProductionOrderDetails_GetProductionOrderDetails_MIN_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProductionOrderDetails_MINResponse" message="tns:IwcfProductionOrderDetails_GetProductionOrderDetails_MIN_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderMatMstBscDat_VP">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDat_VP" message="tns:IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_VP_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDat_VPResponse" message="tns:IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_VP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderMatMstBscDat">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDat" message="tns:IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDatResponse" message="tns:IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMRPPOs">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetMRPPOs" message="tns:IwcfProductionOrderDetails_GetMRPPOs_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetMRPPOsResponse" message="tns:IwcfProductionOrderDetails_GetMRPPOs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMRPPOs_VP">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetMRPPOs_VP" message="tns:IwcfProductionOrderDetails_GetMRPPOs_VP_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetMRPPOs_VPResponse" message="tns:IwcfProductionOrderDetails_GetMRPPOs_VP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderForSerial_VP">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderForSerial_VP" message="tns:IwcfProductionOrderDetails_GetProdOrderForSerial_VP_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderForSerial_VPResponse" message="tns:IwcfProductionOrderDetails_GetProdOrderForSerial_VP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderForSerial">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderForSerial" message="tns:IwcfProductionOrderDetails_GetProdOrderForSerial_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderForSerialResponse" message="tns:IwcfProductionOrderDetails_GetProdOrderForSerial_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderMatMstBscDat_MINRequest">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDat_MINRequest" message="tns:IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_MINRequest_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDat_MINRequestResponse" message="tns:IwcfProductionOrderDetails_GetProdOrderMatMstBscDat_MINRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderBSynch">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderBSynch" message="tns:IwcfProductionOrderDetails_GetProdOrderBSynch_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderBSynchResponse" message="tns:IwcfProductionOrderDetails_GetProdOrderBSynch_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCoatingPOs">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetCoatingPOs" message="tns:IwcfProductionOrderDetails_GetCoatingPOs_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetCoatingPOsResponse" message="tns:IwcfProductionOrderDetails_GetCoatingPOs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderStepDetail">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderStepDetail" message="tns:IwcfProductionOrderDetails_GetProdOrderStepDetail_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderStepDetailResponse" message="tns:IwcfProductionOrderDetails_GetProdOrderStepDetail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderHybridStepDetail">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderHybridStepDetail" message="tns:IwcfProductionOrderDetails_GetProdOrderHybridStepDetail_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderHybridStepDetailResponse" message="tns:IwcfProductionOrderDetails_GetProdOrderHybridStepDetail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEGIncoming">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetEGIncoming" message="tns:IwcfProductionOrderDetails_GetEGIncoming_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetEGIncomingResponse" message="tns:IwcfProductionOrderDetails_GetEGIncoming_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReleasedPOsByMRP">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetReleasedPOsByMRP" message="tns:IwcfProductionOrderDetails_GetReleasedPOsByMRP_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetReleasedPOsByMRPResponse" message="tns:IwcfProductionOrderDetails_GetReleasedPOsByMRP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReleasedPOsByMRPType">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetReleasedPOsByMRPType" message="tns:IwcfProductionOrderDetails_GetReleasedPOsByMRPType_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetReleasedPOsByMRPTypeResponse" message="tns:IwcfProductionOrderDetails_GetReleasedPOsByMRPType_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReleasedLocalPOs">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetReleasedLocalPOs" message="tns:IwcfProductionOrderDetails_GetReleasedLocalPOs_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetReleasedLocalPOsResponse" message="tns:IwcfProductionOrderDetails_GetReleasedLocalPOs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReleasedRemotePOs">
+      <wsdl:input wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetReleasedRemotePOs" message="tns:IwcfProductionOrderDetails_GetReleasedRemotePOs_InputMessage" />
+      <wsdl:output wsaw:Action="wcfMIIProxy/IwcfProductionOrderDetails/GetReleasedRemotePOsResponse" message="tns:IwcfProductionOrderDetails_GetReleasedRemotePOs_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

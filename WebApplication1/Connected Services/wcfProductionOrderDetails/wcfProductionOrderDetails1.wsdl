@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:i0="wcfMIIProxy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="wcfProductionOrderDetails" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:import namespace="wcfMIIProxy" location="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc?wsdl=wsdl0" />
+  <wsdl:types />
+  <wsdl:binding name="BasicHttpBinding_IwcfProductionOrderDetails" type="i0:IwcfProductionOrderDetails">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProductionOrderDetails">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetProductionOrderDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductionOrderDetails_VP">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetProductionOrderDetails_VP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderMatMstBscDat_MIN">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDat_MIN" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderMatMstBscDat_MIN_VP">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDat_MIN_VP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductionOrderDetails_MIN_VP">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetProductionOrderDetails_MIN_VP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductionOrderDetails_MIN">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetProductionOrderDetails_MIN" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderMatMstBscDat_VP">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDat_VP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderMatMstBscDat">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMRPPOs">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetMRPPOs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMRPPOs_VP">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetMRPPOs_VP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderForSerial_VP">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderForSerial_VP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderForSerial">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderForSerial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderMatMstBscDat_MINRequest">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderMatMstBscDat_MINRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderBSynch">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderBSynch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCoatingPOs">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetCoatingPOs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderStepDetail">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderStepDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProdOrderHybridStepDetail">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetProdOrderHybridStepDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEGIncoming">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetEGIncoming" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReleasedPOsByMRP">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetReleasedPOsByMRP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReleasedPOsByMRPType">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetReleasedPOsByMRPType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReleasedLocalPOs">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetReleasedLocalPOs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReleasedRemotePOs">
+      <soap:operation soapAction="wcfMIIProxy/IwcfProductionOrderDetails/GetReleasedRemotePOs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="wcfProductionOrderDetails">
+    <wsdl:port name="BasicHttpBinding_IwcfProductionOrderDetails" binding="tns:BasicHttpBinding_IwcfProductionOrderDetails">
+      <soap:address location="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

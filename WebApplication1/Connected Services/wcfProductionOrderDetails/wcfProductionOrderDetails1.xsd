@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="wcfMIIProxy" elementFormDefault="qualified" targetNamespace="wcfMIIProxy" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/wcfMIIProxy" />
+  <xs:element name="GetProductionOrderDetails">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ProductionOrder" nillable="true" type="q1:ArrayOfstring" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductionOrderDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetProductionOrderDetailsResult" nillable="true" type="q2:ArrayOfProductionOrderDetails" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductionOrderDetails_VP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ProductionOrder" nillable="true" type="q3:ArrayOfstring" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductionOrderDetails_VPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetProductionOrderDetails_VPResult" nillable="true" type="q4:ArrayOfProductionOrderDetails_VP" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderMatMstBscDat_MIN">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ProductionOrder" nillable="true" type="q5:ArrayOfstring" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderMatMstBscDat_MINResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetProdOrderMatMstBscDat_MINResult" nillable="true" type="q6:ArrayOfdrv_ProdOrdDetMatMstBscDat" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderMatMstBscDat_MIN_VP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ProductionOrder" nillable="true" type="q7:ArrayOfstring" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderMatMstBscDat_MIN_VPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetProdOrderMatMstBscDat_MIN_VPResult" nillable="true" type="q8:ArrayOfdrv_ProdOrdDetMatMstBscDat_VP" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductionOrderDetails_MIN_VP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ProductionOrder" nillable="true" type="q9:ArrayOfstring" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductionOrderDetails_MIN_VPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetProductionOrderDetails_MIN_VPResult" nillable="true" type="q10:ArrayOfProductionOrderDetails_VP" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductionOrderDetails_MIN">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ProductionOrder" nillable="true" type="q11:ArrayOfstring" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductionOrderDetails_MINResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetProductionOrderDetails_MINResult" nillable="true" type="q12:ArrayOfProductionOrderDetails" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderMatMstBscDat_VP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ProductionOrder" nillable="true" type="q13:ArrayOfstring" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderMatMstBscDat_VPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetProdOrderMatMstBscDat_VPResult" nillable="true" type="q14:ArrayOfdrv_ProdOrdDetMatMstBscDat_VP" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderMatMstBscDat">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ProductionOrder" nillable="true" type="q15:ArrayOfstring" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderMatMstBscDatResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetProdOrderMatMstBscDatResult" nillable="true" type="q16:ArrayOfdrv_ProdOrdDetMatMstBscDat" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMRPPOs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MRPCOntroller" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="StatusList" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMRPPOsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetMRPPOsResult" nillable="true" type="q17:ArrayOfProductionOrderDetails" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMRPPOs_VP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MRPCOntroller" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="StatusList" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMRPPOs_VPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetMRPPOs_VPResult" nillable="true" type="q18:ArrayOfProductionOrderDetails_VP" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderForSerial_VP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Plant" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MaterialNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="SerialNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderForSerial_VPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetProdOrderForSerial_VPResult" nillable="true" type="q19:ArrayOfdrv_ProdOrdDetMatMstBscDat_VP" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderForSerial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Plant" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MaterialNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="SerialNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderForSerialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetProdOrderForSerialResult" nillable="true" type="q20:ArrayOfdrv_ProdOrdDetMatMstBscDat" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderMatMstBscDat_MINRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element xmlns:q21="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ProductionOrder" nillable="true" type="q21:ArrayOfstring" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="IsVersioning" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderMatMstBscDat_MINRequestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetProdOrderMatMstBscDat_MINRequestResult" nillable="true" type="q22:ArrayOfdrv_ProdOrdDetMatMstBscDat" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderBSynch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DateTo" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderBSynchResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetProdOrderBSynchResult" nillable="true" type="q23:ArrayOfPOBsynch" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCoatingPOs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCoatingPOsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetCoatingPOsResult" nillable="true" type="q24:ArrayOfCoatingPO" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderStepDetail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Plant" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ProductionOrder" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="StepDesc" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderStepDetailResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetProdOrderStepDetailResult" nillable="true" type="q25:ArrayOfPOStepDetail" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderHybridStepDetail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Plant" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ProductionOrder" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="StepDesc" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProdOrderHybridStepDetailResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetProdOrderHybridStepDetailResult" nillable="true" type="q26:ArrayOfPOStepDetail" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEGIncoming">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ProductionOrder" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEGIncomingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetEGIncomingResult" nillable="true" type="q27:LotDetails" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReleasedPOsByMRP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MRPCOntroller" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="StatusList" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="SAPStartDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReleasedPOsByMRPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetReleasedPOsByMRPResult" nillable="true" type="q28:ArrayOfSewingPO" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReleasedPOsByMRPType">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="OrderType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MRPCOntroller" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="StatusList" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="SAPStartDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReleasedPOsByMRPTypeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetReleasedPOsByMRPTypeResult" nillable="true" type="q29:ArrayOfSewingPO" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReleasedLocalPOs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="OrderType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MRPController" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="StatusList" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="SAPStartDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReleasedLocalPOsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetReleasedLocalPOsResult" nillable="true" type="q30:ArrayOfSewingPO" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReleasedRemotePOs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PlantNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="OrderType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MRPController" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="StatusList" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="SAPStartDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Environment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReleasedRemotePOsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/wcfMIIProxy" minOccurs="0" name="GetReleasedRemotePOsResult" nillable="true" type="q31:ArrayOfSewingPO" />
+        <xs:element minOccurs="0" name="HandledError" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

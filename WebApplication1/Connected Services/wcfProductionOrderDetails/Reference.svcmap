@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="7898a2f4-f4f5-4b48-9708-ade74c6aebdb" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="wcfProductionOrderDetails.xsd" MetadataType="Schema" ID="2a5fff01-0fcf-4ebb-be59-19a1fe646a59" SourceId="1" SourceUrl="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc?xsd=xsd1" />
+    <MetadataFile FileName="wcfProductionOrderDetails1.xsd" MetadataType="Schema" ID="a43c24d4-9a37-4dda-83c7-a9bd6a2d8002" SourceId="1" SourceUrl="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc?xsd=xsd0" />
+    <MetadataFile FileName="wcfProductionOrderDetails2.xsd" MetadataType="Schema" ID="ca94c74e-e5af-49f8-a127-ecd3156f1ae0" SourceId="1" SourceUrl="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc?xsd=xsd3" />
+    <MetadataFile FileName="wcfProductionOrderDetails.disco" MetadataType="Disco" ID="8a96b465-6ff4-4c10-9acb-a8ca4f7068c3" SourceId="1" SourceUrl="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc?disco" />
+    <MetadataFile FileName="wcfProductionOrderDetails.wsdl" MetadataType="Wsdl" ID="3b23a055-8e21-422f-ba11-e719fd99bde7" SourceId="1" SourceUrl="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="wcfProductionOrderDetails1.wsdl" MetadataType="Wsdl" ID="e762a439-1007-47f5-b5ae-f99bc9d78b54" SourceId="1" SourceUrl="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc?wsdl" />
+    <MetadataFile FileName="wcfProductionOrderDetails3.xsd" MetadataType="Schema" ID="bf16c71a-d21c-4f71-a85e-29a12705014d" SourceId="1" SourceUrl="http://mexm1bdb05:82/wcfMIIProxy/wcfProductionOrderDetails.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
