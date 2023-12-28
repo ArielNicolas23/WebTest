@@ -6,139 +6,153 @@ Public Class CalculoDirecto
 
     Inherits System.Web.UI.Page
 
+    Dim modelChanges As ED_ModelsChanges = New ED_ModelsChanges
+    Dim catReworkOrders As CatReworkOrders = New CatReworkOrders
+    Dim catUnits As CatUnits = New CatUnits
+    Dim expirationDate As Legacy.ExpirationDate = New Legacy.ExpirationDate()
+    Dim mfgDate As Legacy.ShortDate = New Legacy.ShortDate()
+
+    Dim userPlaceholder As String
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Dim userProfile = CType(Session("UserProfile"), Security.UserProfile)
+        userPlaceholder = userProfile.UserName.Split("\")(1)
+
         If Not Page.IsPostBack Then
 
         End If
     End Sub
 
-    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-        Dim expdate As Legacy.ExpirationDate = New Legacy.ExpirationDate()
-        Dim catalog As String
-        Dim Modulo As String = "Estandar"
-        Dim Area As String
+    ' Botón para realizar validaciones y cálculo
+    Protected Sub btnCalculate_Click(sender As Object, e As EventArgs) Handles btnCalculate.Click
         Dim workOrder As String
+        Dim model As String
+
+        Dim area As String = "Estandar"
+
         Dim plant As String = String.Empty
         Dim months As String = String.Empty
         Dim material As String = String.Empty
         Dim lot As String = String.Empty
-        Dim manufDate As Legacy.ShortDate = New Legacy.ShortDate()
+        Dim workorderModel As String = String.Empty
 
-        Dim modelschanges = New ED_ModelsChanges
-        Dim catreworkorders = New CatReworkOrders
-        Dim catUnits = New CatUnits
-        Dim dtOrder = catreworkorders.SelectByOrder(CalcOrden.Text)
-        Dim dtModels = modelschanges.SelectByModel(CalcModelo.Text)
-        'Dim idUnit As Guid = dtModels.Rows(0).Item(4)
-        'Dim dtUnits = catUnits.SelectOne(idUnit)
+        Dim dtWorkOrder = catReworkOrders.SelectByOrder(txtWorkOrder.Text)
+        Dim dtModel = modelChanges.SelectByModel(txtModel.Text)
 
-        CalcModelo.Text = CalcModelo.Text.Trim().ToUpper()
-        CalcOrden.Text = CalcOrden.Text.Trim()
-        workOrder = CalcOrden.Text
+        txtWorkOrder.Text = txtWorkOrder.Text.Trim()
+        txtModel.Text = txtModel.Text.Trim().ToUpper()
+        workOrder = txtWorkOrder.Text
+        model = txtModel.Text
 
-        If expdate.WorkOrderIsValid(workOrder) Then
+        If Not ValidateData(dtWorkOrder, dtModel) Then
+            Return
+        End If
 
+        ' Se valida que la orden exista en SAP
+        If expirationDate.WorkOrderIsValid(workOrder) Then
+
+            ' Se verificar si la fecha de expiración ya fue calculada
             Dim currentExpDate As Legacy.ShortDate
-            currentExpDate = expdate.QueryExpirationDate(workOrder)
-
-            '----------------
-            ' Valida si la fecha de expiracion de la orden ya fue calculada
-            '----------------
+            currentExpDate = expirationDate.QueryExpirationDate(workOrder)
 
             If Not currentExpDate.IsEmptyDate Then
-                Label3.Text = "La fecha de expiración para la orden " + CalcOrden.Text + " ya fue calculada (" + currentExpDate.ToString() + ")"
+                lblErrorMessage.Text = "La fecha de expiración para la orden " + workOrder + " ya fue calculada (" + currentExpDate.ToString() + ")"
                 Return
             End If
 
-            'Validar si la orden tiene fecha de manufactura
-            manufDate = expdate.GetManufDate(workOrder)
-            If expdate.GetManufDate(workOrder).IsEmptyDate() Then
-                Label3.Text = "La orden " + workOrder + " no tiene asignada fecha de manufactura."
+            ' Validar si la orden tiene fecha de manufactura
+            mfgDate = expirationDate.GetManufDate(workOrder)
+            If expirationDate.GetManufDate(workOrder).IsEmptyDate() Then
+                lblErrorMessage.Text = "La orden " + workOrder + " no tiene asignada fecha de manufactura."
                 Return
             End If
 
-            'Validar si la fecha de manufactura es mayor a la fecha actual
-            If manufDate.ToDate() > Today Then
-                Label3.Text = "La orden [" + workOrder + "] tiene fecha de manufactura [" + manufDate.ToString() + "] mayor a la fecha actual."
+            ' Validar si la fecha de manufactura es mayor a la fecha actual
+            If mfgDate.ToDate() > Today Then
+                lblErrorMessage.Text = "La orden [" + workOrder + "] tiene fecha de manufactura [" + mfgDate.ToString() + "] mayor a la fecha actual."
                 Return
             End If
 
-            'If Not (expdate.IsMinimedWorkOrder(TxtWorkOrder.Text) Or expdate.IsCoatingWorkOrder(TxtWorkOrder.Text) Or expdate.IsSprinterRXCatalog(Me.TxtCatalog.Text) Or expdate.IsLegendRXCatalog(Me.TxtCatalog.Text)) Then
-            '----------------
-            ' Valida que orden y catalogo correspondan en ERP
-            '----------------
+            ' Valida que Orden y Catálogo correspondan en ERP
+            workorderModel = expirationDate.GetCatalog(workOrder, plant, material, lot)
 
-            catalog = expdate.GetCatalog(workOrder, plant, material, lot)
-            If Not catalog Is Nothing Then
-                If catalog.Equals(CalcModelo.Text) Then
+            If Not workorderModel Is Nothing Then
+                If workorderModel.Equals(model) Then
 
-
-                    '----------------
                     ' Valida que exista vida util para el catalogo
-                    '----------------
-
-                    Dim calcExpDate As Legacy.ShortDate = expdate.GetExpirationDate(catalog, manufDate, months)
+                    Dim calcExpDate As Legacy.ShortDate = expirationDate.GetExpirationDate(model, mfgDate, months)
                     If calcExpDate.IsEmptyDate Then
-
-                        Label3.Text = "La vida útil del catálogo no fue encontrada."
-
+                        lblErrorMessage.Text = "La vida útil del catálogo no fue encontrada."
                     Else
-                        '----------------
-                        ' Valida que la fecha de expiracion para el catalogo deba ser calculada en este modulo
-                        '----------------
-
+                        lblSuccessMessage.Text = "Todo salió bien!"
                     End If
 
                 Else
-                    Label3.Text = "El número catálogo no pertenece al número de orden de trabajo."
+                    lblErrorMessage.Text = "El Catálogo / Modelo no pertenece al Número de Orden de Trabajo."
                 End If
             Else
-                Label3.Text = "ERROR! Notifique al soporte de IT."
+                lblErrorMessage.Text = "ERROR! Notifique al soporte de IT."
             End If
-            'Else
-            'LblMessage.Text = "El número de orden de trabajo suministrado no puede ser procesado en este módulo. Verifique si es un productoMinimed o Carmeda/Trillium para usar el módulo correcto."
-            'End If
         Else
-            Label3.Text = "El número de orden de trabajo no es válido."
+            lblErrorMessage.Text = "No se encontró información en SAP con el Número de Orden de Trabajo ingresado."
         End If
 
-        If CalcOrden.Text.IsEmpty Then
-            Label3.Text = "Error"
-            Return
-        End If
-
-        If CalcModelo.Text.IsEmpty Then
-            Label3.Text = "Error"
-            Return
-        End If
-
-        If dtOrder.Rows.Count = 0 Then
-            Label3.Text = "No se encontro la orden"
-            Return
-        End If
-
-        If dtModels.Rows.Count = 0 Then
-            Label3.Text = "No se encontro el modelo"
-            Return
-        End If
-
-        If dtOrder.Rows(0).Item(3) = False Then
-            Label3.Text = "La orden no es para retrabajo"
-            Return
-        End If
-
-        lblDispOrden.Text = dtOrder.Rows(0).Item(1)
-        lblDispModelo.Text = dtModels.Rows(0).Item(1)
-        Dim lifespan As Integer = dtModels.Rows(0).Item(2)
-        Dim unit As String = dtModels.Rows(0).Item(3)
-        'Dim unitValue As Integer = dtUnits.Rows(0).Item(3)
-        txtCalculo.Text = lifespan.ToString + " " + unit
-        InfoModal.Show()
+        btnCalculate.Enabled = False
+        'lblModalDispWorkOrder.Text = dtWorkOrder.Rows(0).Item(1)
+        'lblModalDispModel.Text = dtModel.Rows(0).Item(1)
+        'Dim lifespan As Integer = dtModel.Rows(0).Item(2)
+        'Dim unit As String = dtModel.Rows(0).Item(3)
+        ''''''''Dim unitValue As Integer = dtUnits.Rows(0).Item(3)
+        'txtModalCalculation.Text = lifespan.ToString + " " + unit
+        'InfoModal.Show()
 
     End Sub
 
-    Protected Sub lbCancel_Click(sender As Object, e As EventArgs) Handles lbCancel.Click
-        InfoModal.Hide()
+
+
+    ' Botón para reiniciar textboxes de búsqueda
+    Protected Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
+        txtWorkOrder.Text = ""
+        txtModel.Text = ""
+        btnCalculate.Enabled = True
     End Sub
+
+    ' Botón de aceptar para el modal
+    Protected Sub btnModalAccept_Click(sender As Object, e As EventArgs) Handles btnModalAccept.Click
+
+    End Sub
+
+    ' Botón de cancelar para el modal
+    Protected Sub btnModalCancel_Click(sender As Object, e As EventArgs) Handles btnModalCancel.Click
+
+    End Sub
+
+    Private Function ValidateData(dtWorkOrder As DataTable, dtModel As DataTable) As Boolean
+        If txtWorkOrder.Text.IsEmpty Then
+            lblErrorMessage.Text = "Favor de escribir un Número de Orden de Trabajo"
+            Return False
+        End If
+
+        If txtModel.Text.IsEmpty Then
+            lblErrorMessage.Text = "Favor de escribir el Catálogo / Modelo"
+            Return False
+        End If
+
+        If dtWorkOrder.Rows.Count = 0 Then
+            lblErrorMessage.Text = "La Orden de Trabajo ingresada no se encuentra cargada en sistema"
+            Return False
+        End If
+
+        If dtModel.Rows.Count = 0 Then
+            lblErrorMessage.Text = "El Modelo ingresado no se encuentra listado dentro de los Modelos Aprobados"
+            Return False
+        End If
+
+        If dtWorkOrder.Rows(0).Item(3) = False Then
+            lblErrorMessage.Text = "La Orden de Trabajo ingresada no se encuentra indicada para Retrabajo"
+            Return False
+        End If
+
+        Return True
+    End Function
 End Class

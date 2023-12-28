@@ -214,6 +214,10 @@ tr.dgvPaging {
     margin-bottom: 16px;
 }
 
+.catDivTopMargin {
+    margin-top: 16px;
+}
+
 /* Estilos de calendarios flotantes */
 .catCalendar {
     position: absolute;
