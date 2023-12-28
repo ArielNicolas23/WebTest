@@ -5,6 +5,8 @@
         <ContentTemplate>
             <div id="stdlayout">
                 <asp:Label ID="lblTitle" runat="server" Text="Cálulo Directo" CssClass="catHeader"></asp:Label>
+
+
                 <div align="center" style="margin: 30px; clip: rect(auto, auto, auto, auto)">
                     <table class="catLabel" style="text-align: right">
                         <tr style="height: 30px;">
@@ -25,18 +27,30 @@
                             <td>
                                 <asp:TextBox ID="txtModel" runat="server"></asp:TextBox>
                             </td>
+                            <td>
+                                <asp:CheckBox ID="chkAdmin" runat="server" Text="Is Admin" />
+                            </td>
                         </tr>
                     </table>
 
                     <div class="catDivTopMargin">
                         <asp:Button ID="btnCalculate" runat="server" Text="Calcular" CssClass="catButtonAccept"/>
                     </div>
-
-                    <div class="catDivTopMargin">
-                        <asp:Label ID="lblErrorMessage" runat="server" CssClass="catLabel" ForeColor="Red"></asp:Label>
-                        <asp:Label ID="lblSuccessMessage" runat="server" CssClass="catLabel" ForeColor="Green"></asp:Label>
-                    </div>
+                    <asp:UpdatePanel ID="updateInProcessCalculate" runat="server">
+                        <ContentTemplate>
+                            <div class="catDivTopMargin">
+                                <asp:Label ID="lblErrorMessage" runat="server" CssClass="catLabel" ForeColor="Red"></asp:Label>
+                                <asp:Label ID="lblSuccessMessage" runat="server" CssClass="catLabel" ForeColor="Green"></asp:Label>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
+
+                <asp:updateprogress ID="updateProgressCalculate" AssociatedUpdatePanelID="updateInProcessCalculate" runat="server">
+                    <ProgressTemplate>
+                        Procesando
+                    </ProgressTemplate>
+                </asp:updateprogress>
             </div>
 
             <asp:Label ID="lblModal" runat="server" Text=""></asp:Label>

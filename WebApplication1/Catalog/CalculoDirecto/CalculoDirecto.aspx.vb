@@ -143,10 +143,10 @@ Public Class CalculoDirecto
             Return False
         End If
 
-        If dtModel.Rows.Count = 0 Then
-            lblErrorMessage.Text = "El Modelo ingresado no se encuentra listado dentro de los Modelos Aprobados"
-            Return False
-        End If
+        'If dtModel.Rows.Count = 0 Then
+        '    lblErrorMessage.Text = "El Modelo ingresado no se encuentra listado dentro de los Modelos Aprobados"
+        '    Return False
+        'End If
 
         If dtWorkOrder.Rows(0).Item(3) = False Then
             lblErrorMessage.Text = "La Orden de Trabajo ingresada no se encuentra indicada para Retrabajo"

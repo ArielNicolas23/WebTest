@@ -77,6 +77,15 @@ Partial Public Class CalculoDirecto
     Protected WithEvents txtModel As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''chkAdmin control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkAdmin As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
     '''btnCalculate control.
     '''</summary>
     '''<remarks>
@@ -84,6 +93,15 @@ Partial Public Class CalculoDirecto
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnCalculate As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''updateInProcessCalculate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents updateInProcessCalculate As Global.System.Web.UI.UpdatePanel
 
     '''<summary>
     '''lblErrorMessage control.
@@ -102,6 +120,15 @@ Partial Public Class CalculoDirecto
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblSuccessMessage As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''updateProgressCalculate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents updateProgressCalculate As Global.System.Web.UI.UpdateProgress
 
     '''<summary>
     '''lblModal control.
