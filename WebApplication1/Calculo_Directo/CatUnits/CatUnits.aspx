@@ -54,9 +54,20 @@
  <asp:BoundField DataField="Unit" HeaderText="Unidad">
      <HeaderStyle HorizontalAlign="Center" />
  </asp:BoundField>
- <asp:BoundField DataField="UnitValue" HeaderText="Valor" ReadOnly="false">
+ <asp:BoundField DataField="UnitQty" HeaderText="Cantidad" ReadOnly="false">
      <HeaderStyle HorizontalAlign="Center" />
  </asp:BoundField>
+        <asp:TemplateField HeaderText="Valor">
+    <ItemTemplate>
+        <asp:Label  ID="lblUnitValue" runat="server" Text='<%# Bind("UnitValue") %>'>[lblUnitValue]</asp:Label>
+    </ItemTemplate>
+    <EditItemTemplate>
+        <asp:DropDownList DataField="UnitValue"  ID="ddlUnitValue" runat="server" Width="128px" Enabled="true" >
+            <asp:ListItem>Dias</asp:ListItem>
+            <asp:ListItem>Meses</asp:ListItem>
+        </asp:DropDownList>
+    </EditItemTemplate>
+</asp:TemplateField>
          <asp:TemplateField>
              <HeaderTemplate >
                  <asp:DropDownList ID="DropDownListc" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownListc_SelectedIndexChanged">

@@ -11,10 +11,11 @@ Public Class CatUnits
     End Sub
 
     Public Sub Insert(
-            ByVal PartNumber As String,
-            ByVal Description As String,
+            ByVal Unit As String,
+            ByVal UnitQty As String,
             ByVal IsActive As Boolean,
-            ByVal UserName As String)
+            ByVal CreatedBy As String,
+            ByVal UnitValue As String)
 
         Using conn As New SqlConnection(Me.dbCon)
 
@@ -22,10 +23,11 @@ Public Class CatUnits
             cmd.CommandText = "spED_CatUnits_Insert"
             cmd.Connection = conn
             cmd.CommandType = CommandType.StoredProcedure
-            cmd.Parameters.AddWithValue("@Unit", PartNumber)
-            cmd.Parameters.AddWithValue("@UnitValue", Description)
+            cmd.Parameters.AddWithValue("@Unit", Unit)
+            cmd.Parameters.AddWithValue("@UnitQty", UnitQty)
             cmd.Parameters.AddWithValue("@IsActive", IsActive)
-            cmd.Parameters.AddWithValue("@CreatedBy", UserName)
+            cmd.Parameters.AddWithValue("@CreatedBy", CreatedBy)
+            cmd.Parameters.AddWithValue("@UnitValue", UnitValue)
 
             conn.Open()
             cmd.ExecuteNonQuery()
@@ -35,9 +37,10 @@ Public Class CatUnits
     Public Sub Update(
             ByVal IdUnit As Guid,
             ByVal Unit As String,
-            ByVal UnitValue As String,
+            ByVal UnitQty As String,
             ByVal IsActive As Boolean,
-            ByVal UserName As String)
+            ByVal CreatedBy As String,
+            ByVal UnitValue As String)
 
         Using conn As New SqlConnection(Me.dbCon)
 
@@ -47,8 +50,9 @@ Public Class CatUnits
             cmd.CommandType = CommandType.StoredProcedure
             cmd.Parameters.AddWithValue("@IdCatUnits", IdUnit)
             cmd.Parameters.AddWithValue("@Unit", Unit)
+            cmd.Parameters.AddWithValue("@UnitQty", UnitQty)
+            cmd.Parameters.AddWithValue("@ModifiedBy", CreatedBy)
             cmd.Parameters.AddWithValue("@UnitValue", UnitValue)
-            cmd.Parameters.AddWithValue("@ModifiedBy", UserName)
 
             conn.Open()
             cmd.ExecuteNonQuery()
@@ -86,8 +90,9 @@ Public Class CatUnits
             result = New DataTable("Result")
             result.Columns.Add("IdUnit", GetType(Guid))
             result.Columns.Add("Unit", GetType(String))
-            result.Columns.Add("UnitValue", GetType(String))
+            result.Columns.Add("UnitQty", GetType(String))
             result.Columns.Add("IsActive", GetType(Boolean))
+            result.Columns.Add("UnitValue", GetType(String))
 
             conn.Open()
 
@@ -97,8 +102,9 @@ Public Class CatUnits
                 row = result.NewRow()
                 row("IdUnit") = reader.GetGuid(0)
                 row("Unit") = reader.GetString(1)
-                row("UnitValue") = reader.GetInt16(2)
+                row("UnitQty") = reader.GetInt16(2)
                 row("IsActive") = reader.GetBoolean(3)
+                row("UnitValue") = reader.ToString(9)
 
                 result.Rows.Add(row)
 
@@ -130,8 +136,9 @@ Public Class CatUnits
 
             result.Columns.Add("IdUnit", GetType(Guid))
             result.Columns.Add("Unit", GetType(String))
-            result.Columns.Add("UnitValue", GetType(String))
+            result.Columns.Add("UnitQty", GetType(String))
             result.Columns.Add("IsActive", GetType(Boolean))
+            result.Columns.Add("UnitValue", GetType(String))
 
             conn.Open()
 
@@ -142,8 +149,9 @@ Public Class CatUnits
 
                 row("IdUnit") = reader.GetGuid(0)
                 row("Unit") = reader.GetString(1)
-                row("UnitValue") = reader.GetInt16(2)
+                row("UnitQty") = reader.GetInt16(2)
                 row("IsActive") = reader.GetBoolean(3)
+                row("UnitValue") = reader.GetString(9)
 
                 result.Rows.Add(row)
 

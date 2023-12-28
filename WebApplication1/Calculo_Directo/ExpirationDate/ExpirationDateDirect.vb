@@ -382,9 +382,9 @@ Namespace Legacy
                     ' Obtiene los meses asignados al catálogo y la fecha actual del servidor de base de datos.
                     '----------------
                     Dim LifeSpan As Integer = reader.GetInt32(2)
-                    Dim UnitValue As Short = reader.GetInt16(9)
-                    Dim QtyToAdd As Integer = LifeSpan * UnitValue
-                    Dim UOMID As Integer = Integer.Parse(reader.GetString(10))
+                    Dim UnitQty As Short = reader.GetInt16(9)
+                    Dim QtyToAdd As Integer = LifeSpan * UnitQty
+                    Dim UnitValue As String = reader.GetString(10)
 
                     Months = QtyToAdd.ToString()
                     '----------------
@@ -394,10 +394,10 @@ Namespace Legacy
                     Dim TempExpDate As Date
                     Dim sTempExpDate As ShortDate = New ShortDate()
 
-                    If (UOMID.Equals(1) Or UOMID.Equals(2)) Then
-                        If (UOMID.Equals(1)) Then
+                    If (UnitValue.Equals("DIAS") Or UnitValue.Equals("MESES")) Then
+                        If (UnitValue.Equals("DIAS")) Then
                             TempExpDate = DateAdd(DateInterval.Day, QtyToAdd, ManufDate.ToDate())
-                        ElseIf (UOMID.Equals(2)) Then
+                        ElseIf (UnitValue.Equals("MESES")) Then
                             TempExpDate = DateAdd(DateInterval.Month, QtyToAdd, ManufDate.ToDate())
                         End If
 

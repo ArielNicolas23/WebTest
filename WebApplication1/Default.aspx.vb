@@ -55,8 +55,8 @@ Public Class _Default
 
         Dim components As CatUnits = New CatUnits()
 
-        components.Insert(strComponent, strDescription, True, "Admin")
-            LblMessage.ForeColor = Color.Blue
+        components.Insert(strComponent, strDescription, True, "Admin", "")
+        LblMessage.ForeColor = Color.Blue
             LblMessage.Text = "El componente ha sido agregado exitosamente."
 
 
@@ -86,7 +86,7 @@ Public Class _Default
         Dim isActive As Boolean = CType((row.Cells(3).Controls(0)), CheckBox).Checked
 
         Dim components As CatUnits = New CatUnits()
-        components.Update(idUnit, unit, unitValue, isActive, "Admin")
+        components.Update(idUnit, unit, unitValue, isActive, "Admin", "")
         components = Nothing
 
             GridView1.EditIndex = -1
