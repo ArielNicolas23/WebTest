@@ -14,6 +14,7 @@ Namespace Legacy
         'Commented by Manuel Beltran (11.Apr.2012)
         'Protected m_Neurona As String
         Protected m_Jde As String
+        Protected dbCon As String                            'cambiocambio
 
         Public Enum VerificationStep
             None = 0
@@ -29,6 +30,8 @@ Namespace Legacy
             'Commented by Manuel Beltran (11.Apr.2012)
             'm_Neurona = ConfigurationManager.ConnectionStrings("Neurona").ConnectionString
             m_Jde = ConfigurationManager.ConnectionStrings("Jde").ConnectionString
+
+            dbCon = ConfigurationManager.ConnectionStrings("TestDb").ConnectionString
         End Sub
 
         ''' <summary>
@@ -841,7 +844,7 @@ Namespace Legacy
 
             'Commented by Manuel Beltran (11.Apr.2012)
             'Dim connection As SqlConnection = New SqlConnection(m_Neurona)
-            Dim connection As SqlConnection = New SqlConnection(m_Apls)
+            Dim connection As SqlConnection = New SqlConnection(dbCon)             'cambiocambio
             Dim command As SqlCommand = New SqlCommand()
             command.Connection = connection
             command.CommandText = sqlstr

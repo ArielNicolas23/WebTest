@@ -14,67 +14,94 @@ Option Explicit On
 Partial Public Class CalculoDirecto
 
     '''<summary>
-    '''lblPageName control.
+    '''UpdatePanelGeneral control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPageName As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents UpdatePanelGeneral As Global.System.Web.UI.UpdatePanel
 
     '''<summary>
-    '''Label1 control.
+    '''lblTitle control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblTitle As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''CalcOrden control.
+    '''lblWorkOrder control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents CalcOrden As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents lblWorkOrder As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Label3 control.
+    '''txtWorkOrder control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Label3 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents txtWorkOrder As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Label2 control.
+    '''btnReset control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Label2 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents btnReset As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
-    '''CalcModelo control.
+    '''lblModel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents CalcModelo As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents lblModel As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Button1 control.
+    '''txtModel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents txtModel As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''btnCalculate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnCalculate As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''lblErrorMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblErrorMessage As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblSuccessMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblSuccessMessage As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblModal control.
@@ -113,58 +140,58 @@ Partial Public Class CalculoDirecto
     Protected WithEvents lblModalInstruction As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblOrden control.
+    '''lblModalWorkOrder control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblOrden As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblModalWorkOrder As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblDispOrden control.
+    '''lblModalDispWorkOrder control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblDispOrden As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblModalDispWorkOrder As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblModelo control.
+    '''lblModalModel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblModelo As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblModalModel As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblDispModelo control.
+    '''lblModalDispModel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblDispModelo As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblModalDispModel As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblApproveMessage control.
+    '''lblModalCalculation control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblApproveMessage As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblModalCalculation As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''txtCalculo control.
+    '''txtModalCalculation control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtCalculo As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtModalCalculation As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''updProgress control.
@@ -194,20 +221,20 @@ Partial Public Class CalculoDirecto
     Protected WithEvents updateInProcess As Global.System.Web.UI.UpdatePanel
 
     '''<summary>
-    '''lbAccept control.
+    '''btnModalAccept control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lbAccept As Global.System.Web.UI.WebControls.LinkButton
+    Protected WithEvents btnModalAccept As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
-    '''lbCancel control.
+    '''btnModalCancel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lbCancel As Global.System.Web.UI.WebControls.LinkButton
+    Protected WithEvents btnModalCancel As Global.System.Web.UI.WebControls.LinkButton
 End Class

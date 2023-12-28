@@ -15,10 +15,12 @@
                 <asp:Label ID="lblWorkOrder" CssClass="catLabel" runat="server" Text="Orden de Trabajo:"></asp:Label>
                 <asp:TextBox ID="txtWorkOrder" runat="server"></asp:TextBox>
                 <asp:DropDownList ID="cmbArea" runat="server" Width="128px" CssClass="catDropDownList">
-                    <asp:ListItem>Módulo 1</asp:ListItem>
-                    <asp:ListItem>Módulo 2</asp:ListItem>
-                    <asp:ListItem>Módulo 3</asp:ListItem>
-                    <asp:ListItem>Módulo 4</asp:ListItem>
+                    <%--< Estandar, Retrabajo, Modulo General, Directo, CPS >--%> 
+                    <asp:ListItem>CPS</asp:ListItem>
+                    <asp:ListItem>Directo</asp:ListItem>
+                    <asp:ListItem>Estandar</asp:ListItem>
+                    <asp:ListItem>Modulo General</asp:ListItem>
+                    <asp:ListItem>Retrabajo</asp:ListItem>
                 </asp:DropDownList>
                 <asp:CheckBox ID="chkRework" runat="server" Text="Orden Retrabajada" />
                 <asp:LinkButton ID="lBtnSearch" CssClass="catLinkButton" runat="server" Text="<i class='fa fa-search' data-toggle='tooltip' title='Buscar'></i> " />
@@ -47,19 +49,20 @@
 </asp:BoundField>
         <asp:BoundField DataField="WorkOrder" HeaderText="Orden de Trabajo" SortExpression="workOrder"  />
 
-                       <asp:TemplateField HeaderText="Módulo">
-                           <ItemTemplate>
-                               <asp:Label  ID="lblArea" runat="server" Text='<%# Bind("Area") %>'>[lblArea]</asp:Label>
-                           </ItemTemplate>
-                           <EditItemTemplate>
-                               <asp:DropDownList DataField="Area"  ID="ddlArea" runat="server" Width="128px" Enabled="true" >
-                                <asp:ListItem>módulo 1</asp:ListItem>
-                                <asp:ListItem>módulo 2</asp:ListItem>
-                                <asp:ListItem>módulo 3</asp:ListItem>
-                                <asp:ListItem>módulo 4</asp:ListItem>
-                                </asp:DropDownList>
-                               </EditItemTemplate>
-                       </asp:TemplateField>
+        <asp:TemplateField HeaderText="Módulo">
+            <ItemTemplate>
+                <asp:Label  ID="lblArea" runat="server" Text='<%# Bind("Area") %>'>[lblArea]</asp:Label>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:DropDownList DataField="Area"  ID="ddlArea" runat="server" Width="128px" Enabled="true" >
+                    <asp:ListItem>cps</asp:ListItem>
+                    <asp:ListItem>directo</asp:ListItem>
+                    <asp:ListItem>estandar</asp:ListItem>
+                    <asp:ListItem>modulo general</asp:ListItem>
+                    <asp:ListItem>retrabajo</asp:ListItem>
+                </asp:DropDownList>
+            </EditItemTemplate>
+        </asp:TemplateField>
         <asp:CheckBoxField DataField="IsRework" HeaderText="Fue Retrabajada" />
         <asp:BoundField DataField="CreatedOn" HeaderText="Cargada el" ReadOnly="True" SortExpression="createdOn" />
                        <asp:TemplateField ShowHeader="True">

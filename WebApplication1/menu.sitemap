@@ -110,6 +110,8 @@
 			</siteMapNode>
 			<siteMapNode title="Módulo de Cambios" description="Módulo de Cambios" roles="*" url="/Catalog/CatConfiguracionCalculoDirecto/CatConfiguracionCalculoDirecto.aspx">
 			</siteMapNode>
+			<siteMapNode title="Cálculo Directo" description="Módulo de Cálculo Direct" roles="*" url="/Catalog/CalculoDirecto/CalculoDirecto.aspx">
+			</siteMapNode>
       
       <!--<siteMapNode title="Módulo General" description="Módulo General" roles="ModGral_Admin">
         <siteMapNode title="Componentes críticos" description="Componentes críticos" url="/ExpirationDate/ModuloGeneral/NuevaRelacionMC.aspx" roles="ModGral_Admin"/>
