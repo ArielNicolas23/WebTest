@@ -1,6 +1,22 @@
 ﻿<%@ Page Title="Home Page" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="CalculoDirecto.aspx.vb" Inherits="WebApplication1.CalculoDirecto" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript">
+        //// Get the instance of PageRequestManager.
+        //var prm = Sys.WebForms.PageRequestManager.getInstance();
+        //// Add initializeRequest and endRequest
+        //prm.add_initializeRequest(prm_InitializeRequest);
+
+        //// Called when async postback begins
+        //function prm_InitializeRequest(sender, args) {
+        //    // Disable button that caused a postback
+        //    var x = document.getElementById("MainContent_btnCalculate");
+        //    x.setAttribute("Disabled");
+
+        //    var x = document.getElementById("MainContent_btnReset");
+        //    x.className += " disabled-link";
+        //}
+    </script>
     <asp:UpdatePanel ID="UpdatePanelGeneral" runat="server">
         <ContentTemplate>
             <div id="stdlayout">

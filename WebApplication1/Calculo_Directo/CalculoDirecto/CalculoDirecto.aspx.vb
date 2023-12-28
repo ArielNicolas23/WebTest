@@ -10,6 +10,7 @@ Public Class CalculoDirecto
     Dim catReworkOrders As CatReworkOrders = New CatReworkOrders
     Dim catUnits As CatUnits = New CatUnits
     Dim expirationDate As Legacy.ExpirationDate = New Legacy.ExpirationDate()
+    Dim expirationDateDirect As Legacy.ExpirationDateTest = New Legacy.ExpirationDateTest()
     Dim mfgDate As Legacy.ShortDate = New Legacy.ShortDate()
 
     Dim userPlaceholder As String
@@ -80,11 +81,12 @@ Public Class CalculoDirecto
                 If workorderModel.Equals(model) Then
 
                     ' Valida que exista vida util para el catalogo
-                    Dim calcExpDate As Legacy.ShortDate = expirationDate.GetExpirationDate(model, mfgDate, months)
+                    Dim calcExpDate As Legacy.ShortDate = expirationDateDirect.GetExpirationDate(model, mfgDate, months)
                     If calcExpDate.IsEmptyDate Then
                         lblErrorMessage.Text = "La vida útil del catálogo no fue encontrada."
                     Else
-                        lblSuccessMessage.Text = "Todo salió bien!"
+                        lblSuccessMessage.Text = "Todo salió bien, fecha de manufactura: " + mfgDate.ToDate.ToString("dd/MMM/yyyy") + " fecha de expiracion: " + calcExpDate.ToDate.ToString("dd/MMM/yyyy") 'agregar cuándo se realizó
+                        btnCalculate.Enabled = False
                     End If
 
                 Else
@@ -97,7 +99,7 @@ Public Class CalculoDirecto
             lblErrorMessage.Text = "No se encontró información en SAP con el Número de Orden de Trabajo ingresado."
         End If
 
-        btnCalculate.Enabled = False
+
         'lblModalDispWorkOrder.Text = dtWorkOrder.Rows(0).Item(1)
         'lblModalDispModel.Text = dtModel.Rows(0).Item(1)
         'Dim lifespan As Integer = dtModel.Rows(0).Item(2)
@@ -114,6 +116,8 @@ Public Class CalculoDirecto
     Protected Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
         txtWorkOrder.Text = ""
         txtModel.Text = ""
+        lblErrorMessage.Text = ""
+        lblSuccessMessage.Text = ""
         btnCalculate.Enabled = True
     End Sub
 
@@ -143,10 +147,10 @@ Public Class CalculoDirecto
             Return False
         End If
 
-        'If dtModel.Rows.Count = 0 Then
-        '    lblErrorMessage.Text = "El Modelo ingresado no se encuentra listado dentro de los Modelos Aprobados"
-        '    Return False
-        'End If
+        If dtModel.Rows.Count = 0 Then
+            lblErrorMessage.Text = "El Modelo ingresado no se encuentra listado dentro de los Modelos Aprobados"
+            Return False
+        End If
 
         If dtWorkOrder.Rows(0).Item(3) = False Then
             lblErrorMessage.Text = "La Orden de Trabajo ingresada no se encuentra indicada para Retrabajo"

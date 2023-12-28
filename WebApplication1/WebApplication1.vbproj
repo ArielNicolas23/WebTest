@@ -167,19 +167,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <Content Include="Catalog\CalculoDirecto\CalculoDirecto.aspx" />
-    <Content Include="Catalog\CatCalculoDirecto\CatCalculoDirecto.aspx" />
-    <Content Include="Catalog\CatCalculoDirecto\AgregarModelo.aspx" />
-    <Content Include="Catalog\CatCalculoDirecto\wsGetAdUsers.asmx" />
-    <Content Include="Catalog\CatConfiguracionCalculoDirecto\CatConfiguracionCalculoDirecto.aspx" />
-    <Content Include="Catalog\CatModuloAprobacion\CatPendingApproval.aspx" />
-    <Content Include="Catalog\CatWorkOrders\CatWorkOrders.aspx" />
-    <Content Include="Catalog\CatUnits\CatUnits.aspx" />
-    <Content Include="Catalog\CatUnits\CatUnitsEdit.aspx" />
-    <Content Include="Catalog\CatReworkStatus\CatReworkStatus.aspx" />
-    <Content Include="Catalog\CatReworkStatus\CatReworkStatusEdit.aspx" />
-    <Content Include="Catalog\CatWorkOrders\CatWorkOrdersEdit.aspx" />
-    <Content Include="Catalog\CatalogStyles.css" />
+    <Content Include="Calculo_Directo\CalculoDirecto\CalculoDirecto.aspx" />
+    <Content Include="Calculo_Directo\ConfigCalculoDirecto\ConfigCalculoDirecto.aspx" />
+    <Content Include="Calculo_Directo\ConfigCalculoDirecto\wsGetAdUsers.asmx" />
+    <Content Include="Calculo_Directo\CatalogoCalculoDirecto\CatalogoCalculoDirecto.aspx" />
+    <Content Include="Calculo_Directo\AprobacionCalculoDirecto\AprobacionCalculoDirecto.aspx" />
+    <Content Include="Calculo_Directo\CatWorkOrders\CatWorkOrders.aspx" />
+    <Content Include="Calculo_Directo\CatUnits\CatUnits.aspx" />
+    <Content Include="Calculo_Directo\CatReworkStatus\CatReworkStatus.aspx" />
+    <Content Include="Calculo_Directo\CatalogStyles.css" />
     <None Include="Connected Services\wcfProductionOrderDetails\wcfProductionOrderDetails.disco" />
     <None Include="Connected Services\wcfProductionOrderDetails\configuration91.svcinfo" />
     <None Include="Connected Services\wcfProductionOrderDetails\configuration.svcinfo" />
@@ -336,24 +332,27 @@
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Catalog\CalculoDirecto\CalculoDirecto.aspx.designer.vb">
+    <Compile Include="Calculo_Directo\CalculoDirecto\CalculoDirecto.aspx.designer.vb">
       <DependentUpon>CalculoDirecto.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Catalog\CalculoDirecto\CalculoDirecto.aspx.vb">
+    <Compile Include="Calculo_Directo\CalculoDirecto\CalculoDirecto.aspx.vb">
       <DependentUpon>CalculoDirecto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Catalog\CatConfiguracionCalculoDirecto\CatConfiguracionCalculoDirecto.aspx.designer.vb">
-      <DependentUpon>CatConfiguracionCalculoDirecto.aspx</DependentUpon>
+    <Compile Include="Calculo_Directo\CatalogoCalculoDirecto\CatalogoCalculoDirecto.aspx.designer.vb">
+      <DependentUpon>CatalogoCalculoDirecto.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Catalog\CatConfiguracionCalculoDirecto\CatConfiguracionCalculoDirecto.aspx.vb">
-      <DependentUpon>CatConfiguracionCalculoDirecto.aspx</DependentUpon>
+    <Compile Include="Calculo_Directo\CatalogoCalculoDirecto\CatalogoCalculoDirecto.aspx.vb">
+      <DependentUpon>CatalogoCalculoDirecto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Catalog\ExpirationDate.vb" />
-    <Compile Include="Catalog\ExpirationDateLegacy.vb" />
-    <Compile Include="Catalog\Legacy.ShortDate.vb" />
-    <Compile Include="Catalog\Util.vb" />
+    <Compile Include="Calculo_Directo\CalculoDirectoDB\CatReworkOrders.vb" />
+    <Compile Include="Calculo_Directo\CalculoDirectoDB\CatUnits.vb" />
+    <Compile Include="Calculo_Directo\ExpirationDate\ExpirationDate.vb" />
+    <Compile Include="Calculo_Directo\ExpirationDate\ExpirationDateLegacy.vb" />
+    <Compile Include="Calculo_Directo\ExpirationDate\ExpirationDateDirect.vb" />
+    <Compile Include="Calculo_Directo\ExpirationDate\Legacy.ShortDate.vb" />
+    <Compile Include="Calculo_Directo\ExpirationDate\Util.vb" />
     <Compile Include="Connected Services\wcfProductionOrderDetails\Reference.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -377,75 +376,47 @@
       <DependentUpon>About.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Catalog\CatCalculoDirecto\CatCalculoDirecto.aspx.designer.vb">
-      <DependentUpon>CatCalculoDirecto.aspx</DependentUpon>
+    <Compile Include="Calculo_Directo\ConfigCalculoDirecto\ConfigCalculoDirecto.aspx.designer.vb">
+      <DependentUpon>ConfigCalculoDirecto.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Catalog\CatCalculoDirecto\CatCalculoDirecto.aspx.vb">
-      <DependentUpon>CatCalculoDirecto.aspx</DependentUpon>
+    <Compile Include="Calculo_Directo\ConfigCalculoDirecto\ConfigCalculoDirecto.aspx.vb">
+      <DependentUpon>ConfigCalculoDirecto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Catalog\CatCalculoDirecto\AgregarModelo.aspx.designer.vb">
-      <DependentUpon>AgregarModelo.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Catalog\CatCalculoDirecto\AgregarModelo.aspx.vb">
-      <DependentUpon>AgregarModelo.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Catalog\CatCalculoDirecto\wsGetAdUsers.asmx.vb">
+    <Compile Include="Calculo_Directo\ConfigCalculoDirecto\wsGetAdUsers.asmx.vb">
       <DependentUpon>wsGetAdUsers.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Catalog\CatModuloAprobacion\CatPendingApproval.aspx.designer.vb">
-      <DependentUpon>CatPendingApproval.aspx</DependentUpon>
+    <Compile Include="Calculo_Directo\AprobacionCalculoDirecto\AprobacionCalculoDirecto.aspx.designer.vb">
+      <DependentUpon>AprobacionCalculoDirecto.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Catalog\CatModuloAprobacion\CatPendingApproval.aspx.vb">
-      <DependentUpon>CatPendingApproval.aspx</DependentUpon>
+    <Compile Include="Calculo_Directo\AprobacionCalculoDirecto\AprobacionCalculoDirecto.aspx.vb">
+      <DependentUpon>AprobacionCalculoDirecto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Catalog\CatWorkOrders\CatWorkOrders.aspx.designer.vb">
+    <Compile Include="Calculo_Directo\CatWorkOrders\CatWorkOrders.aspx.designer.vb">
       <DependentUpon>CatWorkOrders.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Catalog\CatWorkOrders\CatWorkOrders.aspx.vb">
+    <Compile Include="Calculo_Directo\CatWorkOrders\CatWorkOrders.aspx.vb">
       <DependentUpon>CatWorkOrders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Catalog\CatUnits\CatUnits.aspx.designer.vb">
+    <Compile Include="Calculo_Directo\CatUnits\CatUnits.aspx.designer.vb">
       <DependentUpon>CatUnits.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Catalog\CatUnits\CatUnits.aspx.vb">
+    <Compile Include="Calculo_Directo\CatUnits\CatUnits.aspx.vb">
       <DependentUpon>CatUnits.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Catalog\CatUnits\CatUnitsEdit.aspx.designer.vb">
-      <DependentUpon>CatUnitsEdit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Catalog\CatUnits\CatUnitsEdit.aspx.vb">
-      <DependentUpon>CatUnitsEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Catalog\CatReworkStatus\CatReworkStatus.aspx.designer.vb">
+    <Compile Include="Calculo_Directo\CatReworkStatus\CatReworkStatus.aspx.designer.vb">
       <DependentUpon>CatReworkStatus.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Catalog\CatReworkStatus\CatReworkStatus.aspx.vb">
+    <Compile Include="Calculo_Directo\CatReworkStatus\CatReworkStatus.aspx.vb">
       <DependentUpon>CatReworkStatus.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Catalog\CatReworkStatus\CatReworkStatusEdit.aspx.designer.vb">
-      <DependentUpon>CatReworkStatusEdit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Catalog\CatReworkStatus\CatReworkStatusEdit.aspx.vb">
-      <DependentUpon>CatReworkStatusEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Catalog\CatWorkOrders\CatWorkOrdersEdit.aspx.designer.vb">
-      <DependentUpon>CatWorkOrdersEdit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Catalog\CatWorkOrders\CatWorkOrdersEdit.aspx.vb">
-      <DependentUpon>CatWorkOrdersEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Catalog\ED_ModelsChanges.vb" />
-    <Compile Include="Catalog\ED_ModelsChangesHeader.vb" />
+    <Compile Include="Calculo_Directo\CalculoDirectoDB\ED_ModelsChanges.vb" />
+    <Compile Include="Calculo_Directo\CalculoDirectoDB\ED_ModelsChangesHeader.vb" />
     <Compile Include="CatReworkOrder.vb">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -455,7 +426,7 @@
     <Compile Include="CatUnit.vb">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Catalog\dbTest.vb" />
+    <Compile Include="Calculo_Directo\CalculoDirectoDB\CatReworkStatus.vb" />
     <Compile Include="Contact.aspx.designer.vb">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>

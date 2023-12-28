@@ -98,19 +98,19 @@
 				  <siteMapNode title="Producto CPS" description="Módulo Producto CPS" url="/ExpirationDate/Cps/ewapp_cpscomponents.aspx" />
         <siteMapNode title="MRP CPS" description="Catálogos MRPs para CPS" url="/ExpirationDate/Cps/ewapp_cpsMRPCatalog.aspx" />
 			</siteMapNode>
-			<siteMapNode title="WO Estatus" description="Módulo Status" roles="*" url="/Catalog/CatReworkStatus/CatReworkStatus.aspx">
+			<siteMapNode title="WO Estatus" description="Módulo Status" roles="*" url="/Calculo_Directo/CatReworkStatus/CatReworkStatus.aspx">
 			</siteMapNode>
-			<siteMapNode title="Unidades" description="Catalogo de unidades" roles="*" url="/Catalog/CatUnits/CatUnits.aspx">
+			<siteMapNode title="Unidades" description="Catalogo de unidades" roles="*" url="/Calculo_Directo/CatUnits/CatUnits.aspx">
 			</siteMapNode>
-			<siteMapNode title="WO Retrabajo" description="Módulo Retrabajo" roles="*" url="/Catalog/CatWorkOrders/CatWorkOrders.aspx">
+			<siteMapNode title="WO Retrabajo" description="Módulo Retrabajo" roles="*" url="/Calculo_Directo/CatWorkOrders/CatWorkOrders.aspx">
 			</siteMapNode>
-			<siteMapNode title="Configuración Cálculo Directo" description="Módulo Configuración Cálculo Directo" roles="*" url="/Catalog/CatCalculoDirecto/AgregarModelo.aspx">
+			<siteMapNode title="Configuración Cálculo Directo" description="Módulo Configuración Cálculo Directo" roles="*" url="/Calculo_Directo/ConfigCalculoDirecto/ConfigCalculoDirecto.aspx">
 			</siteMapNode>
-			<siteMapNode title="Modelos Pendietes de Aprobación" description="Módulo Modelos Pendietes de Aprobación" roles="*" url="/Catalog/CatModuloAprobacion/CatPendingApproval.aspx">
+			<siteMapNode title="Modelos Pendietes de Aprobación" description="Módulo Modelos Pendietes de Aprobación" roles="*" url="/Calculo_Directo/AprobacionCalculoDirecto/AprobacionCalculoDirecto.aspx">
 			</siteMapNode>
-			<siteMapNode title="Módulo de Cambios" description="Módulo de Cambios" roles="*" url="/Catalog/CatConfiguracionCalculoDirecto/CatConfiguracionCalculoDirecto.aspx">
+			<siteMapNode title="Módulo de Cambios" description="Módulo de Cambios" roles="*" url="/Calculo_Directo/CatalogoCalculoDirecto/CatalogoCalculoDirecto.aspx">
 			</siteMapNode>
-			<siteMapNode title="Cálculo Directo" description="Módulo de Cálculo Direct" roles="*" url="/Catalog/CalculoDirecto/CalculoDirecto.aspx">
+			<siteMapNode title="Cálculo Directo" description="Módulo de Cálculo Direct" roles="*" url="/Calculo_Directo/CalculoDirecto/CalculoDirecto.aspx">
 			</siteMapNode>
       
       <!--<siteMapNode title="Módulo General" description="Módulo General" roles="ModGral_Admin">

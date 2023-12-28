@@ -1,4 +1,4 @@
-﻿<%@  Page Async="true" Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage.master" CodeBehind="AgregarModelo.aspx.vb" Inherits="WebApplication1.WebForm1" %>
+﻿<%@  Page Async="true" Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage.master" CodeBehind="ConfigCalculoDirecto.aspx.vb" Inherits="WebApplication1.WebForm1" %>
 
 
 

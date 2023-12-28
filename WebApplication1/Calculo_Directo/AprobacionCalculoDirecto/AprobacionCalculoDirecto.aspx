@@ -1,4 +1,4 @@
-﻿<%@ Page Language="vb" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeBehind="CatPendingApproval.aspx.vb" Inherits="WebApplication1.CatModuloAprobacion" %>
+﻿<%@ Page Language="vb" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeBehind="AprobacionCalculoDirecto.aspx.vb" Inherits="WebApplication1.CatModuloAprobacion" %>
 
 
 <asp:Content ID="Content" ContentPlaceHolderID="MainContent" runat="server">
