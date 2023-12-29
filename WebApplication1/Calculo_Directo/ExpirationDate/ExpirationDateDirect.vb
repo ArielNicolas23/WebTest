@@ -85,11 +85,12 @@ Namespace Legacy
         ''' <param name="workOrder">Número de orden de trabajo.</param>
         ''' <returns>True si el número de orden es válido. False si no es válido.</returns>
         ''' <remarks></remarks>
-        Public Function WorkOrderIsValid(ByVal workOrder As String) As Boolean
+        Public Function WorkOrderIsValid(ByVal workOrder As String,
+                                         Optional ByRef workOrderStatus As String = "") As Boolean
             Dim isValid As Boolean = False
             If Not workOrder.Equals(String.Empty) Then
                 If Util.IsInteger(workOrder) Then
-                    isValid = WorkOrderExists(workOrder)
+                    isValid = WorkOrderExists(workOrder, workOrderStatus)
                 End If
             End If
             Return isValid
@@ -101,7 +102,8 @@ Namespace Legacy
         ''' <param name="workOrder">Número de orden de trabajo.</param>
         ''' <returns>True si el número de orden existe.. False si no existe.</returns>
         ''' <remarks></remarks>
-        Private Function WorkOrderExists(ByVal workOrder As String) As Boolean
+        Private Function WorkOrderExists(ByVal workOrder As String,
+                                         Optional ByRef workOrderStatus As String = "") As Boolean
             Dim exists As Boolean = False
             Dim _message As String = String.Empty
 
@@ -127,6 +129,7 @@ Namespace Legacy
             End If
 
             If (prodsOrder.Count() > 0) Then
+                workOrderStatus = prodsOrder.FirstOrDefault().AUART.Trim()
                 exists = True
             End If
             Return exists

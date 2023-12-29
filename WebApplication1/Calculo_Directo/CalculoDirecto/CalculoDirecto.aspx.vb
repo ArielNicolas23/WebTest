@@ -9,11 +9,21 @@ Public Class CalculoDirecto
     Dim modelChanges As ED_ModelsChanges = New ED_ModelsChanges
     Dim catReworkOrders As CatReworkOrders = New CatReworkOrders
     Dim catUnits As CatUnits = New CatUnits
+    Dim catReworkStatus As CatReworkStatus = New CatReworkStatus
     Dim expirationDate As Legacy.ExpirationDate = New Legacy.ExpirationDate()
     Dim expirationDateDirect As Legacy.ExpirationDateTest = New Legacy.ExpirationDateTest()
-    Dim mfgDate As Legacy.ShortDate = New Legacy.ShortDate()
 
+    Dim area As String = "Estandar"
     Dim userPlaceholder As String
+
+    Dim workOrder As String
+    Dim model As String
+    Dim plant As String
+    Dim months As String
+    Dim calcExpDate As Legacy.ShortDate
+    Dim mfgDate As Legacy.ShortDate
+    Dim modelStatus As String
+    Dim lot As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim userProfile = CType(Session("UserProfile"), Security.UserProfile)
@@ -26,19 +36,165 @@ Public Class CalculoDirecto
 
     ' Botón para realizar validaciones y cálculo
     Protected Sub btnCalculate_Click(sender As Object, e As EventArgs) Handles btnCalculate.Click
-        CleanData(False)
-        EnableControls(False)
+        CalculateExpirationDate(True)
+    End Sub
 
-        Dim workOrder As String
-        Dim model As String
 
-        Dim area As String = "Estandar"
 
-        Dim plant As String = String.Empty
-        Dim months As String = String.Empty
+    ' Botón para reiniciar textboxes de búsqueda
+    Protected Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
+        CleanControlsData(True)
+        ButtonsVisibility(True, False, False)
+        ResetVariables()
+    End Sub
+
+    ' Botón de aceptar para el modal
+    Protected Sub btnModalAccept_Click(sender As Object, e As EventArgs) Handles btnModalAccept.Click
+
+    End Sub
+
+    ' Botón de cancelar para el modal
+    Protected Sub btnModalCancel_Click(sender As Object, e As EventArgs) Handles btnModalCancel.Click
+
+    End Sub
+
+    Private Sub InsertCalculation()
+        SetVariables()
+
+        If (Not String.IsNullOrEmpty(lot)) Then
+            modelStatus = "N"
+        Else
+            modelStatus = "D"
+        End If
+
+        expirationDateDirect.Delete(workOrder)
+        expirationDateDirect.Insert(workOrder, calcExpDate.ToDate, userPlaceholder, model, months, plant, lot, modelStatus)
+
+        lblSuccessMessage.Text = "Se ha confirmado la Fecha de Expiración para la Orden de Trabajo " + workOrder + "<br />" + "Fecha de manufactura: " + mfgDate.ToDate.ToString("dd/MMM/yyyy") + "<br />" + "Fecha de expiracion: " + calcExpDate.ToDate.ToString("dd/MMM/yyyy")
+
+        ButtonsVisibility(False, False, False)
+        ResetVariables()
+    End Sub
+
+    Private Sub AssignSessionVariables(workOrder As String, model As String, plant As String, months As String, calcExpDate As Legacy.ShortDate, mfgDate As Legacy.ShortDate, modelStatus As String, lot As String)
+        Session("workOrder") = workOrder
+        Session("model") = model
+        Session("plant") = plant
+        Session("months") = months
+        Session("calcExpDate") = calcExpDate
+        Session("mfgDate") = mfgDate
+        Session("modelStatus") = modelStatus
+        Session("lot") = lot
+    End Sub
+
+    Private Sub SetVariables()
+        workOrder = Session("workOrder")
+        model = Session("model")
+        plant = Session("plant")
+        months = Session("months")
+        calcExpDate = Session("calcExpDate")
+        mfgDate = Session("mfgDate")
+        modelStatus = Session("modelStatus")
+        lot = Session("lot")
+    End Sub
+
+    Private Function ValidateData(dtWorkOrder As DataTable, dtModel As DataTable) As Boolean
+        If txtWorkOrder.Text.IsEmpty Then
+            lblErrorMessage.Text = "Favor de escribir un Número de Orden de Trabajo"
+            Return False
+        End If
+
+        If txtModel.Text.IsEmpty Then
+            lblErrorMessage.Text = "Favor de escribir el Catálogo / Modelo"
+            Return False
+        End If
+
+        If dtWorkOrder.Rows.Count = 0 Then
+            lblErrorMessage.Text = "La Orden de Trabajo ingresada no se encuentra cargada en sistema"
+            Return False
+        End If
+
+        If Not dtWorkOrder.Rows(0).Item(2).ToString.ToLower.Contains(area.ToLower) Then
+            lblErrorMessage.Text = "La Orden de Trabajo ingresada solo puede ser procesada en el área de Cálculo " + dtWorkOrder.Rows(0).Item(2).ToString()
+            Return False
+        End If
+
+        If dtModel.Rows.Count = 0 Then
+            lblErrorMessage.Text = "El Modelo ingresado no se encuentra listado dentro de los Modelos Aprobados"
+            Return False
+        End If
+
+        If dtWorkOrder.Rows(0).Item(3) = False Then
+            lblErrorMessage.Text = "La Orden de Trabajo ingresada no se encuentra indicada para Retrabajo"
+            Return False
+        End If
+
+        Return True
+    End Function
+
+    ' Validaciones del estatus de SAP
+    ' validateRework en true si se requiere validar si el estatus encontrado es Rework en catálogo
+    ' validateRelease en true si se requiere checar que sea Rel (por confirmar)
+    Private Function ValidateSAPStatus(SAPStatus As String, validateRework As Boolean, validateRelease As Boolean)
+        Dim dtCatReworkStatus = catReworkStatus.SelectBySAPStatus(SAPStatus)
+
+        If dtCatReworkStatus.Rows.Count = 0 Then
+            lblErrorMessage.Text = "El Estatus [" + SAPStatus + "] de la Orden de Trabajo ingresada no se encuentra listado en el catálogo de Estatus"
+            Return False
+        End If
+
+        If dtCatReworkStatus.Rows(0).Item(1) = False And validateRework Then
+            lblErrorMessage.Text = "No es posible realizar el Cálculo debido a que el Estatus [" + SAPStatus + "] de la Orden de Trabajo ingresada no pertenece a un Estatus de Retrabajo"
+            Return False
+        End If
+
+        If SAPStatus.Contains("Rel") And validateRelease Then
+            lblErrorMessage.Text = "No es posible realizar el Cálculo debido a que el Estatus [" + SAPStatus + "] de la Orden de Trabajo no se encuentra en Release [Rel]"
+            Return False
+        End If
+
+        Return True
+    End Function
+
+    Private Sub CleanControlsData(cleanTextBoxes As Boolean)
+        If cleanTextBoxes Then
+            txtWorkOrder.Text = ""
+            txtModel.Text = ""
+        End If
+        lblErrorMessage.Text = ""
+        lblSuccessMessage.Text = ""
+        'btnCalculate.Enabled = True
+    End Sub
+
+    Private Sub ResetVariables()
+        Session("workOrder") = String.Empty
+        Session("model") = String.Empty
+        Session("plant") = String.Empty
+        Session("months") = String.Empty
+        Session("calcExpDate") = New Legacy.ShortDate
+        Session("modelStatus") = String.Empty
+        Session("lot") = String.Empty
+    End Sub
+
+    Private Sub ButtonsVisibility(showCalculate As Boolean, showConfirm As Boolean, showRecalculate As Boolean)
+        btnCalculate.Visible = showCalculate
+        btnAcceptCalculation.Visible = showConfirm
+        btnRecaulculate.Visible = showRecalculate
+    End Sub
+
+    Protected Sub btnAcceptCalculation_Click(sender As Object, e As EventArgs) Handles btnAcceptCalculation.Click
+        InsertCalculation()
+    End Sub
+
+    Protected Sub btnRecaulculate_Click(sender As Object, e As EventArgs) Handles btnRecaulculate.Click
+        CalculateExpirationDate(False)
+    End Sub
+
+    Private Sub CalculateExpirationDate(verifyExistCalculation As Boolean)
+        CleanControlsData(False)
+
         Dim material As String = String.Empty
-        Dim lot As String = String.Empty
-        Dim status As String = String.Empty
+        Dim workOrderStatus As String = String.Empty
         Dim workorderModel As String = String.Empty
 
         Dim dtWorkOrder = catReworkOrders.SelectByOrder(txtWorkOrder.Text)
@@ -54,16 +210,28 @@ Public Class CalculoDirecto
         End If
 
         ' Se valida que la orden exista en SAP
-        If expirationDate.WorkOrderIsValid(workOrder) Then
+        If expirationDateDirect.WorkOrderIsValid(workOrder, workOrderStatus) Then
+
+            ' Validaciones del estatus
+            If Not ValidateSAPStatus(workOrderStatus, False, False) Then
+                Return
+            End If
 
             ' Se verificar si la fecha de expiración ya fue calculada
             Dim currentExpDate As Legacy.ShortDate
             currentExpDate = expirationDate.QueryExpirationDate(workOrder)
 
-            If Not currentExpDate.IsEmptyDate Then
-                lblErrorMessage.Text = "La fecha de expiración para la orden " + workOrder + " ya fue calculada (" + currentExpDate.ToString() + ")"
-                Return
+            If verifyExistCalculation Then
+                If Not currentExpDate.IsEmptyDate Then
+                    lblErrorMessage.Text = "La fecha de expiración para la orden " + workOrder + " ya fue calculada (" + currentExpDate.ToString() + ")"  'AGREGAR CUÁNDO SE REALIZÓ
+
+                    If chkAdmin.Checked = True Then ' AQUÍ DEBE IR LA PARTE DEL ADMINISTRADOR PERO LO MANEJAMOS MIENTRAS CON EL CHECK
+                        ButtonsVisibility(False, False, True)
+                    End If
+                    Return
+                End If
             End If
+
 
             ' Validar si la orden tiene fecha de manufactura
             mfgDate = expirationDate.GetManufDate(workOrder)
@@ -85,19 +253,13 @@ Public Class CalculoDirecto
                 If workorderModel.Equals(model) Then
 
                     ' Valida que exista vida util para el catalogo
-                    Dim calcExpDate As Legacy.ShortDate = expirationDateDirect.GetExpirationDate(model, mfgDate, months)
+                    calcExpDate = expirationDateDirect.GetExpirationDate(model, mfgDate, months)
                     If calcExpDate.IsEmptyDate Then
                         lblErrorMessage.Text = "No fue posible calcular la fecha de expiración"
                     Else
-                        If (Not String.IsNullOrEmpty(lot)) Then
-                            status = "N"
-                        Else
-                            status = "D"
-                        End If
-                        expirationDateDirect.Delete(workOrder)
-                        expirationDateDirect.Insert(workOrder, calcExpDate.ToDate, userPlaceholder, model, months, plant, lot, status)
-                        lblSuccessMessage.Text = "Todo salió bien, fecha de manufactura: " + mfgDate.ToDate.ToString("dd/MMM/yyyy") + " fecha de expiracion: " + calcExpDate.ToDate.ToString("dd/MMM/yyyy") 'agregar cuándo se realizó
-
+                        lblSuccessMessage.Text = "Cálculo generado con éxito" + "<br />" + "Fecha de manufactura: " + mfgDate.ToDate.ToString("dd/MMM/yyyy") + "<br />" + "Fecha de expiracion: " + calcExpDate.ToDate.ToString("dd/MMM/yyyy")
+                        AssignSessionVariables(workOrder, model, plant, months, calcExpDate, mfgDate, modelStatus, lot)
+                        ButtonsVisibility(False, True, False)
                     End If
 
                 Else
@@ -109,76 +271,5 @@ Public Class CalculoDirecto
         Else
             lblErrorMessage.Text = "No se encontró información en SAP con el Número de Orden de Trabajo ingresado."
         End If
-
-
-        'lblModalDispWorkOrder.Text = dtWorkOrder.Rows(0).Item(1)
-        'lblModalDispModel.Text = dtModel.Rows(0).Item(1)
-        'Dim lifespan As Integer = dtModel.Rows(0).Item(2)
-        'Dim unit As String = dtModel.Rows(0).Item(3)
-        ''''''''Dim unitValue As Integer = dtUnits.Rows(0).Item(3)
-        'txtModalCalculation.Text = lifespan.ToString + " " + unit
-        'InfoModal.Show()
-
-    End Sub
-
-
-
-    ' Botón para reiniciar textboxes de búsqueda
-    Protected Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
-        CleanData(True)
-        EnableControls(True)
-    End Sub
-
-    ' Botón de aceptar para el modal
-    Protected Sub btnModalAccept_Click(sender As Object, e As EventArgs) Handles btnModalAccept.Click
-
-    End Sub
-
-    ' Botón de cancelar para el modal
-    Protected Sub btnModalCancel_Click(sender As Object, e As EventArgs) Handles btnModalCancel.Click
-
-    End Sub
-
-    Private Function ValidateData(dtWorkOrder As DataTable, dtModel As DataTable) As Boolean
-        If txtWorkOrder.Text.IsEmpty Then
-            lblErrorMessage.Text = "Favor de escribir un Número de Orden de Trabajo"
-            Return False
-        End If
-
-        If txtModel.Text.IsEmpty Then
-            lblErrorMessage.Text = "Favor de escribir el Catálogo / Modelo"
-            Return False
-        End If
-
-        If dtWorkOrder.Rows.Count = 0 Then
-            lblErrorMessage.Text = "La Orden de Trabajo ingresada no se encuentra cargada en sistema"
-            Return False
-        End If
-
-        If dtModel.Rows.Count = 0 Then
-            lblErrorMessage.Text = "El Modelo ingresado no se encuentra listado dentro de los Modelos Aprobados"
-            Return False
-        End If
-
-        If dtWorkOrder.Rows(0).Item(3) = False Then
-            lblErrorMessage.Text = "La Orden de Trabajo ingresada no se encuentra indicada para Retrabajo"
-            Return False
-        End If
-
-        Return True
-    End Function
-
-    Private Sub CleanData(cleanTextBoxes As Boolean)
-        If cleanTextBoxes Then
-            txtWorkOrder.Text = ""
-            txtModel.Text = ""
-        End If
-        lblErrorMessage.Text = ""
-        lblSuccessMessage.Text = ""
-        'btnCalculate.Enabled = True
-    End Sub
-
-    Private Sub EnableControls(enable As Boolean)
-        btnCalculate.Enabled = enable
     End Sub
 End Class

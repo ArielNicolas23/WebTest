@@ -28,6 +28,19 @@
 }
 
 /* Estilos de botones */
+.catButtonConfirm {
+    font-size: 16px;
+    background-color: #53C400;
+    color: white;
+    padding: 5px 15px;
+    margin: 0px 10px;
+    border-radius: 20px;
+}
+
+    .catButtonConfirm:hover {
+        background-color: #358000;
+    }
+
 .catButtonAccept {
     font-size: 16px;
     background-color: #284775;

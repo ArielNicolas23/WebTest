@@ -51,6 +51,8 @@
 
                     <div class="catDivTopMargin">
                         <asp:Button ID="btnCalculate" runat="server" Text="Calcular" CssClass="catButtonAccept"/>
+                        <asp:Button ID="btnAcceptCalculation" runat="server" Text="Confirmar Cálculo" CssClass="catButtonConfirm" Visible="False"/>
+                        <asp:Button ID="btnRecaulculate" runat="server" Text="Recalcular Fecha" CssClass="catButtonAccept" Visible="False"/>
                     </div>
                     <asp:UpdatePanel ID="updateInProcessCalculate" runat="server">
                         <ContentTemplate>

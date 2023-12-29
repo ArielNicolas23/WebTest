@@ -184,4 +184,40 @@ Public Class CatReworkStatus
         Return result
     End Function
 
+    Public Function SelectBySAPStatus(ByVal SAPStatus As String) As DataTable
+
+        Dim result As DataTable
+        Dim row As DataRow
+
+        Using conn As New SqlConnection(Me.dbCon)
+
+            Dim cmd As SqlCommand = New SqlCommand()
+            cmd.CommandText = "spED_CatReworkStatus_SelectBySAPStatus"
+            cmd.Connection = conn
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@SAPStatus", SAPStatus)
+
+
+            result = New DataTable("Result")
+            result.Columns.Add("SAPStatus", GetType(String))
+            result.Columns.Add("IsRework", GetType(String))
+
+            conn.Open()
+
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+
+                row = result.NewRow()
+                row("SAPStatus") = reader.GetString(0)
+                row("IsRework") = reader.GetBoolean(1)
+
+                result.Rows.Add(row)
+
+            End While
+
+        End Using
+
+        Return result
+    End Function
+
 End Class

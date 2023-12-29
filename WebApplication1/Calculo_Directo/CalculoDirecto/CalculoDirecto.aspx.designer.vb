@@ -95,6 +95,24 @@ Partial Public Class CalculoDirecto
     Protected WithEvents btnCalculate As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
+    '''btnAcceptCalculation control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnAcceptCalculation As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnRecaulculate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnRecaulculate As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''updateInProcessCalculate control.
     '''</summary>
     '''<remarks>
