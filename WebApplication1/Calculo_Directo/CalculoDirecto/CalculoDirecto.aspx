@@ -1,28 +1,31 @@
 ﻿<%@ Page Title="Home Page" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="CalculoDirecto.aspx.vb" Inherits="WebApplication1.CalculoDirecto" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <script type="text/javascript">
-        //// Get the instance of PageRequestManager.
-        //var prm = Sys.WebForms.PageRequestManager.getInstance();
-        //// Add initializeRequest and endRequest
-        //prm.add_initializeRequest(prm_InitializeRequest);
+    <%--<script type="text/javascript">
+        // Get the instance of PageRequestManager.
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        // Add initializeRequest and endRequest
+        prm.add_initializeRequest(prm_InitializeRequest);
 
-        //// Called when async postback begins
-        //function prm_InitializeRequest(sender, args) {
-        //    // Disable button that caused a postback
-        //    var x = document.getElementById("MainContent_btnCalculate");
-        //    x.setAttribute("Disabled");
-
-        //    var x = document.getElementById("MainContent_btnReset");
-        //    x.className += " disabled-link";
-        //}
-    </script>
+        // Called when async postback begins
+        function prm_InitializeRequest(sender, args) {
+            // Disable button that caused a postback
+            var x = document.getElementById("MainContent_btnCalculate");
+            x.setAttribute("disabled", "disabled");
+        }
+    </script>--%>
+                <style>
+.disabled-link {
+  pointer-events: none;
+}
+</style>
     <asp:UpdatePanel ID="UpdatePanelGeneral" runat="server">
         <ContentTemplate>
             <div id="stdlayout">
                 <asp:Label ID="lblTitle" runat="server" Text="Cálulo Directo" CssClass="catHeader"></asp:Label>
 
-
+                                <asp:UpdatePanel ID="updateInProcessCalculate" runat="server">
+<ContentTemplate>
                 <div align="center" style="margin: 30px; clip: rect(auto, auto, auto, auto)">
                     <table class="catLabel" style="text-align: right">
                         <tr style="height: 30px;">
@@ -48,27 +51,30 @@
                             </td>
                         </tr>
                     </table>
-
+                                        
+                    
                     <div class="catDivTopMargin">
                         <asp:Button ID="btnCalculate" runat="server" Text="Calcular" CssClass="catButtonAccept"/>
                         <asp:Button ID="btnAcceptCalculation" runat="server" Text="Confirmar Cálculo" CssClass="catButtonConfirm" Visible="False"/>
                         <asp:Button ID="btnRecaulculate" runat="server" Text="Recalcular Fecha" CssClass="catButtonAccept" Visible="False"/>
                     </div>
-                    <asp:UpdatePanel ID="updateInProcessCalculate" runat="server">
-                        <ContentTemplate>
+                        </ContentTemplate>
+</asp:UpdatePanel>
+                    
                             <div class="catDivTopMargin">
                                 <asp:Label ID="lblErrorMessage" runat="server" CssClass="catLabel" ForeColor="Red"></asp:Label>
                                 <asp:Label ID="lblSuccessMessage" runat="server" CssClass="catLabel" ForeColor="Green"></asp:Label>
+
                             </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                                                <asp:updateprogress ID="updateProgressCalculate" AssociatedUpdatePanelID="updateInProcessCalculate" runat="server">
+    <ProgressTemplate>
+        Procesando
+    </ProgressTemplate>
+</asp:updateprogress>
+                        
                 </div>
 
-                <asp:updateprogress ID="updateProgressCalculate" AssociatedUpdatePanelID="updateInProcessCalculate" runat="server">
-                    <ProgressTemplate>
-                        Procesando
-                    </ProgressTemplate>
-                </asp:updateprogress>
+                
             </div>
 
             <asp:Label ID="lblModal" runat="server" Text=""></asp:Label>

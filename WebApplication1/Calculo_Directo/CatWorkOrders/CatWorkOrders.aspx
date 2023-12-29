@@ -63,7 +63,7 @@
                 </asp:DropDownList>
             </EditItemTemplate>
         </asp:TemplateField>
-        <asp:CheckBoxField DataField="IsRework" HeaderText="Fue Retrabajada" />
+        <asp:CheckBoxField DataField="IsRework" HeaderText="Es retrabajo" />
         <asp:BoundField DataField="CreatedOn" HeaderText="Cargada el" ReadOnly="True" SortExpression="createdOn" />
                        <asp:TemplateField ShowHeader="True">
                                                            <HeaderTemplate >

@@ -32,6 +32,15 @@ Partial Public Class CalculoDirecto
     Protected WithEvents lblTitle As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''updateInProcessCalculate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents updateInProcessCalculate As Global.System.Web.UI.UpdatePanel
+
+    '''<summary>
     '''lblWorkOrder control.
     '''</summary>
     '''<remarks>
@@ -111,15 +120,6 @@ Partial Public Class CalculoDirecto
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnRecaulculate As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''updateInProcessCalculate control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents updateInProcessCalculate As Global.System.Web.UI.UpdatePanel
 
     '''<summary>
     '''lblErrorMessage control.

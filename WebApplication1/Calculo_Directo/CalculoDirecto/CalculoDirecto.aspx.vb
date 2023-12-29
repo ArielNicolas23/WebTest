@@ -13,7 +13,7 @@ Public Class CalculoDirecto
     Dim expirationDate As Legacy.ExpirationDate = New Legacy.ExpirationDate()
     Dim expirationDateDirect As Legacy.ExpirationDateTest = New Legacy.ExpirationDateTest()
 
-    Dim area As String = "Estandar"
+    Dim area As String = "Directo"
     Dim userPlaceholder As String
 
     Dim workOrder As String
