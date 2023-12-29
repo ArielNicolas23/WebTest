@@ -26,6 +26,9 @@ Public Class CalculoDirecto
 
     ' Botón para realizar validaciones y cálculo
     Protected Sub btnCalculate_Click(sender As Object, e As EventArgs) Handles btnCalculate.Click
+        CleanData(False)
+        EnableControls(False)
+
         Dim workOrder As String
         Dim model As String
 
@@ -35,6 +38,7 @@ Public Class CalculoDirecto
         Dim months As String = String.Empty
         Dim material As String = String.Empty
         Dim lot As String = String.Empty
+        Dim status As String = String.Empty
         Dim workorderModel As String = String.Empty
 
         Dim dtWorkOrder = catReworkOrders.SelectByOrder(txtWorkOrder.Text)
@@ -83,10 +87,17 @@ Public Class CalculoDirecto
                     ' Valida que exista vida util para el catalogo
                     Dim calcExpDate As Legacy.ShortDate = expirationDateDirect.GetExpirationDate(model, mfgDate, months)
                     If calcExpDate.IsEmptyDate Then
-                        lblErrorMessage.Text = "La vida útil del catálogo no fue encontrada."
+                        lblErrorMessage.Text = "No fue posible calcular la fecha de expiración"
                     Else
+                        If (Not String.IsNullOrEmpty(lot)) Then
+                            status = "N"
+                        Else
+                            status = "D"
+                        End If
+                        expirationDateDirect.Delete(workOrder)
+                        expirationDateDirect.Insert(workOrder, calcExpDate.ToDate, userPlaceholder, model, months, plant, lot, status)
                         lblSuccessMessage.Text = "Todo salió bien, fecha de manufactura: " + mfgDate.ToDate.ToString("dd/MMM/yyyy") + " fecha de expiracion: " + calcExpDate.ToDate.ToString("dd/MMM/yyyy") 'agregar cuándo se realizó
-                        btnCalculate.Enabled = False
+
                     End If
 
                 Else
@@ -114,11 +125,8 @@ Public Class CalculoDirecto
 
     ' Botón para reiniciar textboxes de búsqueda
     Protected Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
-        txtWorkOrder.Text = ""
-        txtModel.Text = ""
-        lblErrorMessage.Text = ""
-        lblSuccessMessage.Text = ""
-        btnCalculate.Enabled = True
+        CleanData(True)
+        EnableControls(True)
     End Sub
 
     ' Botón de aceptar para el modal
@@ -159,4 +167,18 @@ Public Class CalculoDirecto
 
         Return True
     End Function
+
+    Private Sub CleanData(cleanTextBoxes As Boolean)
+        If cleanTextBoxes Then
+            txtWorkOrder.Text = ""
+            txtModel.Text = ""
+        End If
+        lblErrorMessage.Text = ""
+        lblSuccessMessage.Text = ""
+        'btnCalculate.Enabled = True
+    End Sub
+
+    Private Sub EnableControls(enable As Boolean)
+        btnCalculate.Enabled = enable
+    End Sub
 End Class

@@ -123,7 +123,7 @@ Public Class ED_ModelsChanges
                 cmd.Parameters.AddWithValue("@Lifespan", DBNull.Value)
             End If
             If Not ModelChangeStatus.IsNullOrWhiteSpace Then
-                cmd.Parameters.AddWithValue("@ModelChangeStatus", Model)
+                cmd.Parameters.AddWithValue("@ModelChangeStatus", ModelChangeStatus)
             Else
                 cmd.Parameters.AddWithValue("@ModelChangeStatus", DBNull.Value)
             End If

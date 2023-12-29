@@ -26,6 +26,55 @@ Namespace Legacy
             m_Apls = ConfigurationManager.ConnectionStrings("TestDb").ConnectionString
         End Sub
 
+        Public Sub Insert(
+            ByVal Orden As String,
+            ByVal ExpDate As DateTime,
+            ByVal Usuario As String,
+            ByVal PartNumber As String,
+            ByVal Meses As String,
+            ByVal Plant As String,
+            ByVal Lote As String,
+            ByVal Status As String)
+
+            Using conn As New SqlConnection(Me.m_Apls)
+
+                Dim cmd As SqlCommand = New SqlCommand()
+                cmd.CommandText = "spED_TblExpDate_Insert"
+                cmd.Connection = conn
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@Orden", Orden)
+                cmd.Parameters.AddWithValue("@ExpDate", ExpDate)
+                cmd.Parameters.AddWithValue("@Usuario", Usuario)
+                cmd.Parameters.AddWithValue("@PartNumber", PartNumber)
+                cmd.Parameters.AddWithValue("@Meses", Meses)
+                cmd.Parameters.AddWithValue("@Plant", Plant)
+                cmd.Parameters.AddWithValue("@Lote", Lote)
+                cmd.Parameters.AddWithValue("@Status", Status)
+
+                conn.Open()
+                cmd.ExecuteNonQuery()
+                conn.Close()
+                conn.Dispose()
+            End Using
+        End Sub
+
+        Public Sub Delete(ByVal Orden As String)
+
+            Using conn As New SqlConnection(Me.m_Apls)
+
+                Dim cmd As SqlCommand = New SqlCommand()
+                cmd.CommandText = "spED_TblExpDate_Delete"
+                cmd.Connection = conn
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.AddWithValue("@Orden", Orden)
+
+                conn.Open()
+                cmd.ExecuteNonQuery()
+                conn.Close()
+                conn.Dispose()
+            End Using
+        End Sub
+
 
         ''' <summary>
         ''' Determina si un número de orden de trabajo es válido. Evalua lo siguiente:
