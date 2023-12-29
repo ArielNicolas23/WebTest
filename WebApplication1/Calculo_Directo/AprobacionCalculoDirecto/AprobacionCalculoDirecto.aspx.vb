@@ -71,6 +71,7 @@ Public Class CatModuloAprobacion
                 tdInfoStatus.Attributes.Add("style", "background:orange;")
             Case "Aprobado"
                 tdInfoStatus.Attributes.Add("style", "background:green;")
+                Button3.Visible = False
             Case "Rechazado"
                 tdInfoStatus.Attributes.Add("style", "background:red;")
         End Select
@@ -409,11 +410,11 @@ Public Class CatModuloAprobacion
         txtApprovedOnTo.Text = cldApprovedOnTo.SelectedDate
     End Sub
     Protected Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        Modaledit.Show()
+        Response.Redirect("../ConfigCalculoDirecto/ConfigCalculoDirecto.aspx?id=" + Session("CurrentID").ToString)
+
     End Sub
 
     Protected Sub lbEdit_Click(sender As Object, e As EventArgs) Handles lbEdit.Click
-        Response.Redirect("../CatCalculoDirecto/AgregarModelo.aspx?id=" + Session("CurrentID").ToString)
     End Sub
 
     Protected Sub lbCancel0_Click(sender As Object, e As EventArgs) Handles lbCancel0.Click
