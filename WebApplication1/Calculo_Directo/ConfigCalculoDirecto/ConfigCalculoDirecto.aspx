@@ -89,7 +89,7 @@
 
                                             
                          <div runat="server" id="divError" visible="false">
-                <asp:Label ID="Label6" runat="server" Font-Size="18pt" Text="Error, no se encontro la informacion solicitada"></asp:Label>
+                <asp:Label ID="Label6" runat="server" Font-Size="18pt" Text="Error, no se encontró la información solicitada"></asp:Label>
 
             </div>
             <div runat="server" id="divModelsNew" visible="false">
@@ -282,9 +282,9 @@
                         </tr>
 
                         <tr>
-                            <td>
+                            <td align="left">
 
-                                <asp:Label ID="lblUsernameApprover" runat="server" Text="Usuario Aprobador:" Font-Bold="True"></asp:Label>
+                                <asp:Label ID="lblUsernameApprover" runat="server" Text="Usuario:" Font-Bold="True"></asp:Label>
 
                             </td>
 
@@ -296,9 +296,9 @@
                         </tr>
 
                         <tr>
-                            <td class="auto-style1">
+                            <td class="auto-style1" align="left">
 
-                                <asp:Label ID="lblMailApprover" runat="server" Text="Correo Aprobador:" Font-Bold="True"></asp:Label>
+                                <asp:Label ID="lblMailApprover" runat="server" Text="Correo:" Font-Bold="True"></asp:Label>
 
                             </td>
 
@@ -425,9 +425,9 @@
                        </tr>
 
                        <tr>
-                           <td>
+                           <td align="left">
 
-                               <asp:Label ID="lblUsernameApproverEdit" runat="server" Text="Usuario Aprobador:" Font-Bold="True"></asp:Label>
+                               <asp:Label ID="lblUsernameApproverEdit" runat="server" Text="Usuario:" Font-Bold="True"></asp:Label>
 
                            </td>
 
@@ -437,9 +437,9 @@
                        </tr>
 
                        <tr>
-                           <td>
+                           <td align="left">
 
-                               <asp:Label ID="lblMailApproverEdit" runat="server" Text="Correo Aprobador:" Font-Bold="True"></asp:Label>
+                               <asp:Label ID="lblMailApproverEdit" runat="server" Text="Correo:" Font-Bold="True"></asp:Label>
 
                            </td>
 

@@ -227,7 +227,7 @@ Public Class CalculoDirecto
 
             If verifyExistCalculation Then
                 If Not currentExpDate.IsEmptyDate Then
-                    lblErrorMessage.Text = "La fecha de expiración para la orden " + workOrder + " ya fue calculada (" + currentExpDate.ToString() + ")"  'AGREGAR CUÁNDO SE REALIZÓ
+                    lblErrorMessage.Text = "La fecha de expiración para la orden " + workOrder + " ya fue calculada (" + currentExpDate.ToDate.ToString("dd/MMM/yyyy") + ")"  'AGREGAR CUÁNDO SE REALIZÓ
 
                     If chkAdmin.Checked = True Then ' AQUÍ DEBE IR LA PARTE DEL ADMINISTRADOR PERO LO MANEJAMOS MIENTRAS CON EL CHECK
                         ButtonsVisibility(False, False, True)
@@ -246,7 +246,7 @@ Public Class CalculoDirecto
 
             ' Validar si la fecha de manufactura es mayor a la fecha actual
             If mfgDate.ToDate() > Today Then
-                lblErrorMessage.Text = "La orden [" + workOrder + "] tiene fecha de manufactura [" + mfgDate.ToString() + "] mayor a la fecha actual."
+                lblErrorMessage.Text = "La orden [" + workOrder + "] tiene fecha de manufactura [" + mfgDate.ToDate.ToString("dd/MMM/yyyy") + "] mayor a la fecha actual."
                 Return
             End If
 
