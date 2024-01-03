@@ -303,6 +303,8 @@
                         <tr>
                             <td>
 
+                                <asp:Label ID="lblUsernameApprover" runat="server" Text="Usuario Aprobador:" Font-Bold="True"></asp:Label>
+
                             </td>
 
                             <td align="left" class="auto-style6">
@@ -314,6 +316,8 @@
 
                         <tr>
                             <td>
+
+                                <asp:Label ID="lblMailApprover" runat="server" Text="Correo Aprobador:" Font-Bold="True"></asp:Label>
 
                             </td>
 

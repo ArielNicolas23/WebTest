@@ -871,7 +871,7 @@ Public Class WebForm1
                 txtUserEdit.Enabled = True
                 txtPasswordEdit.Enabled = True
                 EnableButtons()
-
+                Response.Redirect("../AprobacionCalculoDirecto/AprobacionCalculoDirecto.aspx?id=" + Session("CurrentID").ToString)
             End If
         Else
             ApproveModalEdit.Show()

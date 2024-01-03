@@ -53,7 +53,8 @@ Public Class ModuloGeneralEmail
 
     Public Function GetHtmlBody(ByVal info As MailInfo) As String
         Dim body As String = String.Empty
-        Dim strPath As String = HostingEnvironment.MapPath("~/Catalog/CatCalculoDirecto/htmlMailTemplate.htm")
+        'Dim strPath As String = HostingEnvironment.MapPath("~/Catalog/CatCalculoDirecto/htmlMailTemplate.htm")
+        Dim strPath As String = HostingEnvironment.MapPath("~/Calculo_Directo/ConfigCalculoDirecto/htmlMailTemplate.htm")
         Dim currentAssembly As Assembly = Assembly.GetEntryAssembly()
         currentAssembly = Assembly.GetCallingAssembly()
         Dim targetValue As Object() = currentAssembly.GetCustomAttributes(GetType(AssemblyCompanyAttribute), inherit:=True)

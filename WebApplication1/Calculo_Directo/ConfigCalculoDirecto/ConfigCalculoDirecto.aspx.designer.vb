@@ -365,6 +365,15 @@ Partial Public Class WebForm1
     Protected WithEvents lblApproverError As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''lblUsernameApprover control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblUsernameApprover As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''txtUsernameApprover control.
     '''</summary>
     '''<remarks>
@@ -372,6 +381,15 @@ Partial Public Class WebForm1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtUsernameApprover As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''lblMailApprover control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMailApprover As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''txtMailApprover control.
@@ -581,6 +599,15 @@ Partial Public Class WebForm1
     Protected WithEvents lblApproverErrorEdit As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''lblUsernameApproverEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblUsernameApproverEdit As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''txtUsernameApproverEdit control.
     '''</summary>
     '''<remarks>
@@ -588,6 +615,15 @@ Partial Public Class WebForm1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtUsernameApproverEdit As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''lblMailApproverEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMailApproverEdit As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''txtMailApproverEdit control.

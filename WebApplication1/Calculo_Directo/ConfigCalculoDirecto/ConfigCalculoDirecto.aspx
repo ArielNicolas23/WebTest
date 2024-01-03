@@ -284,6 +284,8 @@
                         <tr>
                             <td>
 
+                                <asp:Label ID="lblUsernameApprover" runat="server" Text="Usuario Aprobador:" Font-Bold="True"></asp:Label>
+
                             </td>
 
                             <td align="left" class="auto-style2">
@@ -294,11 +296,13 @@
                         </tr>
 
                         <tr>
-                            <td>
+                            <td class="auto-style1">
+
+                                <asp:Label ID="lblMailApprover" runat="server" Text="Correo Aprobador:" Font-Bold="True"></asp:Label>
 
                             </td>
 
-                            <td align="left" class="auto-style2">
+                            <td align="left" class="auto-style1">
                                 <asp:TextBox ID="txtMailApprover" runat="server" Width="260px" Enabled="False">
 
                                 </asp:TextBox>
@@ -423,6 +427,8 @@
                        <tr>
                            <td>
 
+                               <asp:Label ID="lblUsernameApproverEdit" runat="server" Text="Usuario Aprobador:" Font-Bold="True"></asp:Label>
+
                            </td>
 
                            <td align="left" class="auto-style1">
@@ -432,6 +438,8 @@
 
                        <tr>
                            <td>
+
+                               <asp:Label ID="lblMailApproverEdit" runat="server" Text="Correo Aprobador:" Font-Bold="True"></asp:Label>
 
                            </td>
 

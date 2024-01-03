@@ -37,6 +37,8 @@ Public Class CalculoDirecto
     ' Botón para realizar validaciones y cálculo
     Protected Sub btnCalculate_Click(sender As Object, e As EventArgs) Handles btnCalculate.Click
         CalculateExpirationDate(True)
+        txtWorkOrder.Enabled = False
+        txtModel.Enabled = False
     End Sub
 
 
@@ -46,6 +48,8 @@ Public Class CalculoDirecto
         CleanControlsData(True)
         ButtonsVisibility(True, False, False)
         ResetVariables()
+        txtWorkOrder.Enabled = True
+        txtModel.Enabled = True
     End Sub
 
     ' Botón de aceptar para el modal

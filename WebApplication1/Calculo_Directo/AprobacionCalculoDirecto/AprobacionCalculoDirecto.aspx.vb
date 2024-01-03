@@ -410,8 +410,11 @@ Public Class CatModuloAprobacion
         txtApprovedOnTo.Text = cldApprovedOnTo.SelectedDate
     End Sub
     Protected Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        Response.Redirect("../ConfigCalculoDirecto/ConfigCalculoDirecto.aspx?id=" + Session("CurrentID").ToString)
-
+        If lblOrigUser.Text = userPlaceholder.ToString() Then
+            Response.Redirect("../ConfigCalculoDirecto/ConfigCalculoDirecto.aspx?id=" + Session("CurrentID").ToString)
+        Else
+            MsgBox("Solo el usuario originador puede editar el cambio", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+        End If
     End Sub
 
     Protected Sub lbEdit_Click(sender As Object, e As EventArgs) Handles lbEdit.Click
