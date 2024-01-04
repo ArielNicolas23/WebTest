@@ -140,21 +140,28 @@ Public Class CalculoDirecto
     ' validateRework en true si se requiere validar si el estatus encontrado es Rework en catálogo
     ' validateRelease en true si se requiere checar que sea Rel (por confirmar)
     Private Function ValidateSAPStatus(SAPStatus As String, validateRework As Boolean, validateRelease As Boolean)
-        Dim dtCatReworkStatus = catReworkStatus.SelectBySAPStatus(SAPStatus)
+        Dim statusArray As String() = SAPStatus.Split(" "c)
+        Dim dtCatReworkStatus
 
-        If dtCatReworkStatus.Rows.Count = 0 Then
-            lblErrorMessage.Text = "El Estatus [" + SAPStatus + "] de la Orden de Trabajo ingresada no se encuentra listado en el catálogo de Estatus"
-            Return False
-        End If
+        For Each status As String In statusArray
+            dtCatReworkStatus = catReworkStatus.SelectBySAPStatus(SAPStatus)
 
-        If dtCatReworkStatus.Rows(0).Item(1) = False And validateRework Then
-            lblErrorMessage.Text = "No es posible realizar el Cálculo debido a que el Estatus [" + SAPStatus + "] de la Orden de Trabajo ingresada no pertenece a un Estatus de Retrabajo"
-            Return False
-        End If
+            If dtCatReworkStatus.Rows.Count = 0 Then
+                lblErrorMessage.Text = "El Estatus [" + SAPStatus + "] de la Orden de Trabajo ingresada no se encuentra listado en el catálogo de Estatus"
+                Return False
+            End If
 
-        If SAPStatus.Contains("Rel") And validateRelease Then
-            lblErrorMessage.Text = "No es posible realizar el Cálculo debido a que el Estatus [" + SAPStatus + "] de la Orden de Trabajo no se encuentra en Release [Rel]"
-            Return False
+            If dtCatReworkStatus.Rows(0).Item(1) = False And validateRework Then
+                lblErrorMessage.Text = "No es posible realizar el Cálculo debido a que el Estatus [" + SAPStatus + "] de la Orden de Trabajo ingresada no pertenece a un Estatus de Retrabajo"
+                Return False
+            End If
+        Next
+
+        If validateRelease Then
+            If Not SAPStatus.Contains("Rel") Then
+                lblErrorMessage.Text = "No es posible realizar el Cálculo debido a que el Estatus [" + SAPStatus + "] de la Orden de Trabajo no se encuentra en Release [Rel]"
+                Return False
+            End If
         End If
 
         Return True
@@ -217,7 +224,7 @@ Public Class CalculoDirecto
         If expirationDateDirect.WorkOrderIsValid(workOrder, workOrderStatus) Then
 
             ' Validaciones del estatus
-            If Not ValidateSAPStatus(workOrderStatus, False, False) Then
+            If Not ValidateSAPStatus(workOrderStatus, False, Not verifyExistCalculation) Then
                 Return
             End If
 
@@ -230,6 +237,7 @@ Public Class CalculoDirecto
                     lblErrorMessage.Text = "La fecha de expiración para la orden " + workOrder + " ya fue calculada (" + currentExpDate.ToDate.ToString("dd/MMM/yyyy") + ")"  'AGREGAR CUÁNDO SE REALIZÓ
 
                     If chkAdmin.Checked = True Then ' AQUÍ DEBE IR LA PARTE DEL ADMINISTRADOR PERO LO MANEJAMOS MIENTRAS CON EL CHECK
+                        lblErrorMessage.Text = lblErrorMessage.Text + "<br /><br />" + "Si requiere calcular nuevamente la Fecha de Expiración, presione Recalcular Fecha"
                         ButtonsVisibility(False, False, True)
                     End If
                     Return
