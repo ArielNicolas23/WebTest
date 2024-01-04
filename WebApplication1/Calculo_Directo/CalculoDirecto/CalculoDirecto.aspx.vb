@@ -158,7 +158,7 @@ Public Class CalculoDirecto
         Next
 
         If validateRelease Then
-            If Not SAPStatus.Contains("Rel") Then
+            If Not SAPStatus.Contains("REL") Then
                 lblErrorMessage.Text = "No es posible realizar el Cálculo debido a que el Estatus [" + SAPStatus + "] de la Orden de Trabajo no se encuentra en Release [Rel]"
                 Return False
             End If
@@ -224,7 +224,7 @@ Public Class CalculoDirecto
         If expirationDateDirect.WorkOrderIsValid(workOrder, workOrderStatus) Then
 
             ' Validaciones del estatus
-            If Not ValidateSAPStatus(workOrderStatus, False, Not verifyExistCalculation) Then
+            If Not ValidateSAPStatus(workOrderStatus, False, True) Then
                 Return
             End If
 
