@@ -138,10 +138,10 @@ Public Class CatModuloAprobacion
         ToggleModelsView(True)
     End Sub
 
-    Protected Sub ApproveOrReject(sender As Object, e As EventArgs) Handles cmdApproveChange.Click
+    Protected Sub ApproveOrReject(sender As Object, e As EventArgs) Handles cmdApproveChange.Click, lBtnApproveChange.Click
         Dim btn As Button = TryCast(sender, Button)
-
-        Select Case btn.CommandName
+        Dim lBtn As LinkButton = TryCast(sender, LinkButton)
+        Select Case lBtn.CommandName
             Case "Approve"
                 Dim isMissingModel As Boolean = False
                 Dim modelsList As String = ""
@@ -469,5 +469,34 @@ Public Class CatModuloAprobacion
         Next row
 
         dgvModelChanges.HeaderRow.Cells(7).Text = "Verificados " + totalChecked.ToString() + " / " + totalRows.ToString()
+    End Sub
+
+    Protected Sub lBtnCancelChange_Click(sender As Object, e As EventArgs) Handles lBtnCancelChange.Click
+        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApproverUser(userPlaceholder))
+
+        lblTitle.Text = "Cambios pendientes de Aprobación"
+        ToggleSection(divFilterHeader, True)
+        ToggleSection(divdgvPendingApproval, True)
+        ToggleSection(divInfoTable, False)
+        ToggleModelsChanges(True)
+        ToggleModelsView(True)
+    End Sub
+
+    Protected Sub lbtnDetallesCancelChange_Click(sender As Object, e As EventArgs) Handles lbtnDetallesCancelChange.Click
+        PopulateGrid(dgvPendingApproval, modelChangesHeader.SelectByApproverUser(userPlaceholder))
+
+        ToggleSection(divFilterHeader, True)
+        ToggleSection(divdgvPendingApproval, True)
+        ToggleSection(divInfoTable, False)
+        ToggleModelsChanges(True)
+        ToggleModelsView(True)
+    End Sub
+
+    Protected Sub lBtnEdit_Click(sender As Object, e As EventArgs) Handles lBtnEdit.Click
+        If lblOrigUser.Text = userPlaceholder.ToString() Then
+            Response.Redirect("../ConfigCalculoDirecto/ConfigCalculoDirecto.aspx?id=" + Session("CurrentID").ToString)
+        Else
+            MsgBox("Solo el usuario originador puede editar el cambio", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Completado")
+        End If
     End Sub
 End Class

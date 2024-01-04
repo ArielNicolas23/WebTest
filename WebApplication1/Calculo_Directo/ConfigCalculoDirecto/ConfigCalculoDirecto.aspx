@@ -132,7 +132,7 @@
             <div>
                 <br />
 
-                <asp:Label ID="lblMessage" runat="server" ForeColor="Red" Height="12px" Width="100%"></asp:Label><br />
+                <asp:Label ID="lblMessage" runat="server" CssClass="catLabel" ForeColor="Red" Height="12px" Width="100%"></asp:Label><br />
 
                 <br />
             </div>
@@ -202,7 +202,7 @@
 <div>
     <br />
 
-    <asp:Label ID="lblMessageEdit" runat="server" ForeColor="Red" Height="12px" Width="100%"></asp:Label><br />
+    <asp:Label ID="lblMessageEdit" runat="server" CssClass="catLabel" ForeColor="Red" Height="12px" Width="100%"></asp:Label><br />
 
     <br />
 </div>

@@ -47,16 +47,20 @@
                                 <asp:TextBox ID="txtModel" runat="server"></asp:TextBox>
                             </td>
                             <td>
-                                <asp:CheckBox ID="chkAdmin" runat="server" Text="Is Admin" />
+                                <asp:CheckBox ID="chkAdmin" runat="server" Text="Is Admin" CssClass="catCheckbox" />
                             </td>
                         </tr>
                     </table>
                                         
                     
                     <div class="catDivTopMargin">
-                        <asp:Button ID="btnCalculate" runat="server" Text="Calcular" CssClass="catButtonAccept"/>
-                        <asp:Button ID="btnAcceptCalculation" runat="server" Text="Confirmar Cálculo" CssClass="catButtonConfirm" Visible="False"/>
-                        <asp:Button ID="btnRecaulculate" runat="server" Text="Recalcular Fecha" CssClass="catButtonAccept" Visible="False"/>
+                        <asp:LinkButton class="catLinkButtonAccept" ID="lbtnCalculate"  runat="server"  Text="Calcular"></asp:LinkButton>
+                        <asp:LinkButton class="catLinkButtonConfirm" ID="lBtnAcceptCalculation"  runat="server"   Text="Confirmar Cálculo" Visible="False"></asp:LinkButton>
+                        <asp:LinkButton class="catLinkButtonAccept" ID="lBtnRecalculate"  runat="server"   Text="Recalcular Fecha" Visible="False"></asp:LinkButton>
+
+                        <!--<asp:Button ID="btnCalculate" runat="server" Text="Calcular" CssClass="catButtonAccept"/>-->
+                        <!--<asp:Button ID="btnAcceptCalculation" runat="server" Text="Confirmar Cálculo" CssClass="catButtonConfirm" Visible="False"/>-->
+                        <!--<asp:Button ID="btnRecaulculate" runat="server" Text="Recalcular Fecha" CssClass="catButtonAccept" Visible="False"/>-->
                     </div>
                         </ContentTemplate>
 </asp:UpdatePanel>

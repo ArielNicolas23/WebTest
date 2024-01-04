@@ -12,6 +12,15 @@
     margin-right: 10px;
 }
 
+/* Estilos para los checkbox */
+.catCheckbox {
+    font-size: 14px;
+    color: black;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
 .catIcon {
     font-size: 32px;
     font-weight: bold

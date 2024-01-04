@@ -95,6 +95,33 @@ Partial Public Class CalculoDirecto
     Protected WithEvents chkAdmin As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
+    '''lbtnCalculate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbtnCalculate As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''lBtnAcceptCalculation control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lBtnAcceptCalculation As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''lBtnRecalculate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lBtnRecalculate As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
     '''btnCalculate control.
     '''</summary>
     '''<remarks>

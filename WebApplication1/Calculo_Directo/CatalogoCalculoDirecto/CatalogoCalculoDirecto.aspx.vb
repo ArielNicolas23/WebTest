@@ -877,4 +877,184 @@ Public Class CatConfiguracionCalculoDirecto
             ApproveModal.Show()
         End If
     End Sub
+
+
+
+    Protected Sub lBtnEdit_Click(sender As Object, e As EventArgs) Handles lBtnEdit.Click
+        Dim dataTableSelected As Data.DataTable = Session("SelectedModels")
+        If dataTableSelected.Rows.Count > 0 Then
+            'dgvSelectedModels.Rows.Count > 0 Then
+
+            Dim rowkeySelected As DataKeyArray = dgvSelectedModels.DataKeys
+
+            Dim dtable As Data.DataTable = GenerateTable()
+
+            Dim i As Integer = dgvSelectedModels.Columns.Count
+            Dim RowValues As Object() = {"", "", "", "", "", "", "", "", ""}
+
+            If dgvSelectedModels.Rows.Count > 0 Then
+                For index As Integer = 0 To dataTableSelected.Rows.Count - 1
+                    'dgvSelectedModels.Rows.Count -1
+                    For indexcell As Integer = 0 To 2
+                        RowValues(indexcell) = dataTableSelected.Rows(index).Item(indexcell).ToString()
+                        'Guid.Parse(rowkeySelected(dgvSelectedModels.Rows(index).DataItem).Values(indexcell).ToString())
+                    Next
+                    For indexcell As Integer = 3 To i - 2
+                        RowValues(indexcell) = dataTableSelected.Rows(index).Item(indexcell).ToString()
+                        'dgvSelectedModels.Rows(index).Cells(indexcell).Text
+                    Next
+                    dtable.Rows.Add(RowValues)
+                Next
+            End If
+
+            dtable.AcceptChanges()
+            Session("SelectedModels") = dtable
+            PopulateGrid(dgvEditModels, dtable)
+            ToggleEdition(True)
+        Else
+            MsgBox("Se necesitan seleccionar uno o más modelos para editar", MsgBoxStyle.OkOnly + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
+        End If
+    End Sub
+
+    Protected Sub lBtnExportExcel_Click(sender As Object, e As EventArgs) Handles lBtnExportExcel.Click
+        Dim objBooks As Excel.Workbooks
+        Dim objSheets As Excel.Sheets
+        Dim objSheet As Excel._Worksheet
+        Dim range As Excel.Range
+
+        ' Create a new instance of Excel and start a new workbook.
+        objApp = New Excel.Application()
+        objBooks = objApp.Workbooks
+        objBook = objBooks.Add
+        objSheets = objBook.Worksheets
+        objSheet = objSheets(1)
+
+        'Get the range where the starting cell has the address
+        'm_sStartingCell and its dimensions are m_iNumRows x m_iNumCols.
+        range = objSheet.Range("A1", Reflection.Missing.Value)
+        range = range.Resize(dgvModelos.Rows.Count + 1, dgvModelos.Columns.Count)
+
+        If True Then 'Me.FillWithStrings.Checked = False) Then
+            'Create an array.
+            Dim saRet(dgvModelos.Rows.Count, dgvModelos.Columns.Count) As String
+
+            'Fill the array.
+            Dim iRow As Long
+            Dim iCol As Long
+
+            For iCol = 0 To dgvModelos.Columns.Count - 1
+
+                saRet(0, iCol) = dgvModelos.Columns(iCol).HeaderText
+            Next iCol
+
+
+            For iRow = 0 To dgvModelos.Rows.Count - 1
+                For iCol = 0 To dgvModelos.Columns.Count - 1
+
+                    'Put a counter in the cell.
+                    saRet(iRow + 1, iCol) = dgvModelos.Rows(iRow).Cells(iCol).Text
+                Next iCol
+            Next iRow
+
+            'Set the range value to the array.
+            range.Value = saRet
+
+        Else
+            'Create an array.
+            Dim saRet(5, 5) As String
+
+            'Fill the array.
+            Dim iRow As Long
+            Dim iCol As Long
+            For iRow = 0 To 5
+                For iCol = 0 To 5
+
+                    'Put the row and column address in the cell.
+                    saRet(iRow, iCol) = iRow.ToString() + "|" + iCol.ToString()
+                Next iCol
+            Next iRow
+
+            'Set the range value to the array.
+            range.Value = saRet
+        End If
+
+        'Return control of Excel to the user.
+        objApp.Visible = True
+        objApp.UserControl = True
+
+        'Clean up a little.
+        range = Nothing
+        objSheet = Nothing
+        objSheets = Nothing
+        objBooks = Nothing
+    End Sub
+
+    Protected Sub lBtnResetSelected_Click(sender As Object, e As EventArgs) Handles lBtnResetSelected.Click
+        Dim confirmed As Integer = MsgBox("Se reiniciará el proceso de selección de modelos. ¿Desea deseleccionar todo y empezar de nuevo?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
+
+        If confirmed = MsgBoxResult.Yes Then
+            Session("SelectedModels") = GenerateTable()
+            PopulateGrid(dgvSelectedModels, Session("SelectedModels"))
+
+            Dim idCatUnits As Guid
+
+            If ddlUnit.SelectedValue = "" Then
+                idCatUnits = Guid.Empty
+            Else
+                idCatUnits = Guid.Parse(ddlUnit.SelectedValue)
+            End If
+
+            PopulateGridModals(dgvModelos, modelsChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, idCatUnits))
+            ToggleSelected()
+        Else
+
+        End If
+    End Sub
+
+    Protected Sub lBtnCancelEdit_Click(sender As Object, e As EventArgs) Handles lBtnCancelEdit.Click
+        Dim confirmed As Integer = MsgBox("Se reiniciará el proceso de selección de modelos. ¿Desea deseleccionar todo y empezar de nuevo?", MsgBoxStyle.YesNo + MsgBoxStyle.MsgBoxSetForeground, "Aviso")
+
+        If confirmed = MsgBoxResult.Yes Then
+
+            Session("SelectedModels") = GenerateTable()
+            PopulateGrid(dgvSelectedModels, Session("SelectedModels"))
+
+            'puse esto para que se reiniciaran los checks
+            'Session("Models") = modelsChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, Guid.Empty)
+
+            Dim idCatUnits As Guid
+
+            If ddlUnit.SelectedValue = "" Then
+                idCatUnits = Guid.Empty
+            Else
+                idCatUnits = Guid.Parse(ddlUnit.SelectedValue)
+            End If
+
+            PopulateGridModals(dgvModelos, modelsChanges.SelectByIdModelsChangesApproved(txtModel.Text, txtLifeSpan.Text, idCatUnits))
+            ToggleEdition(False)
+            ToggleSelected()
+        Else
+
+        End If
+    End Sub
+
+    Protected Sub lBtnApproveEdit_Click(sender As Object, e As EventArgs) Handles lBtnApproveEdit.Click
+        Dim dt As Data.DataTable = Session("SelectedModels")
+        Dim foundRepeated As Boolean = False
+        Dim listRepeated As String = ""
+
+        For Each row As DataRow In dt.Rows
+            If (modelsChanges.AlreadyExistModelChange(Guid.Parse(row("IdModelsChanges")), row("Model"))) Then
+                foundRepeated = True
+                listRepeated += "[" + row("Model") + "], "
+            End If
+        Next row
+
+        If (foundRepeated) Then
+            listRepeated = listRepeated.Substring(0, listRepeated.Length - 1)
+            lblMessage.Text = "Se ha detectado que alguno de los modelos ha sido ingresado al sistema durante el flujo de configuración: " + listRepeated + ". Favor de rectificar los datos"
+        Else
+            ApproveModal.Show()
+        End If
+    End Sub
 End Class

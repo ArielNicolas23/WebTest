@@ -188,9 +188,9 @@ Public Class CalculoDirecto
     End Sub
 
     Private Sub ButtonsVisibility(showCalculate As Boolean, showConfirm As Boolean, showRecalculate As Boolean)
-        btnCalculate.Visible = showCalculate
-        btnAcceptCalculation.Visible = showConfirm
-        btnRecaulculate.Visible = showRecalculate
+        lbtnCalculate.Visible = showCalculate
+        lBtnAcceptCalculation.Visible = showConfirm
+        lBtnRecalculate.Visible = showRecalculate
     End Sub
 
     Protected Sub btnAcceptCalculation_Click(sender As Object, e As EventArgs) Handles btnAcceptCalculation.Click
@@ -283,5 +283,19 @@ Public Class CalculoDirecto
         Else
             lblErrorMessage.Text = "No se encontró información en SAP con el Número de Orden de Trabajo ingresado."
         End If
+    End Sub
+
+    Protected Sub lbtnCalculate_Click(sender As Object, e As EventArgs) Handles lbtnCalculate.Click
+        CalculateExpirationDate(True)
+        txtWorkOrder.Enabled = False
+        txtModel.Enabled = False
+    End Sub
+
+    Protected Sub lBtnAcceptCalculation_Click(sender As Object, e As EventArgs) Handles lBtnAcceptCalculation.Click
+        InsertCalculation()
+    End Sub
+
+    Protected Sub lBtnRecalculate_Click(sender As Object, e As EventArgs) Handles lBtnRecalculate.Click
+        CalculateExpirationDate(False)
     End Sub
 End Class

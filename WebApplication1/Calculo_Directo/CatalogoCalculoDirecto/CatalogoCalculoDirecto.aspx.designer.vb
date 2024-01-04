@@ -122,6 +122,24 @@ Partial Public Class CatConfiguracionCalculoDirecto
     Protected WithEvents lblModels As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''lBtnExportExcel control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lBtnExportExcel As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''lBtnEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lBtnEdit As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
     '''cmdExportExcel control.
     '''</summary>
     '''<remarks>
@@ -167,6 +185,15 @@ Partial Public Class CatConfiguracionCalculoDirecto
     Protected WithEvents lblSelectedModels As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''lBtnResetSelected control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lBtnResetSelected As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
     '''cmdResetSelected control.
     '''</summary>
     '''<remarks>
@@ -201,6 +228,24 @@ Partial Public Class CatConfiguracionCalculoDirecto
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblEditModels As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lBtnCancelEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lBtnCancelEdit As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''lBtnApproveEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lBtnApproveEdit As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''cmdCancelEdit control.

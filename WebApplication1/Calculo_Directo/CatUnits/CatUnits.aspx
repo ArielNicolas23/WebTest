@@ -20,13 +20,13 @@
 <div>
     <br />
 
-    <asp:Label ID="lblMessage" runat="server" ForeColor="Red" Height="12px" Width="479px"></asp:Label><br />
+    <asp:Label ID="lblMessage" runat="server" CssClass="catLabel" ForeColor="Red" Height="12px" Width="479px"></asp:Label><br />
 
     <br />
 </div>
 
 <div align="left" style="padding: 4px">
-    <asp:LinkButton style="color:#333333;" ID="btnAddUnit" runat="server" Text="<i class='fa fa-regular fa-plus' data-toggle='tooltip' title='Nuevo campo'></i>" />
+    <asp:LinkButton style="color:#333333;" ID="btnAddUnit" CssClass="catLinkButton" runat="server" Text="<i class='fa fa-regular fa-plus' data-toggle='tooltip' title='Nuevo campo'></i>" />
 </div>
 
         <div align="left" style="padding: 4px" id="divAgregar" runat="server" visible="false">

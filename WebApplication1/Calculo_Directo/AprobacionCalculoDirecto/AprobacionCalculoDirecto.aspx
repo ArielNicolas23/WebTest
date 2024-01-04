@@ -284,9 +284,12 @@ overflow: scroll;
                             <asp:Label ID="lblModalsChanges" runat="server" Text="Modelos por Verificar" CssClass="catHeaderSub"></asp:Label>
                         </div>
                         <div style="margin-left: 30%; text-align: right">
-                            <asp:Button ID="cmdCancelChange" runat="server" Text="Seleccionar otro Cambio" CssClass="catButton"/>
-                            <asp:Button ID="cmdRejectChange" runat="server" Text="Rechazar Cambios" CssClass="catButton" CommandName="Reject" OnClick="ApproveOrReject"/>
-                            <asp:Button ID="cmdApproveChange" runat="server" Text="Aprobar Cambios" CssClass="catButtonAccept" CommandName="Approve" OnClick="ApproveOrReject"/>
+                            <asp:LinkButton class="catLinkButton" ID="lBtnCancelChange"  runat="server"  Text="Seleccionar otro Cambio  "></asp:LinkButton>
+                            <asp:LinkButton class="catLinkButton" ID="lBtnRejectChange"  runat="server"  CommandName="Reject" OnClick="ApproveOrReject" Text="Rechazar Cambios "></asp:LinkButton>
+                            <asp:LinkButton class="catLinkButtonAccept" ID="lBtnApproveChange"  runat="server"  CommandName="Approve" OnClick="ApproveOrReject" Text="Aprobar Cambios "></asp:LinkButton>
+                            <!--<asp:Button ID="cmdCancelChange" runat="server" Text="Seleccionar otro Cambio" CssClass="catButton"/>-->
+                            <!--<asp:Button ID="cmdRejectChange" runat="server" Text="Rechazar Cambios" CssClass="catButton" CommandName="Reject" OnClick="ApproveOrReject"/>-->
+                            <!--<asp:Button ID="cmdApproveChange" runat="server" Text="Aprobar Cambios" CssClass="catButtonAccept" CommandName="Approve" OnClick="ApproveOrReject"/>-->
 
                         </div>
                     </div>
@@ -327,8 +330,10 @@ overflow: scroll;
                 <asp:Label ID="Label2" runat="server" Font-Size="18pt" Text="Detalles de Modelos" CssClass="catHeaderSub"></asp:Label>
             </div>
             <div style="margin-left: 30%; text-align: right">
-                <asp:Button ID="Button1" runat="server" Text="Seleccionar otro Cambio" CssClass="catButton"/>
-                <asp:Button ID="Button3" runat="server" Text="Editar" CssClass="catButtonAccept" CommandName="Approve"/>
+                <asp:LinkButton class="catLinkButton" ID="lbtnDetallesCancelChange"  runat="server"  Text="Seleccionar otro Cambio  "></asp:LinkButton>
+                <asp:LinkButton class="catLinkButtonAccept" ID="lBtnEdit"  runat="server"  CommandName="Approve" Text="Editar  "></asp:LinkButton>
+                <!--<asp:Button ID="Button1" runat="server" Text="Seleccionar otro Cambio" CssClass="catButton"/>-->
+                <!--<asp:Button ID="Button3" runat="server" Text="Editar" CssClass="catButtonAccept" CommandName="Approve"/>-->
 
             </div>
         </div>

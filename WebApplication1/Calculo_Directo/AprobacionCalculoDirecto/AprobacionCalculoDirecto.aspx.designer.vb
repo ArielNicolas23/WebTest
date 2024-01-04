@@ -410,6 +410,33 @@ Partial Public Class CatModuloAprobacion
     Protected WithEvents lblModalsChanges As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''lBtnCancelChange control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lBtnCancelChange As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''lBtnRejectChange control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lBtnRejectChange As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''lBtnApproveChange control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lBtnApproveChange As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
     '''cmdCancelChange control.
     '''</summary>
     '''<remarks>
@@ -471,6 +498,24 @@ Partial Public Class CatModuloAprobacion
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Label2 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lbtnDetallesCancelChange control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbtnDetallesCancelChange As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''lBtnEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lBtnEdit As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''Button1 control.

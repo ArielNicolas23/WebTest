@@ -115,8 +115,10 @@
                                         <asp:Label ID="lblModels" runat="server" Text="Modelos Aprobados" CssClass="catHeaderSub"></asp:Label>
                                     </div>
                                     <div style="margin-left: 40%; text-align: right">
-                                        <asp:Button ID="cmdExportExcel" runat="server" Text="Exportar a Excel"  CssClass="catButton" />
-                                        <asp:Button ID="cmdEdit" runat="server" Text="Ir a Editar" CssClass="catButtonAccept" />
+                                        <asp:LinkButton class="catLinkButton" ID="lBtnExportExcel"  runat="server"  Text="Exportar a Excel"></asp:LinkButton>
+                                        <asp:LinkButton class="catLinkButtonAccept" ID="lBtnEdit"  runat="server" Text="Ir a Editar"></asp:LinkButton>
+                                        <!--<asp:Button ID="cmdExportExcel" runat="server" Text="Exportar a Excel"  CssClass="catButton" />-->
+                                        <!--<asp:Button ID="cmdEdit" runat="server" Text="Ir a Editar" CssClass="catButtonAccept" />-->
                                     </div>
                                 </div>
                                 <asp:GridView ID="dgvModelos" runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
@@ -152,7 +154,8 @@
                                         <asp:Label ID="lblSelectedModels" runat="server" Text="Modelos Seleccionados" CssClass="catHeaderSub"></asp:Label>
                                     </div>
                                     <div style="margin-left: 40%; text-align: right">
-                                        <asp:Button ID="cmdResetSelected" runat="server" Text="Reiniciar Seleccionados"  CssClass="catButton" />
+                                        <asp:LinkButton class="catLinkButton" ID="lBtnResetSelected"  runat="server"  Text="Reiniciar Seleccionados"></asp:LinkButton>
+                                        <!--<asp:Button ID="cmdResetSelected" runat="server" Text="Reiniciar Seleccionados"  CssClass="catButton" />-->
                                     </div>
                                 </div>
                                 <asp:GridView  runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" Width="750px" AllowPaging="False" ID="dgvSelectedModels" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
@@ -191,12 +194,14 @@
                             <asp:Label ID="lblEditModels" runat="server" Text="Edición de Modelos" CssClass="catHeaderSub"></asp:Label>
                         </div>
                         <div style="margin-left: 30%; text-align: right">
-                            <asp:Button ID="cmdCancelEdit" runat="server" Text="Cancelar Edición"  CssClass="catButton" />
-                            <asp:Button ID="cmdApproveEdit" runat="server" Text="Aprobar Cambios" CssClass="catButtonAccept" />
+                            <asp:LinkButton class="catLinkButton" ID="lBtnCancelEdit"  runat="server"  Text="Cancelar Edición"></asp:LinkButton>
+                            <asp:LinkButton class="catLinkButtonAccept" ID="lBtnApproveEdit"  runat="server" Text="Aprobar Cambios"></asp:LinkButton>
+                            <!--<asp:Button ID="cmdCancelEdit" runat="server" Text="Cancelar Edición"  CssClass="catButton" />-->
+                            <!--<asp:Button ID="cmdApproveEdit" runat="server" Text="Aprobar Cambios" CssClass="catButtonAccept" />-->
                         </div>
                     </div>
                     <div style="margin: 10px 0px">
-                        <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
+                        <asp:Label ID="lblMessage" CssClass="catLabel" runat="server" ForeColor="Red"></asp:Label>
                     </div>
                     <asp:GridView  runat="server" AutoGenerateColumns="False" CssClass="dgvCatalog" GridLines="None" AllowPaging="False" ID="dgvEditModels" DataKeyNames="IdModelsChanges,IdModelsChangesHeader,IdCatUnits">
                         <Columns>
